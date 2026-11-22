@@ -17,94 +17,94 @@
   "dry_races": 6,
   "pace": {
    "fuel": {
-    "mean": -0.076392,
-    "sd": 0.012423,
+    "mean": -0.077734,
+    "sd": 0.013101,
     "n_races": 6,
     "last_year": 2026,
     "source": "track",
-    "mean_s": -0.065839,
-    "sd_s": 0.010707
+    "mean_s": -0.066996,
+    "sd_s": 0.011291
    },
    "fuel2": {
-    "mean": 0.000382,
-    "sd": 0.000188,
+    "mean": 0.000407,
+    "sd": 0.000197,
     "n_races": 6,
     "last_year": 2026,
     "source": "track",
-    "mean_s": 0.000329,
-    "sd_s": 0.000162
+    "mean_s": 0.000351,
+    "sd_s": 0.00017
    },
    "traffic": {
-    "mean": 0.620355,
-    "sd": 0.091779,
+    "mean": 0.600038,
+    "sd": 0.090751,
     "n_races": 6,
     "last_year": 2026,
     "source": "track",
-    "mean_s": 0.534657,
-    "sd_s": 0.0791
+    "mean_s": 0.517146,
+    "sd_s": 0.078214
    },
    "curve": {
-    "mean": -0.000212,
-    "sd": 0.000342,
+    "mean": -0.000276,
+    "sd": 0.000384,
     "n_races": 6,
     "last_year": 2026,
     "source": "track",
-    "mean_s": -0.000183,
-    "sd_s": 0.000295
+    "mean_s": -0.000238,
+    "sd_s": 0.000331
    },
    "slope_SOFT": {
-    "mean": 0.072562,
-    "sd": 0.014672,
+    "mean": 0.074118,
+    "sd": 0.017365,
     "n_races": 3,
     "last_year": 2026,
     "source": "track",
-    "mean_s": 0.062538,
-    "sd_s": 0.012645
+    "mean_s": 0.063879,
+    "sd_s": 0.014966
    },
    "slope_MEDIUM": {
-    "mean": 0.0244,
-    "sd": 0.016471,
+    "mean": 0.026898,
+    "sd": 0.016894,
     "n_races": 6,
     "last_year": 2026,
     "source": "track",
-    "mean_s": 0.021029,
-    "sd_s": 0.014196
+    "mean_s": 0.023182,
+    "sd_s": 0.014561
    },
    "slope_HARD": {
-    "mean": 0.059476,
-    "sd": 0.019311,
+    "mean": 0.061315,
+    "sd": 0.019457,
     "n_races": 6,
     "last_year": 2026,
     "source": "track",
-    "mean_s": 0.05126,
-    "sd_s": 0.016643
+    "mean_s": 0.052845,
+    "sd_s": 0.016769
    },
    "offset_SOFT": {
-    "mean": -0.374986,
-    "sd": 0.180737,
+    "mean": -0.473778,
+    "sd": 0.21615,
     "n_races": 3,
     "last_year": 2026,
     "source": "track",
-    "mean_s": -0.323184,
-    "sd_s": 0.155769
+    "mean_s": -0.408329,
+    "sd_s": 0.18629
    },
    "offset_HARD": {
-    "mean": -0.023757,
-    "sd": 0.163036,
+    "mean": -0.089219,
+    "sd": 0.195317,
     "n_races": 6,
     "last_year": 2026,
     "source": "track",
-    "mean_s": -0.020475,
-    "sd_s": 0.140514
+    "mean_s": -0.076894,
+    "sd_s": 0.168335
    },
    "sigma": {
-    "mean": 0.490723,
-    "sd": 0.012498,
+    "mean": 0.490513,
+    "sd": 0.014745,
     "n_races": 6,
     "last_year": 2026,
     "source": "track",
-    "mean_s": 0.422933,
-    "sd_s": 0.010771
+    "mean_s": 0.422752,
+    "sd_s": 0.012708
    }
   },
   "pit": {
@@ -120,8 +120,8 @@
    ]
   },
   "sc_rate": {
-   "rate_per_race": 0.742164,
-   "sd": 0.000234,
+   "rate_per_race": 0.754808,
+   "sd": 7.9e-05,
    "n_races": 6,
    "observed": 5
   },
@@ -157,9 +157,9 @@
    "starts": 139
   },
   "max_stint": {
-   "SOFT": 35,
-   "MEDIUM": 45,
-   "HARD": 57
+   "SOFT": 12,
+   "MEDIUM": 24,
+   "HARD": 47
   },
   "strategies": {
    "from_year": 2022,
@@ -507,94 +507,94 @@
   "dry_races": 8,
   "pace": {
    "fuel": {
-    "mean": -0.061819,
-    "sd": 0.0072,
+    "mean": -0.061921,
+    "sd": 0.007997,
     "n_races": 8,
     "last_year": 2026,
     "source": "track",
-    "mean_s": -0.063446,
-    "sd_s": 0.007389
+    "mean_s": -0.063551,
+    "sd_s": 0.008208
    },
    "fuel2": {
-    "mean": -4.2e-05,
-    "sd": 0.000122,
+    "mean": -4e-05,
+    "sd": 0.00013,
     "n_races": 8,
     "last_year": 2026,
     "source": "track",
-    "mean_s": -4.3e-05,
-    "sd_s": 0.000125
+    "mean_s": -4.1e-05,
+    "sd_s": 0.000134
    },
    "traffic": {
-    "mean": 0.251238,
-    "sd": 0.055915,
+    "mean": 0.24947,
+    "sd": 0.05881,
     "n_races": 8,
     "last_year": 2026,
     "source": "track",
-    "mean_s": 0.257848,
-    "sd_s": 0.057387
+    "mean_s": 0.256034,
+    "sd_s": 0.060358
    },
    "curve": {
-    "mean": -0.0003,
-    "sd": 0.000402,
+    "mean": -0.000399,
+    "sd": 0.000456,
     "n_races": 8,
     "last_year": 2026,
     "source": "track",
-    "mean_s": -0.000308,
-    "sd_s": 0.000413
+    "mean_s": -0.00041,
+    "sd_s": 0.000468
    },
    "slope_SOFT": {
-    "mean": 0.081412,
-    "sd": 0.015463,
+    "mean": 0.082637,
+    "sd": 0.017879,
     "n_races": 4,
     "last_year": 2026,
     "source": "track",
-    "mean_s": 0.083554,
-    "sd_s": 0.01587
+    "mean_s": 0.084811,
+    "sd_s": 0.018349
    },
    "slope_MEDIUM": {
-    "mean": 0.087086,
-    "sd": 0.013431,
+    "mean": 0.087588,
+    "sd": 0.014298,
     "n_races": 8,
     "last_year": 2026,
     "source": "track",
-    "mean_s": 0.089378,
-    "sd_s": 0.013785
+    "mean_s": 0.089892,
+    "sd_s": 0.014674
    },
    "slope_HARD": {
-    "mean": 0.074601,
-    "sd": 0.015446,
+    "mean": 0.075467,
+    "sd": 0.016198,
     "n_races": 8,
     "last_year": 2026,
     "source": "track",
-    "mean_s": 0.076564,
-    "sd_s": 0.015852
+    "mean_s": 0.077452,
+    "sd_s": 0.016625
    },
    "offset_SOFT": {
-    "mean": -0.089012,
-    "sd": 0.117125,
+    "mean": -0.085831,
+    "sd": 0.131221,
     "n_races": 4,
     "last_year": 2026,
     "source": "track",
-    "mean_s": -0.091354,
-    "sd_s": 0.120207
+    "mean_s": -0.088089,
+    "sd_s": 0.134674
    },
    "offset_HARD": {
-    "mean": 0.064799,
-    "sd": 0.106234,
+    "mean": 0.060206,
+    "sd": 0.119014,
     "n_races": 8,
     "last_year": 2026,
     "source": "track",
-    "mean_s": 0.066504,
-    "sd_s": 0.109029
+    "mean_s": 0.06179,
+    "sd_s": 0.122146
    },
    "sigma": {
-    "mean": 0.37602,
-    "sd": 0.009068,
+    "mean": 0.376126,
+    "sd": 0.011995,
     "n_races": 8,
     "last_year": 2026,
     "source": "track",
-    "mean_s": 0.385913,
-    "sd_s": 0.009307
+    "mean_s": 0.386022,
+    "sd_s": 0.01231
    }
   },
   "pit": {
@@ -613,8 +613,8 @@
    ]
   },
   "sc_rate": {
-   "rate_per_race": 0.742163,
-   "sd": 0.000234,
+   "rate_per_race": 0.754808,
+   "sd": 7.9e-05,
    "n_races": 8,
    "observed": 3
   },
@@ -650,9 +650,9 @@
    "starts": 162
   },
   "max_stint": {
-   "SOFT": 30,
-   "MEDIUM": 38,
-   "HARD": 41
+   "SOFT": 28,
+   "MEDIUM": 33,
+   "HARD": 39
   },
   "strategies": {
    "from_year": 2022,
@@ -1581,94 +1581,94 @@
   "dry_races": 8,
   "pace": {
    "fuel": {
-    "mean": -0.057144,
-    "sd": 0.032773,
+    "mean": -0.059972,
+    "sd": 0.034494,
     "n_races": 8,
     "last_year": 2025,
     "source": "track",
-    "mean_s": -0.05764,
-    "sd_s": 0.033058
+    "mean_s": -0.060493,
+    "sd_s": 0.034793
    },
    "fuel2": {
-    "mean": -0.000249,
-    "sd": 0.001013,
+    "mean": -7.3e-05,
+    "sd": 0.000494,
     "n_races": 8,
     "last_year": 2025,
     "source": "track",
-    "mean_s": -0.000251,
-    "sd_s": 0.001022
+    "mean_s": -7.4e-05,
+    "sd_s": 0.000498
    },
    "traffic": {
-    "mean": 0.220115,
-    "sd": 0.147367,
+    "mean": 0.236839,
+    "sd": 0.147184,
     "n_races": 8,
     "last_year": 2025,
     "source": "track",
-    "mean_s": 0.222026,
-    "sd_s": 0.148646
+    "mean_s": 0.238894,
+    "sd_s": 0.148462
    },
    "curve": {
-    "mean": 0.000563,
-    "sd": 0.001133,
+    "mean": 0.000204,
+    "sd": 0.000972,
     "n_races": 8,
     "last_year": 2025,
     "source": "track",
-    "mean_s": 0.000568,
-    "sd_s": 0.001143
+    "mean_s": 0.000206,
+    "sd_s": 0.000981
    },
    "slope_SOFT": {
-    "mean": 0.128032,
-    "sd": 0.074091,
+    "mean": 0.105022,
+    "sd": 0.067398,
     "n_races": 7,
     "last_year": 2025,
     "source": "track",
-    "mean_s": 0.129143,
-    "sd_s": 0.074734
+    "mean_s": 0.105934,
+    "sd_s": 0.067983
    },
    "slope_MEDIUM": {
-    "mean": 0.101227,
-    "sd": 0.0544,
+    "mean": 0.082875,
+    "sd": 0.048771,
     "n_races": 6,
     "last_year": 2025,
     "source": "track",
-    "mean_s": 0.102106,
-    "sd_s": 0.054873
+    "mean_s": 0.083594,
+    "sd_s": 0.049194
    },
    "slope_HARD": {
-    "mean": 0.121599,
-    "sd": 0.046853,
+    "mean": 0.092312,
+    "sd": 0.044238,
     "n_races": 7,
     "last_year": 2025,
     "source": "track",
-    "mean_s": 0.122654,
-    "sd_s": 0.04726
+    "mean_s": 0.093114,
+    "sd_s": 0.044622
    },
    "offset_SOFT": {
-    "mean": -0.417314,
-    "sd": 0.53193,
+    "mean": -0.210603,
+    "sd": 0.420496,
     "n_races": 5,
     "last_year": 2025,
     "source": "track",
-    "mean_s": -0.420935,
-    "sd_s": 0.536546
+    "mean_s": -0.212431,
+    "sd_s": 0.424146
    },
    "offset_HARD": {
-    "mean": -0.169942,
-    "sd": 0.347469,
+    "mean": 0.204693,
+    "sd": 0.292361,
     "n_races": 5,
     "last_year": 2025,
     "source": "track",
-    "mean_s": -0.171416,
-    "sd_s": 0.350484
+    "mean_s": 0.20647,
+    "sd_s": 0.294898
    },
    "sigma": {
-    "mean": 0.337496,
-    "sd": 0.118146,
+    "mean": 0.364489,
+    "sd": 0.114029,
     "n_races": 8,
     "last_year": 2025,
     "source": "track",
-    "mean_s": 0.340425,
-    "sd_s": 0.119172
+    "mean_s": 0.367652,
+    "sd_s": 0.115019
    }
   },
   "pit": {
@@ -1687,8 +1687,8 @@
    ]
   },
   "sc_rate": {
-   "rate_per_race": 0.742164,
-   "sd": 0.000234,
+   "rate_per_race": 0.754808,
+   "sd": 7.9e-05,
    "n_races": 8,
    "observed": 6
   },
@@ -1724,9 +1724,9 @@
    "starts": 160
   },
   "max_stint": {
-   "SOFT": 38,
-   "MEDIUM": 40,
-   "HARD": 37
+   "SOFT": 22,
+   "MEDIUM": 25,
+   "HARD": 29
   },
   "strategies": {
    "from_year": 2022,
@@ -2290,94 +2290,94 @@
   "dry_races": 1,
   "pace": {
    "fuel": {
-    "mean": -0.056021,
-    "sd": 0.077758,
+    "mean": -0.063259,
+    "sd": 0.03834,
     "n_races": 1,
     "last_year": 2020,
     "source": "track",
-    "mean_s": -0.033353,
-    "sd_s": 0.046295
+    "mean_s": -0.037662,
+    "sd_s": 0.022827
    },
    "fuel2": {
-    "mean": 0.000109,
-    "sd": 0.00245,
+    "mean": 4.9e-05,
+    "sd": 0.000547,
     "n_races": 1,
     "last_year": 2020,
     "source": "track",
-    "mean_s": 6.5e-05,
-    "sd_s": 0.001459
+    "mean_s": 2.9e-05,
+    "sd_s": 0.000326
    },
    "traffic": {
-    "mean": 0.332417,
-    "sd": 0.344666,
+    "mean": 0.276327,
+    "sd": 0.214399,
     "n_races": 1,
     "last_year": 2020,
     "source": "track",
-    "mean_s": 0.197912,
-    "sd_s": 0.205205
+    "mean_s": 0.164518,
+    "sd_s": 0.127648
    },
    "curve": {
-    "mean": -0.000702,
-    "sd": 0.00246,
+    "mean": -0.000123,
+    "sd": 0.001082,
     "n_races": 1,
     "last_year": 2020,
     "source": "track",
-    "mean_s": -0.000418,
-    "sd_s": 0.001465
+    "mean_s": -7.3e-05,
+    "sd_s": 0.000644
    },
    "slope_SOFT": {
-    "mean": 0.08223,
-    "sd": 0.176724,
+    "mean": 0.087573,
+    "sd": 0.074814,
     "n_races": 1,
     "last_year": 2020,
     "source": "track",
-    "mean_s": 0.048958,
-    "sd_s": 0.105217
+    "mean_s": 0.052139,
+    "sd_s": 0.044542
    },
    "slope_MEDIUM": {
-    "mean": 0.083361,
-    "sd": 0.127385,
+    "mean": 0.069037,
+    "sd": 0.055457,
     "n_races": 1,
     "last_year": 2020,
     "source": "track",
-    "mean_s": 0.049631,
-    "sd_s": 0.075842
+    "mean_s": 0.041103,
+    "sd_s": 0.033017
    },
    "slope_HARD": {
-    "mean": 0.080609,
-    "sd": 0.108153,
+    "mean": 0.05363,
+    "sd": 0.053811,
     "n_races": 1,
     "last_year": 2020,
     "source": "track",
-    "mean_s": 0.047992,
-    "sd_s": 0.064392
+    "mean_s": 0.03193,
+    "sd_s": 0.032038
    },
    "offset_SOFT": {
-    "mean": -0.119843,
-    "sd": 1.278657,
+    "mean": -0.210603,
+    "sd": 0.420496,
     "n_races": 1,
     "last_year": 2020,
     "source": "track",
-    "mean_s": -0.071351,
-    "sd_s": 0.761278
+    "mean_s": -0.125387,
+    "sd_s": 0.250352
    },
    "offset_HARD": {
-    "mean": 0.038487,
-    "sd": 0.784023,
+    "mean": 0.238229,
+    "sd": 0.293508,
     "n_races": 1,
     "last_year": 2020,
     "source": "track",
-    "mean_s": 0.022914,
-    "sd_s": 0.466786
+    "mean_s": 0.141835,
+    "sd_s": 0.174747
    },
    "sigma": {
-    "mean": 0.392539,
-    "sd": 0.288859,
+    "mean": 0.412639,
+    "sd": 0.149321,
     "n_races": 1,
     "last_year": 2020,
     "source": "track",
-    "mean_s": 0.233707,
-    "sd_s": 0.171979
+    "mean_s": 0.245674,
+    "sd_s": 0.088902
    }
   },
   "pit": {
@@ -2389,8 +2389,8 @@
    ]
   },
   "sc_rate": {
-   "rate_per_race": 0.742164,
-   "sd": 0.000234,
+   "rate_per_race": 0.754808,
+   "sd": 7.9e-05,
    "n_races": 1,
    "observed": 2
   },
@@ -2425,11 +2425,7 @@
    "ratio": 0.999961,
    "starts": 20
   },
-  "max_stint": {
-   "SOFT": 45,
-   "MEDIUM": 53,
-   "HARD": 46
-  },
+  "max_stint": null,
   "strategies": {
    "from_year": 2020,
    "n": 4,
@@ -2512,94 +2508,94 @@
   "dry_races": 8,
   "pace": {
    "fuel": {
-    "mean": -0.073779,
-    "sd": 0.012887,
+    "mean": -0.077005,
+    "sd": 0.013426,
     "n_races": 8,
     "last_year": 2026,
     "source": "track",
-    "mean_s": -0.08157,
-    "sd_s": 0.014248
+    "mean_s": -0.085136,
+    "sd_s": 0.014843
    },
    "fuel2": {
-    "mean": 0.000197,
-    "sd": 0.000203,
+    "mean": 0.000256,
+    "sd": 0.000211,
     "n_races": 8,
     "last_year": 2026,
     "source": "track",
-    "mean_s": 0.000218,
-    "sd_s": 0.000224
+    "mean_s": 0.000283,
+    "sd_s": 0.000233
    },
    "traffic": {
-    "mean": 0.234584,
-    "sd": 0.054883,
+    "mean": 0.226953,
+    "sd": 0.057959,
     "n_races": 8,
     "last_year": 2026,
     "source": "track",
-    "mean_s": 0.259356,
-    "sd_s": 0.060679
+    "mean_s": 0.250919,
+    "sd_s": 0.064079
    },
    "curve": {
-    "mean": 0.001217,
-    "sd": 0.000329,
+    "mean": 0.001333,
+    "sd": 0.000363,
     "n_races": 8,
     "last_year": 2026,
     "source": "track",
-    "mean_s": 0.001345,
-    "sd_s": 0.000364
+    "mean_s": 0.001474,
+    "sd_s": 0.000401
    },
    "slope_SOFT": {
-    "mean": -0.033871,
-    "sd": 0.015769,
+    "mean": -0.034018,
+    "sd": 0.018333,
     "n_races": 4,
     "last_year": 2026,
     "source": "track",
-    "mean_s": -0.037447,
-    "sd_s": 0.017434
+    "mean_s": -0.03761,
+    "sd_s": 0.020269
    },
    "slope_MEDIUM": {
-    "mean": -0.020126,
-    "sd": 0.016612,
+    "mean": -0.017129,
+    "sd": 0.017249,
     "n_races": 7,
     "last_year": 2026,
     "source": "track",
-    "mean_s": -0.022252,
-    "sd_s": 0.018366
+    "mean_s": -0.018938,
+    "sd_s": 0.01907
    },
    "slope_HARD": {
-    "mean": 0.024022,
-    "sd": 0.044602,
+    "mean": 0.035783,
+    "sd": 0.043406,
     "n_races": 6,
     "last_year": 2025,
     "source": "track",
-    "mean_s": 0.026559,
-    "sd_s": 0.049312
+    "mean_s": 0.039562,
+    "sd_s": 0.047989
    },
    "offset_SOFT": {
-    "mean": -0.122834,
-    "sd": 0.105272,
+    "mean": -0.123795,
+    "sd": 0.118044,
     "n_races": 3,
     "last_year": 2026,
     "source": "track",
-    "mean_s": -0.135805,
-    "sd_s": 0.116389
+    "mean_s": -0.136868,
+    "sd_s": 0.130509
    },
    "offset_HARD": {
-    "mean": 0.307158,
-    "sd": 0.331091,
+    "mean": 0.245137,
+    "sd": 0.29222,
     "n_races": 5,
     "last_year": 2025,
     "source": "track",
-    "mean_s": 0.339593,
-    "sd_s": 0.366054
+    "mean_s": 0.271022,
+    "sd_s": 0.323077
    },
    "sigma": {
-    "mean": 0.301816,
-    "sd": 0.008197,
+    "mean": 0.302049,
+    "sd": 0.011351,
     "n_races": 8,
     "last_year": 2026,
     "source": "track",
-    "mean_s": 0.333687,
-    "sd_s": 0.009063
+    "mean_s": 0.333944,
+    "sd_s": 0.01255
    }
   },
   "pit": {
@@ -2617,8 +2613,8 @@
    ]
   },
   "sc_rate": {
-   "rate_per_race": 0.742164,
-   "sd": 0.000234,
+   "rate_per_race": 0.754808,
+   "sd": 7.9e-05,
    "n_races": 8,
    "observed": 8
   },
@@ -2655,8 +2651,8 @@
   },
   "max_stint": {
    "SOFT": 31,
-   "MEDIUM": 44,
-   "HARD": 52
+   "MEDIUM": 31,
+   "HARD": 49
   },
   "strategies": {
    "from_year": 2022,
@@ -3136,94 +3132,94 @@
   "dry_races": 9,
   "pace": {
    "fuel": {
-    "mean": -0.070038,
-    "sd": 0.00911,
+    "mean": -0.070543,
+    "sd": 0.009774,
     "n_races": 9,
     "last_year": 2026,
     "source": "track",
-    "mean_s": -0.058677,
-    "sd_s": 0.007632
+    "mean_s": -0.0591,
+    "sd_s": 0.008188
    },
    "fuel2": {
-    "mean": 0.0,
-    "sd": 0.000133,
+    "mean": -2e-06,
+    "sd": 0.000141,
     "n_races": 9,
     "last_year": 2026,
     "source": "track",
-    "mean_s": 0.0,
-    "sd_s": 0.000112
+    "mean_s": -2e-06,
+    "sd_s": 0.000118
    },
    "traffic": {
-    "mean": 0.152275,
-    "sd": 0.061794,
+    "mean": 0.158096,
+    "sd": 0.064247,
     "n_races": 9,
     "last_year": 2026,
     "source": "track",
-    "mean_s": 0.127574,
-    "sd_s": 0.05177
+    "mean_s": 0.132452,
+    "sd_s": 0.053826
    },
    "curve": {
-    "mean": -0.000502,
-    "sd": 0.000518,
+    "mean": -0.001047,
+    "sd": 0.000637,
     "n_races": 9,
     "last_year": 2026,
     "source": "track",
-    "mean_s": -0.000421,
-    "sd_s": 0.000434
+    "mean_s": -0.000877,
+    "sd_s": 0.000534
    },
    "slope_SOFT": {
-    "mean": 0.275842,
-    "sd": 0.026211,
+    "mean": 0.267462,
+    "sd": 0.027379,
     "n_races": 8,
     "last_year": 2026,
     "source": "track",
-    "mean_s": 0.231097,
-    "sd_s": 0.021959
+    "mean_s": 0.224077,
+    "sd_s": 0.022938
    },
    "slope_MEDIUM": {
-    "mean": 0.23588,
-    "sd": 0.018889,
+    "mean": 0.228057,
+    "sd": 0.019266,
     "n_races": 9,
     "last_year": 2026,
     "source": "track",
-    "mean_s": 0.197618,
-    "sd_s": 0.015825
+    "mean_s": 0.191064,
+    "sd_s": 0.016141
    },
    "slope_HARD": {
-    "mean": 0.186855,
-    "sd": 0.021685,
+    "mean": 0.174391,
+    "sd": 0.021536,
     "n_races": 5,
     "last_year": 2026,
     "source": "track",
-    "mean_s": 0.156545,
-    "sd_s": 0.018167
+    "mean_s": 0.146103,
+    "sd_s": 0.018042
    },
    "offset_SOFT": {
-    "mean": -0.367136,
-    "sd": 0.170478,
+    "mean": -0.448982,
+    "sd": 0.200388,
     "n_races": 8,
     "last_year": 2026,
     "source": "track",
-    "mean_s": -0.307583,
-    "sd_s": 0.142825
+    "mean_s": -0.376153,
+    "sd_s": 0.167883
    },
    "offset_HARD": {
-    "mean": 0.334835,
-    "sd": 0.126745,
+    "mean": 0.372353,
+    "sd": 0.143812,
     "n_races": 5,
     "last_year": 2026,
     "source": "track",
-    "mean_s": 0.280522,
-    "sd_s": 0.106185
+    "mean_s": 0.311954,
+    "sd_s": 0.120485
    },
    "sigma": {
-    "mean": 0.488067,
-    "sd": 0.011176,
+    "mean": 0.487655,
+    "sd": 0.013656,
     "n_races": 9,
     "last_year": 2026,
     "source": "track",
-    "mean_s": 0.408898,
-    "sd_s": 0.009363
+    "mean_s": 0.408553,
+    "sd_s": 0.011441
    }
   },
   "pit": {
@@ -3242,8 +3238,8 @@
    ]
   },
   "sc_rate": {
-   "rate_per_race": 0.742163,
-   "sd": 0.000234,
+   "rate_per_race": 0.754808,
+   "sd": 7.9e-05,
    "n_races": 7,
    "observed": 3
   },
@@ -3279,9 +3275,9 @@
    "starts": 181
   },
   "max_stint": {
-   "SOFT": 39,
-   "MEDIUM": 42,
-   "HARD": 50
+   "SOFT": 24,
+   "MEDIUM": 31,
+   "HARD": 34
   },
   "strategies": {
    "from_year": 2022,
@@ -4263,94 +4259,94 @@
   "dry_races": 7,
   "pace": {
    "fuel": {
-    "mean": -0.051823,
-    "sd": 0.00955,
+    "mean": -0.052847,
+    "sd": 0.010192,
     "n_races": 7,
     "last_year": 2026,
     "source": "track",
-    "mean_s": -0.045015,
-    "sd_s": 0.008296
+    "mean_s": -0.045904,
+    "sd_s": 0.008853
    },
    "fuel2": {
-    "mean": -6.3e-05,
-    "sd": 0.000128,
+    "mean": -5.3e-05,
+    "sd": 0.000136,
     "n_races": 7,
     "last_year": 2026,
     "source": "track",
-    "mean_s": -5.5e-05,
-    "sd_s": 0.000111
+    "mean_s": -4.6e-05,
+    "sd_s": 0.000118
    },
    "traffic": {
-    "mean": 0.725438,
-    "sd": 0.076984,
+    "mean": 0.692924,
+    "sd": 0.07839,
     "n_races": 7,
     "last_year": 2026,
     "source": "track",
-    "mean_s": 0.630128,
-    "sd_s": 0.066869
+    "mean_s": 0.601886,
+    "sd_s": 0.068091
    },
    "curve": {
-    "mean": -3e-06,
-    "sd": 0.000389,
+    "mean": -9.4e-05,
+    "sd": 0.000437,
     "n_races": 7,
     "last_year": 2026,
     "source": "track",
-    "mean_s": -2e-06,
-    "sd_s": 0.000338
+    "mean_s": -8.1e-05,
+    "sd_s": 0.00038
    },
    "slope_SOFT": {
-    "mean": 0.079965,
-    "sd": 0.01743,
+    "mean": 0.080241,
+    "sd": 0.019466,
     "n_races": 6,
     "last_year": 2026,
     "source": "track",
-    "mean_s": 0.069459,
-    "sd_s": 0.01514
+    "mean_s": 0.069699,
+    "sd_s": 0.016909
    },
    "slope_MEDIUM": {
-    "mean": 0.087135,
-    "sd": 0.017302,
+    "mean": 0.085911,
+    "sd": 0.017869,
     "n_races": 7,
     "last_year": 2026,
     "source": "track",
-    "mean_s": 0.075687,
-    "sd_s": 0.015029
+    "mean_s": 0.074624,
+    "sd_s": 0.015521
    },
    "slope_HARD": {
-    "mean": 0.095224,
-    "sd": 0.017342,
+    "mean": 0.093457,
+    "sd": 0.017973,
     "n_races": 7,
     "last_year": 2026,
     "source": "track",
-    "mean_s": 0.082713,
-    "sd_s": 0.015064
+    "mean_s": 0.081178,
+    "sd_s": 0.015611
    },
    "offset_SOFT": {
-    "mean": -0.117157,
-    "sd": 0.163426,
+    "mean": -0.118226,
+    "sd": 0.190107,
     "n_races": 6,
     "last_year": 2026,
     "source": "track",
-    "mean_s": -0.101765,
-    "sd_s": 0.141954
+    "mean_s": -0.102693,
+    "sd_s": 0.16513
    },
    "offset_HARD": {
-    "mean": 0.074986,
-    "sd": 0.152127,
+    "mean": 0.052455,
+    "sd": 0.178348,
     "n_races": 7,
     "last_year": 2026,
     "source": "track",
-    "mean_s": 0.065134,
-    "sd_s": 0.13214
+    "mean_s": 0.045563,
+    "sd_s": 0.154916
    },
    "sigma": {
-    "mean": 0.55126,
-    "sd": 0.011271,
+    "mean": 0.550778,
+    "sd": 0.013734,
     "n_races": 7,
     "last_year": 2026,
     "source": "track",
-    "mean_s": 0.478834,
-    "sd_s": 0.009791
+    "mean_s": 0.478415,
+    "sd_s": 0.01193
    }
   },
   "pit": {
@@ -4368,8 +4364,8 @@
    ]
   },
   "sc_rate": {
-   "rate_per_race": 0.742163,
-   "sd": 0.000234,
+   "rate_per_race": 0.754808,
+   "sd": 7.9e-05,
    "n_races": 6,
    "observed": 0
   },
@@ -4405,9 +4401,9 @@
    "starts": 182
   },
   "max_stint": {
-   "SOFT": 34,
-   "MEDIUM": 55,
-   "HARD": 62
+   "SOFT": 30,
+   "MEDIUM": 36,
+   "HARD": 42
   },
   "strategies": {
    "from_year": 2022,
@@ -5505,94 +5501,94 @@
   "dry_races": 3,
   "pace": {
    "fuel": {
-    "mean": -0.005997,
-    "sd": 0.032928,
+    "mean": -0.038367,
+    "sd": 0.034524,
     "n_races": 3,
     "last_year": 2025,
     "source": "track",
-    "mean_s": -0.004989,
-    "sd_s": 0.027392
+    "mean_s": -0.031916,
+    "sd_s": 0.028719
    },
    "fuel2": {
-    "mean": -0.000887,
-    "sd": 0.001008,
+    "mean": -0.000355,
+    "sd": 0.000493,
     "n_races": 3,
     "last_year": 2025,
     "source": "track",
-    "mean_s": -0.000738,
-    "sd_s": 0.000839
+    "mean_s": -0.000295,
+    "sd_s": 0.00041
    },
    "traffic": {
-    "mean": 0.39366,
-    "sd": 0.152663,
+    "mean": 0.358782,
+    "sd": 0.150113,
     "n_races": 3,
     "last_year": 2025,
     "source": "track",
-    "mean_s": 0.327469,
-    "sd_s": 0.126994
+    "mean_s": 0.298455,
+    "sd_s": 0.124873
    },
    "curve": {
-    "mean": -0.000471,
-    "sd": 0.00109,
+    "mean": -0.000291,
+    "sd": 0.000962,
     "n_races": 3,
     "last_year": 2025,
     "source": "track",
-    "mean_s": -0.000392,
-    "sd_s": 0.000906
+    "mean_s": -0.000242,
+    "sd_s": 0.0008
    },
    "slope_SOFT": {
-    "mean": -0.004858,
-    "sd": 0.177314,
+    "mean": 0.087573,
+    "sd": 0.074814,
     "n_races": 1,
     "last_year": 2020,
     "source": "track",
-    "mean_s": -0.004041,
-    "sd_s": 0.1475
+    "mean_s": 0.072848,
+    "sd_s": 0.062234
    },
    "slope_MEDIUM": {
-    "mean": 0.08062,
-    "sd": 0.055174,
+    "mean": 0.074266,
+    "sd": 0.049003,
     "n_races": 3,
     "last_year": 2025,
     "source": "track",
-    "mean_s": 0.067064,
-    "sd_s": 0.045897
+    "mean_s": 0.061779,
+    "sd_s": 0.040763
    },
    "slope_HARD": {
-    "mean": 0.087802,
-    "sd": 0.046883,
+    "mean": 0.073465,
+    "sd": 0.044251,
     "n_races": 3,
     "last_year": 2025,
     "source": "track",
-    "mean_s": 0.073039,
-    "sd_s": 0.039
+    "mean_s": 0.061112,
+    "sd_s": 0.036811
    },
    "offset_SOFT": {
-    "mean": 0.207986,
-    "sd": 1.279898,
+    "mean": -0.210603,
+    "sd": 0.420496,
     "n_races": 1,
     "last_year": 2020,
     "source": "track",
-    "mean_s": 0.173015,
-    "sd_s": 1.064692
+    "mean_s": -0.175191,
+    "sd_s": 0.349793
    },
    "offset_HARD": {
-    "mean": -0.029489,
-    "sd": 0.35164,
+    "mean": 0.213981,
+    "sd": 0.292436,
     "n_races": 3,
     "last_year": 2025,
     "source": "track",
-    "mean_s": -0.02453,
-    "sd_s": 0.292514
+    "mean_s": 0.178002,
+    "sd_s": 0.243265
    },
    "sigma": {
-    "mean": 0.518837,
-    "sd": 0.118506,
+    "mean": 0.482163,
+    "sd": 0.114186,
     "n_races": 3,
     "last_year": 2025,
     "source": "track",
-    "mean_s": 0.431598,
-    "sd_s": 0.09858
+    "mean_s": 0.401091,
+    "sd_s": 0.094987
    }
   },
   "pit": {
@@ -5606,8 +5602,8 @@
    ]
   },
   "sc_rate": {
-   "rate_per_race": 0.742164,
-   "sd": 0.000234,
+   "rate_per_race": 0.754808,
+   "sd": 7.9e-05,
    "n_races": 3,
    "observed": 2
   },
@@ -5643,9 +5639,8 @@
    "starts": 100
   },
   "max_stint": {
-   "SOFT": 20,
-   "MEDIUM": 53,
-   "HARD": 54
+   "MEDIUM": 34,
+   "HARD": 50
   },
   "strategies": {
    "from_year": 2024,
@@ -5901,94 +5896,94 @@
   "dry_races": 6,
   "pace": {
    "fuel": {
-    "mean": -0.012585,
-    "sd": 0.032795,
+    "mean": -0.041076,
+    "sd": 0.034492,
     "n_races": 6,
     "last_year": 2025,
     "source": "track",
-    "mean_s": -0.009544,
-    "sd_s": 0.024871
+    "mean_s": -0.031151,
+    "sd_s": 0.026158
    },
    "fuel2": {
-    "mean": -0.000375,
-    "sd": 0.001005,
+    "mean": -0.000136,
+    "sd": 0.000491,
     "n_races": 6,
     "last_year": 2025,
     "source": "track",
-    "mean_s": -0.000284,
-    "sd_s": 0.000763
+    "mean_s": -0.000103,
+    "sd_s": 0.000373
    },
    "traffic": {
-    "mean": 0.410059,
-    "sd": 0.154676,
+    "mean": 0.374593,
+    "sd": 0.151036,
     "n_races": 6,
     "last_year": 2025,
     "source": "track",
-    "mean_s": 0.31098,
-    "sd_s": 0.117303
+    "mean_s": 0.284083,
+    "sd_s": 0.114543
    },
    "curve": {
-    "mean": -0.000669,
-    "sd": 0.001072,
+    "mean": -0.000395,
+    "sd": 0.000956,
     "n_races": 6,
     "last_year": 2025,
     "source": "track",
-    "mean_s": -0.000507,
-    "sd_s": 0.000813
+    "mean_s": -0.0003,
+    "sd_s": 0.000725
    },
    "slope_SOFT": {
-    "mean": 0.142839,
-    "sd": 0.073715,
+    "mean": 0.112306,
+    "sd": 0.067311,
     "n_races": 5,
     "last_year": 2025,
     "source": "track",
-    "mean_s": 0.108326,
-    "sd_s": 0.055904
+    "mean_s": 0.085171,
+    "sd_s": 0.051047
    },
    "slope_MEDIUM": {
-    "mean": 0.106073,
-    "sd": 0.053899,
+    "mean": 0.087149,
+    "sd": 0.04865,
     "n_races": 6,
     "last_year": 2025,
     "source": "track",
-    "mean_s": 0.080444,
-    "sd_s": 0.040876
+    "mean_s": 0.066092,
+    "sd_s": 0.036895
    },
    "slope_HARD": {
-    "mean": 0.152813,
-    "sd": 0.047082,
+    "mean": 0.108874,
+    "sd": 0.04427,
     "n_races": 4,
     "last_year": 2025,
     "source": "track",
-    "mean_s": 0.11589,
-    "sd_s": 0.035706
+    "mean_s": 0.082568,
+    "sd_s": 0.033573
    },
    "offset_SOFT": {
-    "mean": -0.260016,
-    "sd": 0.538084,
+    "mean": -0.210603,
+    "sd": 0.420496,
     "n_races": 5,
     "last_year": 2025,
     "source": "track",
-    "mean_s": -0.197191,
-    "sd_s": 0.408072
+    "mean_s": -0.159717,
+    "sd_s": 0.318895
    },
    "offset_HARD": {
-    "mean": -0.451334,
-    "sd": 0.389732,
+    "mean": 0.192777,
+    "sd": 0.292655,
     "n_races": 4,
     "last_year": 2025,
     "source": "track",
-    "mean_s": -0.342282,
-    "sd_s": 0.295565
+    "mean_s": 0.146198,
+    "sd_s": 0.221943
    },
    "sigma": {
-    "mean": 0.439594,
-    "sd": 0.118284,
+    "mean": 0.430653,
+    "sd": 0.114089,
     "n_races": 6,
     "last_year": 2025,
     "source": "track",
-    "mean_s": 0.333378,
-    "sd_s": 0.089704
+    "mean_s": 0.326598,
+    "sd_s": 0.086522
    }
   },
   "pit": {
@@ -6005,8 +6000,8 @@
    ]
   },
   "sc_rate": {
-   "rate_per_race": 0.742164,
-   "sd": 0.000234,
+   "rate_per_race": 0.754808,
+   "sd": 7.9e-05,
    "n_races": 6,
    "observed": 7
   },
@@ -6042,9 +6037,9 @@
    "starts": 158
   },
   "max_stint": {
-   "SOFT": 42,
-   "MEDIUM": 52,
-   "HARD": 69
+   "SOFT": 27,
+   "MEDIUM": 36,
+   "HARD": 29
   },
   "strategies": {
    "from_year": 2022,
@@ -6408,94 +6403,94 @@
   "dry_races": 5,
   "pace": {
    "fuel": {
-    "mean": -0.045525,
-    "sd": 0.034903,
+    "mean": -0.05303,
+    "sd": 0.034915,
     "n_races": 5,
     "last_year": 2025,
     "source": "track",
-    "mean_s": -0.044,
-    "sd_s": 0.033733
+    "mean_s": -0.051253,
+    "sd_s": 0.033746
    },
    "fuel2": {
-    "mean": -0.000447,
-    "sd": 0.001041,
+    "mean": -0.000127,
+    "sd": 0.000503,
     "n_races": 5,
     "last_year": 2025,
     "source": "track",
-    "mean_s": -0.000432,
-    "sd_s": 0.001006
+    "mean_s": -0.000123,
+    "sd_s": 0.000486
    },
    "traffic": {
-    "mean": 0.298796,
-    "sd": 0.14745,
+    "mean": 0.291636,
+    "sd": 0.147186,
     "n_races": 5,
     "last_year": 2025,
     "source": "track",
-    "mean_s": 0.288784,
-    "sd_s": 0.142509
+    "mean_s": 0.281864,
+    "sd_s": 0.142254
    },
    "curve": {
-    "mean": -0.000195,
-    "sd": 0.001035,
+    "mean": -0.000153,
+    "sd": 0.000947,
     "n_races": 5,
     "last_year": 2025,
     "source": "track",
-    "mean_s": -0.000189,
-    "sd_s": 0.001
+    "mean_s": -0.000148,
+    "sd_s": 0.000915
    },
    "slope_SOFT": {
-    "mean": 0.120122,
-    "sd": 0.104073,
+    "mean": 0.095209,
+    "sd": 0.073424,
     "n_races": 1,
     "last_year": 2024,
     "source": "track",
-    "mean_s": 0.116097,
-    "sd_s": 0.100585
+    "mean_s": 0.092019,
+    "sd_s": 0.070964
    },
    "slope_MEDIUM": {
-    "mean": 0.069929,
-    "sd": 0.053541,
+    "mean": 0.069433,
+    "sd": 0.048565,
     "n_races": 5,
     "last_year": 2025,
     "source": "track",
-    "mean_s": 0.067586,
-    "sd_s": 0.051747
+    "mean_s": 0.067107,
+    "sd_s": 0.046938
    },
    "slope_HARD": {
-    "mean": 0.040031,
-    "sd": 0.045859,
+    "mean": 0.045272,
+    "sd": 0.043869,
     "n_races": 5,
     "last_year": 2025,
     "source": "track",
-    "mean_s": 0.038689,
-    "sd_s": 0.044323
+    "mean_s": 0.043755,
+    "sd_s": 0.042399
    },
    "offset_SOFT": {
-    "mean": 0.130696,
-    "sd": 0.747411,
+    "mean": -0.210603,
+    "sd": 0.420496,
     "n_races": 1,
     "last_year": 2024,
     "source": "track",
-    "mean_s": 0.126316,
-    "sd_s": 0.722367
+    "mean_s": -0.203546,
+    "sd_s": 0.406407
    },
    "offset_HARD": {
-    "mean": 0.409741,
-    "sd": 0.372138,
+    "mean": 0.245389,
+    "sd": 0.292639,
     "n_races": 5,
     "last_year": 2025,
     "source": "track",
-    "mean_s": 0.396011,
-    "sd_s": 0.359668
+    "mean_s": 0.237167,
+    "sd_s": 0.282833
    },
    "sigma": {
-    "mean": 0.373407,
-    "sd": 0.118258,
+    "mean": 0.387723,
+    "sd": 0.114078,
     "n_races": 5,
     "last_year": 2025,
     "source": "track",
-    "mean_s": 0.360895,
-    "sd_s": 0.114295
+    "mean_s": 0.374731,
+    "sd_s": 0.110255
    }
   },
   "pit": {
@@ -6510,8 +6505,8 @@
    ]
   },
   "sc_rate": {
-   "rate_per_race": 0.742164,
-   "sd": 0.000234,
+   "rate_per_race": 0.754808,
+   "sd": 7.9e-05,
    "n_races": 5,
    "observed": 5
   },
@@ -6547,9 +6542,9 @@
    "starts": 99
   },
   "max_stint": {
-   "SOFT": 19,
-   "MEDIUM": 41,
-   "HARD": 49
+   "SOFT": 16,
+   "MEDIUM": 33,
+   "HARD": 43
   },
   "strategies": {
    "from_year": 2022,
@@ -6916,94 +6911,94 @@
   "dry_races": 4,
   "pace": {
    "fuel": {
-    "mean": -0.100115,
-    "sd": 0.033135,
+    "mean": -0.078259,
+    "sd": 0.034563,
     "n_races": 4,
     "last_year": 2025,
     "source": "track",
-    "mean_s": -0.090196,
-    "sd_s": 0.029852
+    "mean_s": -0.070505,
+    "sd_s": 0.031138
    },
    "fuel2": {
-    "mean": 0.000144,
-    "sd": 0.001015,
+    "mean": 9.4e-05,
+    "sd": 0.000495,
     "n_races": 4,
     "last_year": 2025,
     "source": "track",
-    "mean_s": 0.00013,
-    "sd_s": 0.000915
+    "mean_s": 8.5e-05,
+    "sd_s": 0.000446
    },
    "traffic": {
-    "mean": 0.338459,
-    "sd": 0.152894,
+    "mean": 0.318225,
+    "sd": 0.150252,
     "n_races": 4,
     "last_year": 2025,
     "source": "track",
-    "mean_s": 0.304925,
-    "sd_s": 0.137745
+    "mean_s": 0.286695,
+    "sd_s": 0.135365
    },
    "curve": {
-    "mean": 0.000622,
-    "sd": 0.001163,
+    "mean": 0.00015,
+    "sd": 0.00098,
     "n_races": 4,
     "last_year": 2025,
     "source": "track",
-    "mean_s": 0.00056,
-    "sd_s": 0.001047
+    "mean_s": 0.000135,
+    "sd_s": 0.000883
    },
    "slope_SOFT": {
-    "mean": 0.075508,
-    "sd": 0.074558,
+    "mean": 0.081634,
+    "sd": 0.067499,
     "n_races": 3,
     "last_year": 2025,
     "source": "track",
-    "mean_s": 0.068027,
-    "sd_s": 0.067171
+    "mean_s": 0.073546,
+    "sd_s": 0.060811
    },
    "slope_MEDIUM": {
-    "mean": 0.025992,
-    "sd": 0.055626,
+    "mean": 0.050921,
+    "sd": 0.049117,
     "n_races": 4,
     "last_year": 2025,
     "source": "track",
-    "mean_s": 0.023417,
-    "sd_s": 0.050115
+    "mean_s": 0.045876,
+    "sd_s": 0.044251
    },
    "slope_HARD": {
-    "mean": 0.004286,
-    "sd": 0.047713,
+    "mean": 0.027374,
+    "sd": 0.044551,
     "n_races": 4,
     "last_year": 2025,
     "source": "track",
-    "mean_s": 0.003861,
-    "sd_s": 0.042986
+    "mean_s": 0.024662,
+    "sd_s": 0.040137
    },
    "offset_SOFT": {
-    "mean": -0.268923,
-    "sd": 0.532087,
+    "mean": -0.210603,
+    "sd": 0.420496,
     "n_races": 3,
     "last_year": 2025,
     "source": "track",
-    "mean_s": -0.242279,
-    "sd_s": 0.479368
+    "mean_s": -0.189736,
+    "sd_s": 0.378834
    },
    "offset_HARD": {
-    "mean": 0.162335,
-    "sd": 0.344662,
+    "mean": 0.233826,
+    "sd": 0.292358,
     "n_races": 4,
     "last_year": 2025,
     "source": "track",
-    "mean_s": 0.14625,
-    "sd_s": 0.310513
+    "mean_s": 0.210659,
+    "sd_s": 0.263391
    },
    "sigma": {
-    "mean": 0.365718,
-    "sd": 0.118199,
+    "mean": 0.382869,
+    "sd": 0.114052,
     "n_races": 4,
     "last_year": 2025,
     "source": "track",
-    "mean_s": 0.329483,
-    "sd_s": 0.106487
+    "mean_s": 0.344934,
+    "sd_s": 0.102752
    }
   },
   "pit": {
@@ -7018,8 +7013,8 @@
    ]
   },
   "sc_rate": {
-   "rate_per_race": 0.742164,
-   "sd": 0.000234,
+   "rate_per_race": 0.754808,
+   "sd": 7.9e-05,
    "n_races": 4,
    "observed": 5
   },
@@ -7055,9 +7050,9 @@
    "starts": 79
   },
   "max_stint": {
-   "SOFT": 29,
-   "MEDIUM": 36,
-   "HARD": 34
+   "SOFT": 21,
+   "MEDIUM": 35,
+   "HARD": 25
   },
   "strategies": {
    "from_year": 2023,
@@ -7299,94 +7294,94 @@
   "dry_races": 1,
   "pace": {
    "fuel": {
-    "mean": -0.140584,
-    "sd": 0.011952,
+    "mean": -0.144297,
+    "sd": 0.012647,
     "n_races": 1,
     "last_year": 2026,
     "source": "track",
-    "mean_s": -0.144347,
-    "sd_s": 0.012271
+    "mean_s": -0.148159,
+    "sd_s": 0.012986
    },
    "fuel2": {
-    "mean": 0.001072,
-    "sd": 0.000192,
+    "mean": 0.001145,
+    "sd": 0.000203,
     "n_races": 1,
     "last_year": 2026,
     "source": "track",
-    "mean_s": 0.0011,
-    "sd_s": 0.000198
+    "mean_s": 0.001176,
+    "sd_s": 0.000208
    },
    "traffic": {
-    "mean": 0.597143,
-    "sd": 0.083736,
+    "mean": 0.61053,
+    "sd": 0.087886,
     "n_races": 1,
     "last_year": 2026,
     "source": "track",
-    "mean_s": 0.613123,
-    "sd_s": 0.085977
+    "mean_s": 0.626869,
+    "sd_s": 0.090238
    },
    "curve": {
-    "mean": 0.000475,
-    "sd": 0.000307,
+    "mean": 0.000509,
+    "sd": 0.000342,
     "n_races": 1,
     "last_year": 2026,
     "source": "track",
-    "mean_s": 0.000487,
-    "sd_s": 0.000315
+    "mean_s": 0.000522,
+    "sd_s": 0.000351
    },
    "slope_SOFT": {
-    "mean": 0.02747,
-    "sd": 0.017712,
+    "mean": 0.028707,
+    "sd": 0.020097,
     "n_races": 1,
     "last_year": 2026,
     "source": "track",
-    "mean_s": 0.028205,
-    "sd_s": 0.018186
+    "mean_s": 0.029475,
+    "sd_s": 0.020635
    },
    "slope_MEDIUM": {
-    "mean": 0.059897,
-    "sd": 0.029052,
+    "mean": 0.06187,
+    "sd": 0.029387,
     "n_races": 1,
     "last_year": 2026,
     "source": "track",
-    "mean_s": 0.0615,
-    "sd_s": 0.029829
+    "mean_s": 0.063526,
+    "sd_s": 0.030173
    },
    "slope_HARD": {
-    "mean": -0.009677,
-    "sd": 0.015361,
+    "mean": -0.010418,
+    "sd": 0.016481,
     "n_races": 1,
     "last_year": 2026,
     "source": "track",
-    "mean_s": -0.009936,
-    "sd_s": 0.015772
+    "mean_s": -0.010697,
+    "sd_s": 0.016922
    },
    "offset_SOFT": {
-    "mean": 0.059301,
-    "sd": 0.187589,
+    "mean": 0.131716,
+    "sd": 0.227278,
     "n_races": 1,
     "last_year": 2026,
     "source": "track",
-    "mean_s": 0.060888,
-    "sd_s": 0.192609
+    "mean_s": 0.135241,
+    "sd_s": 0.233361
    },
    "offset_HARD": {
-    "mean": 0.295736,
-    "sd": 0.170445,
+    "mean": 0.359702,
+    "sd": 0.207484,
     "n_races": 1,
     "last_year": 2026,
     "source": "track",
-    "mean_s": 0.303651,
-    "sd_s": 0.175006
+    "mean_s": 0.369328,
+    "sd_s": 0.213037
    },
    "sigma": {
-    "mean": 0.509966,
-    "sd": 0.011904,
+    "mean": 0.511332,
+    "sd": 0.014321,
     "n_races": 1,
     "last_year": 2026,
     "source": "track",
-    "mean_s": 0.523614,
-    "sd_s": 0.012223
+    "mean_s": 0.525016,
+    "sd_s": 0.014704
    }
   },
   "pit": {
@@ -7398,8 +7393,8 @@
    ]
   },
   "sc_rate": {
-   "rate_per_race": 0.742164,
-   "sd": 0.000234,
+   "rate_per_race": 0.754808,
+   "sd": 7.9e-05,
    "n_races": 1,
    "observed": 0
   },
@@ -7435,9 +7430,9 @@
    "starts": 22
   },
   "max_stint": {
-   "SOFT": 23,
-   "MEDIUM": 20,
-   "HARD": 55
+   "SOFT": 21,
+   "MEDIUM": 18,
+   "HARD": 48
   },
   "strategies": {
    "from_year": 2026,
@@ -7554,94 +7549,94 @@
   "dry_races": 6,
   "pace": {
    "fuel": {
-    "mean": -0.075016,
-    "sd": 0.008009,
+    "mean": -0.07512,
+    "sd": 0.008752,
     "n_races": 6,
     "last_year": 2026,
     "source": "track",
-    "mean_s": -0.075293,
-    "sd_s": 0.008039
+    "mean_s": -0.075397,
+    "sd_s": 0.008784
    },
    "fuel2": {
-    "mean": 0.000465,
-    "sd": 0.000127,
+    "mean": 0.000472,
+    "sd": 0.000135,
     "n_races": 6,
     "last_year": 2026,
     "source": "track",
-    "mean_s": 0.000467,
-    "sd_s": 0.000127
+    "mean_s": 0.000474,
+    "sd_s": 0.000136
    },
    "traffic": {
-    "mean": 0.427584,
-    "sd": 0.066646,
+    "mean": 0.409184,
+    "sd": 0.068483,
     "n_races": 6,
     "last_year": 2026,
     "source": "track",
-    "mean_s": 0.429158,
-    "sd_s": 0.066891
+    "mean_s": 0.410691,
+    "sd_s": 0.068735
    },
    "curve": {
-    "mean": 0.00131,
-    "sd": 0.000294,
+    "mean": 0.001451,
+    "sd": 0.000323,
     "n_races": 6,
     "last_year": 2026,
     "source": "track",
-    "mean_s": 0.001315,
-    "sd_s": 0.000295
+    "mean_s": 0.001456,
+    "sd_s": 0.000324
    },
    "slope_SOFT": {
-    "mean": -0.000239,
-    "sd": 0.01447,
+    "mean": 0.001765,
+    "sd": 0.017035,
     "n_races": 6,
     "last_year": 2026,
     "source": "track",
-    "mean_s": -0.00024,
-    "sd_s": 0.014524
+    "mean_s": 0.001771,
+    "sd_s": 0.017098
    },
    "slope_MEDIUM": {
-    "mean": -0.004518,
-    "sd": 0.010621,
+    "mean": -0.002976,
+    "sd": 0.011757,
     "n_races": 6,
     "last_year": 2026,
     "source": "track",
-    "mean_s": -0.004534,
-    "sd_s": 0.01066
+    "mean_s": -0.002987,
+    "sd_s": 0.011801
    },
    "slope_HARD": {
-    "mean": 0.043755,
-    "sd": 0.046827,
+    "mean": 0.048707,
+    "sd": 0.044225,
     "n_races": 5,
     "last_year": 2025,
     "source": "track",
-    "mean_s": 0.043916,
-    "sd_s": 0.046999
+    "mean_s": 0.048887,
+    "sd_s": 0.044388
    },
    "offset_SOFT": {
-    "mean": -0.307214,
-    "sd": 0.133306,
+    "mean": -0.34118,
+    "sd": 0.150337,
     "n_races": 6,
     "last_year": 2026,
     "source": "track",
-    "mean_s": -0.308345,
-    "sd_s": 0.133797
+    "mean_s": -0.342436,
+    "sd_s": 0.150891
    },
    "offset_HARD": {
-    "mean": 0.024868,
-    "sd": 0.403515,
+    "mean": 0.216432,
+    "sd": 0.292944,
     "n_races": 5,
     "last_year": 2025,
     "source": "track",
-    "mean_s": 0.024959,
-    "sd_s": 0.405001
+    "mean_s": 0.217229,
+    "sd_s": 0.294023
    },
    "sigma": {
-    "mean": 0.41805,
-    "sd": 0.009689,
+    "mean": 0.417863,
+    "sd": 0.01247,
     "n_races": 6,
     "last_year": 2026,
     "source": "track",
-    "mean_s": 0.419589,
-    "sd_s": 0.009724
+    "mean_s": 0.419401,
+    "sd_s": 0.012516
    }
   },
   "pit": {
@@ -7658,8 +7653,8 @@
    ]
   },
   "sc_rate": {
-   "rate_per_race": 0.742164,
-   "sd": 0.000234,
+   "rate_per_race": 0.754808,
+   "sd": 7.9e-05,
    "n_races": 6,
    "observed": 5
   },
@@ -7695,9 +7690,9 @@
    "starts": 141
   },
   "max_stint": {
-   "SOFT": 47,
-   "MEDIUM": 57,
-   "HARD": 55
+   "SOFT": 35,
+   "MEDIUM": 42,
+   "HARD": 48
   },
   "strategies": {
    "from_year": 2023,
@@ -8340,94 +8335,94 @@
   "dry_races": 5,
   "pace": {
    "fuel": {
-    "mean": -0.039804,
-    "sd": 0.018799,
+    "mean": -0.049779,
+    "sd": 0.019645,
     "n_races": 5,
     "last_year": 2026,
     "source": "track",
-    "mean_s": -0.037718,
-    "sd_s": 0.017814
+    "mean_s": -0.04717,
+    "sd_s": 0.018616
    },
    "fuel2": {
-    "mean": 0.000183,
-    "sd": 0.00025,
+    "mean": 0.000278,
+    "sd": 0.000263,
     "n_races": 5,
     "last_year": 2026,
     "source": "track",
-    "mean_s": 0.000173,
-    "sd_s": 0.000237
+    "mean_s": 0.000264,
+    "sd_s": 0.000249
    },
    "traffic": {
-    "mean": 0.14142,
-    "sd": 0.062679,
+    "mean": 0.153539,
+    "sd": 0.065108,
     "n_races": 5,
     "last_year": 2026,
     "source": "track",
-    "mean_s": 0.13401,
-    "sd_s": 0.059395
+    "mean_s": 0.145493,
+    "sd_s": 0.061696
    },
    "curve": {
-    "mean": -0.000107,
-    "sd": 0.000274,
+    "mean": -0.000159,
+    "sd": 0.000301,
     "n_races": 5,
     "last_year": 2026,
     "source": "track",
-    "mean_s": -0.000101,
-    "sd_s": 0.00026
+    "mean_s": -0.000151,
+    "sd_s": 0.000285
    },
    "slope_SOFT": {
-    "mean": 0.001489,
-    "sd": 0.018212,
+    "mean": 0.004557,
+    "sd": 0.020114,
     "n_races": 2,
     "last_year": 2026,
     "source": "track",
-    "mean_s": 0.001411,
-    "sd_s": 0.017258
+    "mean_s": 0.004319,
+    "sd_s": 0.01906
    },
    "slope_MEDIUM": {
-    "mean": 0.046316,
-    "sd": 0.019044,
+    "mean": 0.045414,
+    "sd": 0.019456,
     "n_races": 5,
     "last_year": 2026,
     "source": "track",
-    "mean_s": 0.043889,
-    "sd_s": 0.018046
+    "mean_s": 0.043034,
+    "sd_s": 0.018437
    },
    "slope_HARD": {
-    "mean": 0.032545,
-    "sd": 0.013102,
+    "mean": 0.031656,
+    "sd": 0.014041,
     "n_races": 5,
     "last_year": 2026,
     "source": "track",
-    "mean_s": 0.03084,
-    "sd_s": 0.012416
+    "mean_s": 0.029997,
+    "sd_s": 0.013306
    },
    "offset_SOFT": {
-    "mean": -0.177348,
-    "sd": 0.236814,
+    "mean": -0.234166,
+    "sd": 0.328131,
     "n_races": 2,
     "last_year": 2026,
     "source": "track",
-    "mean_s": -0.168055,
-    "sd_s": 0.224404
+    "mean_s": -0.221896,
+    "sd_s": 0.310937
    },
    "offset_HARD": {
-    "mean": 0.110902,
-    "sd": 0.188091,
+    "mean": 0.079612,
+    "sd": 0.238925,
     "n_races": 5,
     "last_year": 2026,
     "source": "track",
-    "mean_s": 0.10509,
-    "sd_s": 0.178235
+    "mean_s": 0.075441,
+    "sd_s": 0.226405
    },
    "sigma": {
-    "mean": 0.331457,
-    "sd": 0.008662,
+    "mean": 0.331749,
+    "sd": 0.011691,
     "n_races": 5,
     "last_year": 2026,
     "source": "track",
-    "mean_s": 0.314088,
-    "sd_s": 0.008208
+    "mean_s": 0.314365,
+    "sd_s": 0.011078
    }
   },
   "pit": {
@@ -8443,8 +8438,8 @@
    ]
   },
   "sc_rate": {
-   "rate_per_race": 0.742164,
-   "sd": 0.000234,
+   "rate_per_race": 0.754808,
+   "sd": 7.9e-05,
    "n_races": 4,
    "observed": 3
   },
@@ -8480,9 +8475,9 @@
    "starts": 102
   },
   "max_stint": {
-   "SOFT": 29,
-   "MEDIUM": 41,
-   "HARD": 54
+   "SOFT": 24,
+   "MEDIUM": 31,
+   "HARD": 45
   },
   "strategies": {
    "from_year": 2022,
@@ -9222,94 +9217,94 @@
   "dry_races": 6,
   "pace": {
    "fuel": {
-    "mean": 0.00173,
-    "sd": 0.020585,
+    "mean": -0.000877,
+    "sd": 0.021534,
     "n_races": 6,
     "last_year": 2026,
     "source": "track",
-    "mean_s": 0.001364,
-    "sd_s": 0.016224
+    "mean_s": -0.000692,
+    "sd_s": 0.016972
    },
    "fuel2": {
-    "mean": -0.000609,
-    "sd": 0.000251,
+    "mean": -0.000596,
+    "sd": 0.000263,
     "n_races": 6,
     "last_year": 2026,
     "source": "track",
-    "mean_s": -0.00048,
-    "sd_s": 0.000198
+    "mean_s": -0.00047,
+    "sd_s": 0.000207
    },
    "traffic": {
-    "mean": 1.397808,
-    "sd": 0.149598,
+    "mean": 1.194583,
+    "sd": 0.139766,
     "n_races": 6,
     "last_year": 2026,
     "source": "track",
-    "mean_s": 1.101687,
-    "sd_s": 0.117906
+    "mean_s": 0.941514,
+    "sd_s": 0.110157
    },
    "curve": {
-    "mean": 0.001498,
-    "sd": 0.000367,
+    "mean": 0.001669,
+    "sd": 0.000411,
     "n_races": 6,
     "last_year": 2026,
     "source": "track",
-    "mean_s": 0.001181,
-    "sd_s": 0.000289
+    "mean_s": 0.001316,
+    "sd_s": 0.000324
    },
    "slope_SOFT": {
-    "mean": -0.076166,
-    "sd": 0.025789,
+    "mean": -0.06841,
+    "sd": 0.026926,
     "n_races": 5,
     "last_year": 2026,
     "source": "track",
-    "mean_s": -0.06003,
-    "sd_s": 0.020326
+    "mean_s": -0.053918,
+    "sd_s": 0.021222
    },
    "slope_MEDIUM": {
-    "mean": -0.050617,
-    "sd": 0.024241,
+    "mean": -0.042785,
+    "sd": 0.024035,
     "n_races": 6,
     "last_year": 2026,
     "source": "track",
-    "mean_s": -0.039894,
-    "sd_s": 0.019105
+    "mean_s": -0.033721,
+    "sd_s": 0.018943
    },
    "slope_HARD": {
-    "mean": -0.029247,
-    "sd": 0.021962,
+    "mean": -0.026427,
+    "sd": 0.022022,
     "n_races": 6,
     "last_year": 2026,
     "source": "track",
-    "mean_s": -0.023051,
-    "sd_s": 0.017309
+    "mean_s": -0.020829,
+    "sd_s": 0.017356
    },
    "offset_SOFT": {
-    "mean": -0.191087,
-    "sd": 0.213715,
+    "mean": -0.239349,
+    "sd": 0.275292,
     "n_races": 5,
     "last_year": 2026,
     "source": "track",
-    "mean_s": -0.150606,
-    "sd_s": 0.16844
+    "mean_s": -0.188644,
+    "sd_s": 0.216972
    },
    "offset_HARD": {
-    "mean": 0.133874,
-    "sd": 0.199992,
+    "mean": 0.105843,
+    "sd": 0.264169,
     "n_races": 6,
     "last_year": 2026,
     "source": "track",
-    "mean_s": 0.105513,
-    "sd_s": 0.157625
+    "mean_s": 0.083421,
+    "sd_s": 0.208206
    },
    "sigma": {
-    "mean": 0.909795,
-    "sd": 0.018691,
+    "mean": 0.901307,
+    "sd": 0.02025,
     "n_races": 6,
     "last_year": 2026,
     "source": "track",
-    "mean_s": 0.717058,
-    "sd_s": 0.014731
+    "mean_s": 0.710368,
+    "sd_s": 0.01596
    }
   },
   "pit": {
@@ -9325,10 +9320,10 @@
    ]
   },
   "sc_rate": {
-   "rate_per_race": 0.742164,
-   "sd": 0.000234,
+   "rate_per_race": 0.754808,
+   "sd": 7.9e-05,
    "n_races": 4,
-   "observed": 3
+   "observed": 4
   },
   "vsc_rate": {
    "rate_per_race": 0.558815,
@@ -9362,9 +9357,9 @@
    "starts": 162
   },
   "max_stint": {
-   "SOFT": 55,
-   "MEDIUM": 77,
-   "HARD": 78
+   "SOFT": 18,
+   "MEDIUM": 60,
+   "HARD": 77
   },
   "strategies": {
    "from_year": 2024,
@@ -9568,94 +9563,94 @@
   "dry_races": 9,
   "pace": {
    "fuel": {
-    "mean": -0.071636,
-    "sd": 0.014811,
+    "mean": -0.075441,
+    "sd": 0.015338,
     "n_races": 9,
     "last_year": 2026,
     "source": "track",
-    "mean_s": -0.062962,
-    "sd_s": 0.013018
+    "mean_s": -0.066307,
+    "sd_s": 0.013481
    },
    "fuel2": {
-    "mean": 0.000324,
-    "sd": 0.000234,
+    "mean": 0.000381,
+    "sd": 0.000243,
     "n_races": 9,
     "last_year": 2026,
     "source": "track",
-    "mean_s": 0.000285,
-    "sd_s": 0.000206
+    "mean_s": 0.000334,
+    "sd_s": 0.000214
    },
    "traffic": {
-    "mean": -0.029338,
-    "sd": 0.061003,
+    "mean": -0.025385,
+    "sd": 0.063692,
     "n_races": 9,
     "last_year": 2026,
     "source": "track",
-    "mean_s": -0.025786,
-    "sd_s": 0.053617
+    "mean_s": -0.022312,
+    "sd_s": 0.055981
    },
    "curve": {
-    "mean": 0.000295,
-    "sd": 0.000271,
+    "mean": 0.00031,
+    "sd": 0.000296,
     "n_races": 9,
     "last_year": 2026,
     "source": "track",
-    "mean_s": 0.000259,
-    "sd_s": 0.000238
+    "mean_s": 0.000272,
+    "sd_s": 0.000261
    },
    "slope_SOFT": {
-    "mean": 0.052093,
-    "sd": 0.015191,
+    "mean": 0.053606,
+    "sd": 0.017514,
     "n_races": 5,
     "last_year": 2026,
     "source": "track",
-    "mean_s": 0.045786,
-    "sd_s": 0.013352
+    "mean_s": 0.047116,
+    "sd_s": 0.015393
    },
    "slope_MEDIUM": {
-    "mean": 0.010113,
-    "sd": 0.01461,
+    "mean": 0.012544,
+    "sd": 0.015397,
     "n_races": 9,
     "last_year": 2026,
     "source": "track",
-    "mean_s": 0.008888,
-    "sd_s": 0.012841
+    "mean_s": 0.011025,
+    "sd_s": 0.013533
    },
    "slope_HARD": {
-    "mean": 0.001356,
-    "sd": 0.015419,
+    "mean": 0.003781,
+    "sd": 0.016219,
     "n_races": 8,
     "last_year": 2026,
     "source": "track",
-    "mean_s": 0.001192,
-    "sd_s": 0.013552
+    "mean_s": 0.003323,
+    "sd_s": 0.014255
    },
    "offset_SOFT": {
-    "mean": -0.252443,
-    "sd": 0.166997,
+    "mean": -0.294919,
+    "sd": 0.195261,
     "n_races": 5,
     "last_year": 2026,
     "source": "track",
-    "mean_s": -0.221879,
-    "sd_s": 0.146778
+    "mean_s": -0.259212,
+    "sd_s": 0.17162
    },
    "offset_HARD": {
-    "mean": 0.281655,
-    "sd": 0.110784,
+    "mean": 0.300632,
+    "sd": 0.12426,
     "n_races": 8,
     "last_year": 2026,
     "source": "track",
-    "mean_s": 0.247554,
-    "sd_s": 0.097371
+    "mean_s": 0.264233,
+    "sd_s": 0.109215
    },
    "sigma": {
-    "mean": 0.403602,
-    "sd": 0.009837,
+    "mean": 0.403931,
+    "sd": 0.012586,
     "n_races": 9,
     "last_year": 2026,
     "source": "track",
-    "mean_s": 0.354736,
-    "sd_s": 0.008646
+    "mean_s": 0.355025,
+    "sd_s": 0.011062
    }
   },
   "pit": {
@@ -9674,8 +9669,8 @@
    ]
   },
   "sc_rate": {
-   "rate_per_race": 0.742164,
-   "sd": 0.000234,
+   "rate_per_race": 0.754808,
+   "sd": 7.9e-05,
    "n_races": 8,
    "observed": 5
   },
@@ -9711,9 +9706,9 @@
    "starts": 180
   },
   "max_stint": {
-   "SOFT": 41,
-   "MEDIUM": 50,
-   "HARD": 51
+   "SOFT": 24,
+   "MEDIUM": 43,
+   "HARD": 50
   },
   "strategies": {
    "from_year": 2022,
@@ -10459,94 +10454,94 @@
   "dry_races": 1,
   "pace": {
    "fuel": {
-    "mean": 0.010851,
-    "sd": 0.079421,
+    "mean": -0.063259,
+    "sd": 0.03834,
     "n_races": 1,
     "last_year": 2020,
     "source": "track",
-    "mean_s": 0.009243,
-    "sd_s": 0.067648
+    "mean_s": -0.053881,
+    "sd_s": 0.032656
    },
    "fuel2": {
-    "mean": -0.001348,
-    "sd": 0.002462,
+    "mean": 4.9e-05,
+    "sd": 0.000547,
     "n_races": 1,
     "last_year": 2020,
     "source": "track",
-    "mean_s": -0.001148,
-    "sd_s": 0.002097
+    "mean_s": 4.1e-05,
+    "sd_s": 0.000466
    },
    "traffic": {
-    "mean": 0.374463,
-    "sd": 0.360029,
+    "mean": 0.276327,
+    "sd": 0.214399,
     "n_races": 1,
     "last_year": 2020,
     "source": "track",
-    "mean_s": 0.318953,
-    "sd_s": 0.306659
+    "mean_s": 0.235365,
+    "sd_s": 0.182617
    },
    "curve": {
-    "mean": 0.000835,
-    "sd": 0.002528,
+    "mean": -0.000123,
+    "sd": 0.001082,
     "n_races": 1,
     "last_year": 2020,
     "source": "track",
-    "mean_s": 0.000711,
-    "sd_s": 0.002153
+    "mean_s": -0.000105,
+    "sd_s": 0.000921
    },
    "slope_SOFT": {
-    "mean": -0.037903,
-    "sd": 0.180798,
+    "mean": 0.087573,
+    "sd": 0.074814,
     "n_races": 1,
     "last_year": 2020,
     "source": "track",
-    "mean_s": -0.032284,
-    "sd_s": 0.153997
+    "mean_s": 0.074591,
+    "sd_s": 0.063724
    },
    "slope_MEDIUM": {
-    "mean": -0.034338,
-    "sd": 0.13148,
+    "mean": 0.069037,
+    "sd": 0.055457,
     "n_races": 1,
     "last_year": 2020,
     "source": "track",
-    "mean_s": -0.029248,
-    "sd_s": 0.11199
+    "mean_s": 0.058803,
+    "sd_s": 0.047236
    },
    "slope_HARD": {
-    "mean": 0.025797,
-    "sd": 0.110781,
+    "mean": 0.05363,
+    "sd": 0.053811,
     "n_races": 1,
     "last_year": 2020,
     "source": "track",
-    "mean_s": 0.021973,
-    "sd_s": 0.094359
+    "mean_s": 0.04568,
+    "sd_s": 0.045834
    },
    "offset_SOFT": {
-    "mean": 0.075148,
-    "sd": 1.281681,
+    "mean": -0.210603,
+    "sd": 0.420496,
     "n_races": 1,
     "last_year": 2020,
     "source": "track",
-    "mean_s": 0.064008,
-    "sd_s": 1.091687
+    "mean_s": -0.179384,
+    "sd_s": 0.358163
    },
    "offset_HARD": {
-    "mean": -0.049115,
-    "sd": 0.79309,
+    "mean": 0.238229,
+    "sd": 0.293508,
     "n_races": 1,
     "last_year": 2020,
     "source": "track",
-    "mean_s": -0.041834,
-    "sd_s": 0.675523
+    "mean_s": 0.202915,
+    "sd_s": 0.249999
    },
    "sigma": {
-    "mean": 0.447492,
-    "sd": 0.289058,
+    "mean": 0.416846,
+    "sd": 0.149324,
     "n_races": 1,
     "last_year": 2020,
     "source": "track",
-    "mean_s": 0.381157,
-    "sd_s": 0.246208
+    "mean_s": 0.355053,
+    "sd_s": 0.127188
    }
   },
   "pit": {
@@ -10558,8 +10553,8 @@
    ]
   },
   "sc_rate": {
-   "rate_per_race": 0.742164,
-   "sd": 0.000234,
+   "rate_per_race": 0.754808,
+   "sd": 7.9e-05,
    "n_races": 1,
    "observed": 3
   },
@@ -10594,11 +10589,7 @@
    "ratio": 0.999964,
    "starts": 20
   },
-  "max_stint": {
-   "SOFT": 26,
-   "MEDIUM": 26,
-   "HARD": 16
-  },
+  "max_stint": null,
   "strategies": null
  },
  "nurburgring": {
@@ -10626,94 +10617,94 @@
   "dry_races": 1,
   "pace": {
    "fuel": {
-    "mean": -0.087339,
-    "sd": 0.079317,
+    "mean": -0.063259,
+    "sd": 0.03834,
     "n_races": 1,
     "last_year": 2020,
     "source": "track",
-    "mean_s": -0.082944,
-    "sd_s": 0.075326
+    "mean_s": -0.060075,
+    "sd_s": 0.036411
    },
    "fuel2": {
-    "mean": 0.000274,
-    "sd": 0.002461,
+    "mean": 4.9e-05,
+    "sd": 0.000547,
     "n_races": 1,
     "last_year": 2020,
     "source": "track",
-    "mean_s": 0.00026,
-    "sd_s": 0.002337
+    "mean_s": 4.6e-05,
+    "sd_s": 0.00052
    },
    "traffic": {
-    "mean": 0.559782,
-    "sd": 0.351242,
+    "mean": 0.276327,
+    "sd": 0.214399,
     "n_races": 1,
     "last_year": 2020,
     "source": "track",
-    "mean_s": 0.531612,
-    "sd_s": 0.333567
+    "mean_s": 0.262421,
+    "sd_s": 0.20361
    },
    "curve": {
-    "mean": 0.000383,
-    "sd": 0.002503,
+    "mean": -0.000123,
+    "sd": 0.001082,
     "n_races": 1,
     "last_year": 2020,
     "source": "track",
-    "mean_s": 0.000364,
-    "sd_s": 0.002377
+    "mean_s": -0.000117,
+    "sd_s": 0.001027
    },
    "slope_SOFT": {
-    "mean": 0.015727,
-    "sd": 0.178482,
+    "mean": 0.087573,
+    "sd": 0.074814,
     "n_races": 1,
     "last_year": 2020,
     "source": "track",
-    "mean_s": 0.014936,
-    "sd_s": 0.1695
+    "mean_s": 0.083166,
+    "sd_s": 0.071049
    },
    "slope_MEDIUM": {
-    "mean": 0.055453,
-    "sd": 0.129743,
+    "mean": 0.069037,
+    "sd": 0.055457,
     "n_races": 1,
     "last_year": 2020,
     "source": "track",
-    "mean_s": 0.052663,
-    "sd_s": 0.123214
+    "mean_s": 0.065563,
+    "sd_s": 0.052666
    },
    "slope_HARD": {
-    "mean": 0.042559,
-    "sd": 0.11,
+    "mean": 0.05363,
+    "sd": 0.053811,
     "n_races": 1,
     "last_year": 2020,
     "source": "track",
-    "mean_s": 0.040418,
-    "sd_s": 0.104465
+    "mean_s": 0.050931,
+    "sd_s": 0.051103
    },
    "offset_SOFT": {
-    "mean": 0.208589,
-    "sd": 1.282817,
+    "mean": -0.210603,
+    "sd": 0.420496,
     "n_races": 1,
     "last_year": 2020,
     "source": "track",
-    "mean_s": 0.198092,
-    "sd_s": 1.218262
+    "mean_s": -0.200005,
+    "sd_s": 0.399336
    },
    "offset_HARD": {
-    "mean": 0.07662,
-    "sd": 0.795921,
+    "mean": 0.238229,
+    "sd": 0.293508,
     "n_races": 1,
     "last_year": 2020,
     "source": "track",
-    "mean_s": 0.072764,
-    "sd_s": 0.755869
+    "mean_s": 0.226241,
+    "sd_s": 0.278738
    },
    "sigma": {
-    "mean": 0.499199,
-    "sd": 0.289038,
+    "mean": 0.420799,
+    "sd": 0.149323,
     "n_races": 1,
     "last_year": 2020,
     "source": "track",
-    "mean_s": 0.474078,
-    "sd_s": 0.274493
+    "mean_s": 0.399623,
+    "sd_s": 0.141809
    }
   },
   "pit": {
@@ -10741,11 +10732,7 @@
    "ratio": 0.999962,
    "starts": 20
   },
-  "max_stint": {
-   "SOFT": 31,
-   "MEDIUM": 34,
-   "HARD": 32
-  },
+  "max_stint": null,
   "strategies": {
    "from_year": 2020,
    "n": 6,
@@ -10862,94 +10849,94 @@
   "dry_races": 2,
   "pace": {
    "fuel": {
-    "mean": -0.085251,
-    "sd": 0.071323,
+    "mean": -0.063259,
+    "sd": 0.03834,
     "n_races": 2,
     "last_year": 2021,
     "source": "track",
-    "mean_s": -0.072614,
-    "sd_s": 0.060751
+    "mean_s": -0.053882,
+    "sd_s": 0.032657
    },
    "fuel2": {
-    "mean": 0.000631,
-    "sd": 0.00224,
+    "mean": 4.9e-05,
+    "sd": 0.000547,
     "n_races": 2,
     "last_year": 2021,
     "source": "track",
-    "mean_s": 0.000537,
-    "sd_s": 0.001908
+    "mean_s": 4.1e-05,
+    "sd_s": 0.000466
    },
    "traffic": {
-    "mean": 0.199481,
-    "sd": 0.314877,
+    "mean": 0.276327,
+    "sd": 0.214399,
     "n_races": 2,
     "last_year": 2021,
     "source": "track",
-    "mean_s": 0.169913,
-    "sd_s": 0.268204
+    "mean_s": 0.235368,
+    "sd_s": 0.182619
    },
    "curve": {
-    "mean": 0.000223,
-    "sd": 0.002241,
+    "mean": -0.000123,
+    "sd": 0.001082,
     "n_races": 2,
     "last_year": 2021,
     "source": "track",
-    "mean_s": 0.00019,
-    "sd_s": 0.001909
+    "mean_s": -0.000105,
+    "sd_s": 0.000921
    },
    "slope_SOFT": {
-    "mean": 0.001459,
-    "sd": 0.161311,
+    "mean": 0.087573,
+    "sd": 0.074814,
     "n_races": 2,
     "last_year": 2021,
     "source": "track",
-    "mean_s": 0.001243,
-    "sd_s": 0.1374
+    "mean_s": 0.074592,
+    "sd_s": 0.063724
    },
    "slope_MEDIUM": {
-    "mean": -0.00638,
-    "sd": 0.11616,
+    "mean": 0.069037,
+    "sd": 0.055457,
     "n_races": 2,
     "last_year": 2021,
     "source": "track",
-    "mean_s": -0.005434,
-    "sd_s": 0.098942
+    "mean_s": 0.058804,
+    "sd_s": 0.047236
    },
    "slope_HARD": {
-    "mean": -0.016277,
-    "sd": 0.098493,
+    "mean": 0.05363,
+    "sd": 0.053811,
     "n_races": 2,
     "last_year": 2021,
     "source": "track",
-    "mean_s": -0.013864,
-    "sd_s": 0.083894
+    "mean_s": 0.04568,
+    "sd_s": 0.045835
    },
    "offset_SOFT": {
-    "mean": -0.133867,
-    "sd": 1.174466,
+    "mean": -0.210603,
+    "sd": 0.420496,
     "n_races": 2,
     "last_year": 2021,
     "source": "track",
-    "mean_s": -0.114025,
-    "sd_s": 1.000378
+    "mean_s": -0.179386,
+    "sd_s": 0.358167
    },
    "offset_HARD": {
-    "mean": 0.063662,
-    "sd": 0.720488,
+    "mean": 0.238229,
+    "sd": 0.293508,
     "n_races": 2,
     "last_year": 2021,
     "source": "track",
-    "mean_s": 0.054225,
-    "sd_s": 0.613691
+    "mean_s": 0.202917,
+    "sd_s": 0.250002
    },
    "sigma": {
-    "mean": 0.335798,
-    "sd": 0.263686,
+    "mean": 0.40516,
+    "sd": 0.148739,
     "n_races": 2,
     "last_year": 2021,
     "source": "track",
-    "mean_s": 0.286023,
-    "sd_s": 0.224601
+    "mean_s": 0.345104,
+    "sd_s": 0.126692
    }
   },
   "pit": {
@@ -10962,8 +10949,8 @@
    ]
   },
   "sc_rate": {
-   "rate_per_race": 0.742164,
-   "sd": 0.000234,
+   "rate_per_race": 0.754808,
+   "sd": 7.9e-05,
    "n_races": 2,
    "observed": 1
   },
@@ -10998,11 +10985,7 @@
    "ratio": 0.999959,
    "starts": 40
   },
-  "max_stint": {
-   "SOFT": 39,
-   "MEDIUM": 57,
-   "HARD": 44
-  },
+  "max_stint": null,
   "strategies": {
    "from_year": 2020,
    "n": 18,
@@ -11241,94 +11224,94 @@
   "dry_races": 11,
   "pace": {
    "fuel": {
-    "mean": -0.074701,
-    "sd": 0.008538,
+    "mean": -0.074536,
+    "sd": 0.009233,
     "n_races": 11,
     "last_year": 2026,
     "source": "track",
-    "mean_s": -0.054987,
-    "sd_s": 0.006284
+    "mean_s": -0.054865,
+    "sd_s": 0.006796
    },
    "fuel2": {
-    "mean": 0.000311,
-    "sd": 0.000108,
+    "mean": 0.000315,
+    "sd": 0.000117,
     "n_races": 11,
     "last_year": 2026,
     "source": "track",
-    "mean_s": 0.000229,
-    "sd_s": 8e-05
+    "mean_s": 0.000232,
+    "sd_s": 8.6e-05
    },
    "traffic": {
-    "mean": 0.171449,
-    "sd": 0.087927,
+    "mean": 0.189171,
+    "sd": 0.08889,
     "n_races": 11,
     "last_year": 2026,
     "source": "track",
-    "mean_s": 0.126202,
-    "sd_s": 0.064722
+    "mean_s": 0.139247,
+    "sd_s": 0.065431
    },
    "curve": {
-    "mean": 0.000853,
-    "sd": 0.00049,
+    "mean": 0.001113,
+    "sd": 0.000585,
     "n_races": 11,
     "last_year": 2026,
     "source": "track",
-    "mean_s": 0.000628,
-    "sd_s": 0.000361
+    "mean_s": 0.000819,
+    "sd_s": 0.000431
    },
    "slope_SOFT": {
-    "mean": 0.063358,
-    "sd": 0.029254,
+    "mean": 0.067965,
+    "sd": 0.029972,
     "n_races": 8,
     "last_year": 2026,
     "source": "track",
-    "mean_s": 0.046638,
-    "sd_s": 0.021534
+    "mean_s": 0.050028,
+    "sd_s": 0.022062
    },
    "slope_MEDIUM": {
-    "mean": 0.079076,
-    "sd": 0.019327,
+    "mean": 0.07797,
+    "sd": 0.019712,
     "n_races": 11,
     "last_year": 2026,
     "source": "track",
-    "mean_s": 0.058207,
-    "sd_s": 0.014226
+    "mean_s": 0.057393,
+    "sd_s": 0.01451
    },
    "slope_HARD": {
-    "mean": 0.052814,
-    "sd": 0.019545,
+    "mean": 0.05196,
+    "sd": 0.020003,
     "n_races": 10,
     "last_year": 2026,
     "source": "track",
-    "mean_s": 0.038876,
-    "sd_s": 0.014387
+    "mean_s": 0.038247,
+    "sd_s": 0.014724
    },
    "offset_SOFT": {
-    "mean": -0.018041,
-    "sd": 0.198923,
+    "mean": 0.029411,
+    "sd": 0.24691,
     "n_races": 8,
     "last_year": 2026,
     "source": "track",
-    "mean_s": -0.01328,
-    "sd_s": 0.146426
+    "mean_s": 0.021649,
+    "sd_s": 0.181748
    },
    "offset_HARD": {
-    "mean": 0.267301,
-    "sd": 0.133406,
+    "mean": 0.292203,
+    "sd": 0.152297,
     "n_races": 10,
     "last_year": 2026,
     "source": "track",
-    "mean_s": 0.196758,
-    "sd_s": 0.098199
+    "mean_s": 0.215088,
+    "sd_s": 0.112104
    },
    "sigma": {
-    "mean": 0.536508,
-    "sd": 0.011483,
+    "mean": 0.536279,
+    "sd": 0.013908,
     "n_races": 11,
     "last_year": 2026,
     "source": "track",
-    "mean_s": 0.394919,
-    "sd_s": 0.008453
+    "mean_s": 0.39475,
+    "sd_s": 0.010238
    }
   },
   "pit": {
@@ -11348,8 +11331,8 @@
    ]
   },
   "sc_rate": {
-   "rate_per_race": 0.742164,
-   "sd": 0.000234,
+   "rate_per_race": 0.754808,
+   "sd": 7.9e-05,
    "n_races": 11,
    "observed": 7
   },
@@ -11385,9 +11368,9 @@
    "starts": 221
   },
   "max_stint": {
-   "SOFT": 39,
-   "MEDIUM": 46,
-   "HARD": 56
+   "SOFT": 21,
+   "MEDIUM": 30,
+   "HARD": 34
   },
   "strategies": {
    "from_year": 2022,
@@ -12081,94 +12064,94 @@
   "dry_races": 4,
   "pace": {
    "fuel": {
-    "mean": -0.051605,
-    "sd": 0.064471,
+    "mean": -0.062802,
+    "sd": 0.038311,
     "n_races": 4,
     "last_year": 2022,
     "source": "track",
-    "mean_s": -0.051488,
-    "sd_s": 0.064325
+    "mean_s": -0.06266,
+    "sd_s": 0.038225
    },
    "fuel2": {
-    "mean": -0.000296,
-    "sd": 0.002013,
+    "mean": 3.4e-05,
+    "sd": 0.000547,
     "n_races": 4,
     "last_year": 2022,
     "source": "track",
-    "mean_s": -0.000296,
-    "sd_s": 0.002009
+    "mean_s": 3.4e-05,
+    "sd_s": 0.000546
    },
    "traffic": {
-    "mean": 0.156314,
-    "sd": 0.282897,
+    "mean": 0.237223,
+    "sd": 0.204173,
     "n_races": 4,
     "last_year": 2022,
     "source": "track",
-    "mean_s": 0.15596,
-    "sd_s": 0.282256
+    "mean_s": 0.236686,
+    "sd_s": 0.203711
    },
    "curve": {
-    "mean": -0.000587,
-    "sd": 0.00206,
+    "mean": -0.000141,
+    "sd": 0.00108,
     "n_races": 4,
     "last_year": 2022,
     "source": "track",
-    "mean_s": -0.000585,
-    "sd_s": 0.002055
+    "mean_s": -0.000141,
+    "sd_s": 0.001078
    },
    "slope_SOFT": {
-    "mean": -0.040217,
-    "sd": 0.204317,
+    "mean": 0.087573,
+    "sd": 0.074814,
     "n_races": 1,
     "last_year": 2018,
     "source": "track",
-    "mean_s": -0.040126,
-    "sd_s": 0.203854
+    "mean_s": 0.087375,
+    "sd_s": 0.074644
    },
    "slope_MEDIUM": {
-    "mean": 0.089441,
-    "sd": 0.10502,
+    "mean": 0.07035,
+    "sd": 0.05536,
     "n_races": 4,
     "last_year": 2022,
     "source": "track",
-    "mean_s": 0.089238,
-    "sd_s": 0.104782
+    "mean_s": 0.070191,
+    "sd_s": 0.055234
    },
    "slope_HARD": {
-    "mean": 0.088473,
-    "sd": 0.089495,
+    "mean": 0.057826,
+    "sd": 0.053408,
     "n_races": 4,
     "last_year": 2022,
     "source": "track",
-    "mean_s": 0.088272,
-    "sd_s": 0.089292
+    "mean_s": 0.057695,
+    "sd_s": 0.053287
    },
    "offset_SOFT": {
-    "mean": -0.001546,
-    "sd": 1.474047,
+    "mean": -0.210603,
+    "sd": 0.420496,
     "n_races": 1,
     "last_year": 2018,
     "source": "track",
-    "mean_s": -0.001543,
-    "sd_s": 1.470707
+    "mean_s": -0.210126,
+    "sd_s": 0.419544
    },
    "offset_HARD": {
-    "mean": 0.318053,
-    "sd": 0.652825,
+    "mean": 0.238235,
+    "sd": 0.293508,
     "n_races": 4,
     "last_year": 2022,
     "source": "track",
-    "mean_s": 0.317332,
-    "sd_s": 0.651346
+    "mean_s": 0.237695,
+    "sd_s": 0.292843
    },
    "sigma": {
-    "mean": 0.313935,
-    "sd": 0.235895,
+    "mean": 0.396354,
+    "sd": 0.147354,
     "n_races": 4,
     "last_year": 2022,
     "source": "track",
-    "mean_s": 0.313224,
-    "sd_s": 0.235361
+    "mean_s": 0.395456,
+    "sd_s": 0.14702
    }
   },
   "pit": {
@@ -12183,8 +12166,8 @@
    ]
   },
   "sc_rate": {
-   "rate_per_race": 0.742164,
-   "sd": 0.000234,
+   "rate_per_race": 0.754808,
+   "sd": 7.9e-05,
    "n_races": 4,
    "observed": 2
   },
@@ -12220,9 +12203,8 @@
    "starts": 80
   },
   "max_stint": {
-   "SOFT": 51,
-   "MEDIUM": 39,
-   "HARD": 39
+   "MEDIUM": 27,
+   "HARD": 36
   },
   "strategies": {
    "from_year": 2022,
@@ -12282,94 +12264,94 @@
   "dry_races": 8,
   "pace": {
    "fuel": {
-    "mean": -0.030074,
-    "sd": 0.006302,
+    "mean": -0.030076,
+    "sd": 0.007194,
     "n_races": 8,
     "last_year": 2026,
     "source": "track",
-    "mean_s": -0.024774,
-    "sd_s": 0.005192
+    "mean_s": -0.024775,
+    "sd_s": 0.005926
    },
    "fuel2": {
-    "mean": -9.9e-05,
-    "sd": 9e-05,
+    "mean": -9.8e-05,
+    "sd": 0.0001,
     "n_races": 8,
     "last_year": 2026,
     "source": "track",
-    "mean_s": -8.2e-05,
-    "sd_s": 7.4e-05
+    "mean_s": -8.1e-05,
+    "sd_s": 8.3e-05
    },
    "traffic": {
-    "mean": 0.215209,
-    "sd": 0.072332,
+    "mean": 0.223832,
+    "sd": 0.074319,
     "n_races": 8,
     "last_year": 2026,
     "source": "track",
-    "mean_s": 0.177276,
-    "sd_s": 0.059583
+    "mean_s": 0.184379,
+    "sd_s": 0.06122
    },
    "curve": {
-    "mean": 0.00016,
-    "sd": 0.000303,
+    "mean": 0.000122,
+    "sd": 0.000333,
     "n_races": 8,
     "last_year": 2026,
     "source": "track",
-    "mean_s": 0.000132,
-    "sd_s": 0.000249
+    "mean_s": 0.000101,
+    "sd_s": 0.000274
    },
    "slope_SOFT": {
-    "mean": 0.038881,
-    "sd": 0.013899,
+    "mean": 0.039157,
+    "sd": 0.016572,
     "n_races": 4,
     "last_year": 2026,
     "source": "track",
-    "mean_s": 0.032027,
-    "sd_s": 0.01145
+    "mean_s": 0.032255,
+    "sd_s": 0.013651
    },
    "slope_MEDIUM": {
-    "mean": 0.043176,
-    "sd": 0.012626,
+    "mean": 0.043246,
+    "sd": 0.013572,
     "n_races": 8,
     "last_year": 2026,
     "source": "track",
-    "mean_s": 0.035566,
-    "sd_s": 0.010401
+    "mean_s": 0.035624,
+    "sd_s": 0.011179
    },
    "slope_HARD": {
-    "mean": 0.029642,
-    "sd": 0.063767,
+    "mean": 0.044795,
+    "sd": 0.050499,
     "n_races": 6,
     "last_year": 2024,
     "source": "track",
-    "mean_s": 0.024417,
-    "sd_s": 0.052528
+    "mean_s": 0.0369,
+    "sd_s": 0.041598
    },
    "offset_SOFT": {
-    "mean": -0.175868,
-    "sd": 0.095193,
+    "mean": -0.181005,
+    "sd": 0.107347,
     "n_races": 4,
     "last_year": 2026,
     "source": "track",
-    "mean_s": -0.14487,
-    "sd_s": 0.078415
+    "mean_s": -0.149102,
+    "sd_s": 0.088426
    },
    "offset_HARD": {
-    "mean": 0.51837,
-    "sd": 0.483893,
+    "mean": 0.240971,
+    "sd": 0.293499,
     "n_races": 6,
     "last_year": 2024,
     "source": "track",
-    "mean_s": 0.427003,
-    "sd_s": 0.398603
+    "mean_s": 0.198498,
+    "sd_s": 0.241767
    },
    "sigma": {
-    "mean": 0.419696,
-    "sd": 0.009351,
+    "mean": 0.419745,
+    "sd": 0.012209,
     "n_races": 8,
     "last_year": 2026,
     "source": "track",
-    "mean_s": 0.345721,
-    "sd_s": 0.007703
+    "mean_s": 0.345762,
+    "sd_s": 0.010057
    }
   },
   "pit": {
@@ -12388,10 +12370,10 @@
    ]
   },
   "sc_rate": {
-   "rate_per_race": 0.742164,
-   "sd": 0.000234,
+   "rate_per_race": 0.754808,
+   "sd": 7.9e-05,
    "n_races": 8,
-   "observed": 6
+   "observed": 7
   },
   "vsc_rate": {
    "rate_per_race": 0.662064,
@@ -12425,9 +12407,9 @@
    "starts": 160
   },
   "max_stint": {
-   "SOFT": 43,
-   "MEDIUM": 48,
-   "HARD": 66
+   "SOFT": 36,
+   "MEDIUM": 44,
+   "HARD": 48
   },
   "strategies": {
    "from_year": 2022,
@@ -13035,94 +13017,94 @@
   "dry_races": 5,
   "pace": {
    "fuel": {
-    "mean": -0.068988,
-    "sd": 0.015189,
+    "mean": -0.073025,
+    "sd": 0.015746,
     "n_races": 5,
     "last_year": 2026,
     "source": "track",
-    "mean_s": -0.068293,
-    "sd_s": 0.015036
+    "mean_s": -0.072289,
+    "sd_s": 0.015587
    },
    "fuel2": {
-    "mean": 9.7e-05,
-    "sd": 0.000265,
+    "mean": 0.000157,
+    "sd": 0.000277,
     "n_races": 5,
     "last_year": 2026,
     "source": "track",
-    "mean_s": 9.6e-05,
-    "sd_s": 0.000262
+    "mean_s": 0.000156,
+    "sd_s": 0.000274
    },
    "traffic": {
-    "mean": 0.286845,
-    "sd": 0.061215,
+    "mean": 0.290213,
+    "sd": 0.063812,
     "n_races": 5,
     "last_year": 2026,
     "source": "track",
-    "mean_s": 0.283955,
-    "sd_s": 0.060598
+    "mean_s": 0.28729,
+    "sd_s": 0.063169
    },
    "curve": {
-    "mean": 0.00014,
-    "sd": 0.000426,
+    "mean": -7.7e-05,
+    "sd": 0.000487,
     "n_races": 5,
     "last_year": 2026,
     "source": "track",
-    "mean_s": 0.000138,
-    "sd_s": 0.000422
+    "mean_s": -7.6e-05,
+    "sd_s": 0.000482
    },
    "slope_SOFT": {
-    "mean": 0.160435,
-    "sd": 0.104565,
+    "mean": 0.103964,
+    "sd": 0.073455,
     "n_races": 3,
     "last_year": 2024,
     "source": "track",
-    "mean_s": 0.158819,
-    "sd_s": 0.103512
+    "mean_s": 0.102917,
+    "sd_s": 0.072715
    },
    "slope_MEDIUM": {
-    "mean": 0.124059,
-    "sd": 0.013722,
+    "mean": 0.121588,
+    "sd": 0.014559,
     "n_races": 5,
     "last_year": 2026,
     "source": "track",
-    "mean_s": 0.122809,
-    "sd_s": 0.013583
+    "mean_s": 0.120363,
+    "sd_s": 0.014412
    },
    "slope_HARD": {
-    "mean": 0.039807,
-    "sd": 0.021889,
+    "mean": 0.036097,
+    "sd": 0.022242,
     "n_races": 5,
     "last_year": 2026,
     "source": "track",
-    "mean_s": 0.039406,
-    "sd_s": 0.021668
+    "mean_s": 0.035733,
+    "sd_s": 0.022018
    },
    "offset_SOFT": {
-    "mean": -0.033296,
-    "sd": 0.751488,
+    "mean": -0.210603,
+    "sd": 0.420496,
     "n_races": 3,
     "last_year": 2024,
     "source": "track",
-    "mean_s": -0.03296,
-    "sd_s": 0.743919
+    "mean_s": -0.208482,
+    "sd_s": 0.416261
    },
    "offset_HARD": {
-    "mean": 0.422489,
-    "sd": 0.137438,
+    "mean": 0.490355,
+    "sd": 0.157671,
     "n_races": 5,
     "last_year": 2026,
     "source": "track",
-    "mean_s": 0.418233,
-    "sd_s": 0.136054
+    "mean_s": 0.485416,
+    "sd_s": 0.156083
    },
    "sigma": {
-    "mean": 0.339442,
-    "sd": 0.009098,
+    "mean": 0.33955,
+    "sd": 0.012018,
     "n_races": 5,
     "last_year": 2026,
     "source": "track",
-    "mean_s": 0.336023,
-    "sd_s": 0.009007
+    "mean_s": 0.33613,
+    "sd_s": 0.011896
    }
   },
   "pit": {
@@ -13137,8 +13119,8 @@
    ]
   },
   "sc_rate": {
-   "rate_per_race": 0.742164,
-   "sd": 0.000234,
+   "rate_per_race": 0.754808,
+   "sd": 7.9e-05,
    "n_races": 5,
    "observed": 4
   },
@@ -13174,9 +13156,9 @@
    "starts": 98
   },
   "max_stint": {
-   "SOFT": 49,
-   "MEDIUM": 49,
-   "HARD": 47
+   "SOFT": 19,
+   "MEDIUM": 23,
+   "HARD": 46
   },
   "strategies": {
    "from_year": 2024,
@@ -13465,94 +13447,94 @@
   "dry_races": 8,
   "pace": {
    "fuel": {
-    "mean": -0.044268,
-    "sd": 0.014622,
+    "mean": -0.045146,
+    "sd": 0.015404,
     "n_races": 8,
     "last_year": 2026,
     "source": "track",
-    "mean_s": -0.042529,
-    "sd_s": 0.014047
+    "mean_s": -0.043372,
+    "sd_s": 0.014799
    },
    "fuel2": {
-    "mean": -0.000364,
-    "sd": 0.000248,
+    "mean": -0.000374,
+    "sd": 0.000264,
     "n_races": 8,
     "last_year": 2026,
     "source": "track",
-    "mean_s": -0.000349,
-    "sd_s": 0.000238
+    "mean_s": -0.000359,
+    "sd_s": 0.000254
    },
    "traffic": {
-    "mean": 0.108146,
-    "sd": 0.064854,
+    "mean": 0.119053,
+    "sd": 0.066279,
     "n_races": 8,
     "last_year": 2026,
     "source": "track",
-    "mean_s": 0.103896,
-    "sd_s": 0.062305
+    "mean_s": 0.114375,
+    "sd_s": 0.063675
    },
    "curve": {
-    "mean": -0.000737,
-    "sd": 0.000455,
+    "mean": -0.001151,
+    "sd": 0.000546,
     "n_races": 8,
     "last_year": 2026,
     "source": "track",
-    "mean_s": -0.000708,
-    "sd_s": 0.000437
+    "mean_s": -0.001106,
+    "sd_s": 0.000525
    },
    "slope_SOFT": {
-    "mean": 0.048391,
-    "sd": 0.124997,
+    "mean": 0.084038,
+    "sd": 0.074512,
     "n_races": 5,
     "last_year": 2023,
     "source": "track",
-    "mean_s": 0.046489,
-    "sd_s": 0.120086
+    "mean_s": 0.080736,
+    "sd_s": 0.071584
    },
    "slope_MEDIUM": {
-    "mean": 0.082572,
-    "sd": 0.023023,
+    "mean": 0.081669,
+    "sd": 0.022442,
     "n_races": 8,
     "last_year": 2026,
     "source": "track",
-    "mean_s": 0.079327,
-    "sd_s": 0.022118
+    "mean_s": 0.07846,
+    "sd_s": 0.021561
    },
    "slope_HARD": {
-    "mean": 0.111757,
-    "sd": 0.015218,
+    "mean": 0.109492,
+    "sd": 0.015773,
     "n_races": 7,
     "last_year": 2026,
     "source": "track",
-    "mean_s": 0.107366,
-    "sd_s": 0.01462
+    "mean_s": 0.10519,
+    "sd_s": 0.015154
    },
    "offset_SOFT": {
-    "mean": 0.025059,
-    "sd": 0.906233,
+    "mean": -0.210603,
+    "sd": 0.420496,
     "n_races": 5,
     "last_year": 2023,
     "source": "track",
-    "mean_s": 0.024074,
-    "sd_s": 0.870623
+    "mean_s": -0.202327,
+    "sd_s": 0.403973
    },
    "offset_HARD": {
-    "mean": -0.015705,
-    "sd": 0.154791,
+    "mean": -0.070277,
+    "sd": 0.182537,
     "n_races": 7,
     "last_year": 2026,
     "source": "track",
-    "mean_s": -0.015088,
-    "sd_s": 0.148708
+    "mean_s": -0.067515,
+    "sd_s": 0.175365
    },
    "sigma": {
-    "mean": 0.35743,
-    "sd": 0.009259,
+    "mean": 0.357648,
+    "sd": 0.012134,
     "n_races": 8,
     "last_year": 2026,
     "source": "track",
-    "mean_s": 0.343385,
-    "sd_s": 0.008895
+    "mean_s": 0.343594,
+    "sd_s": 0.011657
    }
   },
   "pit": {
@@ -13570,8 +13552,8 @@
    ]
   },
   "sc_rate": {
-   "rate_per_race": 0.742164,
-   "sd": 0.000234,
+   "rate_per_race": 0.754808,
+   "sd": 7.9e-05,
    "n_races": 8,
    "observed": 9
   },
@@ -13607,9 +13589,9 @@
    "starts": 200
   },
   "max_stint": {
-   "SOFT": 31,
-   "MEDIUM": 39,
-   "HARD": 40
+   "SOFT": 24,
+   "MEDIUM": 33,
+   "HARD": 29
   },
   "strategies": {
    "from_year": 2022,
@@ -13731,94 +13713,94 @@
   "dry_races": 3,
   "pace": {
    "fuel": {
-    "mean": -0.168611,
-    "sd": 0.078873,
+    "mean": -0.063259,
+    "sd": 0.03834,
     "n_races": 3,
     "last_year": 2020,
     "source": "track",
-    "mean_s": -0.176552,
-    "sd_s": 0.082588
+    "mean_s": -0.066238,
+    "sd_s": 0.040146
    },
    "fuel2": {
-    "mean": 0.001768,
-    "sd": 0.002466,
+    "mean": 4.9e-05,
+    "sd": 0.000547,
     "n_races": 3,
     "last_year": 2020,
     "source": "track",
-    "mean_s": 0.001852,
-    "sd_s": 0.002582
+    "mean_s": 5.1e-05,
+    "sd_s": 0.000573
    },
    "traffic": {
-    "mean": 0.657494,
-    "sd": 0.35157,
+    "mean": 0.276327,
+    "sd": 0.214399,
     "n_races": 3,
     "last_year": 2020,
     "source": "track",
-    "mean_s": 0.688459,
-    "sd_s": 0.368127
+    "mean_s": 0.289341,
+    "sd_s": 0.224497
    },
    "curve": {
-    "mean": 0.000331,
-    "sd": 0.00249,
+    "mean": -0.000123,
+    "sd": 0.001082,
     "n_races": 3,
     "last_year": 2020,
     "source": "track",
-    "mean_s": 0.000347,
-    "sd_s": 0.002607
+    "mean_s": -0.000129,
+    "sd_s": 0.001133
    },
    "slope_SOFT": {
-    "mean": 0.121607,
-    "sd": 0.179185,
+    "mean": 0.087573,
+    "sd": 0.074814,
     "n_races": 3,
     "last_year": 2020,
     "source": "track",
-    "mean_s": 0.127334,
-    "sd_s": 0.187624
+    "mean_s": 0.091697,
+    "sd_s": 0.078337
    },
    "slope_MEDIUM": {
-    "mean": 0.0239,
-    "sd": 0.128304,
+    "mean": 0.069037,
+    "sd": 0.055457,
     "n_races": 3,
     "last_year": 2020,
     "source": "track",
-    "mean_s": 0.025026,
-    "sd_s": 0.134347
+    "mean_s": 0.072288,
+    "sd_s": 0.058068
    },
    "slope_HARD": {
-    "mean": 0.012975,
-    "sd": 0.109361,
+    "mean": 0.05363,
+    "sd": 0.053811,
     "n_races": 2,
     "last_year": 2020,
     "source": "track",
-    "mean_s": 0.013586,
-    "sd_s": 0.114511
+    "mean_s": 0.056156,
+    "sd_s": 0.056345
    },
    "offset_SOFT": {
-    "mean": -1.050225,
-    "sd": 1.327186,
+    "mean": -0.210603,
+    "sd": 0.420496,
     "n_races": 3,
     "last_year": 2020,
     "source": "track",
-    "mean_s": -1.099687,
-    "sd_s": 1.38969
+    "mean_s": -0.220521,
+    "sd_s": 0.4403
    },
    "offset_HARD": {
-    "mean": 0.509961,
-    "sd": 0.819,
+    "mean": 0.238229,
+    "sd": 0.293508,
     "n_races": 2,
     "last_year": 2020,
     "source": "track",
-    "mean_s": 0.533978,
-    "sd_s": 0.857572
+    "mean_s": 0.249449,
+    "sd_s": 0.307331
    },
    "sigma": {
-    "mean": 0.466947,
-    "sd": 0.288992,
+    "mean": 0.418263,
+    "sd": 0.149323,
     "n_races": 3,
     "last_year": 2020,
     "source": "track",
-    "mean_s": 0.488938,
-    "sd_s": 0.302603
+    "mean_s": 0.437961,
+    "sd_s": 0.156355
    }
   },
   "pit": {
@@ -13832,8 +13814,8 @@
    ]
   },
   "sc_rate": {
-   "rate_per_race": 0.742164,
-   "sd": 0.000234,
+   "rate_per_race": 0.754808,
+   "sd": 7.9e-05,
    "n_races": 3,
    "observed": 3
   },
@@ -13868,11 +13850,7 @@
    "ratio": 0.999961,
    "starts": 80
   },
-  "max_stint": {
-   "SOFT": 31,
-   "MEDIUM": 38,
-   "HARD": 47
-  },
+  "max_stint": null,
   "strategies": {
    "from_year": 2018,
    "n": 35,
@@ -14294,94 +14272,94 @@
   "dry_races": 7,
   "pace": {
    "fuel": {
-    "mean": -0.046652,
-    "sd": 0.015174,
+    "mean": -0.048394,
+    "sd": 0.01595,
     "n_races": 7,
     "last_year": 2026,
     "source": "track",
-    "mean_s": -0.052228,
-    "sd_s": 0.016988
+    "mean_s": -0.054178,
+    "sd_s": 0.017856
    },
    "fuel2": {
-    "mean": -0.000114,
-    "sd": 0.000274,
+    "mean": -9.5e-05,
+    "sd": 0.000293,
     "n_races": 7,
     "last_year": 2026,
     "source": "track",
-    "mean_s": -0.000128,
-    "sd_s": 0.000307
+    "mean_s": -0.000106,
+    "sd_s": 0.000328
    },
    "traffic": {
-    "mean": 0.204831,
-    "sd": 0.073064,
+    "mean": 0.207246,
+    "sd": 0.074123,
     "n_races": 7,
     "last_year": 2026,
     "source": "track",
-    "mean_s": 0.229312,
-    "sd_s": 0.081797
+    "mean_s": 0.232016,
+    "sd_s": 0.082983
    },
    "curve": {
-    "mean": -0.000403,
-    "sd": 0.000498,
+    "mean": -0.00093,
+    "sd": 0.000619,
     "n_races": 7,
     "last_year": 2026,
     "source": "track",
-    "mean_s": -0.000451,
-    "sd_s": 0.000558
+    "mean_s": -0.001041,
+    "sd_s": 0.000693
    },
    "slope_SOFT": {
-    "mean": 0.090012,
-    "sd": 0.028206,
+    "mean": 0.088371,
+    "sd": 0.02868,
     "n_races": 7,
     "last_year": 2026,
     "source": "track",
-    "mean_s": 0.100771,
-    "sd_s": 0.031578
+    "mean_s": 0.098933,
+    "sd_s": 0.032108
    },
    "slope_MEDIUM": {
-    "mean": 0.111823,
-    "sd": 0.02455,
+    "mean": 0.103531,
+    "sd": 0.023937,
     "n_races": 7,
     "last_year": 2026,
     "source": "track",
-    "mean_s": 0.125189,
-    "sd_s": 0.027484
+    "mean_s": 0.115906,
+    "sd_s": 0.026798
    },
    "slope_HARD": {
-    "mean": 0.080997,
-    "sd": 0.021661,
+    "mean": 0.07542,
+    "sd": 0.021571,
     "n_races": 4,
     "last_year": 2026,
     "source": "track",
-    "mean_s": 0.090678,
-    "sd_s": 0.02425
+    "mean_s": 0.084435,
+    "sd_s": 0.024149
    },
    "offset_SOFT": {
-    "mean": -0.025009,
-    "sd": 0.197671,
+    "mean": 0.018155,
+    "sd": 0.244659,
     "n_races": 7,
     "last_year": 2026,
     "source": "track",
-    "mean_s": -0.027999,
-    "sd_s": 0.221297
+    "mean_s": 0.020325,
+    "sd_s": 0.273901
    },
    "offset_HARD": {
-    "mean": 0.328125,
-    "sd": 0.156694,
+    "mean": 0.388446,
+    "sd": 0.185419,
     "n_races": 4,
     "last_year": 2026,
     "source": "track",
-    "mean_s": 0.367343,
-    "sd_s": 0.175422
+    "mean_s": 0.434874,
+    "sd_s": 0.207581
    },
    "sigma": {
-    "mean": 0.311107,
-    "sd": 0.008981,
+    "mean": 0.31135,
+    "sd": 0.011926,
     "n_races": 7,
     "last_year": 2026,
     "source": "track",
-    "mean_s": 0.348291,
-    "sd_s": 0.010055
+    "mean_s": 0.348564,
+    "sd_s": 0.013351
    }
   },
   "pit": {
@@ -14399,8 +14377,8 @@
    ]
   },
   "sc_rate": {
-   "rate_per_race": 0.742164,
-   "sd": 0.000234,
+   "rate_per_race": 0.754808,
+   "sd": 7.9e-05,
    "n_races": 6,
    "observed": 5
   },
@@ -14436,9 +14414,9 @@
    "starts": 162
   },
   "max_stint": {
-   "SOFT": 44,
-   "MEDIUM": 32,
-   "HARD": 34
+   "SOFT": 26,
+   "MEDIUM": 22,
+   "HARD": 30
   },
   "strategies": {
    "from_year": 2022,
@@ -15192,94 +15170,94 @@
   "dry_races": 6,
   "pace": {
    "fuel": {
-    "mean": -0.062307,
-    "sd": 0.016058,
+    "mean": -0.065812,
+    "sd": 0.016581,
     "n_races": 6,
     "last_year": 2026,
     "source": "track",
-    "mean_s": -0.06027,
-    "sd_s": 0.015533
+    "mean_s": -0.063661,
+    "sd_s": 0.016039
    },
    "fuel2": {
-    "mean": -9.7e-05,
-    "sd": 0.000262,
+    "mean": -8.4e-05,
+    "sd": 0.000272,
     "n_races": 6,
     "last_year": 2026,
     "source": "track",
-    "mean_s": -9.3e-05,
-    "sd_s": 0.000253
+    "mean_s": -8.1e-05,
+    "sd_s": 0.000263
    },
    "traffic": {
-    "mean": 0.084144,
-    "sd": 0.048209,
+    "mean": 0.086014,
+    "sd": 0.051676,
     "n_races": 6,
     "last_year": 2026,
     "source": "track",
-    "mean_s": 0.081393,
-    "sd_s": 0.046633
+    "mean_s": 0.083202,
+    "sd_s": 0.049987
    },
    "curve": {
-    "mean": 0.000392,
-    "sd": 0.000364,
+    "mean": 0.000476,
+    "sd": 0.000406,
     "n_races": 6,
     "last_year": 2026,
     "source": "track",
-    "mean_s": 0.00038,
-    "sd_s": 0.000353
+    "mean_s": 0.000461,
+    "sd_s": 0.000393
    },
    "slope_SOFT": {
-    "mean": 0.059915,
-    "sd": 0.073113,
+    "mean": 0.074494,
+    "sd": 0.067185,
     "n_races": 5,
     "last_year": 2025,
     "source": "track",
-    "mean_s": 0.057956,
-    "sd_s": 0.070723
+    "mean_s": 0.072058,
+    "sd_s": 0.064989
    },
    "slope_MEDIUM": {
-    "mean": 0.037408,
-    "sd": 0.019247,
+    "mean": 0.040151,
+    "sd": 0.019695,
     "n_races": 6,
     "last_year": 2026,
     "source": "track",
-    "mean_s": 0.036185,
-    "sd_s": 0.018617
+    "mean_s": 0.038839,
+    "sd_s": 0.019051
    },
    "slope_HARD": {
-    "mean": 0.027443,
-    "sd": 0.015124,
+    "mean": 0.029104,
+    "sd": 0.015932,
     "n_races": 6,
     "last_year": 2026,
     "source": "track",
-    "mean_s": 0.026546,
-    "sd_s": 0.01463
+    "mean_s": 0.028153,
+    "sd_s": 0.015411
    },
    "offset_SOFT": {
-    "mean": -0.079619,
-    "sd": 0.52912,
+    "mean": -0.210603,
+    "sd": 0.420496,
     "n_races": 5,
     "last_year": 2025,
     "source": "track",
-    "mean_s": -0.077016,
-    "sd_s": 0.511822
+    "mean_s": -0.203718,
+    "sd_s": 0.40675
    },
    "offset_HARD": {
-    "mean": 0.106173,
-    "sd": 0.159058,
+    "mean": 0.0917,
+    "sd": 0.188713,
     "n_races": 6,
     "last_year": 2026,
     "source": "track",
-    "mean_s": 0.102702,
-    "sd_s": 0.153858
+    "mean_s": 0.088702,
+    "sd_s": 0.182544
    },
    "sigma": {
-    "mean": 0.324764,
-    "sd": 0.007756,
+    "mean": 0.325033,
+    "sd": 0.011037,
     "n_races": 6,
     "last_year": 2026,
     "source": "track",
-    "mean_s": 0.314147,
-    "sd_s": 0.007503
+    "mean_s": 0.314407,
+    "sd_s": 0.010676
    }
   },
   "pit": {
@@ -15296,8 +15274,8 @@
    ]
   },
   "sc_rate": {
-   "rate_per_race": 0.742164,
-   "sd": 0.000234,
+   "rate_per_race": 0.754808,
+   "sd": 7.9e-05,
    "n_races": 6,
    "observed": 3
   },
@@ -15333,9 +15311,9 @@
    "starts": 142
   },
   "max_stint": {
-   "SOFT": 31,
-   "MEDIUM": 34,
-   "HARD": 47
+   "SOFT": 20,
+   "MEDIUM": 29,
+   "HARD": 35
   },
   "strategies": {
    "from_year": 2023,
@@ -15862,94 +15840,94 @@
   "dry_races": 4,
   "pace": {
    "fuel": {
-    "mean": -0.074601,
-    "sd": 0.015208,
+    "mean": -0.079399,
+    "sd": 0.01575,
     "n_races": 4,
     "last_year": 2026,
     "source": "track",
-    "mean_s": -0.07511,
-    "sd_s": 0.015311
+    "mean_s": -0.079941,
+    "sd_s": 0.015857
    },
    "fuel2": {
-    "mean": 0.000487,
-    "sd": 0.000282,
+    "mean": 0.0006,
+    "sd": 0.000295,
     "n_races": 4,
     "last_year": 2026,
     "source": "track",
-    "mean_s": 0.000491,
-    "sd_s": 0.000284
+    "mean_s": 0.000605,
+    "sd_s": 0.000297
    },
    "traffic": {
-    "mean": 0.210635,
-    "sd": 0.062136,
+    "mean": 0.209475,
+    "sd": 0.064537,
     "n_races": 4,
     "last_year": 2026,
     "source": "track",
-    "mean_s": 0.212071,
-    "sd_s": 0.06256
+    "mean_s": 0.210903,
+    "sd_s": 0.064977
    },
    "curve": {
-    "mean": 0.000632,
-    "sd": 0.000529,
+    "mean": 0.00082,
+    "sd": 0.000649,
     "n_races": 4,
     "last_year": 2026,
     "source": "track",
-    "mean_s": 0.000636,
-    "sd_s": 0.000532
+    "mean_s": 0.000826,
+    "sd_s": 0.000653
    },
    "slope_SOFT": {
-    "mean": -0.043237,
-    "sd": 0.024907,
+    "mean": -0.044056,
+    "sd": 0.027062,
     "n_races": 1,
     "last_year": 2026,
     "source": "track",
-    "mean_s": -0.043532,
-    "sd_s": 0.025077
+    "mean_s": -0.044356,
+    "sd_s": 0.027247
    },
    "slope_MEDIUM": {
-    "mean": -0.057801,
-    "sd": 0.025638,
+    "mean": -0.049557,
+    "sd": 0.025553,
     "n_races": 4,
     "last_year": 2026,
     "source": "track",
-    "mean_s": -0.058195,
-    "sd_s": 0.025813
+    "mean_s": -0.049895,
+    "sd_s": 0.025727
    },
    "slope_HARD": {
-    "mean": 0.020914,
-    "sd": 0.045425,
+    "mean": 0.035015,
+    "sd": 0.043705,
     "n_races": 3,
     "last_year": 2025,
     "source": "track",
-    "mean_s": 0.021056,
-    "sd_s": 0.045734
+    "mean_s": 0.035254,
+    "sd_s": 0.044003
    },
    "offset_SOFT": {
-    "mean": -0.347085,
-    "sd": 0.156014,
+    "mean": -0.40707,
+    "sd": 0.179737,
     "n_races": 1,
     "last_year": 2026,
     "source": "track",
-    "mean_s": -0.349452,
-    "sd_s": 0.157078
+    "mean_s": -0.409846,
+    "sd_s": 0.180962
    },
    "offset_HARD": {
-    "mean": 0.255856,
-    "sd": 0.337283,
+    "mean": 0.233345,
+    "sd": 0.292285,
     "n_races": 3,
     "last_year": 2025,
     "source": "track",
-    "mean_s": 0.257601,
-    "sd_s": 0.339583
+    "mean_s": 0.234936,
+    "sd_s": 0.294278
    },
    "sigma": {
-    "mean": 0.45358,
-    "sd": 0.011865,
+    "mean": 0.453766,
+    "sd": 0.014225,
     "n_races": 4,
     "last_year": 2026,
     "source": "track",
-    "mean_s": 0.456673,
-    "sd_s": 0.011946
+    "mean_s": 0.456861,
+    "sd_s": 0.014322
    }
   },
   "pit": {
@@ -15963,8 +15941,8 @@
    ]
   },
   "sc_rate": {
-   "rate_per_race": 0.742164,
-   "sd": 0.000234,
+   "rate_per_race": 0.754808,
+   "sd": 7.9e-05,
    "n_races": 4,
    "observed": 3
   },
@@ -16000,9 +15978,9 @@
    "starts": 81
   },
   "max_stint": {
-   "SOFT": 34,
+   "SOFT": 31,
    "MEDIUM": 31,
-   "HARD": 48
+   "HARD": 34
   },
   "strategies": {
    "from_year": 2023,
@@ -16435,94 +16413,94 @@
   "dry_races": 5,
   "pace": {
    "fuel": {
-    "mean": -0.032747,
-    "sd": 0.032806,
+    "mean": -0.049814,
+    "sd": 0.034495,
     "n_races": 5,
     "last_year": 2025,
     "source": "track",
-    "mean_s": -0.025617,
-    "sd_s": 0.025663
+    "mean_s": -0.038968,
+    "sd_s": 0.026984
    },
    "fuel2": {
-    "mean": -0.000278,
-    "sd": 0.001007,
+    "mean": -9.2e-05,
+    "sd": 0.000492,
     "n_races": 5,
     "last_year": 2025,
     "source": "track",
-    "mean_s": -0.000217,
-    "sd_s": 0.000788
+    "mean_s": -7.2e-05,
+    "sd_s": 0.000385
    },
    "traffic": {
-    "mean": 0.482176,
-    "sd": 0.153655,
+    "mean": 0.422251,
+    "sd": 0.150515,
     "n_races": 5,
     "last_year": 2025,
     "source": "track",
-    "mean_s": 0.377194,
-    "sd_s": 0.120201
+    "mean_s": 0.330317,
+    "sd_s": 0.117744
    },
    "curve": {
-    "mean": 6.1e-05,
-    "sd": 0.001014,
+    "mean": -3.1e-05,
+    "sd": 0.000942,
     "n_races": 5,
     "last_year": 2025,
     "source": "track",
-    "mean_s": 4.8e-05,
-    "sd_s": 0.000793
+    "mean_s": -2.5e-05,
+    "sd_s": 0.000737
    },
    "slope_SOFT": {
-    "mean": 0.056422,
-    "sd": 0.191802,
+    "mean": 0.087573,
+    "sd": 0.074814,
     "n_races": 2,
     "last_year": 2019,
     "source": "track",
-    "mean_s": 0.044138,
-    "sd_s": 0.150042
+    "mean_s": 0.068506,
+    "sd_s": 0.058525
    },
    "slope_MEDIUM": {
-    "mean": 0.101272,
-    "sd": 0.0536,
+    "mean": 0.084884,
+    "sd": 0.048574,
     "n_races": 5,
     "last_year": 2025,
     "source": "track",
-    "mean_s": 0.079223,
-    "sd_s": 0.04193
+    "mean_s": 0.066403,
+    "sd_s": 0.037998
    },
    "slope_HARD": {
-    "mean": 0.019189,
-    "sd": 0.045105,
+    "mean": 0.033367,
+    "sd": 0.043587,
     "n_races": 5,
     "last_year": 2025,
     "source": "track",
-    "mean_s": 0.015011,
-    "sd_s": 0.035285
+    "mean_s": 0.026102,
+    "sd_s": 0.034097
    },
    "offset_SOFT": {
-    "mean": -1.395895,
-    "sd": 1.387156,
+    "mean": -0.210603,
+    "sd": 0.420496,
     "n_races": 2,
     "last_year": 2019,
     "source": "track",
-    "mean_s": -1.091975,
-    "sd_s": 1.085139
+    "mean_s": -0.16475,
+    "sd_s": 0.328944
    },
    "offset_HARD": {
-    "mean": 0.769729,
-    "sd": 0.367683,
+    "mean": 0.282658,
+    "sd": 0.292542,
     "n_races": 5,
     "last_year": 2025,
     "source": "track",
-    "mean_s": 0.602141,
-    "sd_s": 0.28763
+    "mean_s": 0.221117,
+    "sd_s": 0.228848
    },
    "sigma": {
-    "mean": 0.460695,
-    "sd": 0.118273,
+    "mean": 0.44443,
+    "sd": 0.114084,
     "n_races": 5,
     "last_year": 2025,
     "source": "track",
-    "mean_s": 0.360391,
-    "sd_s": 0.092522
+    "mean_s": 0.347667,
+    "sd_s": 0.089245
    }
   },
   "pit": {
@@ -16538,8 +16516,8 @@
    ]
   },
   "sc_rate": {
-   "rate_per_race": 0.742164,
-   "sd": 0.000234,
+   "rate_per_race": 0.754808,
+   "sd": 7.9e-05,
    "n_races": 5,
    "observed": 4
   },
@@ -16575,9 +16553,9 @@
    "starts": 141
   },
   "max_stint": {
-   "SOFT": 22,
-   "MEDIUM": 47,
-   "HARD": 67
+   "SOFT": 5,
+   "MEDIUM": 31,
+   "HARD": 53
   },
   "strategies": {
    "from_year": 2022,
@@ -16759,94 +16737,94 @@
   "dry_races": 8,
   "pace": {
    "fuel": {
-    "mean": -0.061857,
-    "sd": 0.032832,
+    "mean": -0.063002,
+    "sd": 0.034504,
     "n_races": 8,
     "last_year": 2025,
     "source": "track",
-    "mean_s": -0.056645,
-    "sd_s": 0.030066
+    "mean_s": -0.057694,
+    "sd_s": 0.031597
    },
    "fuel2": {
-    "mean": 3.5e-05,
-    "sd": 0.00101,
+    "mean": 4e-05,
+    "sd": 0.000493,
     "n_races": 8,
     "last_year": 2025,
     "source": "track",
-    "mean_s": 3.2e-05,
-    "sd_s": 0.000925
+    "mean_s": 3.7e-05,
+    "sd_s": 0.000452
    },
    "traffic": {
-    "mean": 0.312761,
-    "sd": 0.155673,
+    "mean": 0.310564,
+    "sd": 0.151812,
     "n_races": 8,
     "last_year": 2025,
     "source": "track",
-    "mean_s": 0.28641,
-    "sd_s": 0.142557
+    "mean_s": 0.284398,
+    "sd_s": 0.139022
    },
    "curve": {
-    "mean": -0.000725,
-    "sd": 0.001044,
+    "mean": -0.000431,
+    "sd": 0.00095,
     "n_races": 8,
     "last_year": 2025,
     "source": "track",
-    "mean_s": -0.000664,
-    "sd_s": 0.000956
+    "mean_s": -0.000395,
+    "sd_s": 0.00087
    },
    "slope_SOFT": {
-    "mean": 0.171085,
-    "sd": 0.14468,
+    "mean": 0.091125,
+    "sd": 0.074754,
     "n_races": 4,
     "last_year": 2022,
     "source": "track",
-    "mean_s": 0.156671,
-    "sd_s": 0.132491
+    "mean_s": 0.083447,
+    "sd_s": 0.068456
    },
    "slope_MEDIUM": {
-    "mean": 0.127664,
-    "sd": 0.052676,
+    "mean": 0.098223,
+    "sd": 0.048334,
     "n_races": 8,
     "last_year": 2025,
     "source": "track",
-    "mean_s": 0.116908,
-    "sd_s": 0.048238
+    "mean_s": 0.089948,
+    "sd_s": 0.044261
    },
    "slope_HARD": {
-    "mean": 0.083848,
-    "sd": 0.046011,
+    "mean": 0.071857,
+    "sd": 0.043927,
     "n_races": 8,
     "last_year": 2025,
     "source": "track",
-    "mean_s": 0.076783,
-    "sd_s": 0.042134
+    "mean_s": 0.065803,
+    "sd_s": 0.040226
    },
    "offset_SOFT": {
-    "mean": -0.132423,
-    "sd": 1.052273,
+    "mean": -0.210603,
+    "sd": 0.420496,
     "n_races": 4,
     "last_year": 2022,
     "source": "track",
-    "mean_s": -0.121266,
-    "sd_s": 0.963617
+    "mean_s": -0.192859,
+    "sd_s": 0.385069
    },
    "offset_HARD": {
-    "mean": 0.442557,
-    "sd": 0.341114,
+    "mean": 0.25696,
+    "sd": 0.292322,
     "n_races": 8,
     "last_year": 2025,
     "source": "track",
-    "mean_s": 0.40527,
-    "sd_s": 0.312374
+    "mean_s": 0.235311,
+    "sd_s": 0.267693
    },
    "sigma": {
-    "mean": 0.470727,
-    "sd": 0.118333,
+    "mean": 0.451106,
+    "sd": 0.114111,
     "n_races": 8,
     "last_year": 2025,
     "source": "track",
-    "mean_s": 0.431067,
-    "sd_s": 0.108364
+    "mean_s": 0.413099,
+    "sd_s": 0.104497
    }
   },
   "pit": {
@@ -16865,8 +16843,8 @@
    ]
   },
   "sc_rate": {
-   "rate_per_race": 0.742163,
-   "sd": 0.000234,
+   "rate_per_race": 0.754808,
+   "sd": 7.9e-05,
    "n_races": 7,
    "observed": 2
   },
@@ -16902,9 +16880,9 @@
    "starts": 160
   },
   "max_stint": {
-   "SOFT": 25,
-   "MEDIUM": 37,
-   "HARD": 52
+   "SOFT": 24,
+   "MEDIUM": 27,
+   "HARD": 44
   },
   "strategies": {
    "from_year": 2022,
@@ -17795,94 +17773,94 @@
   "dry_races": 5,
   "pace": {
    "fuel": {
-    "mean": -0.02454,
-    "sd": 0.008928,
+    "mean": -0.024394,
+    "sd": 0.009603,
     "n_races": 5,
     "last_year": 2026,
     "source": "track",
-    "mean_s": -0.019124,
-    "sd_s": 0.006958
+    "mean_s": -0.01901,
+    "sd_s": 0.007484
    },
    "fuel2": {
-    "mean": -0.000369,
-    "sd": 0.000109,
+    "mean": -0.000372,
+    "sd": 0.000118,
     "n_races": 5,
     "last_year": 2026,
     "source": "track",
-    "mean_s": -0.000287,
-    "sd_s": 8.5e-05
+    "mean_s": -0.00029,
+    "sd_s": 9.2e-05
    },
    "traffic": {
-    "mean": 0.589218,
-    "sd": 0.081037,
+    "mean": 0.575158,
+    "sd": 0.082431,
     "n_races": 5,
     "last_year": 2026,
     "source": "track",
-    "mean_s": 0.45917,
-    "sd_s": 0.063151
+    "mean_s": 0.448213,
+    "sd_s": 0.064237
    },
    "curve": {
-    "mean": -8.4e-05,
-    "sd": 0.000401,
+    "mean": -0.000174,
+    "sd": 0.000453,
     "n_races": 5,
     "last_year": 2026,
     "source": "track",
-    "mean_s": -6.6e-05,
-    "sd_s": 0.000312
+    "mean_s": -0.000136,
+    "sd_s": 0.000353
    },
    "slope_SOFT": {
-    "mean": 0.064329,
-    "sd": 0.021626,
+    "mean": 0.06459,
+    "sd": 0.023281,
     "n_races": 5,
     "last_year": 2026,
     "source": "track",
-    "mean_s": 0.05013,
-    "sd_s": 0.016853
+    "mean_s": 0.050334,
+    "sd_s": 0.018142
    },
    "slope_MEDIUM": {
-    "mean": 0.102664,
-    "sd": 0.014879,
+    "mean": 0.102169,
+    "sd": 0.015626,
     "n_races": 5,
     "last_year": 2026,
     "source": "track",
-    "mean_s": 0.080005,
-    "sd_s": 0.011595
+    "mean_s": 0.079619,
+    "sd_s": 0.012177
    },
    "slope_HARD": {
-    "mean": 0.064833,
-    "sd": 0.017816,
+    "mean": 0.064433,
+    "sd": 0.018397,
     "n_races": 5,
     "last_year": 2026,
     "source": "track",
-    "mean_s": 0.050524,
-    "sd_s": 0.013884
+    "mean_s": 0.050212,
+    "sd_s": 0.014337
    },
    "offset_SOFT": {
-    "mean": 0.148959,
-    "sd": 0.179768,
+    "mean": 0.246632,
+    "sd": 0.214617,
     "n_races": 5,
     "last_year": 2026,
     "source": "track",
-    "mean_s": 0.116082,
-    "sd_s": 0.140091
+    "mean_s": 0.192197,
+    "sd_s": 0.167248
    },
    "offset_HARD": {
-    "mean": 0.267584,
-    "sd": 0.155275,
+    "mean": 0.301186,
+    "sd": 0.183082,
     "n_races": 5,
     "last_year": 2026,
     "source": "track",
-    "mean_s": 0.208524,
-    "sd_s": 0.121004
+    "mean_s": 0.23471,
+    "sd_s": 0.142674
    },
    "sigma": {
-    "mean": 0.532218,
-    "sd": 0.012584,
+    "mean": 0.531873,
+    "sd": 0.014829,
     "n_races": 5,
     "last_year": 2026,
     "source": "track",
-    "mean_s": 0.414751,
-    "sd_s": 0.009807
+    "mean_s": 0.414481,
+    "sd_s": 0.011556
    }
   },
   "pit": {
@@ -17898,8 +17876,8 @@
    ]
   },
   "sc_rate": {
-   "rate_per_race": 0.742164,
-   "sd": 0.000234,
+   "rate_per_race": 0.754808,
+   "sd": 7.9e-05,
    "n_races": 4,
    "observed": 4
   },
@@ -17935,9 +17913,9 @@
    "starts": 122
   },
   "max_stint": {
-   "SOFT": 37,
-   "MEDIUM": 47,
-   "HARD": 57
+   "SOFT": 25,
+   "MEDIUM": 31,
+   "HARD": 49
   },
   "strategies": {
    "from_year": 2022,

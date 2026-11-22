@@ -30,7 +30,7 @@ are filled in from `data/processed/races.csv` after each export.
 
 | # | Definition |
 |---|---|
-| R1 | SC / VSC / red-flag deployments are counted from the session track-status timeline as transitions into code 4 / 6 / 5. |
+| R1 | SC / VSC / red-flag deployments are counted from the session track-status timeline as transitions into code 4 / 6 / 5. An SC straight after a red flag is the restart behind the safety car, not a new deployment, but only if no racing lap was completed in between: after a standing restart a later SC is real (this dropped 3 real deployments before the 2026-11-22 review). |
 | R2 | `MixedOrWetRace` = any driver used INTERMEDIATE or WET, or any lap reported rainfall. |
 | R3 | Red flag: the race is neutralised and every car on slicks gets a free tyre change. A car with a stop left uses it; others fit a fresh set of the same compound. No pit stop is charged on the red-flag lap. The SC restart after a red flag ("5 → 1 → 4" in the timeline) is not counted as a separate SC deployment in the fitted rates, because the engine adds that restart lap itself. |
 
@@ -87,11 +87,11 @@ These are real race events, not data errors. Each one needs a modelling decision
 |---|---|
 | M1 | Fuel burn and track rubbering both fall linearly with lap number and **cannot be separated** within a race. One combined "fuel" term carries both. |
 | M1b | Fuel + evolution is linear **plus a lap² term** per race. Tested 2026-11-22: with the lap² term the per-race residual SD fell 0.392 → 0.382 s and compound wear came out in physical order on average (soft 0.064 > medium 0.055 > hard 0.043 % of lap per lap; medium > hard in 63% of races, up from 52%). With linear fuel only, early-stint (often SOFT) wear was biased low. |
-| M2 | Wear is linear in tyre age per compound, plus one shared quadratic term per race. A tyre "cliff" beyond the observed stint lengths is not modelled. The simulator caps stints at the longest stint observed on that compound at that track. |
+| M2 | Wear is linear in tyre age per compound, plus one shared quadratic term per race. A tyre "cliff" beyond the observed stint lengths is not modelled. The simulator caps stints at the 95th percentile of stint lengths run on that compound at that track since 2022 (at least 5 stints, else the pooled 95th percentile). Until the 2026-11-22 review it was the longest stint ever seen, so one outlier (e.g. Monaco HARD 78 laps) set the limit the optimiser pushed against, where the linear wear fit is least reliable. |
 | M3 | Wear is the *managed* race wear that teams actually ran, not maximum-attack wear. Race-pace data cannot tell the difference. |
 | M4 | Noise is independent lap to lap (SD fitted per race, pooled per track). Standard errors are cluster-robust by driver-stint. |
 | M5 | Values are pooled per track in percent of base lap time, then converted to seconds with the track's current base lap. |
-| M6 | Recency: each per-track parameter follows a random walk across seasons. Its drift variance is chosen by one-step-ahead predictive likelihood across tracks, so the data sets the recency weighting. Tracks start from the pooled prior, so a track with one race is pulled toward the pool. |
+| M6 | Recency: each per-track parameter is its era's pooled mean plus a track deviation that carries over from one season to the next by a factor φ and fades back to the pool (mean-reverting AR(1)). φ and the between-track spread are chosen per parameter by one-step-ahead predictive likelihood across tracks, so the data sets how much a track's history counts. A reset year (V1/V2) starts a new era with its own pooled mean, also when projecting a track not yet raced since the reset. Fitted φ: 0 for the soft offset (track history says nothing: every track gets the pool), 0.1 hard offset, about 0.5 for wear slopes and curvature. Until the 2026-11-22 review this was a random walk, which kept an old noisy value as a track's mean for ever and skipped resets when projecting (Montreal soft offset was the 2019 value, −1.40% ± 1.39; now −0.21% ± 0.42). |
 | D6 | A race at a circuit whose base lap is under 85% of that circuit's median is a separate layout (2020 Sakhir outer loop = `bahrain_short`). |
 | T1 | Track temperature: tested within track across years for wear and fuel slope. No effect is distinguishable from zero (see results), so none is applied. |
 | B1 | Base lap time is the latest dry race at the track. If the track has not been raced in 2026, it is scaled by the fitted season-to-season pace ratio across tracks raced in both years. |
@@ -125,7 +125,7 @@ These are real race events, not data errors. Each one needs a modelling decision
 | W4 | Rain onset is not predictable from the rainfall flag (fitted effect not distinguishable from zero), so wetness comes from observed wet races. **Rain chance:** a spell, if it comes, replays a real wet spell lap for lap (its rise, peak and drying), cut off at the flag. **Rain window (W4b):** it rains for exactly those laps. The track gets wet over the observed median ramp (laps from dry to peak in real spells), holds a level drawn from the peaks of real wet spells (rain intensity is not observed) with a smooth AR(1) wobble at the fitted persistence and SD, then dries at the fitted rate after the window. A window that starts on lap 1 means it rained before the start: the track is already at that level on lap 1 (no ramp). |
 | W5 | When the track dries, every car (yours included) switches to the dry compound with the lowest expected time for the remaining laps, adding one stop only if no compound's observed stint cap covers the distance. The two-compound rule does not apply once wet tyres have been used (sporting regulations). |
 | W6 | Rain radar: every team sees the next 3 laps of wetness (structural choice). Nobody fits fresh slicks (planned stop, SC stop, back from wet tyres, or a red-flag free change) if wet tyres will be needed within those laps. A tyre switch happens only if the new tyre stays the best choice for the 3-lap window, so there are no pit stops for a 1–2 lap flicker. The default call switches on the lap the other tyre becomes faster: the crossover was measured from when real teams switched, so no extra confirmation lag is added. Retirement rates take the wet multiplier only in races where it actually rains. |
-| W7 | Your wet-weather call: switch up to 3 laps early (within the radar) or up to 3 laps late, relative to the default call, and optionally never use full wets. It applies to both directions (onto wet tyres and back to slicks). The site compares your call with the default call on the same simulated races (paired) and shows the difference with ±2 SE. **Checked indirectly** (docs/backtest.md, wet races): in real races each lap later than the field cost about 0.5 places (95% CI 0.03–1.0, 23 field-wide tyre changes); the model's effect is about 5 times that (Silverstone from P3: 1 lap early +1.8 places, 1 lap late −3.0), because the slick penalty past the crossover (W3) is assumed. The site shows the real figure next to the model's: the direction is supported by real races, the size is overstated. |
+| W7 | Your wet-weather call: switch up to 3 laps early (within the radar) or up to 3 laps late, relative to the default call, and optionally never use full wets. It applies to both directions (onto wet tyres and back to slicks). The site compares your call with the default call on the same simulated races (paired) and shows the difference with ±2 SE. **Checked indirectly** (docs/backtest.md, wet races): in real races each lap later than the field cost about 0.5 places (95% CI 0.03–1.0, 23 field-wide tyre changes); the model's effect is about 5 times that (Silverstone from P3: 1 lap early +1.7 places, 1 lap late −3.3), because the slick penalty past the crossover (W3) is assumed. The site shows the real figure next to the model's: the direction is supported by real races, the size is overstated. |
 | W8 | Wet start: tyre choice at the start is free, so when wet tyres are the faster family on lap 1 every car starts on them (instead of running lap 1 on slicks and stopping). Planned dry stops wait until the crossover, where W5 re-plans the slick stints. Structural rule, not fitted. |
 | W9 | A swap between intermediates and full wets must pay for its stop: the gain per lap, over the expected life of a change in conditions (1 / (1 − ρ) laps, ρ = fitted persistence), must beat the green-flag pit loss. Their crossover is a lap-time equality, unlike the slick/inter crossover, which comes from when teams switched and so already includes the stop. Without this rule cars swapped back and forth every few laps (about 1 swap per car; real races 0.28, model now 0.26). |
 | W10 | Real teams spread their switch laps around the field's median (`model/wet_switch.py`: half on the median lap, SD 1.1 laps, 401 switches in 23 transitions). Measured and exported (`global.wet.switch_timing`), but rivals do **not** use it by default: on top of the too-steep W3 penalty it made wet predictions slightly worse (`rival_switch_spread` in calibration.json). |
@@ -135,13 +135,13 @@ These are real race events, not data errors. Each one needs a modelling decision
 
 | # | Assumption | Basis |
 |---|---|---|
-| E1 | Every simulated race draws its own car pace, driver skill, wear, offsets, fuel, dirty-air effect and pit loss from their fitted uncertainty, so the probabilities include parameter uncertainty, not just race luck. Car and skill for a driver in their own 2026 seat are drawn **jointly** with their posterior correlation (about −0.4 to −0.6: they are identified only through teammates); a driver moved to another car is drawn independently. Each car also gets a race-day form draw N(0, tau²), with tau the fitted race-to-race noise of the skill model. | S1–S4 |
+| E1 | Every simulated race draws its own car pace, driver skill, wear, offsets, fuel, dirty-air effect and pit loss from their fitted uncertainty, so the probabilities include parameter uncertainty, not just race luck. Car pace is drawn **once per team** and shared by its two cars (review 2026-11-22: it was drawn per car, which roughly doubled the noise in the teammate gap). Car and skill for a driver in their own seat of the target season are drawn **jointly** with their posterior correlation (about −0.4 to −0.6: they are identified only through teammates); a driver moved to another car is drawn independently. Each car also gets a race-day form draw N(0, tau²), with tau the fitted race-to-race noise of the skill model. | S1–S4 |
 | E2 | Rival grid: cars are ordered by sampled race pace (car + skill + form). Qualifying is not modelled. Your car starts at the slot you choose. | No qualifying model fitted. |
 | E3 | A grid driver with no dry race in the data gets the prior: average skill, SD = the fitted spread of a first season. Labelled on the page. | e.g. one-off wet start |
 | I1 | Within a season, car pace is a level that drifts race to race (random walk) plus track-to-track scatter. Drift and scatter are fitted by how well each race predicts the next across all 91 team-seasons. The website and backtest use the latest level, not the season average. | Predictive score +35 log-likelihood units over equal weights. |
-| I2 | When the grid is read as a qualifying result (backtest), each place behind the slot the car's pace predicts costs a fitted 0.038% of lap time (±0.002), and race-day form spread shrinks accordingly. Off on the website, where you set the grid yourself. | 3,047 driver-races. |
-| I3 | With real qualifying known, car/skill/form spread is scaled by 0.35. Without it (the website), the full fitted spread is kept. Both chosen on the 2025 practice races (`data/params/calibration.json`). | Outcomes fell inside the 80% range 95% of the time before; 90% in the 2026 exam after. |
-| I4 | When dry qualifying gaps are known, race pace = 0.61 × season form + 0.32 × qualifying gap (centred on the field), plus form noise with SD 0.35%. Qualifying gaps beyond 6.5% (crashes, no time set) and wet sessions are ignored. | 2,795 driver-races in 148 races; both weights many times their SE. |
+| I2 | When qualifying gaps cannot be used (wet session, times missing), each place between where a car **qualified** (before penalties) and where its pace predicts costs a fitted 0.042% of lap time, and race-day form spread shrinks accordingly. Pit-lane starters get no shift. Fitted on the priors the engine really has before each race (`model/calibrate_pace.py`, 2024–2025 backtest races), forward-chained: the 2025 practice set used the value fitted on 2024 only (0.049%). Until the 2026-11-22 review it used the starting slot, so a grid penalty also made a car slower. | 687 driver-races; in-model fit 0.038% on 3,047. |
+| I3 | With real qualifying known, car/skill/form spread is scaled by **0.7** (was 0.35). Without it, the full fitted spread is kept (1.0, not re-tested). Chosen on the 2024 + 2025 backtest races by the log score of the actual finishing position and of the winner, both best at 0.7 (`data/params/calibration.json`). The old 0.35 came from a coverage check that counted the 10th–90th percentile range of whole positions as 80% when it holds about 93%; with a proper (randomised PIT) check, 0.7 puts 80.8% (2024) and 79.6% (2025) of outcomes inside the central 80%. | 2026 exam: 75.6%, slightly overconfident. |
+| I4 | When dry qualifying gaps are known, race pace = 0.63 × season form + 0.36 × qualifying gap (centred on the field), plus form noise with SD 0.30%. Fitted on the priors the engine really has before each race (`model/calibrate_pace.py`: car form and skill from earlier races only, 2024–2025 backtest races), forward-chained (2025 practice used 0.67 / 0.32 from 2024). The review suspected the in-model fit (0.61 / 0.32) leaned too much on season form because that skill already knew the race; measured on as-of priors it does not: the weights barely move, only the leftover form spread is smaller (0.30% vs 0.35%). Qualifying gaps beyond 4 robust SD (crashes, no time set) and wet sessions are ignored. | 687 driver-races; in-model fit on 2,795. |
 | U1 | Website modes. **Before qualifying:** you set your grid slot, rivals start in order of expected pace, and the model knows season form only (full pace spread). **After qualifying:** the grid is loaded and cross-checked automatically: the official race result's grid once the race has run, otherwise OpenF1's official starting grid (penalties applied), otherwise the qualifying order (flagged "penalties not confirmed"). Every driver moved back from their qualifying position, or starting from the pit lane, is listed on screen. Lap times are each driver's best Q1/Q2/Q3 lap (Jolpica-F1), the same definition the model was fitted on. The engine uses I2/I4 with the backtested spread (0.35). Moving your driver's slot is a what-if that changes **track position only**. For a race already run, the real result is shown next to the prediction, labelled as a genuine forecast or as hindsight, depending on whether the model has learned from that race (`meta.data_through`). | Backtest: after qualifying was far stronger (practice win −7% vs −27%). Las Vegas 2026 showed why the official grid matters: before retraining, the model gave Verstappen 42% from the official grid (he won), but only 22% from the qualifying order, where Antonelli's 5-place penalty was missing. |
 | A1 | Rival strategies are sampled from the planned green-flag strategies teams actually ran at the track since 2022 (18-inch tyres). Excluded: sequences with a stop under SC/VSC/red flag (reactions the engine models itself) and sequences with a stint of 2 laps or less (damage, punctures). Optimiser candidates use stints of at least 3 laps for the same reason. | Counts per track in `tracks.json` → `strategies.dropped`. |
 | A1b | Rival strategies are drawn from drivers who started within 2 places of the car's grid slot (widened until at least 5 examples). | Backtest: real teams choose strategies by grid position. |
@@ -150,7 +150,8 @@ These are real race events, not data errors. Each one needs a modelling decision
 | G1 | After lap 1 the field is spaced by the empirical gap distribution at the line after lap 1. The leader loses the measured median lap-1 time against lap 2. | 3,169 lap-1 gaps; 168 leaders. |
 | G2 | A car that fails to pass is placed behind at a gap drawn from the empirical gaps of faster cars that did not pass (within 1.5 s). Under SC/red the field runs as a queue behind the leader, re-compressed every lap at the empirical restart gaps. Cars that stay out keep their order; a car that pits under SC/VSC re-joins by its actual time and can lose places. Quantile tables are sampled across their levels, with linearly extended tails. | 21,000 held pairs. |
 | O2 | At most one pass attempt per car per lap, against the car directly ahead. Position changes in pit cycles are resolved by time, not by the pass model. Lapping and blue flags are not modelled. | |
-| PM1 | Pace mode: push / conserve shift pace by ±1 SD of teammates' managed stint-pace variation (skill gap removed) and change wear by the measured trade-off. The trade-off is estimated with independent stint halves (pace from the first half, wear from the second), because estimating both from the same laps biases it negative (naive −0.049 vs split −0.018). | 1,496 teammate stint pairs; CI in `global.json`. |
+| O3 | The fitted pass model is used as is (`pass_logit_shift` 0 in calibration.json). Tested on the 2024 races: shifting its log-odds by 0 to +2 changed the order and position scores only within noise, and the simulated grid-to-finish rank correlation matched the real one (0.808 vs 0.803). In 2025 and 2026 the simulation keeps grid order somewhat more than real races (0.79 vs 0.76 and 0.85 vs 0.77), an open question. | |
+| PM1 | Pace mode: push / conserve shift pace by ±1 SD of teammates' managed stint-pace variation (skill gap removed) and change wear by the measured trade-off. The trade-off is estimated with independent stint halves (pace from the first half, wear from the second), because estimating both from the same laps biases it negative (naive −0.049 vs split −0.018). **What-if only** (independent review 2026-11-22): both numbers describe how teammates' stints differ, which includes traffic, damage and team orders, not a pace a driver can choose; the wear slope is also biased toward zero because the pace difference it is regressed on is noisy. With these values push gains about 8 s over a 25-lap stint for 1.6 s of wear, so it looks nearly free. The site labels it accordingly. | 1,496 teammate stint pairs; CI in `global.json`. |
 | C1 | Points: 2025+ system (25-18-15-12-10-8-6-4-2-1, no fastest-lap point). | |
 | C2 | Retirements are independent of the safety-car process (both are fitted separately), so any link between them is not reproduced. | |
 
@@ -167,16 +168,45 @@ A separate review of the engine and fitting code found nine defects, all fixed:
 - Two red-flag tyre-change edge cases.
 - Rivals fitted fresh slicks just before rain.
 
+### Second independent review (2026-11-22; the review itself is kept locally)
+
+A second review (a separate model reading all the code and the saved
+backtests) made 29 points. Each claim was checked against the code or data
+before acting. What was done with each:
+
+| Point | Verdict | What changed |
+|---|---|---|
+| 1.1 "80%" coverage mis-measured | Confirmed (the range holds 93% of the model's own probability) | Scored as observed vs nominal, plus a randomised PIT check whose target is exactly 80%. The "too cautious" conclusion was wrong. |
+| 1.2 Resets skipped when projecting a track | Confirmed (Montreal soft offset was the 2019 value) | Fixed inside the new mean-reverting pooling (M6). |
+| 1.3 Car pace drawn per car, not per team | Confirmed | One car draw per team (E1). |
+| 1.4 Live forecasts treat qualifying as dry | Confirmed | `weekend.py` reads the session's tyres from OpenF1, same rule as the model's data. |
+| 1.5 Grid effect punishes penalties and pit-lane starts | Confirmed | Uses qualifying position; pit-lane starters skipped (I2). |
+| 1.6 Pace blend fitted with skill that knows the race | Mechanism confirmed, effect refuted | Refitted on as-of priors: weights barely change (I4). The refit is used anyway. |
+| 1.7 Strategy check prices real SC stops as green stops | Confirmed | Real neutralisations replayed; reactive pairs scored apart. |
+| 1.8 Best of six alternatives reported with its selection bias | Confirmed | The chosen alternative is re-measured on fresh races. |
+| 1.9 Push is a nearly free 0.37% | Confirmed | Labelled what-if only (PM1). |
+| 1.10 Stint cap = longest ever; SC after a red flag; era test hard-coded; pit-lane starter order; RNG streams | All confirmed; RNG streams cost precision only | Cap = 95th percentile since 2022 (M2); SC rule fixed (R1, 3 deployments recovered); era test covers 2026 onward; pit-lane starters by qualifying. RNG streams left as they are. |
+| 2.1 The simulation adds nothing beyond its pace input | Partly confirmed | 2025: the grid + pace average beats it (also among finishers). 2024 and 2026: the simulation beats it among finishers. Part of the gap was the measure: expected position mixed retirement risk into the order. |
+| 2.2 Track tyre history worse than the pool; random walk the wrong shape | Confirmed | Mean-reverting pooling (M6). Offsets now level with the pool in both seasons; 2025 wear better, 2026 wear worse. |
+| 2.3 Optimiser drawn to unreliable long stints | Confirmed | Stint cap (M2). |
+| 2.4 Qualifying gap blunt across Q1–Q3 | Not tested | Open. |
+| 2.5 SC stop cost measured against a mixed reference | Not tested | Open. |
+| 3 README overclaims; hand-chosen values | Agreed | README reworded; tuned settings listed with their evidence in calibration.json. |
+| 4 Strategy validation too weak | Confirmed | Rebuilt: resampled by race, clean vs reactive, oracle run, real SC replay, same-compound pairs, lap-level tyre test (`docs/backtest.md`). |
+| 5 Code quality | Partly done | Invariant tests (`npm test`), `pipefail` in update.sh, weekend.py publishes only its own files, fit "done" marker, dead code removed, driver-code matching. The 380-line race function and parameter schema checks are left for later. |
+
 ## Backtest summary (full report: docs/backtest.md, "Track record" tab)
 
 Predicting races it had never seen, from the real grid and qualifying, with only earlier data. The baseline knows only each grid slot's history.
 
 | Set | Win | Podium | Points | Winner score (grid) | Full order (grid) | Favourite won |
 |---|---|---|---|---|---|---|
-| Practice: 18 races of 2025, used to choose improvements | −7% | −2% | +2% | 1.12 (1.125) | 0.647 (0.661) | 50% |
-| Final exam: 13 races of 2026, scored once | −3% | +3% | +6% | 1.21 (1.62) | 0.703 (0.663) | 69% |
+| Practice: 18 races of 2025, before the second review | −7% | −2% | +2% | 1.11 (1.125) | 0.649 (0.661) | 50% |
+| Practice: the same races after it | −3% | +2% | 0% | 1.03 (1.125) | 0.648 (0.661) | 61% |
+| Exam: 2026, first scoring (13 races) | −3% | +3% | +6% | 1.21 (1.62) | 0.703 (0.663) | 69% |
+| Exam: 2026 after the review (14 races, Las Vegas added) | −7% | +7% | +8% | 1.21 (1.55) | 0.705 (0.646) | 71% |
 
-Percentages: Brier skill against the grid baseline (positive = better). The strategy "what if" comparison was **not validated**: knowing the real strategies brought predicted teammate gaps closer to reality in 2025, but not significantly, and made them worse in 2026.
+Percentages: Brier skill against the grid baseline (positive = better). The strategy "what if" comparison is **not validated**: on teammates who ran different strategies, knowing the strategies did not measurably improve the predicted gap in either season, even with each race's true tyre values; the test cannot see effects of this size. The tyre model passes a lap-level test (docs/backtest.md).
 
 ## Validation tests (results in the generated section below)
 
@@ -187,7 +217,7 @@ Percentages: Brier skill against the grid baseline (positive = better). The stra
 
 <!-- AUTO:START -->
 
-_Generated 2026-11-22T17:36 UTC by `model/report.py` from `data/params/`. Do not edit by hand._
+_Generated 2026-11-22T19:23 UTC by `model/report.py` from `data/params/`. Do not edit by hand._
 
 ## Fitted results
 
@@ -264,16 +294,16 @@ Score = one-step-ahead predictive log-likelihood (per-track parameters) or margi
 
 | Quantity | V2: break - carry (2022) | Decision | V1: break - carry (2026) | Decision | n obs after 2026 |
 |---|---|---|---|---|---|
-| fuel | +2.3 | break | +9.0 | break | 18 |
-| fuel2 | +13.2 | break | +10.5 | break | 18 |
-| traffic | +10.4 | break | -12.0 | carry_over | 18 |
-| curve | +1.7 | carry_over | +3.0 | break | 18 |
-| slope_SOFT | +5.2 | break | -0.8 | carry_over | 15 |
-| slope_MEDIUM | +5.8 | break | -3.5 | carry_over | 18 |
-| slope_HARD | -7.4 | carry_over | +0.1 | carry_over | 14 |
-| offset_SOFT | +15.2 | break | +7.5 | break | 15 |
-| offset_HARD | -3.9 | carry_over | +4.6 | break | 14 |
-| sigma | -0.4 | carry_over | -3.2 | carry_over | 18 |
+| fuel | +4.3 | break | +1.6 | carry_over | 18 |
+| fuel2 | +4.7 | break | -0.6 | carry_over | 18 |
+| traffic | +8.6 | break | -8.0 | carry_over | 18 |
+| curve | +4.5 | break | +0.3 | carry_over | 18 |
+| slope_SOFT | +5.2 | break | -0.5 | carry_over | 15 |
+| slope_MEDIUM | +10.0 | break | -1.7 | carry_over | 18 |
+| slope_HARD | +3.7 | break | -0.3 | carry_over | 14 |
+| offset_SOFT | -0.0 | carry_over | +0.1 | carry_over | 15 |
+| offset_HARD | +4.2 | break | +0.1 | carry_over | 14 |
+| sigma | +1.0 | carry_over | -7.9 | carry_over | 18 |
 | driver skill | -7.1 | carry_over | -5.9 | carry_over | – |
 
 Team order correlation with the previous season (team-season mean car pace): 2019: 0.92, 2020: 0.79, 2021: 0.92, 2022: 0.73, 2023: 0.76, 2024: 0.64, 2025: 0.94, 2026: 0.71. Car pace is never carried across seasons. It is fitted per team per race.
@@ -282,16 +312,16 @@ Team order correlation with the previous season (team-season mean car pace): 201
 
 | Parameter | Pooled mean (% of lap) | Between-track SD | Drift per season | Tracks | Breaks used |
 |---|---|---|---|---|---|
-| fuel | -0.0568 | 0.0328 | 0.0316 | 31 | 2022, 2026 |
-| fuel2 | -0.0000 | 0.0005 | 0.0010 | 31 | 2022, 2026 |
-| traffic | 0.2907 | 0.1861 | 0.1389 | 31 | 2022 |
-| curve | 0.0001 | 0.0007 | 0.0010 | 31 | 2026 |
-| slope_SOFT | 0.0552 | 0.0628 | 0.0720 | 31 | 2022 |
-| slope_MEDIUM | 0.0619 | 0.0561 | 0.0518 | 31 | 2022 |
-| slope_HARD | 0.0411 | 0.0450 | 0.0439 | 31 | – |
-| offset_SOFT | -0.1528 | 0.2663 | 0.5179 | 31 | 2022, 2026 |
-| offset_HARD | 0.1961 | 0.2122 | 0.3162 | 31 | 2026 |
-| sigma | 0.4022 | 0.0884 | 0.1179 | 31 | – |
+| fuel | -0.0633 | 0.0383 | 0.0341 | 31 | 2022 |
+| fuel2 | 0.0000 | 0.0005 | 0.0005 | 31 | 2022 |
+| traffic | 0.2763 | 0.2144 | 0.1413 | 31 | 2022 |
+| curve | -0.0001 | 0.0011 | 0.0009 | 31 | 2022 |
+| slope_SOFT | 0.0876 | 0.0748 | 0.0663 | 31 | 2022 |
+| slope_MEDIUM | 0.0690 | 0.0555 | 0.0478 | 31 | 2022 |
+| slope_HARD | 0.0536 | 0.0538 | 0.0428 | 31 | 2022 |
+| offset_SOFT | -0.2106 | 0.4205 | 0.4185 | 31 | – |
+| offset_HARD | 0.2382 | 0.2935 | 0.2897 | 31 | 2022 |
+| sigma | 0.4143 | 0.1497 | 0.1136 | 31 | – |
 
 Track temperature (within-track, across years): slope_SOFT: +0.00031 ± 0.00079 %/°C (n=105); slope_MEDIUM: +0.00039 ± 0.00051 %/°C (n=162); slope_HARD: +0.00056 ± 0.00056 %/°C (n=145); fuel: +0.00043 ± 0.00030 %/°C (n=165). **No effect is distinguishable from zero**, so the simulator applies none (T1).
 
@@ -301,29 +331,29 @@ Wear in seconds per lap of tyre age (net of fuel). Source `track` = fitted at th
 
 | Track | Dry races | Base lap s | Wear S / M / H (s/lap) | Pit loss s | SC / VSC per race | Overtake difficulty | Notes |
 |---|---|---|---|---|---|---|---|
-| Australian Grand Prix | 6 | 86.19 | +0.063 / +0.021 / +0.051 | 21.8 | 0.74 / 0.69 | -0.28 |  |
-| Chinese Grand Prix | 5 | 98.99 | +0.159 / +0.123 / +0.039 | 23.0 | 0.74 / 0.57 | 0.65 |  |
-| Japanese Grand Prix | 6 | 96.73 | +0.058 / +0.036 / +0.027 | 23.4 | 0.74 / 0.56 | -0.05 |  |
-| Miami Grand Prix | 5 | 94.76 | +0.001 / +0.044 / +0.031 | 19.6 | 0.74 / 0.58 | 0.51 |  |
-| Canadian Grand Prix | 5 | 78.23 | +0.044 / +0.079 / +0.015 | 19.7 | 0.74 / 0.59 | -0.50 |  base scaled from 2025 |
-| Monaco Grand Prix | 6 | 78.82 | -0.060 / -0.040 / -0.023 | 21.8 | 0.74 / 0.56 | -3.53 | negative net wear: SOFT, MEDIUM, HARD |
-| Barcelona Grand Prix | 9 | 83.78 | +0.231 / +0.198 / +0.157 | 23.8 | 0.74 / 0.54 | 0.44 |  |
-| Austrian Grand Prix | 11 | 73.61 | +0.047 / +0.058 / +0.039 | 21.3 | 0.74 / 0.58 | 0.62 |  |
-| British Grand Prix | 8 | 96.07 | +0.046 / +0.079 / +0.107 | 21.3 | 0.74 / 0.55 | 0.25 |  |
-| Belgian Grand Prix | 7 | 111.95 | +0.101 / +0.125 / +0.091 | 19.7 | 0.74 / 0.56 | 0.34 |  |
-| Hungarian Grand Prix | 7 | 86.86 | +0.069 / +0.076 / +0.083 | 22.1 | 0.74 / 0.58 | -0.46 |  |
-| Dutch Grand Prix | 5 | 77.93 | +0.050 / +0.080 / +0.051 | 19.6 | 0.74 / 0.58 | -0.93 |  |
-| Italian Grand Prix | 9 | 87.89 | +0.046 / +0.009 / +0.001 | 25.3 | 0.74 / 0.62 | 0.24 |  |
-| Spanish Grand Prix | 1 | 102.68 | +0.028 / +0.061 / -0.010 | 26.6 | 0.74 / 0.60 | -1.26 | negative net wear: HARD |
-| Azerbaijan Grand Prix | 8 | 110.56 | -0.037 / -0.022 / +0.027 | 21.4 | 0.74 / 0.58 | -0.29 | negative net wear: SOFT, MEDIUM |
+| Australian Grand Prix | 6 | 86.19 | +0.064 / +0.023 / +0.053 | 21.8 | 0.75 / 0.69 | -0.28 |  |
+| Chinese Grand Prix | 5 | 98.99 | +0.103 / +0.120 / +0.036 | 23.0 | 0.75 / 0.57 | 0.65 |  |
+| Japanese Grand Prix | 6 | 96.73 | +0.072 / +0.039 / +0.028 | 23.4 | 0.75 / 0.56 | -0.05 |  |
+| Miami Grand Prix | 5 | 94.76 | +0.004 / +0.043 / +0.030 | 19.6 | 0.75 / 0.58 | 0.51 |  |
+| Canadian Grand Prix | 5 | 78.23 | +0.069 / +0.066 / +0.026 | 19.7 | 0.75 / 0.59 | -0.50 |  base scaled from 2025 |
+| Monaco Grand Prix | 6 | 78.82 | -0.054 / -0.034 / -0.021 | 21.8 | 0.75 / 0.56 | -3.53 | negative net wear: SOFT, MEDIUM, HARD |
+| Barcelona Grand Prix | 9 | 83.78 | +0.224 / +0.191 / +0.146 | 23.8 | 0.75 / 0.54 | 0.44 |  |
+| Austrian Grand Prix | 11 | 73.61 | +0.050 / +0.057 / +0.038 | 21.3 | 0.75 / 0.58 | 0.62 |  |
+| British Grand Prix | 8 | 96.07 | +0.081 / +0.078 / +0.105 | 21.3 | 0.75 / 0.55 | 0.25 |  |
+| Belgian Grand Prix | 7 | 111.95 | +0.099 / +0.116 / +0.084 | 19.7 | 0.75 / 0.56 | 0.34 |  |
+| Hungarian Grand Prix | 7 | 86.86 | +0.070 / +0.075 / +0.081 | 22.1 | 0.75 / 0.58 | -0.46 |  |
+| Dutch Grand Prix | 5 | 77.93 | +0.050 / +0.080 / +0.050 | 19.6 | 0.75 / 0.58 | -0.93 |  |
+| Italian Grand Prix | 9 | 87.89 | +0.047 / +0.011 / +0.003 | 25.3 | 0.75 / 0.62 | 0.24 |  |
+| Spanish Grand Prix | 1 | 102.68 | +0.029 / +0.064 / -0.011 | 26.6 | 0.75 / 0.60 | -1.26 | negative net wear: HARD |
+| Azerbaijan Grand Prix | 8 | 110.56 | -0.038 / -0.019 / +0.040 | 21.4 | 0.75 / 0.58 | -0.29 | negative net wear: SOFT, MEDIUM |
 | Bahrain Grand Prix in Malaysia | 0 | – | – | – | – | – | No dry race at this circuit (2026 race was wet). Not simulated. |
-| Singapore Grand Prix | 6 | 100.37 | -0.000 / -0.005 / +0.044 | 24.1 | 0.74 / 0.58 | -0.68 | negative net wear: SOFT, MEDIUM |
-| United States Grand Prix | 8 | 102.63 | +0.084 / +0.089 / +0.077 | 21.7 | 0.74 / 0.60 | 0.90 |  |
-| Mexico City Grand Prix | 8 | 82.37 | +0.032 / +0.036 / +0.024 | 23.5 | 0.74 / 0.66 | 0.24 |  |
-| Brazilian Grand Prix | 6 | 75.84 | +0.108 / +0.080 / +0.116 | 22.1 | 0.74 / 0.60 | -0.25 |  base scaled from 2025 |
-| Las Vegas Grand Prix | 4 | 100.68 | -0.044 / -0.058 / +0.021 | 22.3 | 0.74 / 0.61 | 0.55 | negative net wear: SOFT, MEDIUM |
-| Qatar Grand Prix | 4 | 90.09 | +0.068 / +0.023 / +0.004 | 27.0 | 0.74 / 0.58 | -0.24 |  base scaled from 2025 |
-| Abu Dhabi Grand Prix | 8 | 91.57 | +0.157 / +0.117 / +0.077 | 22.7 | 0.74 / 0.57 | 0.92 |  base scaled from 2025 |
+| Singapore Grand Prix | 6 | 100.37 | +0.002 / -0.003 / +0.049 | 24.1 | 0.75 / 0.58 | -0.68 | negative net wear: MEDIUM |
+| United States Grand Prix | 8 | 102.63 | +0.085 / +0.090 / +0.077 | 21.7 | 0.75 / 0.60 | 0.90 |  |
+| Mexico City Grand Prix | 8 | 82.37 | +0.032 / +0.036 / +0.037 | 23.5 | 0.75 / 0.66 | 0.24 |  |
+| Brazilian Grand Prix | 6 | 75.84 | +0.085 / +0.066 / +0.083 | 22.1 | 0.75 / 0.60 | -0.25 |  base scaled from 2025 |
+| Las Vegas Grand Prix | 4 | 100.68 | -0.044 / -0.050 / +0.035 | 22.3 | 0.75 / 0.61 | 0.55 | negative net wear: SOFT, MEDIUM |
+| Qatar Grand Prix | 4 | 90.09 | +0.074 / +0.046 / +0.025 | 27.0 | 0.75 / 0.58 | -0.24 |  base scaled from 2025 |
+| Abu Dhabi Grand Prix | 8 | 91.57 | +0.083 / +0.090 / +0.066 | 22.7 | 0.75 / 0.57 | 0.92 |  base scaled from 2025 |
 
 \* pooled value. Overtake difficulty = track intercept in the pass model (lower = harder; 0 = pooled average).
 
@@ -331,7 +361,7 @@ Wear in seconds per lap of tyre age (net of fuel). Source `track` = fitted at th
 
 | Type | Deployments | Rate per dry race | Variance/mean | Between-track difference detected | Wet ratio (95% CI) | 2026 vs earlier (95% CI) | 2026 ratio applied |
 |---|---|---|---|---|---|---|---|
-| SC | 150 | 0.742 | 0.88 | **no**: every track gets the pooled rate | 1.27 (0.86–1.87) | 0.98 (0.58–1.64) | no |
+| SC | 153 | 0.755 | 0.91 | **no**: every track gets the pooled rate | 1.29 (0.87–1.89) | 1.02 (0.62–1.70) | no |
 | VSC | 121 | 0.591 | 1.03 | yes | 1.34 (0.88–2.06) | 2.13 (1.37–3.31) | yes |
 | RED | 28 | 0.126 | 1.67 | yes | 1.64 (0.69–3.87) | 1.42 (0.49–4.12) | no |
 

@@ -1,6 +1,6 @@
 # Backtest: how well does the simulator predict real races?
 
-Run 2026-11-22. Numbers come from `data/backtest/scores_dev.json`, `scores_holdout.json` and `strategy_check.json`.
+Run 2026-11-22, updated the same day after a second independent review (summarised in `docs/assumptions.md`). Numbers come from `data/backtest/scores_tune.json`, `scores_dev.json`, `scores_holdout.json`, `strategy_scores.json`, `param_forecast_*.json` and `lap_tyre_check_*.json`.
 
 ## How the test works
 
@@ -21,8 +21,9 @@ The races are split in two:
 
 | Set | Races | Used for |
 |---|---|---|
+| Tuning (added after the review) | 18 dry races of 2024 (rounds 4–24) | Fitting the pace blend on as-of priors, testing the overtaking model, choosing the spread |
 | Practice | 18 dry races of 2025 (rounds 5–24) | Trying improvements; kept only if the score improved |
-| Final exam | 13 dry races of 2026 (rounds 4–19) | Scored **once**, at the end, to check the gains are real |
+| Final exam | 2026 dry races from round 4 (13 at first, 14 once Las Vegas was raced) | Scored at the end of each round of improvements, to check the gains are real |
 
 Wet races are left out because every test race is simulated as dry. Early
 rounds are left out because a team needs a few races of a season before its
@@ -43,8 +44,14 @@ race at that circuit.
   (log-loss). Lower is better.
 - **Full order** is how well the predicted finishing order matches the real
   one (rank correlation; 1 = perfect).
-- **80% range** is the share of drivers who finished inside the range the
-  model called 80% likely. It should be about 80%.
+- **PIT inside 80%** checks that the predicted position distributions are
+  calibrated: it should be 80%. Below 80% means overconfident, above means
+  too cautious. (An earlier "80% range" check used whole-position ranges
+  that really hold about 93% of the model's own probability, so its "95%"
+  readings did not mean the model was too cautious. The review caught this.)
+- **Two harder baselines** for the full order: the pace forecast alone (the
+  number the engine is fed, no simulation) and the average of grid rank and
+  pace rank. The simulation earns its keep only if it beats the second.
 
 ## Results
 
@@ -58,43 +65,123 @@ race at that circuit.
 | + grid slot read as weekend pace | −21% | −9% | +2% | 1.31 | 0.656 | 95% | 33% |
 | + qualifying lap-time gaps | −18% | −11% | +1% | 1.29 | 0.652 | 96% | 44% |
 | + rival strategies depend on grid slot | −16% | −8% | +1% | 1.27 | 0.649 | 94% | 44% |
-| + rivals pick the quickest of 5 nearby strategies, randomness × 0.35 | **−7%** | **−2%** | **+2%** | **1.12** | 0.647 | 93% | **50%** |
+| + rivals pick the quickest of 5 nearby strategies, randomness × 0.35 | −7% | −2% | +2% | 1.12 | 0.647 | 93% | 50% |
+| + second-review changes (below), randomness × 0.7 | **−3%** | **+2%** | 0% | **1.03** | 0.648 | PIT 80% | **61%** |
 
-### Final exam (2026), scored once with the final model
+The "80% range" column up to the last row uses the old, faulty measure.
+The second-review changes: car pace shared by teammates, tyre values that
+fade back to the pooled average, stint caps from what teams usually run, the
+pace blend fitted on as-of priors, grid penalties no longer read as slow
+pace, three missing safety cars found, and the randomness scale re-chosen
+with a proper calibration check.
 
-| | Win | Podium | Points | Retirements | Winner score | Full order | 80% range | Favourite won |
-|---|---|---|---|---|---|---|---|---|
-| Model | −3% | **+3%** | **+6%** | +0.5% | **1.21** | **0.703** | 90% | **69%** (9 of 13) |
-| Grid-only baseline | 0 | 0 | 0 | 0 | 1.62 | 0.663 | – | pole: 69% |
+### Final exam (2026)
+
+| | Win | Podium | Points | Winner score | Full order | PIT inside 80% | Favourite won |
+|---|---|---|---|---|---|---|---|
+| First scoring (13 races) | −3% | +3% | +6% | 1.21 | 0.703 | – | 69% (9 of 13) |
+| After the second review (14 races) | −7% | **+7%** | **+8%** | **1.21** | **0.705** | 76% | **71%** (10 of 14) |
+| The same, on the original 13 races | −4% | +8% | +6% | 1.22 | – | – | – |
+| Grid-only baseline (14 races) | 0 | 0 | 0 | 1.55 | 0.646 | – | pole: 71% |
 
 **In plain English:**
-- On races it had never seen, the model **beats the grid baseline on podium
-  and points chances, on how surprised it is by the winner, and on the full
-  finishing order.**
-- Only the full-order gain is clear of luck: its 95% range, +0.005 to +0.073,
-  stays above zero. The other gains are positive but within what luck could
-  produce over 13 races.
-- **Win chances are level with the baseline.** The model's favourite won 9
-  of 13 races, the same rate as the pole-sitter.
-- The model is still a bit too cautious: 90% of results fall inside its
-  "80% range".
+- On races it had never seen, the model **beats the grid on podium and
+  points chances, on how surprised it is by the winner, and on the full
+  order.** The full-order gain is clear of luck; the others are positive but
+  within what luck could produce over 14 races.
+- **Win chances are level with the baseline**, slightly behind on the
+  Brier score. Las Vegas hurt most: Verstappen won from pole with the model
+  at 35%, while pole has historically won 53% of the time.
+- The exam has now been scored three times with different engine
+  versions; the scores barely moved, but it is no longer a pure one-shot
+  exam. Every change was chosen on 2024 and 2025 only.
+- In 2026 the model is slightly **over**confident (76% inside its central
+  80%), the opposite of what the old measure said.
 
-### Strategy "what if" check (teammates on different strategies)
+### Is the simulation better than its inputs?
 
-Same car, same race, different plans. The engine predicts the gap between the
-two drivers twice: once with the strategies they really ran, and once
-ignoring the difference ("blind"). If the strategy model is right, knowing the
-strategies should bring the prediction closer to the real gap.
+The review's sharpest question. Rank correlation with the real finishing
+order:
 
-| Set | Pairs | Typical error, with strategies | Typical error, blind | Average gain from knowing strategies | Right direction when the model predicts a > 5 s effect |
-|---|---|---|---|---|---|
-| Practice (2025) | 47 | 9.0 s | 11.5 s | +0.5 s (95% range −1.9 to +2.7) | 67% (14 of 21) |
-| Final exam (2026) | 18 | 12.7 s | 6.9 s | **−2.7 s** (95% range −6.0 to −0.3) | 60% (3 of 5) |
+| Predictor | 2024 (tuning) | 2025 (practice) | 2026 (exam) |
+|---|---|---|---|
+| Grid only | 0.752 | 0.661 | 0.646 |
+| Pace forecast only (no simulation) | 0.791 | 0.629 | 0.714 |
+| Grid rank and pace rank, averaged | 0.802 | **0.666** | 0.695 |
+| Full simulation | **0.810** | 0.648 | **0.705** |
+| Among finishers only: average vs simulation | 0.861 vs **0.869** | **0.791** vs 0.778 | 0.828 vs **0.841** |
 
-**In plain English:** the strategy comparison is **not validated.** In 2025
-it helped a little, within luck. In 2026 it made predictions worse. A likely
-reason is that 2026 tyre-wear estimates still lean on older seasons (test V1
-kept them). The website labels the strategy comparison as experimental.
+In two of three seasons the simulation beats the simple average (in 2026
+clear of luck among finishers: +0.003 to +0.022); in 2025 the average beats
+it (−0.025 to −0.004). Part of the review's gap came from the measure: the
+model's expected position mixes in retirement risk, which the baselines
+ignore, so finishers are compared separately.
+
+**Track position.** How strongly the grid order survives to the flag
+(classified finishers): real 0.80 / 0.76 / 0.77 in 2024 / 2025 / 2026,
+simulated 0.80 / 0.79 / 0.85. The review suspected the engine turns pace into
+places too readily; the data says the opposite in 2025–2026: the engine
+keeps grid order a little more than real races. Making overtaking easier
+(tested on 2024) changed nothing beyond noise, so the fitted pass model
+stands. What makes real races shuffle more is still open.
+
+### Strategy "what if" check (rebuilt after the review)
+
+Same car, same race, different plans: teammates who ran different
+strategies, now including same-compound pairs with stops at least 3 laps
+apart. The engine predicts their gap with the real strategies and "blind"
+(both on teammate A's plan). Gain = how much closer knowing the strategies
+gets to the real gap. Ranges now resample whole races, since pairs from one
+race share its safety cars. Three ways of simulating:
+
+| Mode | 2025 (66 pairs, 17 races) | 2026 (29 pairs, 11 races) |
+|---|---|---|
+| Random safety cars (as on the website) | +0.5 s (−0.6 to +2.0) | −0.8 s (−3.2 to +1.7) |
+| The race's real safety cars replayed | +0.3 s (−0.9 to +1.7) | +0.2 s (−2.5 to +2.9) |
+| Real safety cars + that race's true tyre values ("oracle") | +0.2 s (−0.8 to +1.3) | +0.9 s (−1.4 to +3.3) |
+
+**In plain English:** knowing the strategies does not measurably improve
+the prediction, in either year, **even with perfect tyre knowledge**. The
+earlier "worse in 2026" (−2.7 s, range −6.0 to −0.3) does not survive fair
+resampling and real safety cars. The honest reading is "no evidence either
+way": teammate gaps vary by 17–25 s for reasons the model cannot see
+(form, traffic, team orders), while the strategy effects are about 5 s, so
+a few dozen pairs cannot settle it. The strategy comparison stays labelled
+experimental.
+
+**A test with far more data: lap by lap.** Whenever two teammates both set
+a clean lap on the same lap but on different tyres (compound or age), the
+as-of tyre model predicts their gap from the tyres alone. Each pair's
+average gap is removed, so this measures how well the model tracks the gap
+as tyres differ:
+
+| | 2025 (2,782 laps) | 2026 (1,768 laps) |
+|---|---|---|
+| Error predicting no tyre effect | 0.80 s | 0.90 s |
+| Error of the tyre model, before the review | 0.71 s | 0.78 s |
+| Error of the tyre model, after | **0.68 s** | **0.77 s** |
+| Real gap per second of predicted gap (1 = right) | 0.73 | 0.87 |
+
+So the tyre model does carry real information (it explains about 28% of
+the lap-to-lap variation of the gap), and the review's changes improved it,
+but it overstates tyre differences by about 15–25%.
+
+**Tyre parameter forecasts** (as-of forecast vs the value the race then
+showed, % of lap time; "pool" = the cross-track average):
+
+| | 2025 before | 2025 after | 2026 before | 2026 after (same 13 races) |
+|---|---|---|---|---|
+| Compound offsets: track / pool | 0.446 / 0.357 | **0.358** / 0.361 | 0.373 / 0.278 | **0.291** / 0.292 |
+| Wear slopes: track / pool | 0.045 / 0.040 | **0.040** / 0.042 | **0.067** / 0.080 | 0.077 / 0.083 |
+| Race-average wear: track | 0.037 | **0.034** | **0.062** | 0.074 |
+
+The track's own history now forecasts offsets as well as the pool (before
+it was worse). Wear improved in 2025 and got worse in 2026, where race-to-race
+wear varies far more than in any earlier season. A race's overall wear level
+remains the weak point (±0.03–0.08% of lap time, about ±10–20 s over a
+one-stop vs two-stop choice). The review points to the only data that could
+fix it: the same weekend's practice long runs, which the model does not use
+yet.
 
 ### Wet races (2022–2026)
 
@@ -129,16 +216,17 @@ measured values, was also worse than none. So the engine no longer uses
 driver wet effects (`wet_driver_effects: false` in
 `data/params/calibration.json`, rule W1b).
 
-**Results after the fixes:**
+**Results after the fixes** (rerun with the final engine after the second
+review):
 
 | Mode | Win (vs grid) | Points (vs grid) | Full order (grid 0.589) | Winner score (grid 1.74) | Favourite won |
 |---|---|---|---|---|---|
-| Ignore rain | +10% | +3% | 0.616 | 1.46 | 6 of 13 |
-| Rain window | +8% | +4% | 0.618 | 1.44 | 6 of 13 |
-| Real conditions | +13% | +2% | 0.612 | 1.38 | 6 of 13 |
+| Ignore rain | +9% | +3% | 0.628 | 1.43 | 6 of 13 |
+| Rain window | +8% | +2% | 0.620 | 1.50 | 6 of 13 |
+| Real conditions | +9% | +3% | 0.614 | 1.44 | 6 of 13 |
 
-The 95% ranges are wide (win from about −9% to +25%; full order −0.02 to
-+0.07 vs the grid). With 13 races, **the rain model predicts the finishing
+The 95% ranges are wide (win from about −8% to +25%; full order −0.02 to
++0.08 vs the grid). With 13 races, **the rain model predicts the finishing
 order about as well as ignoring rain: no better, no worse.** All three modes
 beat the grid baseline slightly, and none of those gaps is statistically
 clear. Note these fixes were chosen on the same 13 races (there are no
@@ -165,8 +253,8 @@ switches since 2018), each lap later than the field cost about 0.5 places
 (95% CI 0.03 to 1.0). Real teams also spread their switches over several laps
 (half on the median lap, standard deviation 1.1 laps). The model's effect is
 about 5 times larger (at least 2.4 times, given that range): from P3 at
-Silverstone with rain on laps 15–30, one lap early gains 1.8 places (+4.3
-points) and one lap late loses 3.0 places (−3.4 points). The cause is the
+Silverstone with rain on laps 15–30, one lap early gains 1.7 places (+4.3
+points) and one lap late loses 3.3 places (−4.0 points). The cause is the
 assumed rate at which slicks lose time once the track is past the crossover
 (rule W3: the data could not fit it). Giving rivals the real spread of switch
 laps (rule W10) made predictions slightly worse on top of that too-steep penalty,
@@ -178,11 +266,13 @@ real-race figure next to the model's number.
 | Code | Change | Why the data supported it |
 |---|---|---|
 | I1 | Within a season, a team's recent races count more (car pace drifts race to race). | Predicting each next race improved by 35 log-likelihood units over equal weights (91 team-seasons). |
-| I2 | A grid slot behind where a car's pace says it should start means slower race pace that weekend: 0.037% of lap time per place (±0.002). | Fitted on 2,695 driver-races. |
-| I4 | When dry qualifying times are known, race pace = 0.66 × season form + 0.29 × qualifying gap. | Both weights are many times their uncertainty (2,314 driver-races). |
+| I2 | Qualifying behind where a car's pace says it should is slower race pace that weekend: 0.042% of lap time per place. Uses the qualifying position, so grid penalties and pit-lane starts no longer count as slowness. | Refitted after the review on the priors the engine really has (687 driver-races, 2024–2025). |
+| I4 | When dry qualifying times are known, race pace = 0.63 × season form + 0.36 × qualifying gap. | Refitted after the review the same way; the weights barely moved. |
 | A1b | Rival strategies are drawn from drivers who started within 2 places (widened until at least 5 examples). | Teams choose strategies by grid position. |
 | A1c | Each rival draws 5 such strategies and runs the quickest under this year's tyre model. | Practice score improved from best-of-1 up to 5; 8 and 12 were no better. |
-| I3 | With qualifying known, pace randomness is scaled by 0.35. Without it, the full fitted spread is kept. | Chosen on the practice races. Without qualifying, narrowing gave no consistent gain. |
+| I3 | With qualifying known, pace randomness is scaled by 0.7 (0.35 before the review). Without it, the full fitted spread is kept. | Re-chosen on 2024 + 2025 with proper scores after the review found the old coverage check was faulty. |
+| E1 | Teammates share one car-pace draw. | The car is one team quantity; the old per-car draw doubled the noise in the teammate gap. |
+| M6 | Tyre values per track fade back to the cross-track average (mean-reverting) instead of drifting freely. | The track's own history forecast compound offsets worse than the average; now level with it, and lap-level tyre predictions improved in both seasons. |
 
 ## What this means for the website
 
@@ -191,31 +281,34 @@ real-race figure next to the model's number.
   grid, and the model doesn't know this weekend's pace) was much weaker in
   the practice test: win −27% vs grid, winner score 1.35. Use it for
   "what if I started P5" questions, not for predicting a real race.
-- Treat win and podium odds as honest but modest: over 13 unseen races they
-  matched or slightly beat simply trusting the grid.
+- Treat win and podium odds as honest but modest: over 14 unseen races they
+  matched (win) or beat (podium, points, winner score) simply trusting the
+  grid. The full predicted order beat the grid clearly.
 - Treat strategy comparisons as experimental, especially differences under
   about 5 seconds.
 - In the wet, the rain model gets tyre choices broadly right but does not
   predict the order better than ignoring rain. Its wet-weather call advice
   points the right way (earlier is better, as in real races) but overstates
   the effect about 5 times.
-- The final-exam scores above come from the engine as it was on the exam
-  day. Rerunning the exam with the current engine gives win −3% and full order
-  0.707 (was 0.703). The difference comes from engine changes made before the
-  wet-race work; that work itself leaves dry races exactly as they were
-  (checked by rerunning the exam with and without it).
+- The wet-race work left dry races exactly as they were (checked by
+  rerunning the exam with and without it).
 
 ## Reproduce
 
 ```bash
 .venv/bin/python scripts/export_quali.py                   # qualifying times (once)
 .venv/bin/python scripts/build_processed.py
-.venv/bin/python model/backtest.py fit 2025 --redo         # practice fits (~10 min)
-cd web && PATH="$HOME/.local/node/bin:$PATH" node --experimental-strip-types scripts/backtest-sim.ts 10000 2025
-cd .. && .venv/bin/python model/score_backtest.py dev
+.venv/bin/python model/backtest.py fit 2024                 # tuning fits (~10 min each season)
+.venv/bin/python model/backtest.py fit 2025 --redo
+.venv/bin/python model/calibrate_pace.py                    # pace blend on as-of priors (I2, I4)
+cd web && PATH="$HOME/.local/node/bin:$PATH" node --experimental-strip-types scripts/backtest-sim.ts 5000 2025
+cd .. && .venv/bin/python model/score_backtest.py dev       # `tune` for 2024
 # final exam: the same with 2026 and `score_backtest.py holdout`
+.venv/bin/python model/param_forecast_check.py              # tyre parameter forecasts vs what each race showed
+.venv/bin/python model/lap_tyre_check.py                    # lap-level teammate tyre test
 .venv/bin/python model/strategy_pairs.py
 cd web && PATH="$HOME/.local/node/bin:$PATH" node --experimental-strip-types scripts/strategy-check.ts 1000
+cd .. && .venv/bin/python model/score_strategy.py
 # wet races
 cd .. && .venv/bin/python model/backtest.py wet             # as-of fits, ~1 min per race
 .venv/bin/python model/backtest.py wet-races                # real conditions, rain windows, switch timing
