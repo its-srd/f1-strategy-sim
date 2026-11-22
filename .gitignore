@@ -21,3 +21,4 @@ data/backtest/strategy_pairs.json
 web/dist/
 web/server/node_modules/
 *.log
+.site/

@@ -10,6 +10,9 @@ it only does what is due.
    with the current model and save the forecast untouched in data/forecasts/.
    The qualifying order alone is never used: penalties may still change it.
 4. Rewrite docs/live_record.md (shown on the site's Track record tab).
+5. Publish: if anything changed, commit the results (fitted parameters,
+   forecasts, docs) to the GitHub repository and republish the website
+   (scripts/publish_site.sh). Set F1SIM_PUBLISH=0 to skip this step.
 
     .venv/bin/python scripts/weekend.py
 """
@@ -260,12 +263,28 @@ def main() -> int:
 
     report.append(forecast_next(races, now, meta["data_through"]))
 
-    if write_live_record() and not rebuilt:
+    changed = write_live_record()
+    if changed and not rebuilt:
         subprocess.run([str(NODE.parent / "npm"), "run", "build"], cwd=ROOT / "web", check=True,
                        env={**os.environ, "PATH": f"{NODE.parent}:{os.environ.get('PATH', '/usr/bin:/bin')}"}, stdout=subprocess.DEVNULL)
         report.append("live record updated, site rebuilt")
+    if (changed or rebuilt) and os.environ.get("F1SIM_PUBLISH", "1") == "1":
+        report.append(publish(report[1:]))
     print("\n".join(report))
     return 0
+
+
+def publish(what: list[str]) -> str:
+    """Commit the run's results to the repository and republish the site."""
+    git = lambda *a: subprocess.run(["git", *a], cwd=ROOT, check=True, capture_output=True, text=True)
+    git("add", "data/params", "data/forecasts", "docs")
+    if subprocess.run(["git", "diff", "--cached", "--quiet"], cwd=ROOT).returncode == 0:
+        return "nothing new to publish"
+    msg = "Weekend update: " + "; ".join(what)[:300] + "\n\nCo-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>\n"
+    git("commit", "-q", "-m", msg)
+    git("push", "-q")
+    subprocess.run(["./scripts/publish_site.sh"], cwd=ROOT, check=True, capture_output=True)
+    return "results committed to GitHub and website republished"
 
 
 if __name__ == "__main__":

@@ -1,5 +1,7 @@
 # F1 Strategy Simulator
 
+**Live site:** https://its-srd.github.io/f1-strategy-sim/
+
 A static website for technical F1 fans. Pick a track, a driver, any 2026 car,
 a grid slot, a strategy (stops, compounds, pit laps, pace mode) and the
 weather. Once a race's qualifying has run, switch to "After qualifying": the
@@ -86,6 +88,10 @@ Backtest (about 25 min in total): see the "Reproduce" section of
 [docs/backtest.md](docs/backtest.md). `data/params/calibration.json` holds the
 two settings chosen on the 2025 practice races.
 
+To republish the website by hand after a change: `./scripts/publish_site.sh`
+(builds the site and pushes it to the `gh-pages` branch, which GitHub Pages
+serves).
+
 `web/dist/` is plain static files (relative paths), so any free static host
 works (GitHub Pages, Cloudflare Pages, Netlify).
 
@@ -102,7 +108,9 @@ works (GitHub Pages, Cloudflare Pages, Netlify).
 3. **Retrain:** it runs `scripts/update.sh` once a finished race isn't in
    the model yet.
 4. **Publish:** it rewrites `docs/live_record.md`, shown first on the site's
-   Track record tab.
+   Track record tab. If anything changed, it commits the results to this
+   repository and republishes the site (`scripts/publish_site.sh`). Set
+   `F1SIM_PUBLISH=0` to keep a run local.
 
 A scheduled task in the Claude desktop app (`f1-race-weekend`) runs it every
 4 hours, Friday to Monday. It runs only while the app is open and the Mac is
