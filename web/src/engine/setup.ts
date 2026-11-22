@@ -158,8 +158,8 @@ export function compoundRatio(m: WetModel, c: Compound, i: number): number {
   return 1 + (i - m.iDry) * (m.iCross - 1) / (m.iCross - m.iDry);
 }
 
-export function bestFamily(m: WetModel, i: number): Compound {
-  const s = compoundRatio(m, "MEDIUM", i), it = compoundRatio(m, "INTERMEDIATE", i), w = compoundRatio(m, "WET", i);
+export function bestFamily(m: WetModel, i: number, interOnly = false): Compound {
+  const s = compoundRatio(m, "MEDIUM", i), it = compoundRatio(m, "INTERMEDIATE", i), w = interOnly ? Infinity : compoundRatio(m, "WET", i);
   if (s <= it && s <= w) return "MEDIUM";
   return it <= w ? "INTERMEDIATE" : "WET";
 }

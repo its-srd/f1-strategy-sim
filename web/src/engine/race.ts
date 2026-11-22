@@ -24,13 +24,15 @@ export interface RaceResult {
   userCum?: Float64Array;               // user's cumulative time per lap
 }
 
-export interface SimOptions { record?: boolean; userStrategy?: Strategy; }
+export interface SimOptions { record?: boolean; userStrategy?: Strategy; wetCall?: import("./types.ts").WetCall }
 
 // ------------------------------------------------------------ preprocessing
 
 export interface Prepared {
   wm: WetModel;
   wetSegments: number[][];              // observed wetness sequences (W4)
+  wetPeaks: number[];                   // peak wetness of each observed wet spell (W4b)
+  rampLaps: number;                     // median laps from dry to the peak of a spell
   strategyPool: { compounds: Dry[]; stop_fracs: number[]; grid?: number | null }[];
   q: { pitResid: QTable; lap1Gap: QTable; restartGap: QTable; held: QTable };
   startPmf: Pmf[];                      // by grid slot (index 0 = P1)
@@ -66,7 +68,10 @@ export function prepare(s: RaceSetup): Prepared {
     const p = G.safety_car[k];
     ev[k] = { lap1: p.lap1_share, hist: compileHist(p.lap_frac_hist, p.lap_frac_bins), dur: compilePmf(p.duration_laps_pmf) };
   }
-  return { wm, wetSegments: segs, strategyPool: pool,
+  const peaks = segs.map((sg) => Math.max(...sg));
+  const toPeak = segs.map((sg) => sg.indexOf(Math.max(...sg)) + 1).sort((a, b) => a - b);
+  const rampLaps = toPeak.length ? Math.max(1, toPeak[toPeak.length >> 1]) : 1;
+  return { wm, wetSegments: segs, wetPeaks: peaks, rampLaps, strategyPool: pool,
     q: { pitResid: compileQuantiles(G.pit.stop_residual_quantiles_s), lap1Gap: compileQuantiles(G.gaps.lap1_gap_quantiles_s),
          restartGap: compileQuantiles(G.gaps.restart_gap_quantiles_s), held: compileQuantiles(G.gaps.held_gap_quantiles_s) },
     startPmf, ev, dnfHist: compileHist(G.dnf.lap_frac_hist, G.dnf.lap_frac_bins) };
@@ -77,27 +82,35 @@ export function prepare(s: RaceSetup): Prepared {
 function wetnessPath(s: RaceSetup, prep: Prepared, rng: Rng): Float32Array | null {
   const w = s.scenario.weather, N = s.track.laps, wm = prep.wm;
   if (w.kind === "dry" || prep.wetSegments.length === 0) return null;
-  let start: number, seg: number[], len: number;
-  if (w.kind === "probability") {
-    if (rng.u() >= w.p) return null;
-    seg = prep.wetSegments[rng.int(prep.wetSegments.length)];
-    start = 2 + rng.int(Math.max(1, N - 3));
-    len = Math.min(seg.length, N - start + 1);
-  } else {
-    start = Math.max(1, Math.min(N, w.startLap));
-    len = Math.max(1, Math.min(N, w.endLap) - start + 1);
-    seg = prep.wetSegments[rng.int(prep.wetSegments.length)];
-  }
   const path = new Float32Array(N + 2).fill(wm.iDry);
-  const stretch = w.kind === "window";
-  for (let k = 0; k < len; k++) {
-    // W4: a user window stretches the observed sequence over the window; a
-    // random spell replays it lap for lap and is cut off at the flag.
-    const x = !stretch ? k : len === 1 ? 0 : (k / (len - 1)) * (seg.length - 1);
-    const i0 = Math.floor(x), i1 = Math.min(seg.length - 1, i0 + 1), f = x - i0;
-    path[start + k] = seg[i0] * (1 - f) + seg[i1] * f;
+  let end: number;
+  if (w.kind === "probability") {
+    // W4: a random spell replays an observed wet spell lap for lap (its own
+    // rise, peak and drying), cut off at the flag.
+    if (rng.u() >= w.p) return null;
+    const seg = prep.wetSegments[rng.int(prep.wetSegments.length)];
+    const start = 2 + rng.int(Math.max(1, N - 3));
+    const len = Math.min(seg.length, N - start + 1);
+    for (let k = 0; k < len; k++) path[start + k] = seg[k];
+    end = start + len - 1;
+  } else {
+    // W4b: a rain window means it rains for those laps. The track gets wet
+    // over the observed median ramp, holds a level drawn from the peaks of
+    // real wet spells (rain intensity is not observed), with the fitted
+    // lap-to-lap variation, then dries at the fitted rate after the window.
+    const start = Math.max(1, Math.min(N, w.startLap));
+    end = Math.max(start, Math.min(N, w.endLap));
+    const level = prep.wetPeaks[rng.int(prep.wetPeaks.length)];
+    const sd = s.params.global.wet.dynamics.resid_sd ?? 0;
+    // Smooth wobble: AR(1) with the fitted persistence rho and lap-to-lap SD.
+    let e = 0;
+    for (let L = start; L <= end; L++) {
+      e = wm.rho * e + rng.normal(0, sd);
+      const ramp = Math.min(1, (L - start + 1) / prep.rampLaps);
+      path[L] = Math.max(wm.iDry, wm.iDry + (level - wm.iDry) * ramp + e);
+    }
   }
-  for (let L = start + len; L <= N; L++) {
+  for (let L = end + 1; L <= N; L++) {
     const v = wm.iDry + wm.rho * (path[L - 1] - wm.iDry);
     path[L] = v < wm.iDry + 0.005 ? wm.iDry : v;
   }
@@ -173,6 +186,7 @@ function samplePlan(s: RaceSetup, prep: Prepared, rng: Rng, fallback: Strategy, 
 }
 
 const sigmoid = (x: number) => 1 / (1 + Math.exp(-x));
+const RADAR = 3;            // W6: laps of rain foresight every team has
 
 // ------------------------------------------------------------ the race
 
@@ -309,11 +323,29 @@ export function simulateRace(s: RaceSetup, prep: Prepared, seed: number, fallbac
       if (!running[i] || st === RED) continue;
       const p = plans[i];
       const k = stintIdx[i];
-      // weather switch at the crossover (W1): change family if another is faster
+      // Weather switch (W1, W7). Default call: change family on the lap
+      // another becomes faster. The crossover itself was measured from when
+      // real teams switched, so no extra confirmation lag is added. Your car
+      // can switch up to RADAR laps early (teams see rain coming that far
+      // ahead) or wait `timing` laps longer, and can avoid full wets.
+      const call = s.cars[i].isUser ? (opt.wetCall ?? s.scenario.wetCall) : undefined;
+      const interOnly = !!call?.interOnly;
+      const famAt = (lap: number) => bestFamily(wm, wetness![Math.min(N, Math.max(1, lap))], interOnly);
+      let rainSoon = false;
       if (wetness) {
-        const best = bestFamily(wm, wv);
-        const prevBest = bestFamily(wm, wetness[Math.max(1, L - 1)]);
-        if (familyOf(comp[i]) !== best && best === prevBest && L < N) {
+        const timing = Math.max(-RADAR, call?.timing ?? 0);
+        const at = timing < 0 ? L - timing : L;               // the lap the call looks at
+        const best = famAt(at);
+        let due = true;
+        // Only switch for a lasting change: the new tyre must stay the best
+        // choice for the radar window (no pit stops for a 1-2 lap flicker).
+        for (let j = 1; j < RADAR && at + j <= N; j++) if (famAt(at + j) !== best) due = false;
+        for (let j = 1; j <= timing; j++) if (famAt(L - j) !== best) due = false;   // late call: wait
+        // W6: the 3-lap rain radar. Nobody fits fresh slicks (planned stop,
+        // SC stop or back from wet tyres) if wet tyres are needed again soon.
+        for (let j = 1; j <= RADAR && L + j <= N; j++) if (famAt(L + j) !== "MEDIUM") rainSoon = true;
+        if (best === "MEDIUM" && rainSoon) due = false;
+        if (familyOf(comp[i]) !== best && due && L < N) {
           pitThis[i] = 1;
           if (best === "MEDIUM") {
             // Back to slicks (W5): the dry compound with the lowest expected
@@ -342,16 +374,12 @@ export function simulateRace(s: RaceSetup, prep: Prepared, seed: number, fallbac
       }
       if (familyOf(comp[i]) !== "MEDIUM") continue;      // on wet tyres: wait for the crossover
       if (k < p.stops.length && p.stops[k] === L) {
-        // W6: teams see rain coming a few laps out; do not fit fresh slicks
-        // if the crossover to wet tyres is within the next 3 laps.
-        let rainSoon = false;
-        if (wetness) for (let j = 1; j <= 3 && L + j <= N; j++) if (bestFamily(wm, wetness[L + j]) !== "MEDIUM") rainSoon = true;
-        if (rainSoon) { p.stops[k] = L + 1; continue; }
+        if (rainSoon) { p.stops[k] = L + 1; continue; }        // W6
         pitThis[i] = 1; nextComp[i] = p.compounds[k + 1]; continue;
       }
       // SC / VSC reaction (A2): pit now if the next planned stop is close
       const react = s.cars[i].isUser ? s.scenario.reactToSC : true;
-      if (react && (st === SC || st === VSC) && k < p.stops.length && L < N - 1) {
+      if (react && !rainSoon && (st === SC || st === VSC) && k < p.stops.length && L < N - 1) {
         const due = p.stops[k];
         const stintLen = due - (k === 0 ? 0 : p.stops[k - 1]);
         if (due - L <= Math.max(3, Math.round(0.35 * stintLen))) {
@@ -456,6 +484,17 @@ export function simulateRace(s: RaceSetup, prep: Prepared, seed: number, fallbac
           // left uses it now; a car without one fits a fresh set of the same
           // compound.
           for (const i of order) {
+            // In the rain the free change fits the tyre the next laps need
+            // (rain radar, W6): wet tyres if they are needed within RADAR laps.
+            if (wetness) {
+              const call = s.cars[i].isUser ? (opt.wetCall ?? s.scenario.wetCall) : undefined;
+              let fam: Compound = "MEDIUM";
+              for (let j = 0; j <= RADAR && L + j <= N; j++) {
+                const f = bestFamily(wm, wetness[L + j], !!call?.interOnly);
+                if (f !== "MEDIUM") { fam = f; break; }
+              }
+              if (fam !== "MEDIUM") { changeTo(i, fam, L); continue; }
+            }
             if (familyOf(comp[i]) !== "MEDIUM") continue;
             const p = plans[i], k = stintIdx[i];
             if (k < p.stops.length) {

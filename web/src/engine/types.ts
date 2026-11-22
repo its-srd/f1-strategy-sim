@@ -101,6 +101,11 @@ export type Weather =
   | { kind: "probability"; p: number }                  // chance of a rain spell during the race
   | { kind: "window"; startLap: number; endLap: number };
 
+/** Your car's call in the rain: switch `timing` laps before (negative) or
+ *  after (positive) the lap the model's crossover says, and optionally never
+ *  use full wets. Rivals always use the default call. */
+export interface WetCall { timing: number; interOnly: boolean }
+
 export interface Scenario {
   track: string;
   driver: string;               // driver id
@@ -117,6 +122,7 @@ export interface Scenario {
   sampleUserStrategy?: boolean; // backtest: the 'user' car also follows observed strategies
   fixedPlans?: Record<string, Strategy>;  // backtest: these drivers run exactly these strategies
   gridImpliesPace?: boolean;    // read the grid as a qualifying result: it shifts weekend pace (I2)
+  wetCall?: WetCall;            // your car's wet-weather call (W7); default: switch at the crossover
   paceSpread?: number;          // multiplies car / skill / form spread (I3); default: params.calibration
   strategyChoices?: number;     // rivals draw this many nearby strategies and run the quickest (A1c); default: params.calibration
   weather: Weather;

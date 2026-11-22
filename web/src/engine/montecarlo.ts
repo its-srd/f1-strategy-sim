@@ -3,7 +3,7 @@
 
 import { POINTS, prepare, simulateRace, GREEN, type RaceResult } from "./race.ts";
 import { checkStrategy, enumerateStrategies, expectedTime, makeSetup, strategyLabel, type RaceSetup } from "./setup.ts";
-import type { Params, Scenario, Strategy } from "./types.ts";
+import type { Params, Scenario, Strategy, WetCall } from "./types.ts";
 
 export interface DriverSummary {
   driverId: string; code: string; name: string; teamId: string; teamName: string; isUser: boolean;
@@ -29,6 +29,7 @@ export interface MCResult {
   deltaByLap: { p25: number[]; p50: number[]; p75: number[] } | null;   // chosen - alternative, s (positive = chosen behind)
   representative: { stints: { code: string; stints: RaceResult["cars"][number]["stints"]; pos: number; dnf: boolean }[]; status: number[]; wetness: number[] | null };
   neutralShare: { sc: number; vsc: number; red: number; wet: number };
+  wetCallEval: { label: string; yoursExpPts: number; defaultExpPts: number; dExpPts: number; dExpPtsSE: number; dMedianTime: number | null; sims: number } | null;
   warnings: string[];
   userIdx: number;
 }
@@ -38,7 +39,7 @@ const quant = (s: number[], q: number) => s.length ? s[Math.min(s.length - 1, Ma
 
 type Progress = (done: number, total: number, phase: string) => void;
 
-function evalStrategy(setup: RaceSetup, prep: ReturnType<typeof prepare>, strat: Strategy, seeds: number[], fallback: Strategy, label = strategyLabel(strat)): StrategyEval {
+function evalStrategy(setup: RaceSetup, prep: ReturnType<typeof prepare>, strat: Strategy, seeds: number[], fallback: Strategy, label = strategyLabel(strat), wetCall?: WetCall): StrategyEval {
   const u = setup.userIdx;
   let win = 0, pod = 0, pts = 0, ep = 0, pos = 0, dnf = 0;
   const times: number[] = [];
@@ -46,7 +47,7 @@ function evalStrategy(setup: RaceSetup, prep: ReturnType<typeof prepare>, strat:
   const ptsPerSim = new Float32Array(seeds.length);
   let j = 0;
   for (const sd of seeds) {
-    const r = simulateRace(setup, prep, sd, fallback, { userStrategy: strat });
+    const r = simulateRace(setup, prep, sd, fallback, { userStrategy: strat, wetCall });
     const c = r.cars[u];
     if (c.pos === 1) win++;
     if (c.pos <= 3) pod++;
@@ -178,6 +179,22 @@ export function runMonteCarlo(params: Params, sc: Scenario, onProgress: Progress
     c.dExpPts = m;
     c.dExpPtsSE = Math.sqrt(Math.max(0, m2 / a.length - m * m) / a.length);
   }
+  // W7: your wet-weather call against the model's default call, paired.
+  let wetCallEval: MCResult["wetCallEval"] = null;
+  const call = sc.wetCall;
+  if (sc.weather.kind !== "dry" && call && (call.timing !== 0 || call.interOnly)) {
+    const dflt = evalStrategy(setup, prep, sc.strategy, altSeeds, fallback, chosenLabel, { timing: 0, interOnly: false });
+    const a = chosenPaired.ptsPerSim!, b = dflt.ptsPerSim!;
+    let m = 0, m2 = 0;
+    for (let i = 0; i < a.length; i++) { const d = a[i] - b[i]; m += d; m2 += d * d; }
+    m /= a.length;
+    const parts: string[] = [];
+    if (call.timing) parts.push(`switch ${Math.abs(call.timing)} lap${Math.abs(call.timing) > 1 ? "s" : ""} ${call.timing < 0 ? "early" : "late"}`);
+    if (call.interOnly) parts.push("intermediates only");
+    wetCallEval = { label: parts.join(", "), yoursExpPts: chosenPaired.expPoints, defaultExpPts: dflt.expPoints, dExpPts: m,
+      dExpPtsSE: Math.sqrt(Math.max(0, m2 / a.length - m * m) / a.length),
+      dMedianTime: chosenPaired.medianTime !== null && dflt.medianTime !== null ? chosenPaired.medianTime - dflt.medianTime : null, sims: a.length };
+  }
   for (const c of [chosenPaired, ...candidates]) delete c.ptsPerSim;
   candidates.sort((a, b) => b.expPoints - a.expPoints || a.meanPos - b.meanPos);
   const alternative = candidates[0] ?? null;
@@ -208,6 +225,7 @@ export function runMonteCarlo(params: Params, sc: Scenario, onProgress: Progress
       status: Array.from(rep!.status).slice(1, N + 1), wetness: rep!.wetness ? Array.from(rep!.wetness).slice(1, N + 1) : null,
     },
     neutralShare: { sc: sumStatus.sc / S, vsc: sumStatus.vsc / S, red: sumStatus.red / S, wet: sumStatus.wet / S },
+    wetCallEval,
     warnings, userIdx: u,
   };
 }
