@@ -1,146 +1,172 @@
-# Design system: "Pit wall at night"
+# Design system: "Race-control timing document"
 
 The site's visual language, written down so it can be rebuilt anywhere
 (Figma, another front end). Source of truth in code: `web/src/styles.css`
-(tokens at the top), `web/src/ui/motion.ts`, `web/src/ui/replay.tsx`.
+(tokens at the top) and the components in `web/src/ui/`.
+
+This replaces the dark "pit wall at night" look (violet accent, glows,
+rounded cards, a ring gauge). That look read as machine-made because it is
+the default of a thousand dashboards. This one borrows from something real
+that the audience already reads: the printed classification, lap chart and
+tyre-history sheets published after every race.
 
 ## Principles
 
-1. **Minimal surfaces, loud data.** Near-black ink planes, hairline
-   structure, no decoration. The only saturated colour is in data marks and
-   one accent.
-2. **One accent that means something.** Violet is the timing-screen colour
-   for "fastest". It marks the active control, your car, the hero figure
-   and the primary action. Nothing else.
-3. **Motion explains, never decorates.** Every animation shows where a
-   number or shape comes from (a bar grows from its baseline, a line draws
-   along the race, a row slides to its new place). All of it stops for
-   visitors who ask their system for reduced motion.
-4. **Everything is connected.** Hover a driver anywhere (table, legend,
-   stint map, replay) and every chart brings that driver forward.
+1. **Look like a document, not a dashboard.** Warm paper, black ink, firm
+   printed rules, square corners. Sections are titled like timing sheets
+   (Classification forecast, Gap chart, Tyre history, Lap chart, Track data
+   sheet), with a reference line in mono on the right.
+2. **One signal colour.** Marshal orange marks your car, the primary action
+   and the selected state. Nothing else is orange.
+3. **Keep the timing screens' colour meanings.** Purple = best value in a
+   column; green ▲ = places gained; red ▼ = places lost; yellow = SC / VSC;
+   red = red flag; chequered = finished.
+4. **Interaction you can touch.** Pick a grid box, drag a pit stop, click a
+   stint to change tyre, scrub the replay, hover any driver to find them in
+   every chart.
+5. **Motion borrowed from the sport.** Start lights for progress, rolling
+   timing-board digits, a timing tower whose rows slide, a lap chart that
+   draws as the replay runs, a chequered sweep for the winner. All of it
+   stops for visitors who ask their system for reduced motion.
 
 ## Colour tokens
 
-### Surfaces and ink
+### Paper and ink
 
 | Token | Value | Use |
 |---|---|---|
-| `--bg` | `#0A0B10` | Page plane (with two faint violet/cyan radial glows) |
-| `--surface-1` | `#11131A` | Panels, cards, chart surface |
-| `--surface-2` | `#161923` | Inputs, segmented controls |
-| `--surface-3` | `#1D2130` | Hover, chips, tracks |
-| `--line` | `rgba(255,255,255,0.07)` | Hairline borders |
-| `--grid` | `#1F2330` | Chart gridlines (solid, 1px) |
-| `--axis` | `#343A4C` | Axes, crosshair |
-| `--text-primary` | `#F2F3F7` | Headings, values (16.7:1 on panel) |
-| `--text-secondary` | `#B3B8C7` | Body, labels (9.4:1) |
-| `--text-muted` | `#878EA0` | Hints, axis text (5.6:1) |
+| `--paper` | `#F2EFE7` | Page, with a faint printed grain |
+| `--sheet` | `#FBFAF6` | Panels (the "sheets"), setup column |
+| `--ink` | `#141414` | Text, rules, bars, the timing tower, hero block (17.6:1 on sheet) |
+| `--ink-2` | `#3E3B35` | Body text (10.7:1) |
+| `--ink-3` | `#6B6860` | Labels, axis text, hints (5.3:1) |
+| `--rule` | ink at 14% | Hairlines inside a sheet; sheet edges are full ink |
 
-### Accent
+### Signal and timing colours
 
 | Token | Value | Use |
 |---|---|---|
-| `--accent` | `#7C4DFF` | Primary button, active pills, your car's marker; white text on it 4.8:1 |
-| `--accent-text` | `#B9A3FF` | Accent used as text or line on dark (8.6:1) |
-| `--accent-soft` | `rgba(124,77,255,0.14)` | Selected-state wash, focus halo |
-| `--grad` | `#7C4DFF → #6366F1 → #22D3EE` | Brand mark, progress, win ring (sparingly) |
+| `--signal` | `#E8501F` | Your car, primary button, selected grid box, tab underline. Fills only: ink on it is 4.9:1; never used as text on paper (3.3:1) |
+| `--signal-ink` | `#B23A12` | Orange used as text |
+| `--purple` | `#6D2FD0` | Best value in a column (6.2:1) |
+| `--gain` / `--loss` | `#0F7537` / `#B3261E` | Places gained / lost |
 
 ### Data
 
-Chart series follow the dataviz skill's validated dark palette, checked
-against the panel surface `#11131A` (all checks pass; worst adjacent pair
-colour-blind ΔE 8.4, normal vision 19.3):
+Chart series, validated with the dataviz skill's `validate_palette.js`
+against the sheet (`#FBFAF6`, light mode): all checks pass (worst adjacent
+pair colour-blind ΔE 19.9, normal vision 24.0). Slots 2 and 4 are below 3:1
+against the sheet, so their lines always carry a direct label (the driver
+code) and the numbers are also in the classification table:
 
 | Slot | Value |
 |---|---|
-| 1 | `#3987E5` |
-| 2 | `#D95926` |
-| 3 | `#199E70` |
-| 4 | `#C98500` |
-| 5 | `#D55181` |
-| other | `#3A4050` |
+| You | `#E8501F` |
+| 1 | `#2A78D6` |
+| 2 | `#1BAF7A` |
+| 3 | `#6250D6` |
+| 4 | `#E87BA4` |
+| others | ink at 20% |
 
-Tyres keep the Pirelli convention, re-stepped so medium and hard stay apart
-(worst pair colour-blind ΔE 15.7, normal vision 21.2). Hard is near-white by
-convention, so every tyre also carries its letter:
+Colour follows the driver, not the rank, and is the same in the gap chart,
+the lap chart and the legend.
+
+Tyres keep the Pirelli colours. Yellow and white cannot stand on paper by
+colour alone (medium fails the contrast check), so every tyre mark has an
+ink outline and its letter:
 
 | Compound | Value | Letter |
 |---|---|---|
-| Soft | `#E5484D` | S |
-| Medium | `#F0A20B` | M |
-| Hard | `#DFE3EC` | H |
-| Intermediate | `#1AA36F` | I |
-| Wet | `#3987E5` | W |
+| Soft | `#E0302B` | S |
+| Medium | `#F2B705` | M |
+| Hard | `#FFFFFF` | H |
+| Intermediate | `#1F9E4A` | I |
+| Wet | `#1F6FD1` | W |
 
-Status colours are fixed and never used for data: good `#0CA30C`,
-warning `#FAB219`, critical `#D03B3B`.
+On the black timing tower a tyre is a ring in its colour with the letter
+inside, as on the broadcast graphics.
+
+The finishing-position strip uses one ink ramp (light = rare, dark =
+likely), never a hue.
 
 ## Type
 
-System sans (`system-ui, -apple-system, Segoe UI, Roboto`), no display face.
-Proportional figures for big standalone numbers, tabular figures in tables.
+IBM Plex, bundled with the site through `@fontsource` (SIL Open Font
+Licence), Latin subsets only.
 
-| Role | Size / weight |
+| Role | Face / size |
 |---|---|
-| Hero figure (win probability) | 48 / 650, tracking −0.02em |
-| Stat tile value | 26 / 650 |
-| Panel title | 14.5 / 650 |
-| Body | 13.5 / 400, line height 1.5 |
-| Secondary and hints | 12 / 11.5 |
-| Section label | 11 / 600, uppercase, tracking 0.09em, numbered `01`–`05` in accent mono |
-| Mono (laps, codes, timings) | `ui-monospace`, 11–12 |
+| Wordmark, hero figure, stat values, lap counter | Plex Sans Condensed 600–700 *italic*, 22–68 px |
+| Section and panel titles | Plex Sans Condensed 700, uppercase, 15–18 px |
+| Labels, reference lines, tables, axes | Plex Mono 400–600, 10–12.5 px, uppercase for labels |
+| Body and hints | Plex Sans 400, 14 / 12 px |
+
+Tables use tabular figures. There are no numbered chips and no gradient
+text.
 
 ## Shape and space
 
-Radius 8 (controls), 14 (panels and cards), full pill (tabs, chips).
-Spacing on a 4-point grid; panels 16–18 padding, 14 between panels.
-Chart marks per the dataviz skill: 2px lines, bars at most 24px with a 4px
-rounded data end, hairline solid grid, 2px surface ring on markers.
+- Square corners everywhere (tyre dots and start lamps are the only circles).
+- Sheets: 1 px ink border, no shadow. The empty sheet, start lights and
+  primary button use a hard 4–6 px offset shadow, like a stacked print.
+- Primary button: orange block with an ink offset shadow that presses in
+  (`translate(4px, 4px)`); while busy it turns ink and fills with orange as
+  progress.
+- Spacing on a 4-point grid; 18 px inside sheets, 18 px between them.
 
 ## Motion
 
 | Token | Value | Used for |
 |---|---|---|
-| `--ease` | `cubic-bezier(0.22, 1, 0.36, 1)` | Everything that settles |
-| `--ease-io` | `cubic-bezier(0.65, 0, 0.35, 1)` | Loops (empty state) |
-| `--t1` | 140 ms | Hover, press, tooltip |
-| `--t2` | 260 ms | Pills sliding, panels dimming, rows reordering |
-| `--t3` | 700 ms | Data entering (bars, lines) |
+| `--ease` | `cubic-bezier(0.2, 0.8, 0.2, 1)` | Things that settle |
+| `--snap` | `cubic-bezier(0.7, 0, 0.2, 1)` | Things that move with intent (indicators, rows, wipes) |
+| `--t1` | 120 ms | Hover, press |
+| `--t2` | 240 ms | Indicators sliding, rows dimming |
+| `--t3` | 650 ms | Bars growing |
 
 | Moment | Behaviour |
 |---|---|
-| Page load | Brand mark draws its racing line, then the dot pops |
-| Results arrive | Panels rise in sequence (70 ms stagger); the win ring and every stat count up; probability bars grow from the left row by row; position strips fade in |
-| Charts | Race-trace lines draw along the race (background first, highlighted drivers last); stint bars sweep in row by row; time-breakdown bars grow from zero |
-| Re-simulating | The previous results stay and dim to 42% (no skeleton flash, no layout jump); the Simulate button fills with the gradient as progress; a 2px gradient line runs along the top of the results |
-| Controls | Segmented controls and tabs slide an indicator to the selected option; buttons lift on hover and press in |
-| Focus | Hovering a driver fades the rest of the field in every chart (260 ms) |
-| Replay | Auto-plays once when scrolled into view; rows slide to their new positions (420 ms); a PIT tag pops on the stop lap; an SC / VSC / red-flag badge appears on those laps |
-| Reduced motion | All of the above is switched off; numbers show their final value and the replay waits at the last lap |
+| Page load | The masthead's top rule and every section rule wipe in from the left |
+| Running | Start lights: five columns of red lamps light one by one with progress; the previous result greys out underneath |
+| Result arrives | Lights out, then the gantry lifts away; sheets wipe in left to right in sequence; hero and stats roll in digit by digit; table rows slide in and bars grow from zero; the hero's finishing-position histogram rises |
+| Grid picker | The chosen box fills orange; after qualifying the other cars visibly shuffle back |
+| Strategy strip | Pit markers drag (pointer or arrow keys, Shift = 5 laps) with a live "PIT Lnn" tag; a stint flashes when its tyre changes; hatched when past the cap |
+| Replay | Plays once when scrolled into view: tower rows slide to new places, ▲ / ▼ count places since lap 1, PIT tags pop, a flag badge shows SC / VSC / red laps; the lap chart is revealed up to the current lap with each code riding the front of its line; on the last lap a chequered band sweeps the winner's row |
+| Focus | Hovering a driver anywhere (table, legend, tyre history, tower, lap chart) brings that driver forward in every chart |
+| Reduced motion | All of the above is off: numbers show their value, lights simply appear and go, the replay waits at the last lap |
 
 ## Components
 
-- **Hero win card**: ring gauge (8px stroke, gradient arc over a surface-3
-  track) + 48px figure + driver and team. Exactly one per view.
-- **Stat tile**: label (11 uppercase) · value (26) · one line of context.
-- **Segmented control**: surface-2 track, accent-soft sliding pill with a
-  violet hairline; `--n` options, `--idx` selected.
-- **Primary button**: accent fill, soft violet glow, gradient sheen on
-  hover, progress fill while busy, `⌘↵` hint.
-- **Run dock**: sticks to the bottom of the controls column so Simulate is
-  always in reach.
-- **Probability table**: tabular numerals; your car marked by a 3px accent
-  edge and violet wash; rows highlight on hover and drive the page focus.
-- **Race replay**: play/pause, lap read-out, scrubber whose track shows
-  SC / VSC / red laps, 1× / 2× / 4×, and a timing tower (position, code,
-  tyre chip, gap bar, gap).
+- **Masthead**: 4 px ink top rule; wordmark `F1 STRATEGY/SIM` with an orange
+  slash; model stamp in mono; text tabs with a sliding orange underline.
+- **Starting grid** (`ui/gridpicker.tsx`): the grid from above in two
+  staggered columns, pole top left. Each box is a button; after qualifying
+  it shows the car in it and a `Q` on your real slot.
+- **Strategy strip** (`ui/stintstrip.tsx`): stints as tyre-coloured blocks
+  across the race distance; pit markers are ARIA sliders.
+- **Start lights** (`ui/startlights.tsx`): the progress indicator.
+- **Rolling digits** (`ui/rolling.tsx`): each digit is a 0–9 strip that
+  slides to its value.
+- **Classification header**: an ink hero block (win %, driver and team, and
+  a histogram of where they finish, P1 in orange, podium bright, DNF
+  outlined) followed by a strip of four stats split by rules, not cards.
+- **Classification table**: forecast order, timing-sheet mono numerals,
+  thin ink bars (yours orange), purple for the best in a column, the
+  finishing-position strip on the right.
+- **Race replay** (`ui/replay.tsx`, `ui/lapchart.tsx`): play / pause, lap
+  counter, scrubber with SC / VSC / red laps, 1× / 2× / 4×; the black
+  timing tower and the lap chart share a row height so each position lines
+  up across both.
 
 ## Accessibility checks
 
-- Text contrast on the panel surface: primary 16.7:1, secondary 9.4:1,
-  muted 5.6:1, accent text 8.6:1; white on the accent button 4.8:1.
-- Chart and tyre palettes validated with the dataviz skill's
-  `validate_palette.js` against `#11131A` (results above).
-- Keyboard: every control is a native button, select or range; focus ring
-  `--accent-text`; `⌘↵` / `Ctrl+↵` runs a simulation.
+- Text contrast on the sheet: ink 17.6:1, ink-2 10.7:1, ink-3 5.3:1, purple
+  6.2:1; orange is never used for small text on paper.
+- Chart palette validated against `#FBFAF6`; tyres carry outline and letter;
+  the position strip is a single ink ramp.
+- Keyboard: grid boxes and stints are buttons, pit markers are sliders
+  (arrow keys), every other control is a native button, select or range;
+  orange focus ring; `⌘↵` / `Ctrl+↵` runs a simulation.
+- Rolling numbers expose their value through `aria-label`; start lights are
+  a live status region.
 - `prefers-reduced-motion` disables all animation and auto-play.

@@ -63,10 +63,10 @@ export function LineChart(props: { series: Series[]; height?: number; yLabel: st
             <text x={M.l - 6} y={y(v) + 4} text-anchor="end">{fmt(v)}</text></g>
         ))}
         {xt.map((v) => <text x={x(v - 1)} y={height - 8} text-anchor="middle">{v}</text>)}
-        <text x={W - M.r + 18} y={height - 8}>lap</text>
+        <text x={W - M.r + 18} y={height - 8}>LAP</text>
         <text x={4} y={M.t + 4} transform={`rotate(-90 4 ${M.t + 4})`} text-anchor="end">{yLabel}</text>
         {ordered.map((s, k) => <path class={`draw series ${s.emphasis ? "em" : ""}`} style={{ "--i": s.emphasis ? 8 + k : k }} pathLength={1} d={path(s.values)} fill="none"
-          stroke={s.key === focus && !s.emphasis ? "var(--accent-text)" : s.color} stroke-width={width(s)} stroke-opacity={opacity(s)} stroke-linejoin="round" stroke-linecap="round" />)}
+          stroke={s.key === focus && !s.emphasis ? "var(--ink)" : s.color} stroke-width={width(s)} stroke-opacity={opacity(s)} stroke-linejoin="round" stroke-linecap="round" />)}
         {shown.map((s) => {
           let i = s.values.length - 1;
           while (i > 0 && !Number.isFinite(s.values[i])) i--;
@@ -81,7 +81,7 @@ export function LineChart(props: { series: Series[]; height?: number; yLabel: st
       {hover !== null && (
         <div class="tooltip" style={{ left: `${(x(hover) / W) * 100}%`, top: "8px", transform: x(hover) > W * 0.7 ? "translateX(-105%)" : "translateX(8px)" }}>
           <div class="tt-h">Lap {hover + 1}</div>
-          {shown.map((s) => <div><i class="key" style={{ background: s.key === focus && !s.emphasis ? "var(--accent-text)" : s.color }} /><b>{Number.isFinite(s.values[hover]) ? fmt(s.values[hover]) : "out"}</b> <span style={{ color: "var(--text-muted)" }}>{s.label}</span></div>)}
+          {shown.map((s) => <div><i class="key" style={{ background: s.key === focus && !s.emphasis ? "var(--ink)" : s.color }} /><b>{Number.isFinite(s.values[hover]) ? fmt(s.values[hover]) : "out"}</b> <span style={{ color: "var(--text-muted)" }}>{s.label}</span></div>)}
         </div>
       )}
     </div>
@@ -114,10 +114,10 @@ export function BandChart(props: { p25: number[]; p50: number[]; p75: number[]; 
         {ticks(y0, y1).map((v) => <g><line x1={M.l} x2={W - M.r} y1={y(v)} y2={y(v)} stroke={v === 0 ? "var(--axis)" : "var(--grid)"} />
           <text x={M.l - 6} y={y(v) + 4} text-anchor="end">{v > 0 ? `+${v}` : v}</text></g>)}
         {ticks(1, N, 8).map((v) => <text x={x(v - 1)} y={height - 8} text-anchor="middle">{v}</text>)}
-        <path class="fadein" d={band} fill="var(--series-1)" fill-opacity="0.14" />
-        <path class="draw em" pathLength={1} d={line} fill="none" stroke="var(--series-1)" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" />
+        <path class="fadein" d={band} fill="var(--you)" fill-opacity="0.16" />
+        <path class="draw em" pathLength={1} d={line} fill="none" stroke="var(--you)" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" />
         {hover !== null && <g><line x1={x(hover)} x2={x(hover)} y1={M.t} y2={height - M.b} stroke="var(--axis)" />
-          <circle cx={x(hover)} cy={y(p50[hover])} r="4" fill="var(--series-1)" stroke="var(--surface-1)" stroke-width="2" /></g>}
+          <circle cx={x(hover)} cy={y(p50[hover])} r="4" fill="var(--you)" stroke="var(--surface-1)" stroke-width="2" /></g>}
       </svg>
       {hover !== null && <div class="tooltip" style={{ left: `${(x(hover) / W) * 100}%`, top: "8px", transform: x(hover) > W * 0.7 ? "translateX(-105%)" : "translateX(8px)" }}>
         <div class="tt-h">After lap {hover + 1}</div>
@@ -156,8 +156,8 @@ export function StintMap(props: { rows: { code: string; pos: number; dnf: boolea
             {r.stints.filter((s) => s.to >= s.from).map((s) => {
               const x0 = x(s.from) + 1, x1 = x(s.to + 1) - 1, w = Math.max(1, x1 - x0);
               return <g onMouseMove={(e) => setTip({ x: (e as MouseEvent).offsetX, y: yy, text: `${r.code}: ${s.compound} laps ${s.from}–${s.to} (${s.to - s.from + 1})` })}>
-                <rect class="sweep" style={{ "--i": k }} x={x0} y={yy} width={w} height={rowH} rx="4" fill={COMPOUND_COLOR[s.compound]} fill-opacity={r.user ? 1 : 0.82} />
-                {w > 16 && <text class="fadein" x={x0 + 5} y={yy + rowH - 3} style={{ fill: "#0c0d12", "font-weight": 700, "font-size": "9.5px" }}>{COMPOUND_LETTER[s.compound]}</text>}
+                <rect class="sweep" style={{ "--i": k }} x={x0} y={yy} width={w} height={rowH} fill={COMPOUND_COLOR[s.compound]} stroke="var(--ink)" stroke-width={r.user ? 1.5 : 0.75} />
+                {w > 16 && <text class="fadein" x={x0 + 5} y={yy + rowH - 3} style={{ fill: "var(--ink)", "font-weight": 700, "font-size": "9.5px" }}>{COMPOUND_LETTER[s.compound]}</text>}
               </g>;
             })}
           </g>;
@@ -177,15 +177,15 @@ export function PairedBars(props: { items: { label: string; a: number; b: number
   const x = (v: number) => M.l + ((v - lo) / (hi - lo)) * (W - M.l - M.r);
   return (
     <div class="chart">
-      <div class="legend"><span><i class="sq" style={{ background: "var(--series-1)" }} />{aLabel}</span><span><i class="sq" style={{ background: "var(--series-2)" }} />{bLabel}</span></div>
+      <div class="legend"><span><i class="sq" style={{ background: "var(--you)" }} />{aLabel}</span><span><i class="sq" style={{ background: "var(--series-1)" }} />{bLabel}</span></div>
       <svg viewBox={`0 0 ${W} ${H}`} role="img" aria-label="Time breakdown">
         <line x1={x(0)} x2={x(0)} y1={M.t} y2={H - M.b} stroke="var(--axis)" />
         {items.map((it, k) => {
           const yy = M.t + k * rowH;
-          const bar = (v: number, dy: number, c: string) => <rect class="sweep" style={{ "--i": k * 2 + (dy > 5 ? 1 : 0), "transform-origin": v < 0 ? "right center" : "left center" }} x={Math.min(x(0), x(v))} y={yy + dy} width={Math.max(1, Math.abs(x(v) - x(0)))} height={10} rx="3" fill={c} />;
+          const bar = (v: number, dy: number, c: string) => <rect class="sweep" style={{ "--i": k * 2 + (dy > 5 ? 1 : 0), "transform-origin": v < 0 ? "right center" : "left center" }} x={Math.min(x(0), x(v))} y={yy + dy} width={Math.max(1, Math.abs(x(v) - x(0)))} height={10} fill={c} />;
           return <g>
             <text x={M.l - 8} y={yy + 15} text-anchor="end" style={{ fill: "var(--text-secondary)" }}>{it.label}</text>
-            {bar(it.a, 3, "var(--series-1)")}{bar(it.b, 15, "var(--series-2)")}
+            {bar(it.a, 3, "var(--you)")}{bar(it.b, 15, "var(--series-1)")}
             <text x={Math.max(x(it.a), x(0)) + 4} y={yy + 12}>{it.a.toFixed(1)}{unit}</text>
             <text x={Math.max(x(it.b), x(0)) + 4} y={yy + 24}>{it.b.toFixed(1)}{unit}</text>
           </g>;
@@ -195,10 +195,10 @@ export function PairedBars(props: { items: { label: string; a: number; b: number
   );
 }
 
-/** Position distribution strip: one cell per finishing position, sequential blue. */
+/** Position distribution strip: one cell per finishing position (DNF last), one ink ramp. */
 export function Heat(props: { hist: number[] }) {
   const max = Math.max(...props.hist);
   return <div class="heat" title={props.hist.map((p, i) => `${i < props.hist.length - 1 ? "P" + (i + 1) : "DNF"} ${(100 * p).toFixed(1)}%`).join("\n")}>
-    {props.hist.map((p) => <i style={{ background: p === 0 ? "var(--surface-3)" : `rgba(57,135,229,${0.15 + 0.85 * (p / max)})` }} />)}
+    {props.hist.map((p, i) => <i class={i === props.hist.length - 1 ? "dnf" : ""} style={{ background: p === 0 ? "rgba(20,20,20,0.04)" : `rgba(20,20,20,${(0.1 + 0.88 * (p / max)).toFixed(3)})` }} />)}
   </div>;
 }
