@@ -5888,6 +5888,29 @@
    "between_driver_sd_pct": 0.649797,
    "raw_sd_pct": 0.807809,
    "detected": true
+  },
+  "switch_timing": {
+   "offsets": {
+    "-5": 1,
+    "-4": 4,
+    "-3": 7,
+    "-2": 17,
+    "-1": 61,
+    "0": 197,
+    "1": 92,
+    "2": 16,
+    "3": 6
+   },
+   "offset_sd_laps": 1.107856,
+   "n_transitions": 23,
+   "n_races": 17,
+   "n_driver_switches": 401,
+   "places_gained_per_lap_later": -0.484873,
+   "places_gained_per_lap_later_ci95": [
+    -1.016358,
+    -0.026058
+   ],
+   "n_with_positions": 350
   }
  },
  "gaps": {
