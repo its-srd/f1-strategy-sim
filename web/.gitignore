@@ -1,0 +1,7 @@
+.npm-cache/
+node_modules/
+dist/
+public/params/
+public/assumptions.md
+public/backtest.md
+public/live_record.md

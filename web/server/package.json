@@ -1,0 +1,7 @@
+{
+  "name": "f1-strategy-sim-explain-proxy",
+  "private": true,
+  "type": "module",
+  "scripts": { "start": "node --experimental-strip-types explain-proxy.ts" },
+  "dependencies": { "@anthropic-ai/sdk": "1.12.0" }
+}

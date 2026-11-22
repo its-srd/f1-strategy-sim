@@ -1,0 +1,23 @@
+.venv/
+data/cache/
+data/raw/
+node_modules/
+__pycache__/
+*.pyc
+.DS_Store
+web/.npm-cache/
+web/dist/
+web/public/params/
+web/public/assumptions.md
+# Raw and processed F1 timing data: re-downloadable (scripts/update.sh), not redistributed
+data/processed/
+# Backtest working files (per-race refits); the scores are kept
+data/backtest/20*_*/
+data/backtest/*.log
+data/backtest/driver_scores_*.csv
+data/backtest/strategy_pairs.json
+# Build output and tool caches
+.npm-cache/
+web/dist/
+web/server/node_modules/
+*.log

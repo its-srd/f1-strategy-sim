@@ -1,0 +1,343 @@
+{
+ "split": "holdout",
+ "years": [
+  "2026"
+ ],
+ "n_races": 13,
+ "n_driver_races": 286,
+ "metrics": {
+  "win": {
+   "brier_model": 0.025624,
+   "brier_grid": 0.024958,
+   "skill_vs_grid": -0.02668,
+   "skill_ci95": [
+    -0.307978,
+    0.176641
+   ]
+  },
+  "podium": {
+   "brier_model": 0.069298,
+   "brier_grid": 0.0717,
+   "skill_vs_grid": 0.033508,
+   "skill_ci95": [
+    -0.113583,
+    0.14464
+   ]
+  },
+  "points": {
+   "brier_model": 0.14687,
+   "brier_grid": 0.156722,
+   "skill_vs_grid": 0.062861,
+   "skill_ci95": [
+    -0.032656,
+    0.168388
+   ]
+  },
+  "dnf": {
+   "brier_model": 0.158495,
+   "brier_grid": 0.159316,
+   "skill_vs_grid": 0.005153,
+   "skill_ci95": [
+    -0.066835,
+    0.065934
+   ]
+  },
+  "winner_logloss": {
+   "model": 1.21018,
+   "grid": 1.619668
+  },
+  "rank_corr": {
+   "model": 0.703217,
+   "grid": 0.662876,
+   "model_minus_grid_ci95": [
+    0.004901,
+    0.073302
+   ]
+  },
+  "interval80_coverage": 0.902098
+ },
+ "favourite_won": 0.692308,
+ "pole_won": 0.692308,
+ "races": [
+  {
+   "race": "2026_04",
+   "event": "Miami Grand Prix",
+   "winner": "antonelli",
+   "model_fav": "antonelli",
+   "model_fav_p": 0.6695,
+   "p_winner": 0.6695,
+   "pole": "antonelli"
+  },
+  {
+   "race": "2026_06",
+   "event": "Monaco Grand Prix",
+   "winner": "antonelli",
+   "model_fav": "antonelli",
+   "model_fav_p": 0.5955,
+   "p_winner": 0.5955,
+   "pole": "antonelli"
+  },
+  {
+   "race": "2026_07",
+   "event": "Barcelona Grand Prix",
+   "winner": "hamilton",
+   "model_fav": "russell",
+   "model_fav_p": 0.4843,
+   "p_winner": 0.1055,
+   "pole": "russell"
+  },
+  {
+   "race": "2026_08",
+   "event": "Austrian Grand Prix",
+   "winner": "russell",
+   "model_fav": "russell",
+   "model_fav_p": 0.5163,
+   "p_winner": 0.5163,
+   "pole": "russell"
+  },
+  {
+   "race": "2026_09",
+   "event": "British Grand Prix",
+   "winner": "leclerc",
+   "model_fav": "antonelli",
+   "model_fav_p": 0.5054,
+   "p_winner": 0.1815,
+   "pole": "antonelli"
+  },
+  {
+   "race": "2026_10",
+   "event": "Belgian Grand Prix",
+   "winner": "antonelli",
+   "model_fav": "antonelli",
+   "model_fav_p": 0.451,
+   "p_winner": 0.451,
+   "pole": "antonelli"
+  },
+  {
+   "race": "2026_11",
+   "event": "Hungarian Grand Prix",
+   "winner": "norris",
+   "model_fav": "norris",
+   "model_fav_p": 0.2903,
+   "p_winner": 0.2903,
+   "pole": "norris"
+  },
+  {
+   "race": "2026_12",
+   "event": "Dutch Grand Prix",
+   "winner": "norris",
+   "model_fav": "norris",
+   "model_fav_p": 0.3103,
+   "p_winner": 0.3103,
+   "pole": "norris"
+  },
+  {
+   "race": "2026_13",
+   "event": "Italian Grand Prix",
+   "winner": "antonelli",
+   "model_fav": "russell",
+   "model_fav_p": 0.3348,
+   "p_winner": 0.1647,
+   "pole": "gasly"
+  },
+  {
+   "race": "2026_15",
+   "event": "Azerbaijan Grand Prix",
+   "winner": "russell",
+   "model_fav": "russell",
+   "model_fav_p": 0.6358,
+   "p_winner": 0.6358,
+   "pole": "russell"
+  },
+  {
+   "race": "2026_17",
+   "event": "Singapore Grand Prix",
+   "winner": "max_verstappen",
+   "model_fav": "max_verstappen",
+   "model_fav_p": 0.3072,
+   "p_winner": 0.3072,
+   "pole": "max_verstappen"
+  },
+  {
+   "race": "2026_18",
+   "event": "United States Grand Prix",
+   "winner": "antonelli",
+   "model_fav": "antonelli",
+   "model_fav_p": 0.4287,
+   "p_winner": 0.4287,
+   "pole": "antonelli"
+  },
+  {
+   "race": "2026_19",
+   "event": "Mexico City Grand Prix",
+   "winner": "max_verstappen",
+   "model_fav": "hamilton",
+   "model_fav_p": 0.2989,
+   "p_winner": 0.0666,
+   "pole": "hamilton"
+  }
+ ],
+ "calibration": [
+  {
+   "outcome": "win",
+   "bin": "0%\u20135%",
+   "n": 222,
+   "predicted": 0.004866,
+   "observed": 0.0
+  },
+  {
+   "outcome": "win",
+   "bin": "5%\u201315%",
+   "n": 35,
+   "predicted": 0.083569,
+   "observed": 0.057143
+  },
+  {
+   "outcome": "win",
+   "bin": "15%\u201330%",
+   "n": 18,
+   "predicted": 0.208667,
+   "observed": 0.166667
+  },
+  {
+   "outcome": "win",
+   "bin": "30%\u201350%",
+   "n": 6,
+   "predicted": 0.38605,
+   "observed": 0.666667
+  },
+  {
+   "outcome": "win",
+   "bin": "50%\u201370%",
+   "n": 5,
+   "predicted": 0.5845,
+   "observed": 0.8
+  },
+  {
+   "outcome": "podium",
+   "bin": "0%\u20135%",
+   "n": 187,
+   "predicted": 0.007646,
+   "observed": 0.005348
+  },
+  {
+   "outcome": "podium",
+   "bin": "5%\u201315%",
+   "n": 18,
+   "predicted": 0.090994,
+   "observed": 0.166667
+  },
+  {
+   "outcome": "podium",
+   "bin": "15%\u201330%",
+   "n": 27,
+   "predicted": 0.240841,
+   "observed": 0.185185
+  },
+  {
+   "outcome": "podium",
+   "bin": "30%\u201350%",
+   "n": 22,
+   "predicted": 0.406627,
+   "observed": 0.409091
+  },
+  {
+   "outcome": "podium",
+   "bin": "50%\u201370%",
+   "n": 25,
+   "predicted": 0.600608,
+   "observed": 0.64
+  },
+  {
+   "outcome": "podium",
+   "bin": "70%\u201390%",
+   "n": 6,
+   "predicted": 0.7609,
+   "observed": 0.666667
+  },
+  {
+   "outcome": "podium",
+   "bin": "90%\u2013100%",
+   "n": 1,
+   "predicted": 0.9032,
+   "observed": 1.0
+  },
+  {
+   "outcome": "points",
+   "bin": "0%\u20135%",
+   "n": 60,
+   "predicted": 0.013542,
+   "observed": 0.066667
+  },
+  {
+   "outcome": "points",
+   "bin": "5%\u201315%",
+   "n": 32,
+   "predicted": 0.094828,
+   "observed": 0.09375
+  },
+  {
+   "outcome": "points",
+   "bin": "15%\u201330%",
+   "n": 20,
+   "predicted": 0.214165,
+   "observed": 0.2
+  },
+  {
+   "outcome": "points",
+   "bin": "30%\u201350%",
+   "n": 27,
+   "predicted": 0.387348,
+   "observed": 0.333333
+  },
+  {
+   "outcome": "points",
+   "bin": "50%\u201370%",
+   "n": 39,
+   "predicted": 0.60041,
+   "observed": 0.538462
+  },
+  {
+   "outcome": "points",
+   "bin": "70%\u201390%",
+   "n": 102,
+   "predicted": 0.807636,
+   "observed": 0.813725
+  },
+  {
+   "outcome": "points",
+   "bin": "90%\u2013100%",
+   "n": 6,
+   "predicted": 0.93595,
+   "observed": 1.0
+  },
+  {
+   "outcome": "dnf",
+   "bin": "0%\u20135%",
+   "n": 10,
+   "predicted": 0.04495,
+   "observed": 0.2
+  },
+  {
+   "outcome": "dnf",
+   "bin": "5%\u201315%",
+   "n": 79,
+   "predicted": 0.121946,
+   "observed": 0.151899
+  },
+  {
+   "outcome": "dnf",
+   "bin": "15%\u201330%",
+   "n": 163,
+   "predicted": 0.188846,
+   "observed": 0.190184
+  },
+  {
+   "outcome": "dnf",
+   "bin": "30%\u201350%",
+   "n": 34,
+   "predicted": 0.360221,
+   "observed": 0.411765
+  }
+ ]
+}

@@ -1,0 +1,1348 @@
+{
+ "alpine": {
+  "name": "Alpine F1 Team",
+  "season_mean_pct": 0.051918,
+  "season_sd_pct": 0.258767,
+  "season_avg_equal_weights_pct": 0.112681,
+  "race_to_race_sd_pct": 0.383029,
+  "n_races": 18,
+  "by_track": {
+   "albert_park": {
+    "car_pct": 0.271755,
+    "sd": 0.246325,
+    "race": "2026_01",
+    "source": "2026 race"
+   },
+   "shanghai": {
+    "car_pct": -0.172314,
+    "sd": 0.230558,
+    "race": "2026_02",
+    "source": "2026 race"
+   },
+   "suzuka": {
+    "car_pct": -0.069166,
+    "sd": 0.229799,
+    "race": "2026_03",
+    "source": "2026 race"
+   },
+   "miami": {
+    "car_pct": -0.610131,
+    "sd": 0.306037,
+    "race": "2026_04",
+    "source": "2026 race"
+   },
+   "monaco": {
+    "car_pct": 0.302498,
+    "sd": 0.283276,
+    "race": "2026_06",
+    "source": "2026 race"
+   },
+   "catalunya": {
+    "car_pct": 0.452092,
+    "sd": 0.242372,
+    "race": "2026_07",
+    "source": "2026 race"
+   },
+   "red_bull_ring": {
+    "car_pct": 0.751428,
+    "sd": 0.268331,
+    "race": "2026_08",
+    "source": "2026 race"
+   },
+   "silverstone": {
+    "car_pct": 0.191156,
+    "sd": 0.237004,
+    "race": "2026_09",
+    "source": "2026 race"
+   },
+   "spa": {
+    "car_pct": 0.043496,
+    "sd": 0.234683,
+    "race": "2026_10",
+    "source": "2026 race"
+   },
+   "hungaroring": {
+    "car_pct": 0.714638,
+    "sd": 0.235839,
+    "race": "2026_11",
+    "source": "2026 race"
+   },
+   "zandvoort": {
+    "car_pct": 0.680616,
+    "sd": 0.257823,
+    "race": "2026_12",
+    "source": "2026 race"
+   },
+   "monza": {
+    "car_pct": -0.494641,
+    "sd": 0.232924,
+    "race": "2026_13",
+    "source": "2026 race"
+   },
+   "madring": {
+    "car_pct": -0.126508,
+    "sd": 0.237372,
+    "race": "2026_14",
+    "source": "2026 race"
+   },
+   "baku": {
+    "car_pct": -0.339728,
+    "sd": 0.229462,
+    "race": "2026_15",
+    "source": "2026 race"
+   },
+   "marina_bay": {
+    "car_pct": 0.151636,
+    "sd": 0.229466,
+    "race": "2026_17",
+    "source": "2026 race"
+   },
+   "americas": {
+    "car_pct": 0.455243,
+    "sd": 0.23296,
+    "race": "2026_18",
+    "source": "2026 race"
+   },
+   "rodriguez": {
+    "car_pct": 0.2151,
+    "sd": 0.233996,
+    "race": "2026_19",
+    "source": "2026 race"
+   },
+   "vegas": {
+    "car_pct": -0.297644,
+    "sd": 0.233713,
+    "race": "2026_21",
+    "source": "2026 race"
+   }
+  },
+  "dnf": {
+   "rate": 0.135117,
+   "ratio_to_season": 0.737448,
+   "dnf": 5,
+   "starts": 42
+  }
+ },
+ "aston_martin": {
+  "name": "Aston Martin",
+  "season_mean_pct": 1.530889,
+  "season_sd_pct": 0.268414,
+  "season_avg_equal_weights_pct": 1.822883,
+  "race_to_race_sd_pct": 0.743012,
+  "n_races": 17,
+  "by_track": {
+   "albert_park": {
+    "car_pct": 2.254229,
+    "sd": 0.2651,
+    "race": "2026_01",
+    "source": "2026 race"
+   },
+   "shanghai": {
+    "car_pct": 1.859771,
+    "sd": 0.251331,
+    "race": "2026_02",
+    "source": "2026 race"
+   },
+   "suzuka": {
+    "car_pct": 2.075894,
+    "sd": 0.261618,
+    "race": "2026_03",
+    "source": "2026 race"
+   },
+   "miami": {
+    "car_pct": 1.703337,
+    "sd": 0.262601,
+    "race": "2026_04",
+    "source": "2026 race"
+   },
+   "monaco": {
+    "car_pct": 1.649827,
+    "sd": 0.335886,
+    "race": "2026_06",
+    "source": "2026 race"
+   },
+   "catalunya": {
+    "car_pct": 2.711144,
+    "sd": 0.33401,
+    "race": "2026_07",
+    "source": "2026 race"
+   },
+   "red_bull_ring": {
+    "car_pct": 2.556922,
+    "sd": 0.259398,
+    "race": "2026_08",
+    "source": "2026 race"
+   },
+   "silverstone": {
+    "car_pct": 2.938871,
+    "sd": 0.247711,
+    "race": "2026_09",
+    "source": "2026 race"
+   },
+   "spa": {
+    "car_pct": 3.10653,
+    "sd": 0.282464,
+    "race": "2026_10",
+    "source": "2026 race"
+   },
+   "hungaroring": {
+    "car_pct": 0.468023,
+    "sd": 0.259571,
+    "race": "2026_11",
+    "source": "2026 race"
+   },
+   "zandvoort": {
+    "car_pct": 0.82405,
+    "sd": 0.266668,
+    "race": "2026_12",
+    "source": "2026 race"
+   },
+   "monza": {
+    "car_pct": 2.013709,
+    "sd": 0.259361,
+    "race": "2026_13",
+    "source": "2026 race"
+   },
+   "madring": {
+    "car_pct": 1.611824,
+    "sd": 0.260889,
+    "race": "2026_14",
+    "source": "2026 race"
+   },
+   "baku": {
+    "car_pct": 2.137185,
+    "sd": 0.248956,
+    "race": "2026_15",
+    "source": "2026 race"
+   },
+   "marina_bay": {
+    "car_pct": 1.28771,
+    "sd": 0.247654,
+    "race": "2026_17",
+    "source": "2026 race"
+   },
+   "americas": {
+    "car_pct": 0.623339,
+    "sd": 0.248918,
+    "race": "2026_18",
+    "source": "2026 race"
+   },
+   "vegas": {
+    "car_pct": 1.59656,
+    "sd": 0.281089,
+    "race": "2026_21",
+    "source": "2026 race"
+   }
+  },
+  "dnf": {
+   "rate": 0.423606,
+   "ratio_to_season": 2.311969,
+   "dnf": 21,
+   "starts": 42
+  }
+ },
+ "audi": {
+  "name": "Audi",
+  "season_mean_pct": 0.216271,
+  "season_sd_pct": 0.261193,
+  "season_avg_equal_weights_pct": 0.184899,
+  "race_to_race_sd_pct": 0.1998,
+  "n_races": 18,
+  "by_track": {
+   "albert_park": {
+    "car_pct": -0.158632,
+    "sd": 0.343175,
+    "race": "2026_01",
+    "source": "2026 race"
+   },
+   "shanghai": {
+    "car_pct": 0.029699,
+    "sd": 0.312091,
+    "race": "2026_02",
+    "source": "2026 race"
+   },
+   "suzuka": {
+    "car_pct": 0.222035,
+    "sd": 0.245283,
+    "race": "2026_03",
+    "source": "2026 race"
+   },
+   "miami": {
+    "car_pct": 0.263666,
+    "sd": 0.338786,
+    "race": "2026_04",
+    "source": "2026 race"
+   },
+   "monaco": {
+    "car_pct": -0.030156,
+    "sd": 0.275107,
+    "race": "2026_06",
+    "source": "2026 race"
+   },
+   "catalunya": {
+    "car_pct": 0.703356,
+    "sd": 0.253445,
+    "race": "2026_07",
+    "source": "2026 race"
+   },
+   "red_bull_ring": {
+    "car_pct": 0.329501,
+    "sd": 0.293373,
+    "race": "2026_08",
+    "source": "2026 race"
+   },
+   "silverstone": {
+    "car_pct": -0.07847,
+    "sd": 0.255826,
+    "race": "2026_09",
+    "source": "2026 race"
+   },
+   "spa": {
+    "car_pct": -0.039293,
+    "sd": 0.248432,
+    "race": "2026_10",
+    "source": "2026 race"
+   },
+   "hungaroring": {
+    "car_pct": 0.122091,
+    "sd": 0.247917,
+    "race": "2026_11",
+    "source": "2026 race"
+   },
+   "zandvoort": {
+    "car_pct": 0.280924,
+    "sd": 0.252278,
+    "race": "2026_12",
+    "source": "2026 race"
+   },
+   "monza": {
+    "car_pct": 0.103749,
+    "sd": 0.247785,
+    "race": "2026_13",
+    "source": "2026 race"
+   },
+   "madring": {
+    "car_pct": 0.03117,
+    "sd": 0.244795,
+    "race": "2026_14",
+    "source": "2026 race"
+   },
+   "baku": {
+    "car_pct": 0.362735,
+    "sd": 0.244154,
+    "race": "2026_15",
+    "source": "2026 race"
+   },
+   "marina_bay": {
+    "car_pct": 0.287969,
+    "sd": 0.248202,
+    "race": "2026_17",
+    "source": "2026 race"
+   },
+   "americas": {
+    "car_pct": 0.193003,
+    "sd": 0.244635,
+    "race": "2026_18",
+    "source": "2026 race"
+   },
+   "rodriguez": {
+    "car_pct": 0.404501,
+    "sd": 0.261186,
+    "race": "2026_19",
+    "source": "2026 race"
+   },
+   "vegas": {
+    "car_pct": 0.140967,
+    "sd": 0.258573,
+    "race": "2026_21",
+    "source": "2026 race"
+   }
+  },
+  "dnf": {
+   "rate": 0.121467,
+   "ratio_to_season": 0.662947,
+   "dnf": 4,
+   "starts": 40
+  }
+ },
+ "cadillac": {
+  "name": "Cadillac F1 Team",
+  "season_mean_pct": 1.763994,
+  "season_sd_pct": 0.259824,
+  "season_avg_equal_weights_pct": 2.008137,
+  "race_to_race_sd_pct": 0.409825,
+  "n_races": 17,
+  "by_track": {
+   "albert_park": {
+    "car_pct": 2.660189,
+    "sd": 0.293865,
+    "race": "2026_01",
+    "source": "2026 race"
+   },
+   "shanghai": {
+    "car_pct": 1.843905,
+    "sd": 0.23503,
+    "race": "2026_02",
+    "source": "2026 race"
+   },
+   "suzuka": {
+    "car_pct": 1.945338,
+    "sd": 0.245347,
+    "race": "2026_03",
+    "source": "2026 race"
+   },
+   "miami": {
+    "car_pct": 2.453445,
+    "sd": 0.269701,
+    "race": "2026_04",
+    "source": "2026 race"
+   },
+   "monaco": {
+    "car_pct": 2.375997,
+    "sd": 0.249245,
+    "race": "2026_06",
+    "source": "2026 race"
+   },
+   "catalunya": {
+    "car_pct": 2.566195,
+    "sd": 0.239427,
+    "race": "2026_07",
+    "source": "2026 race"
+   },
+   "silverstone": {
+    "car_pct": 1.631651,
+    "sd": 0.246228,
+    "race": "2026_09",
+    "source": "2026 race"
+   },
+   "spa": {
+    "car_pct": 1.608574,
+    "sd": 0.315504,
+    "race": "2026_10",
+    "source": "2026 race"
+   },
+   "hungaroring": {
+    "car_pct": 2.398311,
+    "sd": 0.238084,
+    "race": "2026_11",
+    "source": "2026 race"
+   },
+   "zandvoort": {
+    "car_pct": 2.38609,
+    "sd": 0.263831,
+    "race": "2026_12",
+    "source": "2026 race"
+   },
+   "monza": {
+    "car_pct": 1.970332,
+    "sd": 0.260709,
+    "race": "2026_13",
+    "source": "2026 race"
+   },
+   "madring": {
+    "car_pct": 2.163602,
+    "sd": 0.272341,
+    "race": "2026_14",
+    "source": "2026 race"
+   },
+   "baku": {
+    "car_pct": 1.477203,
+    "sd": 0.23927,
+    "race": "2026_15",
+    "source": "2026 race"
+   },
+   "marina_bay": {
+    "car_pct": 2.288125,
+    "sd": 0.242764,
+    "race": "2026_17",
+    "source": "2026 race"
+   },
+   "americas": {
+    "car_pct": 1.713805,
+    "sd": 0.239785,
+    "race": "2026_18",
+    "source": "2026 race"
+   },
+   "rodriguez": {
+    "car_pct": 1.641345,
+    "sd": 0.247152,
+    "race": "2026_19",
+    "source": "2026 race"
+   },
+   "vegas": {
+    "car_pct": 1.261414,
+    "sd": 0.236991,
+    "race": "2026_21",
+    "source": "2026 race"
+   }
+  },
+  "dnf": {
+   "rate": 0.339576,
+   "ratio_to_season": 1.853348,
+   "dnf": 16,
+   "starts": 41
+  }
+ },
+ "ferrari": {
+  "name": "Ferrari",
+  "season_mean_pct": -0.936109,
+  "season_sd_pct": 0.259782,
+  "season_avg_equal_weights_pct": -1.165288,
+  "race_to_race_sd_pct": 0.41005,
+  "n_races": 18,
+  "by_track": {
+   "albert_park": {
+    "car_pct": -1.529234,
+    "sd": 0.241927,
+    "race": "2026_01",
+    "source": "2026 race"
+   },
+   "shanghai": {
+    "car_pct": -1.075198,
+    "sd": 0.231646,
+    "race": "2026_02",
+    "source": "2026 race"
+   },
+   "suzuka": {
+    "car_pct": -1.042211,
+    "sd": 0.242671,
+    "race": "2026_03",
+    "source": "2026 race"
+   },
+   "miami": {
+    "car_pct": -0.830713,
+    "sd": 0.236658,
+    "race": "2026_04",
+    "source": "2026 race"
+   },
+   "monaco": {
+    "car_pct": -1.789196,
+    "sd": 0.254259,
+    "race": "2026_06",
+    "source": "2026 race"
+   },
+   "catalunya": {
+    "car_pct": -1.76274,
+    "sd": 0.241623,
+    "race": "2026_07",
+    "source": "2026 race"
+   },
+   "red_bull_ring": {
+    "car_pct": -1.06371,
+    "sd": 0.248357,
+    "race": "2026_08",
+    "source": "2026 race"
+   },
+   "silverstone": {
+    "car_pct": -1.430777,
+    "sd": 0.241465,
+    "race": "2026_09",
+    "source": "2026 race"
+   },
+   "spa": {
+    "car_pct": -1.14692,
+    "sd": 0.23383,
+    "race": "2026_10",
+    "source": "2026 race"
+   },
+   "hungaroring": {
+    "car_pct": -1.3993,
+    "sd": 0.247359,
+    "race": "2026_11",
+    "source": "2026 race"
+   },
+   "zandvoort": {
+    "car_pct": -1.729957,
+    "sd": 0.241384,
+    "race": "2026_12",
+    "source": "2026 race"
+   },
+   "monza": {
+    "car_pct": -0.618726,
+    "sd": 0.311022,
+    "race": "2026_13",
+    "source": "2026 race"
+   },
+   "madring": {
+    "car_pct": -1.31127,
+    "sd": 0.305234,
+    "race": "2026_14",
+    "source": "2026 race"
+   },
+   "baku": {
+    "car_pct": -0.436712,
+    "sd": 0.239123,
+    "race": "2026_15",
+    "source": "2026 race"
+   },
+   "marina_bay": {
+    "car_pct": -1.230219,
+    "sd": 0.237802,
+    "race": "2026_17",
+    "source": "2026 race"
+   },
+   "americas": {
+    "car_pct": -1.204462,
+    "sd": 0.233976,
+    "race": "2026_18",
+    "source": "2026 race"
+   },
+   "rodriguez": {
+    "car_pct": -0.990772,
+    "sd": 0.259595,
+    "race": "2026_19",
+    "source": "2026 race"
+   },
+   "vegas": {
+    "car_pct": -0.355129,
+    "sd": 0.233215,
+    "race": "2026_21",
+    "source": "2026 race"
+   }
+  },
+  "dnf": {
+   "rate": 0.117087,
+   "ratio_to_season": 0.63904,
+   "dnf": 4,
+   "starts": 42
+  }
+ },
+ "haas": {
+  "name": "Haas F1 Team",
+  "season_mean_pct": 0.568326,
+  "season_sd_pct": 0.258831,
+  "season_avg_equal_weights_pct": 0.55084,
+  "race_to_race_sd_pct": 0.460054,
+  "n_races": 18,
+  "by_track": {
+   "albert_park": {
+    "car_pct": -0.272644,
+    "sd": 0.231834,
+    "race": "2026_01",
+    "source": "2026 race"
+   },
+   "shanghai": {
+    "car_pct": -0.150433,
+    "sd": 0.245159,
+    "race": "2026_02",
+    "source": "2026 race"
+   },
+   "suzuka": {
+    "car_pct": 0.158904,
+    "sd": 0.229862,
+    "race": "2026_03",
+    "source": "2026 race"
+   },
+   "miami": {
+    "car_pct": 0.40546,
+    "sd": 0.22982,
+    "race": "2026_04",
+    "source": "2026 race"
+   },
+   "monaco": {
+    "car_pct": 0.53238,
+    "sd": 0.284542,
+    "race": "2026_06",
+    "source": "2026 race"
+   },
+   "catalunya": {
+    "car_pct": 1.246666,
+    "sd": 0.242023,
+    "race": "2026_07",
+    "source": "2026 race"
+   },
+   "red_bull_ring": {
+    "car_pct": 1.259656,
+    "sd": 0.234693,
+    "race": "2026_08",
+    "source": "2026 race"
+   },
+   "silverstone": {
+    "car_pct": 0.885685,
+    "sd": 0.232511,
+    "race": "2026_09",
+    "source": "2026 race"
+   },
+   "spa": {
+    "car_pct": 0.582215,
+    "sd": 0.231549,
+    "race": "2026_10",
+    "source": "2026 race"
+   },
+   "hungaroring": {
+    "car_pct": 1.338304,
+    "sd": 0.255721,
+    "race": "2026_11",
+    "source": "2026 race"
+   },
+   "zandvoort": {
+    "car_pct": 0.945654,
+    "sd": 0.39042,
+    "race": "2026_12",
+    "source": "2026 race"
+   },
+   "monza": {
+    "car_pct": 0.571479,
+    "sd": 0.239856,
+    "race": "2026_13",
+    "source": "2026 race"
+   },
+   "madring": {
+    "car_pct": 0.300156,
+    "sd": 0.24644,
+    "race": "2026_14",
+    "source": "2026 race"
+   },
+   "baku": {
+    "car_pct": 0.257471,
+    "sd": 0.228844,
+    "race": "2026_15",
+    "source": "2026 race"
+   },
+   "marina_bay": {
+    "car_pct": 0.144933,
+    "sd": 0.230035,
+    "race": "2026_17",
+    "source": "2026 race"
+   },
+   "americas": {
+    "car_pct": 1.07024,
+    "sd": 0.233877,
+    "race": "2026_18",
+    "source": "2026 race"
+   },
+   "rodriguez": {
+    "car_pct": 0.560996,
+    "sd": 0.232899,
+    "race": "2026_19",
+    "source": "2026 race"
+   },
+   "vegas": {
+    "car_pct": 0.474768,
+    "sd": 0.232057,
+    "race": "2026_21",
+    "source": "2026 race"
+   }
+  },
+  "dnf": {
+   "rate": 0.171178,
+   "ratio_to_season": 0.934263,
+   "dnf": 7,
+   "starts": 42
+  }
+ },
+ "mclaren": {
+  "name": "McLaren",
+  "season_mean_pct": -0.822743,
+  "season_sd_pct": 0.261775,
+  "season_avg_equal_weights_pct": -1.056114,
+  "race_to_race_sd_pct": 0.377019,
+  "n_races": 17,
+  "by_track": {
+   "albert_park": {
+    "car_pct": -0.851228,
+    "sd": 0.371405,
+    "race": "2026_01",
+    "source": "2026 race"
+   },
+   "suzuka": {
+    "car_pct": -1.193423,
+    "sd": 0.254145,
+    "race": "2026_03",
+    "source": "2026 race"
+   },
+   "miami": {
+    "car_pct": -1.429932,
+    "sd": 0.258467,
+    "race": "2026_04",
+    "source": "2026 race"
+   },
+   "monaco": {
+    "car_pct": -1.181325,
+    "sd": 0.290813,
+    "race": "2026_06",
+    "source": "2026 race"
+   },
+   "catalunya": {
+    "car_pct": -1.606834,
+    "sd": 0.253648,
+    "race": "2026_07",
+    "source": "2026 race"
+   },
+   "red_bull_ring": {
+    "car_pct": -1.067052,
+    "sd": 0.271679,
+    "race": "2026_08",
+    "source": "2026 race"
+   },
+   "silverstone": {
+    "car_pct": -0.89548,
+    "sd": 0.256376,
+    "race": "2026_09",
+    "source": "2026 race"
+   },
+   "spa": {
+    "car_pct": -0.953415,
+    "sd": 0.256558,
+    "race": "2026_10",
+    "source": "2026 race"
+   },
+   "hungaroring": {
+    "car_pct": -1.610295,
+    "sd": 0.265916,
+    "race": "2026_11",
+    "source": "2026 race"
+   },
+   "zandvoort": {
+    "car_pct": -1.676041,
+    "sd": 0.261935,
+    "race": "2026_12",
+    "source": "2026 race"
+   },
+   "monza": {
+    "car_pct": -0.816067,
+    "sd": 0.256048,
+    "race": "2026_13",
+    "source": "2026 race"
+   },
+   "madring": {
+    "car_pct": -1.163717,
+    "sd": 0.25961,
+    "race": "2026_14",
+    "source": "2026 race"
+   },
+   "baku": {
+    "car_pct": -0.501163,
+    "sd": 0.269706,
+    "race": "2026_15",
+    "source": "2026 race"
+   },
+   "marina_bay": {
+    "car_pct": -1.087498,
+    "sd": 0.255732,
+    "race": "2026_17",
+    "source": "2026 race"
+   },
+   "americas": {
+    "car_pct": -0.887742,
+    "sd": 0.259859,
+    "race": "2026_18",
+    "source": "2026 race"
+   },
+   "rodriguez": {
+    "car_pct": -0.435306,
+    "sd": 0.262847,
+    "race": "2026_19",
+    "source": "2026 race"
+   },
+   "vegas": {
+    "car_pct": -0.485772,
+    "sd": 0.25752,
+    "race": "2026_21",
+    "source": "2026 race"
+   }
+  },
+  "dnf": {
+   "rate": 0.123782,
+   "ratio_to_season": 0.675583,
+   "dnf": 4,
+   "starts": 39
+  }
+ },
+ "mercedes": {
+  "name": "Mercedes",
+  "season_mean_pct": -1.065404,
+  "season_sd_pct": 0.260132,
+  "season_avg_equal_weights_pct": -1.450091,
+  "race_to_race_sd_pct": 0.428727,
+  "n_races": 18,
+  "by_track": {
+   "albert_park": {
+    "car_pct": -2.33338,
+    "sd": 0.249656,
+    "race": "2026_01",
+    "source": "2026 race"
+   },
+   "shanghai": {
+    "car_pct": -1.691299,
+    "sd": 0.238902,
+    "race": "2026_02",
+    "source": "2026 race"
+   },
+   "suzuka": {
+    "car_pct": -1.499947,
+    "sd": 0.241417,
+    "race": "2026_03",
+    "source": "2026 race"
+   },
+   "miami": {
+    "car_pct": -1.389578,
+    "sd": 0.242481,
+    "race": "2026_04",
+    "source": "2026 race"
+   },
+   "monaco": {
+    "car_pct": -1.953078,
+    "sd": 0.255321,
+    "race": "2026_06",
+    "source": "2026 race"
+   },
+   "catalunya": {
+    "car_pct": -2.019159,
+    "sd": 0.243362,
+    "race": "2026_07",
+    "source": "2026 race"
+   },
+   "red_bull_ring": {
+    "car_pct": -1.643905,
+    "sd": 0.241614,
+    "race": "2026_08",
+    "source": "2026 race"
+   },
+   "silverstone": {
+    "car_pct": -1.605921,
+    "sd": 0.243506,
+    "race": "2026_09",
+    "source": "2026 race"
+   },
+   "spa": {
+    "car_pct": -1.411909,
+    "sd": 0.343225,
+    "race": "2026_10",
+    "source": "2026 race"
+   },
+   "hungaroring": {
+    "car_pct": -1.385356,
+    "sd": 0.247911,
+    "race": "2026_11",
+    "source": "2026 race"
+   },
+   "zandvoort": {
+    "car_pct": -1.641026,
+    "sd": 0.245114,
+    "race": "2026_12",
+    "source": "2026 race"
+   },
+   "monza": {
+    "car_pct": -1.389394,
+    "sd": 0.252569,
+    "race": "2026_13",
+    "source": "2026 race"
+   },
+   "madring": {
+    "car_pct": -1.612513,
+    "sd": 0.25626,
+    "race": "2026_14",
+    "source": "2026 race"
+   },
+   "baku": {
+    "car_pct": -1.194822,
+    "sd": 0.243619,
+    "race": "2026_15",
+    "source": "2026 race"
+   },
+   "marina_bay": {
+    "car_pct": -0.827052,
+    "sd": 0.247621,
+    "race": "2026_17",
+    "source": "2026 race"
+   },
+   "americas": {
+    "car_pct": -1.008732,
+    "sd": 0.245316,
+    "race": "2026_18",
+    "source": "2026 race"
+   },
+   "rodriguez": {
+    "car_pct": -0.972975,
+    "sd": 0.246487,
+    "race": "2026_19",
+    "source": "2026 race"
+   },
+   "vegas": {
+    "car_pct": -0.553943,
+    "sd": 0.243053,
+    "race": "2026_21",
+    "source": "2026 race"
+   }
+  },
+  "dnf": {
+   "rate": 0.117087,
+   "ratio_to_season": 0.63904,
+   "dnf": 4,
+   "starts": 42
+  }
+ },
+ "rb": {
+  "name": "RB F1 Team",
+  "season_mean_pct": -0.036725,
+  "season_sd_pct": 0.258434,
+  "season_avg_equal_weights_pct": -0.006914,
+  "race_to_race_sd_pct": 0.235364,
+  "n_races": 18,
+  "by_track": {
+   "albert_park": {
+    "car_pct": 0.077682,
+    "sd": 0.22674,
+    "race": "2026_01",
+    "source": "2026 race"
+   },
+   "shanghai": {
+    "car_pct": 0.034097,
+    "sd": 0.22946,
+    "race": "2026_02",
+    "source": "2026 race"
+   },
+   "suzuka": {
+    "car_pct": 0.072361,
+    "sd": 0.225237,
+    "race": "2026_03",
+    "source": "2026 race"
+   },
+   "miami": {
+    "car_pct": 0.827371,
+    "sd": 0.348911,
+    "race": "2026_04",
+    "source": "2026 race"
+   },
+   "monaco": {
+    "car_pct": 0.066998,
+    "sd": 0.233378,
+    "race": "2026_06",
+    "source": "2026 race"
+   },
+   "catalunya": {
+    "car_pct": 0.199493,
+    "sd": 0.239156,
+    "race": "2026_07",
+    "source": "2026 race"
+   },
+   "red_bull_ring": {
+    "car_pct": -0.108556,
+    "sd": 0.226667,
+    "race": "2026_08",
+    "source": "2026 race"
+   },
+   "silverstone": {
+    "car_pct": -0.435666,
+    "sd": 0.228024,
+    "race": "2026_09",
+    "source": "2026 race"
+   },
+   "spa": {
+    "car_pct": -0.324157,
+    "sd": 0.234531,
+    "race": "2026_10",
+    "source": "2026 race"
+   },
+   "hungaroring": {
+    "car_pct": 1e-06,
+    "sd": 0.239063,
+    "race": "2026_11",
+    "source": "2026 race"
+   },
+   "zandvoort": {
+    "car_pct": 0.333239,
+    "sd": 0.224355,
+    "race": "2026_12",
+    "source": "2026 race"
+   },
+   "monza": {
+    "car_pct": -0.338258,
+    "sd": 0.223805,
+    "race": "2026_13",
+    "source": "2026 race"
+   },
+   "madring": {
+    "car_pct": -0.086652,
+    "sd": 0.235765,
+    "race": "2026_14",
+    "source": "2026 race"
+   },
+   "baku": {
+    "car_pct": 0.201595,
+    "sd": 0.223965,
+    "race": "2026_15",
+    "source": "2026 race"
+   },
+   "marina_bay": {
+    "car_pct": -0.025692,
+    "sd": 0.245437,
+    "race": "2026_17",
+    "source": "2026 race"
+   },
+   "americas": {
+    "car_pct": -0.045414,
+    "sd": 0.237379,
+    "race": "2026_18",
+    "source": "2026 race"
+   },
+   "rodriguez": {
+    "car_pct": -0.000622,
+    "sd": 0.229814,
+    "race": "2026_19",
+    "source": "2026 race"
+   },
+   "vegas": {
+    "car_pct": -0.105774,
+    "sd": 0.226667,
+    "race": "2026_21",
+    "source": "2026 race"
+   }
+  },
+  "dnf": {
+   "rate": 0.100875,
+   "ratio_to_season": 0.550559,
+   "dnf": 3,
+   "starts": 41
+  }
+ },
+ "red_bull": {
+  "name": "Red Bull",
+  "season_mean_pct": -0.371365,
+  "season_sd_pct": 0.258999,
+  "season_avg_equal_weights_pct": -0.456066,
+  "race_to_race_sd_pct": 0.39177,
+  "n_races": 18,
+  "by_track": {
+   "albert_park": {
+    "car_pct": -0.41596,
+    "sd": 0.241854,
+    "race": "2026_01",
+    "source": "2026 race"
+   },
+   "shanghai": {
+    "car_pct": 0.296887,
+    "sd": 0.228887,
+    "race": "2026_02",
+    "source": "2026 race"
+   },
+   "suzuka": {
+    "car_pct": 0.199549,
+    "sd": 0.222003,
+    "race": "2026_03",
+    "source": "2026 race"
+   },
+   "miami": {
+    "car_pct": -0.075154,
+    "sd": 0.340678,
+    "race": "2026_04",
+    "source": "2026 race"
+   },
+   "monaco": {
+    "car_pct": -0.283724,
+    "sd": 0.327938,
+    "race": "2026_06",
+    "source": "2026 race"
+   },
+   "catalunya": {
+    "car_pct": -0.820562,
+    "sd": 0.244979,
+    "race": "2026_07",
+    "source": "2026 race"
+   },
+   "red_bull_ring": {
+    "car_pct": -0.985667,
+    "sd": 0.234491,
+    "race": "2026_08",
+    "source": "2026 race"
+   },
+   "silverstone": {
+    "car_pct": -0.639069,
+    "sd": 0.231372,
+    "race": "2026_09",
+    "source": "2026 race"
+   },
+   "spa": {
+    "car_pct": -0.754719,
+    "sd": 0.232016,
+    "race": "2026_10",
+    "source": "2026 race"
+   },
+   "hungaroring": {
+    "car_pct": -0.887011,
+    "sd": 0.234497,
+    "race": "2026_11",
+    "source": "2026 race"
+   },
+   "zandvoort": {
+    "car_pct": -0.929337,
+    "sd": 0.336598,
+    "race": "2026_12",
+    "source": "2026 race"
+   },
+   "monza": {
+    "car_pct": -0.397889,
+    "sd": 0.222187,
+    "race": "2026_13",
+    "source": "2026 race"
+   },
+   "madring": {
+    "car_pct": -0.811042,
+    "sd": 0.226077,
+    "race": "2026_14",
+    "source": "2026 race"
+   },
+   "baku": {
+    "car_pct": -0.763842,
+    "sd": 0.225906,
+    "race": "2026_15",
+    "source": "2026 race"
+   },
+   "marina_bay": {
+    "car_pct": -0.267781,
+    "sd": 0.224629,
+    "race": "2026_17",
+    "source": "2026 race"
+   },
+   "americas": {
+    "car_pct": -0.587857,
+    "sd": 0.232887,
+    "race": "2026_18",
+    "source": "2026 race"
+   },
+   "rodriguez": {
+    "car_pct": -0.111287,
+    "sd": 0.238137,
+    "race": "2026_19",
+    "source": "2026 race"
+   },
+   "vegas": {
+    "car_pct": -0.012188,
+    "sd": 0.237687,
+    "race": "2026_21",
+    "source": "2026 race"
+   }
+  },
+  "dnf": {
+   "rate": 0.153148,
+   "ratio_to_season": 0.835855,
+   "dnf": 6,
+   "starts": 42
+  }
+ },
+ "williams": {
+  "name": "Williams",
+  "season_mean_pct": 0.945627,
+  "season_sd_pct": 0.262877,
+  "season_avg_equal_weights_pct": 1.044645,
+  "race_to_race_sd_pct": 0.490168,
+  "n_races": 18,
+  "by_track": {
+   "albert_park": {
+    "car_pct": 1.11583,
+    "sd": 0.246193,
+    "race": "2026_01",
+    "source": "2026 race"
+   },
+   "shanghai": {
+    "car_pct": 0.838444,
+    "sd": 0.302969,
+    "race": "2026_02",
+    "source": "2026 race"
+   },
+   "suzuka": {
+    "car_pct": 0.786452,
+    "sd": 0.231093,
+    "race": "2026_03",
+    "source": "2026 race"
+   },
+   "miami": {
+    "car_pct": 0.213287,
+    "sd": 0.232089,
+    "race": "2026_04",
+    "source": "2026 race"
+   },
+   "monaco": {
+    "car_pct": 1.057843,
+    "sd": 0.25196,
+    "race": "2026_06",
+    "source": "2026 race"
+   },
+   "catalunya": {
+    "car_pct": 1.366315,
+    "sd": 0.23783,
+    "race": "2026_07",
+    "source": "2026 race"
+   },
+   "red_bull_ring": {
+    "car_pct": 1.594612,
+    "sd": 0.238425,
+    "race": "2026_08",
+    "source": "2026 race"
+   },
+   "silverstone": {
+    "car_pct": 1.101035,
+    "sd": 0.256334,
+    "race": "2026_09",
+    "source": "2026 race"
+   },
+   "spa": {
+    "car_pct": 0.770976,
+    "sd": 0.238964,
+    "race": "2026_10",
+    "source": "2026 race"
+   },
+   "hungaroring": {
+    "car_pct": 1.932975,
+    "sd": 0.254422,
+    "race": "2026_11",
+    "source": "2026 race"
+   },
+   "zandvoort": {
+    "car_pct": 1.514213,
+    "sd": 0.263624,
+    "race": "2026_12",
+    "source": "2026 race"
+   },
+   "monza": {
+    "car_pct": 0.469713,
+    "sd": 0.235793,
+    "race": "2026_13",
+    "source": "2026 race"
+   },
+   "madring": {
+    "car_pct": 1.734164,
+    "sd": 0.242896,
+    "race": "2026_14",
+    "source": "2026 race"
+   },
+   "baku": {
+    "car_pct": 0.527621,
+    "sd": 0.234546,
+    "race": "2026_15",
+    "source": "2026 race"
+   },
+   "marina_bay": {
+    "car_pct": 1.0199,
+    "sd": 0.23462,
+    "race": "2026_17",
+    "source": "2026 race"
+   },
+   "americas": {
+    "car_pct": 1.362361,
+    "sd": 0.24255,
+    "race": "2026_18",
+    "source": "2026 race"
+   },
+   "rodriguez": {
+    "car_pct": 1.212255,
+    "sd": 0.2445,
+    "race": "2026_19",
+    "source": "2026 race"
+   },
+   "vegas": {
+    "car_pct": 0.002772,
+    "sd": 0.315346,
+    "race": "2026_21",
+    "source": "2026 race"
+   }
+  },
+  "dnf": {
+   "rate": 0.214992,
+   "ratio_to_season": 1.173392,
+   "dnf": 9,
+   "starts": 40
+  }
+ }
+}

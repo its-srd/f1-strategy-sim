@@ -1,0 +1,8 @@
+# Python 3.9 (macOS system python). Install into the project venv only:
+#   .venv/bin/pip install --no-cache-dir -r requirements.txt
+fastf1==3.7.0
+pandas==2.3.3
+numpy==2.0.2
+pyarrow==21.0.0
+requests==2.32.5
+scipy==1.13.1
