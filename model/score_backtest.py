@@ -64,15 +64,15 @@ def grid_baseline(res: pd.DataFrame, before_keys: set, n_cars: int) -> pd.DataFr
     return pd.DataFrame(out)
 
 
-def score(years=("2025", "2026"), tag="all"):
+def score(years=("2025", "2026"), tag="all", root=OUT, pred_file="predictions.json"):
     laps, res, races = C.load()
     del laps
     rows, calib = [], []
     race_rows = []
-    for d in sorted(OUT.glob("20*_*")):
+    for d in sorted(root.glob("20*_*")):
         if not d.name.startswith(years):
             continue
-        pf = d / "predictions.json"
+        pf = d / pred_file
         if not pf.exists():
             continue
         pred = pd.DataFrame(json.loads(pf.read_text())["drivers"]).set_index("driver")
@@ -155,8 +155,8 @@ def score(years=("2025", "2026"), tag="all"):
                "favourite_won": float((rr["model_fav"] == rr["winner"]).mean()),
                "pole_won": float((rr["pole"] == rr["winner"]).mean()),
                "races": rr.to_dict("records"), "calibration": calib}
-    (OUT / f"scores_{tag}.json").write_text(json.dumps(C._clean(summary), indent=1))
-    df.to_csv(OUT / f"driver_scores_{tag}.csv", index=False)
+    (root / f"scores_{tag}.json").write_text(json.dumps(C._clean(summary), indent=1))
+    df.to_csv(root / f"driver_scores_{tag}.csv", index=False)
     print(json.dumps(C._clean({k: v for k, v in summary.items() if k not in ("races", "calibration")}), indent=1))
     print(pd.DataFrame(calib).to_string(index=False))
     return summary
@@ -166,5 +166,16 @@ if __name__ == "__main__":
     # Development (2025) vs hold-out (2026): improvements are chosen on the
     # 2025 races only; 2026 is scored once at the end to check they hold.
     split = sys.argv[1] if len(sys.argv) > 1 else "dev"
+    if split == "wet":
+        # Wet-race backtest (model/backtest.py wet, web/scripts/backtest-wet.ts):
+        # one score per weather mode, saved in data/backtest/wet. An optional
+        # variant name scores predictions_<mode>_<variant>.json instead.
+        variant = sys.argv[2] if len(sys.argv) > 2 else ""
+        modes = ("dry", "window", "trace") if not variant else ("window", "trace")
+        for m in modes:
+            mode = f"{m}_{variant}" if variant else m
+            print(f"\n=== wet races, mode {mode} ===")
+            score(years=("2022", "2023", "2024", "2025", "2026"), tag=mode, root=OUT / "wet", pred_file=f"predictions_{mode}.json")
+        sys.exit(0)
     SPLIT_YEARS = {"dev": ("2025",), "holdout": ("2026",), "all": ("2025", "2026")}[split]
     score(years=SPLIT_YEARS, tag=split)

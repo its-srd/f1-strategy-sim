@@ -63,5 +63,9 @@
   }
  },
  "pace_spread_scale_without_quali": 1.0,
- "note": "pace_spread_scale applies when this weekend's dry qualifying gaps are known; pace_spread_scale_without_quali otherwise (the website's own scenarios)"
+ "note": "pace_spread_scale applies when this weekend's dry qualifying gaps are known; pace_spread_scale_without_quali otherwise (the website's own scenarios)",
+ "wet_driver_effects": false,
+ "wet_driver_effects_note": "Chosen on the wet-race backtest (13 wet races 2022-2026, each fitted on earlier races only; docs/backtest.md). With the measured driver wet effects the rain model scored worse than ignoring rain (rank correlation 0.557 vs 0.616, winner log-loss 1.92 vs 1.46); without them 0.620 and 1.43. The effects are measured only against team-mates, so long-standing pairs get equal and opposite values.",
+ "rival_switch_spread": false,
+ "rival_switch_spread_note": "W10, chosen on the wet-race backtest. Rival switch laps spread like real teams' (SD 1.1 laps, 23 transitions) made wet predictions slightly worse (rank correlation 0.615 vs 0.618 with a rain window, winner log-loss 1.49 vs 1.44; 1.57 vs 1.38 with the real conditions replayed), because the model punishes a late switch about 3-4 times harder than real races show (W3 slope is assumed, not fitted). Off until that slope is calibrated."
 }

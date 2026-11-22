@@ -349,7 +349,7 @@ function Controls(props: { p: Params; sc: Scenario; setSc: SetScenario; onRun: (
         </div>}
         {w.kind !== "dry" && <>
           <div class="hint">{w.kind === "window"
-            ? "It rains for these laps: the track gets wet over a couple of laps, stays wet at a level taken from real wet races, then dries at the measured rate."
+            ? "It rains for these laps: the track gets wet over a couple of laps (or is already wet if the window starts on lap 1), stays wet at a level taken from real wet races, then dries at the measured rate. Enter when rain falls, not when cars are on wet tyres: the drying afterwards is added by the model."
             : "A rain spell, if it comes, replays a real wet spell lap for lap (rise, peak and drying)."}</div>
           <span class="label" style={{ marginTop: "10px" }}>Wet-weather call (your car)</span>
           <label class="field"><span>When to switch to wet tyres and back</span>
@@ -361,7 +361,7 @@ function Controls(props: { p: Params; sc: Scenario; setSc: SetScenario; onRun: (
             <input type="checkbox" style={{ flex: "none" }} checked={!!sc.wetCall?.interOnly} onChange={(e) => upd({ wetCall: { timing: sc.wetCall?.timing ?? 0, interOnly: (e.target as HTMLInputElement).checked } })} />
             <span style={{ color: "var(--text-secondary)" }}>Intermediates only (never full wets)</span>
           </label>
-          <div class="hint">Your dry strategy applies until the rain. Rivals switch when wet tyres become faster, at the crossover measured from when real teams switched; every team sees rain about 3 laps ahead. Wet pace is <span class="tag pooled">pooled</span> from {p.global.wet.n_wet_races} wet races and <b>not backtested</b>: treat wet results as indicative.</div>
+          <div class="hint">Your dry strategy applies until the rain. Rivals switch when wet tyres become faster, at the crossover measured from when real teams switched; every team sees rain about 3 laps ahead. Wet pace is <span class="tag pooled">pooled</span> from {p.global.wet.n_wet_races} wet races. Tested on 13 real wet races: with the rain model the finishing order is predicted about as well as when rain is ignored, no better (see Track record).</div>
         </>}
       </div>
 
@@ -496,7 +496,7 @@ function Results({ p, r }: { p: Params; r: MCResult }) {
       {r.wetCallEval && <div class="panel">
         <h2>Your wet-weather call vs the model's call</h2>
         <div style={{ fontSize: "13px" }}>Call: <b>{r.wetCallEval.label}</b>. Expected points {r.wetCallEval.yoursExpPts.toFixed(2)} vs {r.wetCallEval.defaultExpPts.toFixed(2)} with the model's call: <b>{sgn(r.wetCallEval.dExpPts)} ± {(2 * r.wetCallEval.dExpPtsSE).toFixed(2)}</b>{Math.abs(r.wetCallEval.dExpPts) < 2 * r.wetCallEval.dExpPtsSE ? " (within noise)" : ""}{r.wetCallEval.dMedianTime !== null ? `; median race time ${sgn(r.wetCallEval.dMedianTime, 1)} s` : ""}.</div>
-        <div class="hint" style={{ marginTop: "4px" }}>Same {r.wetCallEval.sims.toLocaleString()} random races for both calls (paired). Wet-weather behaviour is pooled from few races and not backtested, so read this as the model's view, not a proven gain.</div>
+        <div class="hint" style={{ marginTop: "4px" }}>Same {r.wetCallEval.sims.toLocaleString()} random races for both calls (paired).{p.global.wet.switch_timing && <> In real races ({p.global.wet.switch_timing.n_transitions} field-wide tyre changes in the wet) each lap later than the field cost about <b>{(-p.global.wet.switch_timing.places_gained_per_lap_later).toFixed(1)} places</b> (95% CI {(-p.global.wet.switch_timing.places_gained_per_lap_later_ci95[1]).toFixed(1)} to {(-p.global.wet.switch_timing.places_gained_per_lap_later_ci95[0]).toFixed(1)}). The model's effect is about 5 times that, because how fast slicks lose time past the crossover is assumed, not fitted: trust the direction more than the size.</>}</div>
       </div>}
       <TrackData p={p} r={r} />
       <ExplainPanel result={r} />

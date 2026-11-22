@@ -82,6 +82,7 @@ export function trackSetup(p: Params, key: string): TrackSetup {
  *  (a swap), so the grid keeps 22 cars and every car keeps a driver. */
 export function buildField(p: Params, sc: Scenario): CarSetup[] {
   const grid = (sc.gridEntries ?? p.grid.grid).map((g) => ({ ...g }));
+  const useWetSkill = p.calibration?.wet_driver_effects === true;
   const userOnGrid = grid.find((g) => g.driver_id === sc.driver);
   const teamSeats = grid.filter((g) => g.team_id === sc.team);
   if (!userOnGrid || userOnGrid.team_id !== sc.team) {
@@ -121,7 +122,10 @@ export function buildField(p: Params, sc: Scenario): CarSetup[] {
       carSource: bt ? `2026 ${t.name}` : "2026 season mean (track not yet raced in 2026)",
       skillPct: d?.skill_pct ?? 0, skillSd: d?.sd_pct ?? p.global.skill_model.sigma0_pct, corr,
       qualiGap: g.quali_gap_pct === undefined || g.quali_wet || g.quali_gap_pct > (p.global.quali_effect?.quali_gap_clip_pct ?? Infinity) ? null : g.quali_gap_pct,
-      wetPct: d?.wet_extra_pct ?? 0, wetSd: d?.wet_extra_sd ?? p.global.wet.driver_wet_skill.between_driver_sd_pct,
+      // W1b: the measured driver wet effects made wet-race predictions worse
+      // in the backtest, so they are only used if calibration turns them on.
+      wetPct: useWetSkill ? d?.wet_extra_pct ?? 0 : 0,
+      wetSd: useWetSkill ? d?.wet_extra_sd ?? p.global.wet.driver_wet_skill.between_driver_sd_pct : 0,
       dnfProb: Math.min(0.95, teamRate * dnfTrack),
     };
   });

@@ -28,6 +28,7 @@ import skill as S  # noqa: E402
 import track_pace as T  # noqa: E402
 import validation as V  # noqa: E402
 import wet as W  # noqa: E402
+import wet_switch as WS  # noqa: E402
 
 TARGET = 2026
 
@@ -110,6 +111,7 @@ def main(target: int = 2026, data=None, fixed_breaks: dict | None = None, grid_r
     pmode = SI.pace_mode(laps, clean, rf)
     log("sim inputs measured")
     wet = W.run(laps, races, rf, dr, tk, sk["skill"])
+    wet["switch_timing"] = WS.run(laps, races)          # W10
     log("wet fitted")
 
     # ------------------------------------------------------------ export
@@ -263,7 +265,9 @@ def main(target: int = 2026, data=None, fixed_breaks: dict | None = None, grid_r
     # Example for the website's "after qualifying" mode: the latest race of the
     # season with a dry qualifying session, in real grid order.
     example = None
-    q_season = quali_all[quali_all["RaceKey"].str.startswith(str(TARGET))]
+    # Only races with results in this fit: in a backtest quali_all also holds
+    # the test race itself, which has no results here.
+    q_season = quali_all[quali_all["RaceKey"].str.startswith(str(TARGET)) & quali_all["RaceKey"].isin(set(res["RaceKey"]))]
     dry_q = q_season.groupby("RaceKey")["Wet"].first()
     dry_q = dry_q[~dry_q.astype(bool)]
     if len(dry_q):

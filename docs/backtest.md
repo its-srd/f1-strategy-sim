@@ -96,6 +96,83 @@ it helped a little, within luck. In 2026 it made predictions worse. A likely
 reason is that 2026 tyre-wear estimates still lean on older seasons (test V1
 kept them). The website labels the strategy comparison as experimental.
 
+### Wet races (2022–2026)
+
+The tests above use dry races only. This one asks whether the rain model
+helps or hurts. It uses the 13 wet races since 2022 that can be tested: not a
+season opener, and with an earlier dry race at the same circuit. As before,
+every race is predicted by a model fitted only on races before it, from the
+real grid with qualifying gaps (4,000 simulations per race and mode).
+
+Each race is simulated three ways:
+
+- **Ignore rain:** the model is told nothing about the weather.
+- **Rain window:** what a user would enter. The window is the main spell of
+  rain falling, read from the weather station. It starts on lap 1 if the
+  race started on wet tyres, and is just lap 1 when the track was wet only
+  from rain before the start. The model then dries the track by itself.
+- **Real conditions:** hindsight. The real lap-by-lap conditions (the best
+  tyre's lap time compared with dry pace) are replayed.
+
+**First run: the rain model made predictions worse.** With the rain window the
+rank correlation fell to 0.557 (the grid alone gets 0.589), winner score
+1.92 (grid 1.74), and the model's favourite won 2 of 13 races. Replaying the
+real conditions was worse still (0.535, 2.10).
+
+**Cause: the driver wet-skill effects.** Each driver's wet effect is measured
+against their team-mate only, so a pair that stayed together gets equal and
+opposite values. Verstappen came out 0.8% slower in the wet than his dry pace
+says, and Pérez 0.8% faster. That is about the gap between two teams, and it
+is contradicted by these very races (Verstappen won 6 of the 13). Switched off,
+the rain model recovers. Keeping a random wet effect per driver, without the
+measured values, was also worse than none. So the engine no longer uses
+driver wet effects (`wet_driver_effects: false` in
+`data/params/calibration.json`, rule W1b).
+
+**Results after the fixes:**
+
+| Mode | Win (vs grid) | Points (vs grid) | Full order (grid 0.589) | Winner score (grid 1.74) | Favourite won |
+|---|---|---|---|---|---|
+| Ignore rain | +10% | +3% | 0.616 | 1.46 | 6 of 13 |
+| Rain window | +8% | +4% | 0.618 | 1.44 | 6 of 13 |
+| Real conditions | +13% | +2% | 0.612 | 1.38 | 6 of 13 |
+
+The 95% ranges are wide (win from about −9% to +25%; full order −0.02 to
++0.07 vs the grid). With 13 races, **the rain model predicts the finishing
+order about as well as ignoring rain: no better, no worse.** All three modes
+beat the grid baseline slightly, and none of those gaps is statistically
+clear. Note these fixes were chosen on the same 13 races (there are no
+others), so treat them as a development result, not an exam.
+
+**Tyre behaviour against reality** (rain window mode):
+
+- Going onto wet tyres: right in 11 of 12 races with a switch, because cars
+  now start on wet tyres when the track is wet at the start (rule W8). The
+  exception is Silverstone 2024: drizzle was flagged from lap 18, but the
+  field switched on lap 27 (model: lap 19).
+- Back to slicks: off by about 9 laps on average (median 8; from 25 laps
+  early at Silverstone 2025, where a second shower kept the real field on
+  intermediates, to 10 laps late at Zandvoort 2023). The model has one
+  drying rate for every track.
+- Swaps between intermediates and full wets: real drivers made 0.28 per car on
+  average. Before the fix the model made about 1 per car, swapping back and
+  forth every few laps in steady rain. Now it requires a swap to pay for its
+  pit stop (rule W9): 0.26 per car.
+
+**Your wet-weather call (switch early or late)** can only be checked
+indirectly. Over 23 field-wide tyre changes in real wet races (401 driver
+switches since 2018), each lap later than the field cost about 0.5 places
+(95% CI 0.03 to 1.0). Real teams also spread their switches over several laps
+(half on the median lap, standard deviation 1.1 laps). The model's effect is
+about 5 times larger (at least 2.4 times, given that range): from P3 at
+Silverstone with rain on laps 15–30, one lap early gains 1.8 places (+4.3
+points) and one lap late loses 3.0 places (−3.4 points). The cause is the
+assumed rate at which slicks lose time once the track is past the crossover
+(rule W3: the data could not fit it). Giving rivals the real spread of switch
+laps (rule W10) made predictions slightly worse on top of that too-steep penalty,
+so it stays off until that slope is calibrated. The website shows the
+real-race figure next to the model's number.
+
 ## What the improvements were
 
 | Code | Change | Why the data supported it |
@@ -118,6 +195,15 @@ kept them). The website labels the strategy comparison as experimental.
   matched or slightly beat simply trusting the grid.
 - Treat strategy comparisons as experimental, especially differences under
   about 5 seconds.
+- In the wet, the rain model gets tyre choices broadly right but does not
+  predict the order better than ignoring rain. Its wet-weather call advice
+  points the right way (earlier is better, as in real races) but overstates
+  the effect about 5 times.
+- The final-exam scores above come from the engine as it was on the exam
+  day. Rerunning the exam with the current engine gives win −3% and full order
+  0.707 (was 0.703). The difference comes from engine changes made before the
+  wet-race work; that work itself leaves dry races exactly as they were
+  (checked by rerunning the exam with and without it).
 
 ## Reproduce
 
@@ -130,4 +216,10 @@ cd .. && .venv/bin/python model/score_backtest.py dev
 # final exam: the same with 2026 and `score_backtest.py holdout`
 .venv/bin/python model/strategy_pairs.py
 cd web && PATH="$HOME/.local/node/bin:$PATH" node --experimental-strip-types scripts/strategy-check.ts 1000
+# wet races
+cd .. && .venv/bin/python model/backtest.py wet             # as-of fits, ~1 min per race
+.venv/bin/python model/backtest.py wet-races                # real conditions, rain windows, switch timing
+cd web && PATH="$HOME/.local/node/bin:$PATH" node --experimental-strip-types scripts/backtest-wet.ts 4000
+cd .. && .venv/bin/python model/score_backtest.py wet
+.venv/bin/python model/wet_switch.py                        # real switch timing and its effect
 ```

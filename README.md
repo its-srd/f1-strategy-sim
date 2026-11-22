@@ -33,7 +33,7 @@ Structural choices and every sample size are in
 | 2 | Model fitting (Python) | Done: `data/params/*.json` |
 | 3 | Simulation engine (TypeScript, Web Worker) | Done: `web/src/engine/` |
 | 4 | Website | Done: `web/` (static build in `web/dist/`) |
-| – | Backtest | Done: 18 practice races (2025) + 13 exam races (2026), see [docs/backtest.md](docs/backtest.md) |
+| – | Backtest | Done: 18 practice races (2025) + 13 exam races (2026), see [docs/backtest.md](docs/backtest.md); 13 wet races (2022–2026): the rain model gets tyre choices broadly right but predicts the order no better than ignoring rain |
 | – | Claude explanation panel | Optional proxy in `web/server/`; off unless configured |
 
 ## Layout

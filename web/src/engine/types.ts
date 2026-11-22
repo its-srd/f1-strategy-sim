@@ -65,6 +65,9 @@ export interface GlobalParams {
     dynamics: { c: number; rho: number; stationary_dry_level: number; n_lap_pairs: number; n_races: number; resid_sd: number };
     trajectories: Record<string, [number, number, boolean][]>;
     driver_wet_skill: { between_driver_sd_pct: number; pairs: number; races: number };
+    // W10: each driver's switch lap minus the field's median, laps -> count
+    switch_timing?: { offsets: Record<string, number>; offset_sd_laps: number; n_transitions: number; n_driver_switches: number;
+      places_gained_per_lap_later: number; places_gained_per_lap_later_ci95: [number, number] };
     n_wet_races: number;
   };
   gaps: { lap1_gap_quantiles_s: Quantiles; leader_lap1_loss_s: number; restart_gap_quantiles_s: Quantiles; held_gap_quantiles_s: Quantiles };
@@ -77,7 +80,9 @@ export interface GlobalParams {
 
 export interface GridEntry { driver_id: string; code: string; name: string; team_id: string; number: string; quali_gap_pct?: number; quali_wet?: boolean }
 
-export interface Calibration { pace_spread_scale: number; pace_spread_scale_without_quali?: number; strategy_choices: number; chosen_on: string; scores: Record<string, unknown> }
+export interface Calibration { pace_spread_scale: number; pace_spread_scale_without_quali?: number; strategy_choices: number; chosen_on: string; scores: Record<string, unknown>;
+  wet_driver_effects?: boolean;    // W1b: off since the wet-race backtest
+  rival_switch_spread?: boolean }  // W10: off since the wet-race backtest
 
 export interface Params {
   tracks: Record<string, TrackParams>;
@@ -99,7 +104,10 @@ export interface Strategy { stints: Stint[] }
 export type Weather =
   | { kind: "dry" }
   | { kind: "probability"; p: number }                  // chance of a rain spell during the race
-  | { kind: "window"; startLap: number; endLap: number };
+  | { kind: "window"; startLap: number; endLap: number }
+  // Hindsight replay for backtests: the real best-tyre lap-time ratio per lap
+  // (index 0 = lap 1), as model/backtest.py measured it. Not offered in the UI.
+  | { kind: "trace"; best: number[] };
 
 /** Your car's call in the rain: switch `timing` laps before (negative) or
  *  after (positive) the lap the model's crossover says, and optionally never

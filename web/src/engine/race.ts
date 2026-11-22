@@ -3,7 +3,7 @@
 
 import { Rng, compileHist, compilePmf, compileQuantiles, sampleHistC, samplePmf, sampleQ, type Pmf, type QTable } from "./rng.ts";
 import { bestFamily, compoundRatio, expectedTime, stopLaps, wetModel, wetnessFromBest, type RaceSetup, type WetModel } from "./setup.ts";
-import { DRY, type Compound, type Dry, type Strategy } from "./types.ts";
+import { DRY, type Compound, type Dry, type Strategy, type WetCall } from "./types.ts";
 
 export const POINTS = [25, 18, 15, 12, 10, 8, 6, 4, 2, 1];
 export const GREEN = 0, SC = 1, VSC = 2, RED = 3;
@@ -33,6 +33,7 @@ export interface Prepared {
   wetSegments: number[][];              // observed wetness sequences (W4)
   wetPeaks: number[];                   // peak wetness of each observed wet spell (W4b)
   rampLaps: number;                     // median laps from dry to the peak of a spell
+  switchOffsets: { lap: number; cum: number }[];   // W10: rival switch timing vs the field median
   strategyPool: { compounds: Dry[]; stop_fracs: number[]; grid?: number | null }[];
   q: { pitResid: QTable; lap1Gap: QTable; restartGap: QTable; held: QTable };
   startPmf: Pmf[];                      // by grid slot (index 0 = P1)
@@ -71,7 +72,13 @@ export function prepare(s: RaceSetup): Prepared {
   const peaks = segs.map((sg) => Math.max(...sg));
   const toPeak = segs.map((sg) => sg.indexOf(Math.max(...sg)) + 1).sort((a, b) => a - b);
   const rampLaps = toPeak.length ? Math.max(1, toPeak[toPeak.length >> 1]) : 1;
-  return { wm, wetSegments: segs, wetPeaks: peaks, rampLaps, strategyPool: pool,
+  // W10: the measured spread of switch laps (real teams do not all change
+  // tyres on the same lap). Earlier than the radar is not possible.
+  const offs = Object.entries(G.wet.switch_timing?.offsets ?? { 0: 1 }).map(([k, v]) => [Math.max(-RADAR, Number(k)), v] as const);
+  const tot = offs.reduce((a, [, v]) => a + v, 0);
+  let acc = 0;
+  const switchOffsets = offs.sort((a, b) => a[0] - b[0]).map(([lap, v]) => ({ lap, cum: (acc += v) / tot }));
+  return { wm, wetSegments: segs, wetPeaks: peaks, rampLaps, switchOffsets, strategyPool: pool,
     q: { pitResid: compileQuantiles(G.pit.stop_residual_quantiles_s), lap1Gap: compileQuantiles(G.gaps.lap1_gap_quantiles_s),
          restartGap: compileQuantiles(G.gaps.restart_gap_quantiles_s), held: compileQuantiles(G.gaps.held_gap_quantiles_s) },
     startPmf, ev, dnfHist: compileHist(G.dnf.lap_frac_hist, G.dnf.lap_frac_bins) };
@@ -83,6 +90,15 @@ function wetnessPath(s: RaceSetup, prep: Prepared, rng: Rng): Float32Array | nul
   const w = s.scenario.weather, N = s.track.laps, wm = prep.wm;
   if (w.kind === "dry" || prep.wetSegments.length === 0) return null;
   const path = new Float32Array(N + 2).fill(wm.iDry);
+  if (w.kind === "trace") {
+    let any = false;
+    for (let L = 1; L <= N; L++) {
+      path[L] = wetnessFromBest(wm, w.best[Math.min(L, w.best.length) - 1] ?? 1);
+      if (path[L] > wm.iDry + 1e-6) any = true;
+    }
+    path[N + 1] = path[N];
+    return any ? path : null;
+  }
   let end: number;
   if (w.kind === "probability") {
     // W4: a random spell replays an observed wet spell lap for lap (its own
@@ -106,7 +122,8 @@ function wetnessPath(s: RaceSetup, prep: Prepared, rng: Rng): Float32Array | nul
     let e = 0;
     for (let L = start; L <= end; L++) {
       e = wm.rho * e + rng.normal(0, sd);
-      const ramp = Math.min(1, (L - start + 1) / prep.rampLaps);
+      // A window from lap 1 means it rained before the start: already wet.
+      const ramp = start === 1 ? 1 : Math.min(1, (L - start + 1) / prep.rampLaps);
       path[L] = Math.max(wm.iDry, wm.iDry + (level - wm.iDry) * ramp + e);
     }
   }
@@ -250,6 +267,14 @@ export function simulateRace(s: RaceSetup, prep: Prepared, seed: number, fallbac
 
   const wetness = wetnessPath(s, prep, rng);
   const status = neutralisations(s, prep, rng, wetness !== null);
+  // W10: each rival's switch timing this race, from the measured spread.
+  const rivalLag = new Int32Array(n);
+  if (wetness && P.calibration?.rival_switch_spread === true) for (let i = 0; i < n; i++) {
+    const u = rng.u();
+    rivalLag[i] = (prep.switchOffsets.find((o) => u <= o.cum) ?? prep.switchOffsets[prep.switchOffsets.length - 1]).lap;
+  }
+  const callOf = (i: number): WetCall | undefined =>
+    s.cars[i].isUser ? (opt.wetCall ?? s.scenario.wetCall) : { timing: rivalLag[i], interOnly: false };
 
   // Retirements (R4).
   const dnfLap = new Int32Array(n).fill(0);
@@ -295,6 +320,14 @@ export function simulateRace(s: RaceSetup, prep: Prepared, seed: number, fallbac
   const comp: Compound[] = plans.map((p) => p.compounds[0]);
   const age = new Float64Array(n), stintIdx = new Int32Array(n), lapsDone = new Int32Array(n);
   const stints: CarResult["stints"][] = plans.map((p) => [{ compound: p.compounds[0], from: 1, to: 0 }]);
+  // W8: a wet start. Tyre choice at the start is free, so when wet tyres are
+  // the faster family on lap 1 every car starts on them instead of running
+  // lap 1 on slicks and stopping. The planned dry stops wait (wet tyres only
+  // come off at the crossover, W5 then re-plans the slick stints).
+  if (wetness) for (let i = 0; i < n; i++) {
+    const f = bestFamily(wm, wetness[1], !!callOf(i)?.interOnly);
+    if (f !== "MEDIUM") { comp[i] = f; stints[i][0].compound = f; }
+  }
   const parts = s.cars.map(() => ({ pit: 0, tyre: 0, traffic: 0, held: 0, neutral: 0, weather: 0, stops: 0 }));
   const gapAhead = new Float64Array(n).fill(99);
   const trace = opt.record ? s.cars.map(() => new Float32Array(N + 1)) : undefined;
@@ -328,7 +361,7 @@ export function simulateRace(s: RaceSetup, prep: Prepared, seed: number, fallbac
       // real teams switched, so no extra confirmation lag is added. Your car
       // can switch up to RADAR laps early (teams see rain coming that far
       // ahead) or wait `timing` laps longer, and can avoid full wets.
-      const call = s.cars[i].isUser ? (opt.wetCall ?? s.scenario.wetCall) : undefined;
+      const call = callOf(i);
       const interOnly = !!call?.interOnly;
       const famAt = (lap: number) => bestFamily(wm, wetness![Math.min(N, Math.max(1, lap))], interOnly);
       let rainSoon = false;
@@ -345,7 +378,19 @@ export function simulateRace(s: RaceSetup, prep: Prepared, seed: number, fallbac
         // SC stop or back from wet tyres) if wet tyres are needed again soon.
         for (let j = 1; j <= RADAR && L + j <= N; j++) if (famAt(L + j) !== "MEDIUM") rainSoon = true;
         if (best === "MEDIUM" && rainSoon) due = false;
-        if (familyOf(comp[i]) !== best && due && L < N) {
+        // W9: a swap between intermediates and full wets has to pay for the
+        // stop. Their crossover is where lap times are equal (the slick/inter
+        // one is where teams actually switched, so it already includes the
+        // stop), so the new tyre's gain per lap, over the expected life of a
+        // change in conditions (1 / (1 - rho) laps, fitted persistence), must
+        // beat the green-flag pit loss.
+        const cur = familyOf(comp[i]);
+        if (due && cur !== "MEDIUM" && best !== "MEDIUM" && cur !== best) {
+          const w = wetness[Math.min(N, at)];
+          const gain = (compoundRatio(wm, cur, w) - compoundRatio(wm, best, w)) * T.base;
+          if (gain * Math.min(N - L, 1 / (1 - wm.rho)) < T.pit[0]) due = false;
+        }
+        if (cur !== best && due && L < N) {
           pitThis[i] = 1;
           if (best === "MEDIUM") {
             // Back to slicks (W5): the dry compound with the lowest expected
@@ -487,7 +532,7 @@ export function simulateRace(s: RaceSetup, prep: Prepared, seed: number, fallbac
             // In the rain the free change fits the tyre the next laps need
             // (rain radar, W6): wet tyres if they are needed within RADAR laps.
             if (wetness) {
-              const call = s.cars[i].isUser ? (opt.wetCall ?? s.scenario.wetCall) : undefined;
+              const call = callOf(i);
               let fam: Compound = "MEDIUM";
               for (let j = 0; j <= RADAR && L + j <= N; j++) {
                 const f = bestFamily(wm, wetness[L + j], !!call?.interOnly);

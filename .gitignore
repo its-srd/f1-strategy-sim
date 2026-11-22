@@ -22,3 +22,5 @@ web/dist/
 web/server/node_modules/
 *.log
 .site/
+data/backtest/wet/20*_*/
+data/backtest/wet/driver_scores_*.csv
