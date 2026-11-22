@@ -275,16 +275,28 @@
   },
   "neutralised_ratio": {
    "sc": {
-    "median_ratio": 0.76559,
-    "q25": 0.428686,
-    "q75": 1.2277,
-    "n_stops": 644
+    "median_ratio": 0.617681,
+    "q25": 0.281735,
+    "q75": 0.922874,
+    "n_stops": 393,
+    "reference": "nearby cars that stayed out",
+    "whole_field_reference": {
+     "median_ratio": 0.76559,
+     "q25": 0.428686,
+     "q75": 1.2277
+    }
    },
    "vsc": {
-    "median_ratio": 0.841481,
-    "q25": 0.615294,
-    "q75": 1.208719,
-    "n_stops": 326
+    "median_ratio": 0.726961,
+    "q25": 0.576163,
+    "q75": 1.024345,
+    "n_stops": 290,
+    "reference": "nearby cars that stayed out",
+    "whole_field_reference": {
+     "median_ratio": 0.841481,
+     "q25": 0.615294,
+     "q75": 1.208719
+    }
    }
   },
   "n_green_stops": 3629,
@@ -320,7 +332,9 @@
     ],
     "n_races_2026": 21,
     "n_races_pre": 172,
-    "apply_2026_ratio": false
+    "apply_2026_ratio": false,
+    "p_rules_changed_rate": 0.179872,
+    "ratio_averaged": 1.004039
    },
    "lap1_share": 0.228758,
    "lap_frac_hist": [
@@ -382,7 +396,9 @@
     ],
     "n_races_2026": 21,
     "n_races_pre": 172,
-    "apply_2026_ratio": true
+    "apply_2026_ratio": true,
+    "p_rules_changed_rate": 0.973405,
+    "ratio_averaged": 2.016114
    },
    "lap1_share": 0.041322,
    "lap_frac_hist": [
@@ -444,7 +460,9 @@
     ],
     "n_races_2026": 21,
     "n_races_pre": 172,
-    "apply_2026_ratio": false
+    "apply_2026_ratio": false,
+    "p_rules_changed_rate": 0.331921,
+    "ratio_averaged": 1.103884
    },
    "lap1_share": 0.142857,
    "lap_frac_hist": [
@@ -478,6 +496,65 @@
    },
    "n_deployments": 28
   }
+ },
+ "sc_reaction": {
+  "coef": {
+   "intercept": {
+    "beta": -2.355117,
+    "se": 0.282044
+   },
+   "wear": {
+    "beta": 4.588384,
+    "se": 0.3663
+   },
+   "left": {
+    "beta": 1.460401,
+    "se": 0.443068
+   },
+   "owes": {
+    "beta": 0.299095,
+    "se": 0.219452
+   },
+   "vsc": {
+    "beta": -2.13356,
+    "se": 0.128084
+   }
+  },
+  "n_cars": 1879,
+  "n_deployments": 108,
+  "share_pitted": 0.331559,
+  "calibration": [
+   {
+    "bin": "[0.0, 0.1)",
+    "n": 464,
+    "predicted": 0.064327,
+    "observed": 0.075431
+   },
+   {
+    "bin": "[0.1, 0.25)",
+    "n": 427,
+    "predicted": 0.165831,
+    "observed": 0.175644
+   },
+   {
+    "bin": "[0.25, 0.5)",
+    "n": 509,
+    "predicted": 0.365266,
+    "observed": 0.341847
+   },
+   {
+    "bin": "[0.5, 0.75)",
+    "n": 295,
+    "predicted": 0.60381,
+    "observed": 0.555932
+   },
+   {
+    "bin": "[0.75, 1.0)",
+    "n": 184,
+    "predicted": 0.860314,
+    "observed": 0.951087
+   }
+  ]
  },
  "neutralised_pace": {
   "SC": {
@@ -968,7 +1045,14 @@
   },
   "pooled_sd": 2.6428,
   "between_track_tau_log": 0.283653,
-  "n_starts": 3137
+  "n_starts": 3137,
+  "season": {
+   "ratio": 1.097542,
+   "raw_ratio": 1.114463,
+   "n_starts": 365,
+   "weight": 0.858824,
+   "season": 2026
+  }
  },
  "overtaking": {
   "current_era": "2026",
