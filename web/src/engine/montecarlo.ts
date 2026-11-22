@@ -30,7 +30,8 @@ export interface MCResult {
   drivers: DriverSummary[];
   chosen: StrategyEval; alternative: StrategyEval | null; candidates: StrategyEval[];
   deltaByLap: { p25: number[]; p50: number[]; p75: number[] } | null;   // chosen - alternative, s (positive = chosen behind)
-  representative: { stints: { code: string; stints: RaceResult["cars"][number]["stints"]; pos: number; dnf: boolean }[]; status: number[]; wetness: number[] | null };
+  // gaps: gap to the leader at the end of each lap (NaN once retired), for the race replay
+  representative: { stints: { code: string; stints: RaceResult["cars"][number]["stints"]; pos: number; dnf: boolean; gaps: number[] }[]; status: number[]; wetness: number[] | null };
   neutralShare: { sc: number; vsc: number; red: number; wet: number };
   wetCallEval: { label: string; yoursExpPts: number; defaultExpPts: number; dExpPts: number; dExpPtsSE: number; dMedianTime: number | null; sims: number } | null;
   warnings: string[];
@@ -248,7 +249,8 @@ export function runMonteCarlo(params: Params, sc: Scenario, onProgress: Progress
     scenario: sc, laps: N, trackName: T.name, sims: S, elapsedMs: Date.now() - t0,
     drivers, chosen, alternative, candidates: [chosenPaired, ...candidates], deltaByLap,
     representative: {
-      stints: setup.cars.map((c, i) => ({ code: c.code, stints: rep!.cars[i].stints, pos: rep!.cars[i].pos, dnf: rep!.cars[i].dnf })).sort((a, b) => a.pos - b.pos),
+      stints: setup.cars.map((c, i) => ({ code: c.code, stints: rep!.cars[i].stints, pos: rep!.cars[i].pos, dnf: rep!.cars[i].dnf,
+        gaps: rep!.trace ? Array.from(rep!.trace[i]).slice(1, N + 1) : [] })).sort((a, b) => a.pos - b.pos),
       status: Array.from(rep!.status).slice(1, N + 1), wetness: rep!.wetness ? Array.from(rep!.wetness).slice(1, N + 1) : null,
     },
     neutralShare: { sc: sumStatus.sc / S, vsc: sumStatus.vsc / S, red: sumStatus.red / S, wet: sumStatus.wet / S },

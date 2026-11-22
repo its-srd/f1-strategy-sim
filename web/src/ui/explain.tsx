@@ -36,7 +36,7 @@ export function ExplainPanel({ result }: { result: MCResult }) {
     setBusy(false);
   };
   return (
-    <div class="panel">
+    <div class="panel reveal" style={{ "--i": 9 }}>
       <h2>Explain these results (Claude)</h2>
       <div class="sub">Claude reads only the numbers above and explains them. It does not change or add to the prediction.</div>
       <button class="btn" onClick={ask} disabled={busy}>{busy ? "Asking…" : "Explain"}</button>

@@ -1,5 +1,5 @@
 import { render } from "preact";
-import { useEffect, useMemo, useRef, useState } from "preact/hooks";
+import { useEffect, useLayoutEffect, useMemo, useRef, useState } from "preact/hooks";
 import "./styles.css";
 import type { MCResult } from "./engine/montecarlo.ts";
 import { SPORTING_RULES, checkStrategy, enumerateStrategies, expectedTime, strategyLabel, trackSetup } from "./engine/setup.ts";
@@ -9,6 +9,8 @@ import { BandChart, COMPOUND_COLOR, COMPOUND_LETTER, Heat, LineChart, PairedBars
 import { renderMarkdown } from "./ui/markdown.tsx";
 import { ExplainPanel } from "./ui/explain.tsx";
 import { QualiPanel, fetchRaceGrid, parseQuali, type GridFetch, type QualiParse } from "./ui/quali.tsx";
+import { RaceReplay } from "./ui/replay.tsx";
+import { useCountUp } from "./ui/motion.ts";
 
 const FILES = ["tracks", "teams", "drivers", "global", "grid_2026", "meta"] as const;
 const pct = (x: number, d = 1) => `${(100 * x).toFixed(d)}%`;
@@ -75,6 +77,19 @@ function App() {
   const [page, setPage] = useState<"sim" | "model" | "record">("sim");
   const [sc, setSc] = useState<Scenario | null>(null);
   const [result, setResult] = useState<MCResult | null>(null);
+  const [resultKey, setResultKey] = useState(0);
+  // The tab pill slides to the active tab, sized to its label.
+  const tabsRef = useRef<HTMLElement>(null);
+  const [pill, setPill] = useState<Record<string, string>>({});
+  useLayoutEffect(() => {
+    const place = () => {
+      const nav = tabsRef.current, on = nav?.querySelector<HTMLElement>(".tab.on");
+      if (nav && on) setPill({ "--x": `${on.offsetLeft}px`, "--w": `${on.offsetWidth}px` });
+    };
+    place();
+    addEventListener("resize", place);
+    return () => removeEventListener("resize", place);
+  }, [page, params]);
   const [running, setRunning] = useState(false);
   const [progress, setProgress] = useState<{ done: number; total: number; phase: string } | null>(null);
   const [runErr, setRunErr] = useState<string | null>(null);
@@ -100,39 +115,66 @@ function App() {
         const m = e.data;
         if (m.id !== runId.current) return;
         if (m.type === "progress") setProgress({ done: m.done, total: m.total, phase: m.phase });
-        if (m.type === "result") { setResult(m.result); setRunning(false); setProgress(null); }
+        if (m.type === "result") { setResult(m.result); setResultKey((k) => k + 1); setRunning(false); setProgress(null); }
         if (m.type === "error") { setRunErr(m.error); setRunning(false); setProgress(null); }
       };
       worker.current = w;
     }).catch((e) => setLoadErr(String(e)));
   }, []);
 
+  // ⌘↵ / Ctrl+↵ runs the simulation from anywhere on the page.
+  const runRef = useRef<() => void>(() => {});
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => { if (e.key === "Enter" && (e.metaKey || e.ctrlKey)) { e.preventDefault(); runRef.current(); } };
+    addEventListener("keydown", onKey);
+    return () => removeEventListener("keydown", onKey);
+  }, []);
   const run = () => {
-    if (!sc || !worker.current) return;
+    if (!sc || !worker.current || running) return;
     runId.current++;
     setRunning(true); setRunErr(null);
     worker.current.postMessage({ type: "run", id: runId.current, scenario: sc });
   };
+  runRef.current = run;
 
   if (loadErr) return <div class="empty">Could not load fitted parameters: {loadErr}<br />Run <code>npm run sync-params</code> after fitting.</div>;
   if (!params || !sc) return <div class="empty">Loading fitted parameters…</div>;
   return (
     <>
       <header class="topbar">
-        <h1>F1 Strategy Simulator</h1>
+        <div class="brand">
+          <svg viewBox="0 0 28 28" aria-hidden="true">
+            <defs><linearGradient id="brandGrad" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#7c4dff" /><stop offset="1" stop-color="#22d3ee" /></linearGradient></defs>
+            <rect x="0.5" y="0.5" width="27" height="27" rx="8" fill="#151826" stroke="rgba(255,255,255,0.08)" />
+            <path class="trail" pathLength={1} d="M6 19 C 9 19, 9 9, 14 9 S 19 19, 22 15" fill="none" stroke="url(#brandGrad)" stroke-width="2.4" stroke-linecap="round" />
+            <circle class="dot" cx="22" cy="15" r="2.4" fill="#22d3ee" />
+          </svg>
+          <h1>F1 Strategy <em>Simulator</em></h1>
+        </div>
         <span class="stamp">Model fitted on {params.meta.races_in_data} races, {params.meta.first_race[0]}–{params.meta.last_race[0]} ({params.meta.last_race[1]}) · {params.meta.clean_laps.toLocaleString()} clean laps · fitted {params.meta.generated_utc.slice(0, 10)}</span>
-        <nav>
+        <nav class="tabs" ref={tabsRef} style={pill}>
           <button class={`tab ${page === "sim" ? "on" : ""}`} onClick={() => setPage("sim")}>Simulator</button>
-          <button class={`tab ${page === "record" ? "on" : ""}`} onClick={() => setPage("record")}>Track record</button>
-          <button class={`tab ${page === "model" ? "on" : ""}`} onClick={() => setPage("model")}>Model &amp; assumptions</button>
+          <button class={`tab ${page === "record" ? "on" : ""}`} onClick={() => setPage("record")}><span class="long">Track record</span><span class="short">Record</span></button>
+          <button class={`tab ${page === "model" ? "on" : ""}`} onClick={() => setPage("model")}>Model<span class="long"> &amp; assumptions</span></button>
         </nav>
       </header>
       {page === "model" ? <DocPage file="assumptions.md" /> : page === "record" ? <DocPage file="live_record.md" then="backtest.md" /> : (
         <div class="layout">
           <Controls p={params} sc={sc} setSc={(u) => setSc((prev) => (typeof u === "function" ? u(prev!) : u))} onRun={run} running={running} progress={progress} err={runErr} />
-          <main class="main">
+          <main class={`main ${running ? "running" : ""}`}>
+            {running && <div class="progress-top"><i style={{ width: `${progress ? (100 * progress.done) / Math.max(1, progress.total) : 4}%` }} /></div>}
             {paramProblems.length > 0 && <div class="warn" style={{ marginBottom: "10px" }}>The parameter files have {paramProblems.length} problem{paramProblems.length > 1 ? "s" : ""} (first: {paramProblems[0]}); results may use defaults. Refit with <code>./scripts/update.sh</code>.</div>}
-            {result ? <Results p={params} r={result} /> : <div class="empty">Set up a scenario and press <b>Simulate</b>.<br /><br />The output is a set of probabilities from {sc.sims.toLocaleString()} simulated races. It is never a single prediction.</div>}
+            {result ? <div class="results" key={resultKey}><Results p={params} r={result} /></div> : (
+              <div class="empty"><div class="hero-empty">
+                <svg viewBox="0 0 220 90" aria-hidden="true">
+                  <defs><linearGradient id="emptyGrad" x1="0" x2="1"><stop offset="0" stop-color="#7c4dff" /><stop offset="1" stop-color="#22d3ee" /></linearGradient></defs>
+                  <path d="M10 70 C 40 70, 40 20, 80 20 S 120 70, 150 60 S 200 20, 210 24" fill="none" stroke="var(--surface-3)" stroke-width="10" stroke-linecap="round" />
+                  <path class="lap" pathLength={1} d="M10 70 C 40 70, 40 20, 80 20 S 120 70, 150 60 S 200 20, 210 24" fill="none" stroke="url(#emptyGrad)" stroke-width="3" stroke-linecap="round" />
+                </svg>
+                <h3>Set up a race, then press Simulate</h3>
+                <div>The answer is a set of probabilities from {sc.sims.toLocaleString()} simulated races, never a single prediction.</div>
+              </div></div>
+            )}
           </main>
         </div>
       )}
@@ -247,7 +289,7 @@ function Controls(props: { p: Params; sc: Scenario; setSc: SetScenario; onRun: (
           </select>
         </label>
         <DriverNote p={p} sc={sc} />
-        <div class="seg" style={{ margin: "4px 0 6px" }}>
+        <div class="seg" style={{ margin: "4px 0 6px", "--n": 2, "--idx": after ? 1 : 0 }}>
           <button class={after ? "" : "on"} onClick={() => setSc({ ...sc, listedGrid: false, gridImpliesPace: false, gridEntries: undefined })}>Before qualifying</button>
           <button class={after ? "on" : ""} onClick={() => setSc(withQuali({ ...sc, listedGrid: true, gridImpliesPace: true }, parsed, slotChoice))}>After qualifying</button>
         </div>
@@ -329,11 +371,11 @@ function Controls(props: { p: Params; sc: Scenario; setSc: SetScenario; onRun: (
         {check?.errors.map((e) => <div class="err">{e}</div>)}
         {check?.warnings.map((e) => <div class="warn">{e}</div>)}
         <label class="field" style={{ marginTop: "8px" }}><span>Pace mode</span>
-          <div class="seg">
+          <div class="seg" style={{ "--n": 3, "--idx": ["conserve", "normal", "push"].indexOf(sc.paceMode) }}>
             {(["conserve", "normal", "push"] as PaceMode[]).map((m) => <button class={sc.paceMode === m ? "on" : ""} onClick={() => upd({ paceMode: m })}>{m}</button>)}
           </div>
         </label>
-        <div class="hint"><span class="tag pooled">what-if only</span> Push / conserve = ±{p.global.pace_mode.mode_pace_sd_pct.toFixed(2)}% pace, with {Math.abs(p.global.pace_mode.wear_change_per_pace_pct).toFixed(3)}% extra / less wear per lap of tyre age per 1% of pace (teammate data, n={p.global.pace_mode.n_pairs.toLocaleString()} stint pairs). Both numbers are measured, but they describe how teammates' stints differ (traffic, damage and team orders included), not a speed a driver can choose, and the extra wear is likely understated. So "push" looks nearly free here: the model cannot tell you whether pushing pays.</div>
+        <details class="more"><summary>Why <span class="tag pooled">what-if only</span>?</summary><div>Push / conserve = ±{p.global.pace_mode.mode_pace_sd_pct.toFixed(2)}% pace, with {Math.abs(p.global.pace_mode.wear_change_per_pace_pct).toFixed(3)}% extra / less wear per lap of tyre age per 1% of pace (teammate data, n={p.global.pace_mode.n_pairs.toLocaleString()} stint pairs). Both numbers are measured, but they describe how teammates' stints differ (traffic, damage and team orders included), not a speed a driver can choose, and the extra wear is likely understated. So "push" looks nearly free here: the model cannot tell you whether pushing pays.</div></details>
         <label class="row" style={{ marginTop: "8px", gap: "6px" }}>
           <input type="checkbox" style={{ flex: "none" }} checked={sc.reactToSC} onChange={(e) => upd({ reactToSC: (e.target as HTMLInputElement).checked })} />
           <span style={{ color: "var(--text-secondary)" }}>Pit early under SC/VSC when a stop is due soon</span>
@@ -342,7 +384,7 @@ function Controls(props: { p: Params; sc: Scenario; setSc: SetScenario; onRun: (
 
       <div class="group">
         <span class="label">Weather</span>
-        <div class="seg" style={{ marginBottom: "8px" }}>
+        <div class="seg" style={{ marginBottom: "8px", "--n": 3, "--idx": ["dry", "probability", "window"].indexOf(w.kind) }}>
           <button class={w.kind === "dry" ? "on" : ""} onClick={() => setWeather({ kind: "dry" })}>Dry</button>
           <button class={w.kind === "probability" ? "on" : ""} onClick={() => setWeather({ kind: "probability", p: 0.3 })}>Rain chance</button>
           <button class={w.kind === "window" ? "on" : ""} onClick={() => setWeather({ kind: "window", startLap: Math.round(N * 0.3), endLap: Math.round(N * 0.55) })}>Rain window</button>
@@ -357,7 +399,7 @@ function Controls(props: { p: Params; sc: Scenario; setSc: SetScenario; onRun: (
           <div class="hint">{w.kind === "window"
             ? "It rains for these laps: the track gets wet over a couple of laps (or is already wet if the window starts on lap 1), stays wet at a level taken from real wet races, then dries at the measured rate. Enter when rain falls, not when cars are on wet tyres: the drying afterwards is added by the model."
             : "A rain spell, if it comes, replays a real wet spell lap for lap (rise, peak and drying)."}</div>
-          <span class="label" style={{ marginTop: "10px" }}>Wet-weather call (your car)</span>
+          <span class="sublabel">Wet-weather call (your car)</span>
           <label class="field"><span>When to switch to wet tyres and back</span>
             <select value={sc.wetCall?.timing ?? 0} onChange={(e) => upd({ wetCall: { timing: Number((e.target as HTMLSelectElement).value), interOnly: !!sc.wetCall?.interOnly } })}>
               {[-3, -2, -1, 0, 1, 2, 3].map((v) => <option value={v}>{v === 0 ? "When they become faster (model's call)" : v < 0 ? `${-v} lap${v < -1 ? "s" : ""} early (gamble)` : `${v} lap${v > 1 ? "s" : ""} late (stay out)`}</option>)}
@@ -379,8 +421,13 @@ function Controls(props: { p: Params; sc: Scenario; setSc: SetScenario; onRun: (
           </select>
         </label>
         {afterBlock && <div class="hint">After qualifying needs a grid for this race (see above).</div>}
-        <button class="btn primary" disabled={props.running || !check?.ok || !ts || afterBlock} onClick={props.onRun}>{props.running ? "Simulating…" : "Simulate"}</button>
-        {props.progress && <><div class="progress"><i style={{ width: `${(100 * props.progress.done) / Math.max(1, props.progress.total)}%` }} /></div><div class="hint">{props.progress.phase}</div></>}
+      </div>
+      <div class="run-dock">
+        <button class={`btn primary ${props.running ? "busy" : ""}`} disabled={props.running || !check?.ok || !ts || afterBlock} onClick={props.onRun}
+          style={{ "--p": `${props.progress ? (100 * props.progress.done) / Math.max(1, props.progress.total) : 0}%` }}>
+          <span>{props.running ? "Simulating…" : "Simulate"}{!props.running && <kbd>⌘↵</kbd>}</span>
+        </button>
+        <div class="progress-line">{props.progress ? <><span>{props.progress.phase}</span><span>{Math.round((100 * props.progress.done) / Math.max(1, props.progress.total))}%</span></> : <span>{sc.sims.toLocaleString()} races per run</span>}</div>
         {props.err && <div class="err">{props.err}</div>}
       </div>
     </aside>
@@ -406,6 +453,10 @@ function DriverNote({ p, sc }: { p: Params; sc: Scenario }) {
 
 function Results({ p, r }: { p: Params; r: MCResult }) {
   const me = r.drivers.find((d) => d.isUser)!;
+  // One driver can be "in focus" (hovered in the table, legend, stint map or
+  // replay); every chart brings that driver forward.
+  const [focus, setFocus] = useState<string | null>(null);
+  const focusId = focus ? r.drivers.find((d) => d.code === focus)?.driverId ?? null : null;
   const top = r.drivers.filter((d) => !d.isUser).slice(0, 4);
   const colors = ["var(--series-2)", "var(--series-3)", "var(--series-4)", "var(--series-5)"];
   const series: Series[] = r.drivers.map((d) => {
@@ -419,28 +470,29 @@ function Results({ p, r }: { p: Params; r: MCResult }) {
   ] as const;
   return (
     <>
+      <div class="mode-line reveal" style={{ "--i": 0 }}>
+        <span class="pill"><i />{r.scenario.listedGrid ? "After qualifying · real grid" : "Before qualifying · you set the grid"}</span>
+        <span>{r.trackName}</span><span>{r.sims.toLocaleString()} races in {(r.elapsedMs / 1000).toFixed(1)} s</span>
+        <span>{r.scenario.listedGrid ? "The backtested, more accurate mode." : "Season form only; less accurate than after qualifying (see Track record)."}</span>
+      </div>
       <div class="cards">
-        <Card k="Win" v={pct(me.win)} s={`${me.code} · ${me.teamName} car`} />
-        <Card k="Podium" v={pct(me.podium)} s={`from P${r.scenario.grid}${r.scenario.listedGrid ? " (real grid)" : ""}`} />
-        <Card k="Points" v={pct(me.points)} s={`${me.expPoints.toFixed(1)} expected pts`} />
-        <Card k="Retirement" v={pct(me.dnf)} s={`team ${p.meta.target_season ?? 2026} rate × track`} />
-        <Card k="Mean finish" v={me.meanPos.toFixed(1)} s="DNF counted at its place" />
-        <Card k="Sims" v={r.sims.toLocaleString()} s={`${(r.elapsedMs / 1000).toFixed(1)} s · ${r.trackName}`} />
+        <HeroWin v={me.win} who={`${me.name} · ${me.teamName}`} sub={`from P${r.scenario.grid}${r.scenario.listedGrid ? " on the real grid" : ""}`} />
+        <Stat i={1} k="Podium" v={me.podium} fmt={(x) => pct(x)} s="top three" />
+        <Stat i={2} k="Points" v={me.points} fmt={(x) => pct(x)} s={`${me.expPoints.toFixed(1)} expected pts`} />
+        <Stat i={3} k="Mean finish" v={me.meanPos} fmt={(x) => `P${x.toFixed(1)}`} s="retirement counted at its place" />
+        <Stat i={4} k="Retirement" v={me.dnf} fmt={(x) => pct(x)} s={`team ${p.meta.target_season ?? 2026} rate × track`} />
       </div>
       <ActualBanner p={p} r={r} />
-      <div class="hint" style={{ marginBottom: "8px" }}>{r.scenario.listedGrid
-        ? "Mode: after qualifying. Real grid order, and qualifying gaps read as this weekend's pace (the backtested mode)."
-        : "Mode: before qualifying. You set your grid slot; rivals start in order of expected pace. Less accurate than after qualifying (see Track record)."}</div>
       {r.warnings.map((w) => <div class="warn" style={{ marginBottom: "8px" }}>{w}</div>)}
 
-      <div class="panel">
+      <div class="panel reveal" style={{ "--i": 2 }}>
         <h2>Finishing probabilities, every driver</h2>
         <div class="sub">Share of {r.sims.toLocaleString()} simulated races. Uncertainty in car pace, driver skill, tyre wear and pit loss is sampled in every race, along with SC/VSC/red flags, retirements, the start, overtakes and lap noise. Sorted by expected points.</div>
         <div class="table-wrap"><table class="t">
           <thead><tr><th class="l">Driver</th><th class="l">Car</th>{r.scenario.actualResult && <th>Actual</th>}<th>Win</th><th>Podium</th><th>Points</th><th>DNF</th><th>Mean pos</th><th>Exp. pts</th><th class="l" style={{ whiteSpace: "normal", minWidth: "70px" }}>Finish P1 → P{r.drivers.length}, DNF</th></tr></thead>
-          <tbody>{r.drivers.map((d) => (
-            <tr class={d.isUser ? "user" : ""}>
-              <td class="l">{d.name}</td><td class="l">{d.teamName}</td>
+          <tbody onMouseLeave={() => setFocus(null)}>{r.drivers.map((d, i) => (
+            <tr class={`${d.isUser ? "user" : ""} ${focus === d.code ? "focus" : ""}`} onMouseEnter={() => setFocus(d.code)} style={{ "--i": i }}>
+              <td class="l name">{d.name}</td><td class="l" style={{ color: "var(--text-secondary)" }}>{d.teamName}</td>
               {r.scenario.actualResult && <td class="mono">{actualOf(r, d.code)}</td>}
               <td><Bar v={d.win} /></td><td><Bar v={d.podium} /></td><td><Bar v={d.points} /></td>
               <td>{pct(d.dnf)}</td><td>{d.meanPos.toFixed(1)}</td><td>{d.expPoints.toFixed(1)}</td>
@@ -450,21 +502,29 @@ function Results({ p, r }: { p: Params; r: MCResult }) {
         </table></div>
       </div>
 
-      <div class="panel">
+      <div class="panel reveal" style={{ "--i": 3 }}>
         <h2>Median race trace: gap to the leader</h2>
         <div class="sub">Median gap behind the leader at the end of each lap, over the first {Math.min(400, r.sims)} simulated races. Your driver and the four highest expected scorers are highlighted; others are grey. Gaps above 60 s are clipped.</div>
-        <div class="legend">{series.filter((s) => s.emphasis).map((s) => <span><i style={{ background: s.color }} />{s.label}</span>)}<span><i style={{ background: "var(--series-other)" }} />others</span></div>
-        <LineChart series={series} yLabel="gap to leader (s)" invert yMaxClip={60} />
+        <div class="legend" onMouseLeave={() => setFocus(null)}>{series.filter((s) => s.emphasis).map((s) => <span onMouseEnter={() => setFocus(s.label)}><i style={{ background: s.color }} />{s.label}</span>)}<span><i style={{ background: "var(--series-other)" }} />others (hover a driver in the table to bring them forward)</span></div>
+        <LineChart series={series} yLabel="gap to leader (s)" invert yMaxClip={60} focusKey={focusId} />
       </div>
 
-      <div class="panel">
+      <div class="panel reveal" style={{ "--i": 4 }}>
         <h2>Tyre stint map: one representative simulated race</h2>
         <div class="sub">The simulated race closest to the median outcome for your driver. Rivals run strategies teams actually used here (planned green-flag stops only). Shading: <span style={{ background: "var(--sc)", padding: "0 4px" }}>SC</span> <span style={{ background: "var(--vsc)", padding: "0 4px" }}>VSC</span> <span style={{ background: "var(--red)", padding: "0 4px" }}>red flag</span>.</div>
         <div class="legend">{(["SOFT", "MEDIUM", "HARD", "INTERMEDIATE", "WET"] as const).map((c) => <span><i class="sq" style={{ background: COMPOUND_COLOR[c] }} />{COMPOUND_LETTER[c]} {c.toLowerCase()}</span>)}</div>
-        <StintMap rows={r.representative.stints.map((s) => ({ ...s, user: s.code === me.code }))} laps={r.laps} status={r.representative.status} wetness={r.representative.wetness} />
+        <StintMap rows={r.representative.stints.map((s) => ({ ...s, user: s.code === me.code }))} laps={r.laps} status={r.representative.status} wetness={r.representative.wetness} focus={focus} onFocus={setFocus} />
       </div>
 
-      <div class="panel">
+      {r.representative.stints[0]?.gaps.length > 0 && <div class="panel reveal" style={{ "--i": 5 }}>
+        <span class="kicker">Replay</span>
+        <h2>Watch that race unfold, lap by lap</h2>
+        <div class="sub">The same representative race as a timing tower: positions from each car's gap to the leader at the end of every lap, tyre and age, pit stops, and SC / VSC / red-flag laps on the track bar. Drag to scrub; hover a car to find it in the other charts.</div>
+        <RaceReplay rows={r.representative.stints.map((s) => ({ code: s.code, user: s.code === me.code, dnf: s.dnf, gaps: s.gaps, stints: s.stints }))}
+          laps={r.laps} status={r.representative.status} focus={focus} onFocus={setFocus} />
+      </div>}
+
+      <div class="panel reveal" style={{ "--i": 6 }}>
         <h2>Your strategy vs the best alternative the model found</h2>
         <div class="sub">Candidates are ranked by expected race time, then the best of each compound sequence is re-simulated on the same {alt?.sims.toLocaleString()} random races as yours (paired comparison). Best = highest expected points; its gain is then measured again on {alt?.sims.toLocaleString()} fresh races, so picking the luckiest of several does not inflate it.</div>
         <div class="warn" style={{ marginBottom: "8px" }}><span class="tag pooled">experimental</span> Not validated. On real teammates who ran different strategies, knowing the strategies did not measurably improve the predicted gap in 2025 or 2026, even with the true tyre values of each race: those gaps vary by 17–25 s, the strategy effects are about 5 s, so the test cannot tell. The tyre model itself does predict lap-to-lap gaps between teammates (about 28% of their variation), but overstates tyre differences by about 20%. Treat differences under about 5 s as noise. See the Track record tab.</div>
@@ -500,7 +560,7 @@ function Results({ p, r }: { p: Params; r: MCResult }) {
         </>}
       </div>
 
-      {r.wetCallEval && <div class="panel">
+      {r.wetCallEval && <div class="panel reveal" style={{ "--i": 7 }}>
         <h2>Your wet-weather call vs the model's call</h2>
         <div style={{ fontSize: "13px" }}>Call: <b>{r.wetCallEval.label}</b>. Expected points {r.wetCallEval.yoursExpPts.toFixed(2)} vs {r.wetCallEval.defaultExpPts.toFixed(2)} with the model's call: <b>{sgn(r.wetCallEval.dExpPts)} ± {(2 * r.wetCallEval.dExpPtsSE).toFixed(2)}</b>{Math.abs(r.wetCallEval.dExpPts) < 2 * r.wetCallEval.dExpPtsSE ? " (within noise)" : ""}{r.wetCallEval.dMedianTime !== null ? `; median race time ${sgn(r.wetCallEval.dMedianTime, 1)} s` : ""}.</div>
         <div class="hint" style={{ marginTop: "4px" }}>Same {r.wetCallEval.sims.toLocaleString()} random races for both calls (paired).{p.global.wet.switch_timing && <> In real races ({p.global.wet.switch_timing.n_transitions} field-wide tyre changes in the wet) each lap later than the field cost about <b>{(-p.global.wet.switch_timing.places_gained_per_lap_later).toFixed(1)} places</b> (95% CI {(-p.global.wet.switch_timing.places_gained_per_lap_later_ci95[1]).toFixed(1)} to {(-p.global.wet.switch_timing.places_gained_per_lap_later_ci95[0]).toFixed(1)}). The model's effect is about 5 times that, because how fast slicks lose time past the crossover is assumed, not fitted: trust the direction more than the size.</>}</div>
@@ -529,7 +589,7 @@ function ActualBanner({ p, r }: { p: Params; r: MCResult }) {
   const w = winner && r.drivers.find((d) => d.code === winner.code);
   const fav = r.drivers.reduce((a, b) => (b.win > a.win ? b : a));
   return (
-    <div class="panel" style={{ borderColor: "var(--axis)" }}>
+    <div class="panel reveal" style={{ "--i": 1, borderColor: "rgba(124, 77, 255, 0.35)" }}>
       <h2>This race has been run{r.scenario.raceLabel ? `: ${r.scenario.raceLabel}` : ""}</h2>
       <div style={{ fontSize: "13px" }}>Winner: <b>{w?.name ?? winner?.code ?? "–"}</b> (started P{winner?.grid || "pit lane"}). The model gave them <b>{w ? pct(w.win) : "–"}</b>; its favourite was {fav.name} at {pct(fav.win)}. The "Actual" column shows every finishing position.</div>
       <div class="hint" style={{ marginTop: "4px" }}>{seen
@@ -540,7 +600,33 @@ function ActualBanner({ p, r }: { p: Params; r: MCResult }) {
 }
 
 const fmtTime = (s: number) => { const h = Math.floor(s / 3600), m = Math.floor((s % 3600) / 60), x = s % 60; return `${h}:${String(m).padStart(2, "0")}:${x.toFixed(1).padStart(4, "0")}`; };
-const Card = (x: { k: string; v: string; s: string }) => <div class="card"><div class="k">{x.k}</div><div class="v">{x.v}</div><div class="s">{x.s}</div></div>;
+/** Supporting stat tile: the value counts up when a result arrives. */
+function Stat(x: { i: number; k: string; v: number; fmt: (v: number) => string; s: string }) {
+  const v = useCountUp(x.v, 900);
+  return <div class="card reveal" style={{ "--i": x.i }}><div class="k">{x.k}</div><div class="v">{x.fmt(v)}</div><div class="s">{x.s}</div></div>;
+}
+
+/** The one hero figure: win probability, counting up inside a ring. */
+function HeroWin(x: { v: number; who: string; sub: string }) {
+  const v = useCountUp(x.v, 1100);
+  const R = 40, C = 2 * Math.PI * R;
+  return (
+    <div class="card hero reveal" style={{ "--i": 0 }}>
+      <svg class="ring" viewBox="0 0 100 100" aria-hidden="true">
+        <defs><linearGradient id="ringGrad" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#7c4dff" /><stop offset="1" stop-color="#22d3ee" /></linearGradient></defs>
+        <circle class="track" cx="50" cy="50" r={R} fill="none" stroke-width="8" />
+        <circle class="arc" cx="50" cy="50" r={R} fill="none" stroke-width="8" stroke-dasharray={C} stroke-dashoffset={C * (1 - Math.min(1, Math.max(0, v)))} transform="rotate(-90 50 50)" />
+      </svg>
+      <div>
+        <div class="k">Win probability</div>
+        <div class="v">{pct(v)}</div>
+        <div class="who">{x.who}</div>
+        <div class="s">{x.sub}</div>
+      </div>
+    </div>
+  );
+}
+
 const Bar = ({ v }: { v: number }) => <div class="bar"><i style={{ width: `${Math.min(100, 100 * v)}%` }} /><b>{pct(v)}</b></div>;
 const Src = ({ s }: { s: string }) => <span class={`tag ${s.split(" ")[0]}`}>{s}</span>;
 
@@ -552,7 +638,7 @@ function TrackData({ p, r }: { p: Params; r: MCResult }) {
     return <><dt>{label}</dt><dd>{sgn(e.mean_s ?? 0, d)}{unit} ± {(e.sd_s ?? 0).toFixed(d)} <Src s={e.source} /> <span class="hint">{e.n_races} races</span></dd></>;
   };
   return (
-    <div class="panel">
+    <div class="panel reveal" style={{ "--i": 8 }}>
       <h2>What the model knows about {t.name}</h2>
       <div class="sub">Every value is fitted from data. <span class="tag track">track</span> = estimated at this circuit (shrunk toward the pool by its uncertainty); <span class="tag pooled">pooled</span> = not enough data here, so the cross-track estimate is used. <span class="tag track">track + weekend long runs</span> = this weekend's practice long runs (or sprint) added to the wear, before the race. Full list: the Model &amp; assumptions tab.</div>
       <div class="grid2">
