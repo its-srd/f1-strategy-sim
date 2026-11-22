@@ -67,6 +67,7 @@ race at that circuit.
 | + rival strategies depend on grid slot | −16% | −8% | +1% | 1.27 | 0.649 | 94% | 44% |
 | + rivals pick the quickest of 5 nearby strategies, randomness × 0.35 | −7% | −2% | +2% | 1.12 | 0.647 | 93% | 50% |
 | + second-review changes (below), randomness × 0.7 | **−3%** | **+2%** | 0% | **1.03** | 0.648 | PIT 80% | **61%** |
+| + open items: weekend long runs, season form spread, fitted SC reaction, cheaper SC stops | −3% | 0% | 0% | 1.04 | 0.648 | PIT 80% | 61% |
 
 The "80% range" column up to the last row uses the old, faulty measure.
 The second-review changes: car pace shared by teammates, tyre values that
@@ -82,6 +83,7 @@ with a proper calibration check.
 | First scoring (13 races) | −3% | +3% | +6% | 1.21 | 0.703 | – | 69% (9 of 13) |
 | After the second review (14 races) | −7% | **+7%** | **+8%** | **1.21** | **0.705** | 76% | **71%** (10 of 14) |
 | The same, on the original 13 races | −4% | +8% | +6% | 1.22 | – | – | – |
+| After the open items too (14 races) | −9% | +7% | **+9%** | 1.21 | 0.704 | 76% | 71% |
 | Grid-only baseline (14 races) | 0 | 0 | 0 | 1.55 | 0.646 | – | pole: 71% |
 
 **In plain English:**
@@ -108,12 +110,13 @@ order:
 | Grid only | 0.752 | 0.661 | 0.646 |
 | Pace forecast only (no simulation) | 0.791 | 0.629 | 0.714 |
 | Grid rank and pace rank, averaged | 0.802 | **0.666** | 0.695 |
-| Full simulation | **0.810** | 0.648 | **0.705** |
-| Among finishers only: average vs simulation | 0.861 vs **0.869** | **0.791** vs 0.778 | 0.828 vs **0.841** |
+| Full simulation | **0.813** | 0.648 | **0.704** |
+| Among finishers only: average vs simulation | 0.861 vs **0.872** | **0.791** vs 0.774 | 0.828 vs **0.842** |
 
-In two of three seasons the simulation beats the simple average (in 2026
-clear of luck among finishers: +0.003 to +0.022); in 2025 the average beats
-it (−0.025 to −0.004). Part of the review's gap came from the measure: the
+(Final configuration, after the open items.) In two of three seasons the
+simulation beats the simple average, and among finishers both are now clear
+of luck (2024: +0.003 to +0.017; 2026: +0.004 to +0.022); in 2025 the
+average beats it (−0.031 to −0.003). Part of the review's gap came from the measure: the
 model's expected position mixes in retirement risk, which the baselines
 ignore, so finishers are compared separately.
 
@@ -139,6 +142,13 @@ race share its safety cars. Three ways of simulating:
 | Random safety cars (as on the website) | +0.5 s (−0.6 to +2.0) | −0.8 s (−3.2 to +1.7) |
 | The race's real safety cars replayed | +0.3 s (−0.9 to +1.7) | +0.2 s (−2.5 to +2.9) |
 | Real safety cars + that race's true tyre values ("oracle") | +0.2 s (−0.8 to +1.3) | +0.9 s (−1.4 to +3.3) |
+| After the open items, random safety cars | +0.4 s (−0.9 to +2.0) | −0.4 s (−2.9 to +1.9) |
+| After the open items, real safety cars replayed | +0.6 s (−1.0 to +2.3) | **+1.7 s** (−0.5 to +3.6) |
+
+The open items (weekend long runs for wear, the fitted SC reaction, cheaper
+SC stops) moved the replayed-safety-car result in 2026 close to a clear
+gain, and the model now gets the direction right in 70–86% of pairs where
+it predicts more than 5 s. Still not clear of luck.
 
 **In plain English:** knowing the strategies does not measurably improve
 the prediction, in either year, **even with perfect tyre knowledge**. The
@@ -159,7 +169,8 @@ as tyres differ:
 |---|---|---|
 | Error predicting no tyre effect | 0.80 s | 0.90 s |
 | Error of the tyre model, before the review | 0.71 s | 0.78 s |
-| Error of the tyre model, after | **0.68 s** | **0.77 s** |
+| Error of the tyre model, after | **0.68 s** | 0.77 s |
+| ... plus the weekend's long runs | 0.69 s | **0.75 s** |
 | Real gap per second of predicted gap (1 = right) | 0.73 | 0.87 |
 
 So the tyre model does carry real information (it explains about 28% of
@@ -173,15 +184,29 @@ showed, % of lap time; "pool" = the cross-track average):
 |---|---|---|---|---|
 | Compound offsets: track / pool | 0.446 / 0.357 | **0.358** / 0.361 | 0.373 / 0.278 | **0.291** / 0.292 |
 | Wear slopes: track / pool | 0.045 / 0.040 | **0.040** / 0.042 | **0.067** / 0.080 | 0.077 / 0.083 |
-| Race-average wear: track | 0.037 | **0.034** | **0.062** | 0.074 |
+| Race-average wear: track | 0.037 | 0.034 | **0.062** | 0.074 |
+| ... plus the weekend's long runs (wear slopes / race average) | | **0.036 / 0.032** | | 0.077 / 0.077 (14 races) |
 
 The track's own history now forecasts offsets as well as the pool (before
 it was worse). Wear improved in 2025 and got worse in 2026, where race-to-race
 wear varies far more than in any earlier season. A race's overall wear level
 remains the weak point (±0.03–0.08% of lap time, about ±10–20 s over a
-one-stop vs two-stop choice). The review points to the only data that could
-fix it: the same weekend's practice long runs, which the model does not use
-yet.
+one-stop vs two-stop choice). The review pointed to the only data that
+could help: the same weekend's practice long runs. They are now used (M7):
+calibrated on earlier races and combined with the track's history, they cut
+the race-average wear error by about 10% in 2025 and 20% in 2026 in a
+forward-chained test (`model/practice_wear.py`).
+
+### Other tests after the review
+
+| Question | Answer | What changed |
+|---|---|---|
+| Is a qualifying gap within Q1/Q2/Q3 a better pace signal? | No: 2025 race-pace error 0.329 vs 0.331% (Q1 for everyone: 0.369) | Nothing |
+| What does a stop under SC really cost? | 0.62 of a green stop against nearby cars that stayed out (was 0.77 against the whole field) | P1b |
+| Is the randomness scale without qualifying (1.0) right? | Yes: best on both scores over 2024 + 2025 | Nothing |
+| Did the 2026 rules change SC / VSC / red-flag rates? | VSC ×2.02 (97% likely), SC no, red ×1.10, by model averaging | R1b |
+| Was 2026 more chaotic? | Yes: race pace left unexplained 0.46% vs 0.30%; starts moved cars 2.0 places vs 1.1–1.25 | Race-day form widened 1.47× (I5); the start spread is measured but not used: it did not improve 2024–25 |
+| Who pits under a safety car? | Mostly worn tyres with plenty of race left, rarely under a VSC | Fitted decision rule replaces the hand rule (A2b) |
 
 ### Wet races (2022–2026)
 
@@ -221,9 +246,9 @@ review):
 
 | Mode | Win (vs grid) | Points (vs grid) | Full order (grid 0.589) | Winner score (grid 1.74) | Favourite won |
 |---|---|---|---|---|---|
-| Ignore rain | +9% | +3% | 0.628 | 1.43 | 6 of 13 |
-| Rain window | +8% | +2% | 0.620 | 1.50 | 6 of 13 |
-| Real conditions | +9% | +3% | 0.614 | 1.44 | 6 of 13 |
+| Ignore rain | +9% | +3% | 0.629 | 1.43 | 6 of 13 |
+| Rain window | +8% | +3% | 0.619 | 1.50 | 6 of 13 |
+| Real conditions | +10% | +3% | 0.615 | 1.43 | 6 of 13 |
 
 The 95% ranges are wide (win from about −8% to +25%; full order −0.02 to
 +0.08 vs the grid). With 13 races, **the rain model predicts the finishing
@@ -309,6 +334,13 @@ cd .. && .venv/bin/python model/score_backtest.py dev       # `tune` for 2024
 .venv/bin/python model/strategy_pairs.py
 cd web && PATH="$HOME/.local/node/bin:$PATH" node --experimental-strip-types scripts/strategy-check.ts 1000
 cd .. && .venv/bin/python model/score_strategy.py
+# after-review tests
+.venv/bin/python scripts/export_practice.py                 # weekend long runs (Practice 2 / Sprint)
+.venv/bin/python model/practice_wear.py                     # measure them; practice_wear.evaluate() for the test
+.venv/bin/python model/backtest.py practice                 # add each race's long runs to its as-of wear
+.venv/bin/python model/backtest.py sc-reaction              # as-of SC reaction fit
+.venv/bin/python model/backtest.py start-season             # as-of start spread (measured only)
+.venv/bin/python scripts/export_quali_segments.py && .venv/bin/python model/quali_gap_test.py
 # wet races
 cd .. && .venv/bin/python model/backtest.py wet             # as-of fits, ~1 min per race
 .venv/bin/python model/backtest.py wet-races                # real conditions, rain windows, switch timing

@@ -26,6 +26,8 @@ for (const key of readdirSync(root).filter((k) => /^\d{4}_\d{2}$/.test(k) && k.s
   const fwd = params.calibration?.pace_blend_forward?.[key.slice(0, 4)];
   if (params.calibration && fwd) params.calibration = { ...params.calibration, pace_blend: fwd };
   else if (params.calibration && key.slice(0, 4) !== "2026") delete params.calibration.pace_blend;
+  // I5: the season's form spread as it stood before this race.
+  if (params.calibration) params.calibration.season_form_ratio = params.calibration.season_form?.per_race?.[key]?.ratio ?? 1;
   const t = params.tracks[race.track];
   if (!t?.has_dry_data) { console.log(`${key} ${race.event}: no dry params, skipped`); continue; }
   const missing = params.grid.grid.filter((g) => !params.teams[g.team_id]).map((g) => g.team_id);

@@ -264,6 +264,8 @@ export function simulateRace(s: RaceSetup, prep: Prepared, seed: number, fallbac
   const offset = {} as Record<Dry, number>, slope = {} as Record<Dry, number>;
   for (const c of DRY) { offset[c] = rng.normal(T.offset[c][0], T.offset[c][1]); slope[c] = rng.normal(T.slope[c][0], T.slope[c][1]); }
   const curve = rng.normal(T.curve[0], T.curve[1]);
+  // Tyre time over a fresh stint of `len` laps (offset + linear wear + curvature).
+  const stintCost = (c: Dry, len: number) => offset[c] * len + slope[c] * len * (len + 1) / 2 + curve * len * (len + 1) * (2 * len + 1) / 6;
   const fuel = rng.normal(T.fuel[0], T.fuel[1]);
   const fuel2 = rng.normal(T.fuel2[0], T.fuel2[1]);
   const traffic = rng.normal(T.traffic[0], T.traffic[1]);
@@ -290,10 +292,13 @@ export function simulateRace(s: RaceSetup, prep: Prepared, seed: number, fallbac
   const qMean = useQuali ? withQ.reduce((a, c) => a + c.qualiGap!, 0) / withQ.length : 0;
   const k = s.scenario.paceSpread
     ?? (useQuali ? P.calibration?.pace_spread_scale : P.calibration?.pace_spread_scale_without_quali) ?? 1;
+  // I5: a season whose race pace swings more than usual (2026: about 1.5x)
+  // widens race-day form; measured on the season's earlier races.
+  const season = P.calibration?.season_form_ratio ?? P.calibration?.season_form?.current?.ratio ?? 1;
   const tau0 = gridFx
     ? Math.sqrt(Math.max(G.skill_model.tau_pct ** 2 - (gridFx.form_sd_before_grid_pct ** 2 - gridFx.form_sd_after_grid_pct ** 2), 0.25 * G.skill_model.tau_pct ** 2))
     : G.skill_model.tau_pct;
-  const tau = k * tau0;
+  const tau = k * tau0 * season;
   const prior = new Float64Array(n);
   // Car pace is a team quantity: one draw per team, shared by its two cars
   // (review 1.3); skill and race-day form stay per driver.
@@ -312,7 +317,7 @@ export function simulateRace(s: RaceSetup, prep: Prepared, seed: number, fallbac
   for (let i = 0; i < n; i++) {
     const c = s.cars[i];
     if (useQuali && c.qualiGap !== null)
-      pace[i] = qe!.weight_prior * (prior[i] - priorMean) + qe!.weight_quali * (c.qualiGap - qMean) + rng.normal(0, k * qe!.form_sd_after_quali_pct);
+      pace[i] = qe!.weight_prior * (prior[i] - priorMean) + qe!.weight_quali * (c.qualiGap - qMean) + rng.normal(0, k * season * qe!.form_sd_after_quali_pct);
     else pace[i] = prior[i] - priorMean + rng.normal(0, tau);      // plus the race-to-race form draw
     if (c.isUser) pace[i] += modePct;
   }
@@ -403,12 +408,10 @@ export function simulateRace(s: RaceSetup, prep: Prepared, seed: number, fallbac
     comp[i] = c; age[i] = 0;
   };
 
-  for (let L = 1; L <= N; L++) {
-    const st = status[L];
-    const wv = wetness ? wetness[L] : wm.iDry;
-    const isWet = wetness !== null && wv > wm.iDry + 1e-6;
-
-    // --- planned and reactive pit decisions for the end of this lap
+  // One lap, in four phases that share the race state above: pit decisions
+  // for the end of the lap, lap times, positions, then tyre changes,
+  // retirements and bookkeeping.
+  const decideStops = (L: number, st: number, wv: number, isWet: boolean) => {
     for (let i = 0; i < n; i++) {
       pitThis[i] = 0; nextComp[i] = null;
       if (!running[i] || st === RED) continue;
@@ -455,7 +458,7 @@ export function simulateRace(s: RaceSetup, prep: Prepared, seed: number, fallbac
             // time for the remaining laps; one extra stop only if no
             // compound's observed stint cap covers the distance.
             const R = N - L;
-            const cost = (c: Dry, len: number) => offset[c] * len + slope[c] * len * (len + 1) / 2 + curve * len * (len + 1) * (2 * len + 1) / 6;
+            const cost = stintCost;
             let bestC: Dry = "MEDIUM", bestT = Infinity;
             for (const c of DRY) if (T.maxStint[c] >= R && cost(c, R) < bestT) { bestT = cost(c, R); bestC = c; }
             if (bestT < Infinity) { p.compounds = ["X" as Dry, bestC]; p.stops = []; }
@@ -480,25 +483,59 @@ export function simulateRace(s: RaceSetup, prep: Prepared, seed: number, fallbac
         if (rainSoon) { p.stops[k] = L + 1; continue; }        // W6
         pitThis[i] = 1; nextComp[i] = p.compounds[k + 1]; continue;
       }
-      // SC / VSC reaction (A2): pit now if the next planned stop is close
-      // A real plan replayed under the race's real safety cars already
-      // contains its reactions to them.
+      // SC / VSC reaction (A2b). When a neutralisation starts, a car pits if
+      // most real teams in its situation did (fitted probability above one
+      // half, model/sc_reaction.py): worn tyres and more race left push
+      // toward a stop, a VSC strongly against. A coin flip per car at that
+      // probability scattered the decisions and shuffled the field more than
+      // real races (teams in the same spot make the same call); the decision
+      // rule matched the real amount of shuffling. A car that pits brings its
+      // next planned stop forward (later stops move by the same laps) or,
+      // with no stop left, takes a cheap extra stop onto the best dry
+      // compound for the remaining laps.
+      // Parameter files without the fit use the old rule (A2). A real plan
+      // replayed under the race's real safety cars already contains its
+      // reactions to them.
       const replayed = !!s.scenario.statusTrace && !!s.scenario.fixedPlans?.[s.cars[i].driverId];
       const react = replayed ? false : s.cars[i].isUser ? s.scenario.reactToSC : true;
-      if (react && !rainSoon && (st === SC || st === VSC) && k < p.stops.length && L < N - 1) {
-        const due = p.stops[k];
-        const stintLen = due - (k === 0 ? 0 : p.stops[k - 1]);
-        if (due - L <= Math.max(3, Math.round(0.35 * stintLen))) {
-          // shift the remaining plan forward by the laps saved
-          const shift = due - L;
-          for (let m = k; m < p.stops.length; m++) p.stops[m] = Math.max(L + 1, p.stops[m] - shift);
-          p.stops[k] = L;
-          pitThis[i] = 1; nextComp[i] = p.compounds[k + 1];
+      const scr = G.sc_reaction?.coef;
+      if (react && !rainSoon && (st === SC || st === VSC) && L < N - 1) {
+        if (scr) {
+          if (status[L - 1] !== st && familyOf(comp[i]) === "MEDIUM") {
+            const c = comp[i] as Dry;
+            const used = new Set(stints[i].map((x) => x.compound).filter((x) => x === "SOFT" || x === "MEDIUM" || x === "HARD")).size;
+            const z = scr.intercept.beta + scr.wear.beta * (age[i] + 1) / (T.maxStint[c] || 35) + scr.left.beta * (N - L) / N
+              + scr.owes.beta * (used < 2 ? 1 : 0) + scr.vsc.beta * (st === VSC ? 1 : 0);
+            if (sigmoid(z) > 0.5) {
+              if (k < p.stops.length) {
+                const shift = p.stops[k] - L;
+                for (let m = k; m < p.stops.length; m++) p.stops[m] = Math.max(L + 1, p.stops[m] - shift);
+                p.stops[k] = L;
+                pitThis[i] = 1; nextComp[i] = p.compounds[k + 1];
+              } else {
+                const R = N - L;
+                let best: Dry | null = null, bestT = Infinity;
+                for (const d of DRY) if (T.maxStint[d] >= R && stintCost(d, R) < bestT) { bestT = stintCost(d, R); best = d; }
+                if (best) { p.stops.push(L); p.compounds.push(best); pitThis[i] = 1; nextComp[i] = best; }
+              }
+            }
+          }
+        } else if (k < p.stops.length) {
+          const due = p.stops[k];
+          const stintLen = due - (k === 0 ? 0 : p.stops[k - 1]);
+          if (due - L <= Math.max(3, Math.round(0.35 * stintLen))) {
+            const shift = due - L;
+            for (let m = k; m < p.stops.length; m++) p.stops[m] = Math.max(L + 1, p.stops[m] - shift);
+            p.stops[k] = L;
+            pitThis[i] = 1; nextComp[i] = p.compounds[k + 1];
+          }
         }
       }
     }
+  };
 
-    // --- expected and actual lap times
+  // Expected and actual lap times, with neutralisations and pit losses.
+  const runLapTimes = (L: number, st: number, wv: number, isWet: boolean) => {
     for (let i = 0; i < n; i++) {
       if (!running[i]) continue;
       age[i] += 1;
@@ -527,8 +564,11 @@ export function simulateRace(s: RaceSetup, prep: Prepared, seed: number, fallbac
       }
       lapT[i] = t;
     }
+  };
 
-    // --- positions
+  // Running order: the start on lap 1, then passes (green) or the queue
+  // behind a neutralisation.
+  const updatePositions = (L: number, st: number, wv: number, isWet: boolean) => {
     order.length = 0;
     for (let i = 0; i < n; i++) if (running[i]) order.push(i);
     if (L === 1) {
@@ -613,8 +653,9 @@ export function simulateRace(s: RaceSetup, prep: Prepared, seed: number, fallbac
       }
       for (const i of order) cum[i] = tent[i];
     }
+  };
 
-    // --- tyre changes, retirements, bookkeeping
+  const endLap = (L: number) => {
     for (let i = 0; i < n; i++) {
       if (!running[i]) continue;
       lapsDone[i] = L;
@@ -634,6 +675,16 @@ export function simulateRace(s: RaceSetup, prep: Prepared, seed: number, fallbac
       for (let i = 0; i < n; i++) trace[i][L] = running[i] || dnfLap[i] === 0 ? cum[i] - lead : NaN;
       if (userCum && s.userIdx >= 0) userCum[L] = cum[s.userIdx];
     }
+  };
+
+  for (let L = 1; L <= N; L++) {
+    const st = status[L];
+    const wv = wetness ? wetness[L] : wm.iDry;
+    const isWet = wetness !== null && wv > wm.iDry + 1e-6;
+    decideStops(L, st, wv, isWet);
+    runLapTimes(L, st, wv, isWet);
+    updatePositions(L, st, wv, isWet);
+    endLap(L);
   }
 
   // Classification: finishers by time, then retirements by laps completed.

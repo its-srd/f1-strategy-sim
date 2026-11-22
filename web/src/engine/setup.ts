@@ -57,9 +57,10 @@ export function trackSetup(p: Params, key: string): TrackSetup {
   const pooledStint = g.max_stint_pooled;
   const maxStint = {} as Record<Dry, number>;
   for (const c of DRY) maxStint[c] = t.max_stint?.[c] ?? pooledStint[c];
-  const vscEra = g.safety_car.VSC.era_2026.apply_2026_ratio ? g.safety_car.VSC.era_2026.ratio : 1;
-  const scEra = g.safety_car.SC.era_2026.apply_2026_ratio ? g.safety_car.SC.era_2026.ratio : 1;
-  const redEra = g.safety_car.RED.era_2026.apply_2026_ratio ? g.safety_car.RED.era_2026.ratio : 1;
+  // 2026-rules rate ratio, averaged over "changed" and "not changed" by
+  // how well each explains the 2026 races (R1b); older files: the on/off rule.
+  const era = (e: Params["global"]["safety_car"]["SC"]["era_2026"]) => e.ratio_averaged ?? (e.apply_2026_ratio ? e.ratio : 1);
+  const vscEra = era(g.safety_car.VSC.era_2026), scEra = era(g.safety_car.SC.era_2026), redEra = era(g.safety_car.RED.era_2026);
   const sources: Record<string, string> = {};
   for (const [k, v] of Object.entries(t.pace)) sources[k] = v.source;
   return {
@@ -73,6 +74,8 @@ export function trackSetup(p: Params, key: string): TrackSetup {
     vscRate: (t.vsc_rate?.rate_per_race ?? g.safety_car.VSC.pooled_rate_dry) * vscEra,
     redRate: (t.red_rate?.rate_per_race ?? g.safety_car.RED.pooled_rate_dry) * redEra,
     overtakeIntercept: t.overtake?.intercept ?? 0,
+    // R5 track scale. The season's own start spread (I6, global.start.season)
+    // is measured but not used: on 2024-25 it did not improve the scores.
     startRatio: t.start?.ratio ?? 1,
     maxStint, sources,
   };
@@ -103,6 +106,7 @@ export function buildField(p: Params, sc: Scenario): CarSetup[] {
     }
   }
   const t = p.tracks[sc.track];
+  const season = p.meta.target_season ?? 2026;
   const dnfTrack = t.dnf?.ratio ?? 1;
   return grid.map((g, idx) => {
     const team = p.teams[g.team_id];
@@ -121,7 +125,7 @@ export function buildField(p: Params, sc: Scenario): CarSetup[] {
       teamId: g.team_id, teamName: team.name, isUser: g.driver_id === sc.driver,
       carPct: bt ? bt.car_pct : team.season_mean_pct,
       carSd: bt ? bt.sd : team.season_sd_pct,
-      carSource: bt ? `2026 ${t.name}` : "2026 season mean (track not yet raced in 2026)",
+      carSource: bt ? `${season} ${t.name}` : `${season} season mean (track not yet raced in ${season})`,
       skillPct: d?.skill_pct ?? 0, skillSd: d?.sd_pct ?? p.global.skill_model.sigma0_pct, corr,
       qualiGap: g.quali_gap_pct === undefined || g.quali_wet || g.quali_gap_pct > (p.calibration?.pace_blend?.quali.quali_gap_clip_pct ?? p.global.quali_effect?.quali_gap_clip_pct ?? Infinity) ? null : g.quali_gap_pct,
       qualiPos: g.quali_pos ?? null, pitLane: !!g.pit_lane,

@@ -43,7 +43,8 @@ for (const pr of pairs) {
   const race = JSON.parse(readFileSync(new URL("race.json", dir), "utf8"));
   const load = (): Params => ({ tracks: L("tracks.json"), teams: L("teams.json"), drivers: L("drivers.json"),
     global: L("global.json"), grid: L("grid_2026.json"), meta: L("meta.json"),
-    calibration: { ...calibration, pace_blend: calibration.pace_blend_forward?.[pr.race.slice(0, 4)] ?? calibration.pace_blend } });
+    calibration: { ...calibration, pace_blend: calibration.pace_blend_forward?.[pr.race.slice(0, 4)] ?? calibration.pace_blend,
+      season_form_ratio: calibration.season_form?.per_race?.[pr.race]?.ratio ?? 1 } });
   const N = L("tracks.json")[race.track].total_laps;
   const sa = fit(pr.a.stints, N), sb = fit(pr.b.stints, N);
   const run = (params: Params, planB: Strategy, replay: boolean) => {

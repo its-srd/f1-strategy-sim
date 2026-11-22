@@ -30,7 +30,6 @@ import common as C  # noqa: E402
 
 BT = C.ROOT / "data" / "backtest"
 CAL = C.ROOT / "data" / "params" / "calibration.json"
-EXAM = 2026
 
 
 def priors(d: Path) -> pd.DataFrame:
@@ -100,26 +99,74 @@ def fit(d: pd.DataFrame, tau2: float) -> dict:
     return out
 
 
+SEASON_N0 = 60        # driver-races (about 3 races) at which the season's own spread gets half the weight
+
+
+def season_spread(pr: pd.DataFrame, blend: dict) -> pd.DataFrame:
+    """Race pace left unexplained by form + qualifying, per driver-race:
+    squared residual minus the pace measurement's own noise (review: 2026
+    swings about twice as much as 2024-25, 0.64% vs 0.30%)."""
+    q = pr[~pr["wet"] & pr["gap"].notna() & (pr["gap"] <= blend["quali"]["quali_gap_clip_pct"])].copy()
+    for c in ("prior", "gap"):
+        q[c + "_c"] = q[c] - q.groupby("RaceKey")[c].transform("mean")
+    e = q["delta_pct"] - blend["quali"]["weight_prior"] * q["prior_c"] - blend["quali"]["weight_quali"] * q["gap_c"]
+    q["excess_var"] = e ** 2 - q["se_pct"] ** 2
+    return q[["RaceKey", "Year", "excess_var"]]
+
+
+def season_form(q: pd.DataFrame, year: int, before_key: str | None, base_sd: float) -> dict:
+    """Form spread for a race of `year`: the season's own measured spread on
+    its earlier races, blended with the long-run value by how many driver-
+    races the season has so far (I5). Variances are blended."""
+    s = q[(q.Year == year) & ((q.RaceKey < before_key) if before_key else True)]
+    n = len(s)
+    own = float(np.sqrt(max(s["excess_var"].mean(), 1e-6))) if n else base_sd
+    w = n / (n + SEASON_N0)
+    sd = float(np.sqrt(w * own ** 2 + (1 - w) * base_sd ** 2))
+    return {"sd": sd, "ratio": sd / base_sd, "season_sd": own, "n": int(n), "weight": w}
+
+
 def main():
     dirs = [d for d in sorted(BT.glob("20*_*")) if (d / "params" / "meta.json").exists() and (d / "race.json").exists()]
     pr = pd.concat([priors(d) for d in dirs], ignore_index=True)
     pace = pd.read_csv(C.PROC / "fits" / "driver_race_pace.csv")[["RaceKey", "DriverId", "delta_pct", "se_pct"]]
     pr = pr.merge(pace, on=["RaceKey", "DriverId"], how="inner")
     tau2 = json.loads((C.ROOT / "data" / "params" / "global.json").read_text())["skill_model"]["tau_pct"] ** 2
+    target = int(json.loads((C.ROOT / "data" / "params" / "meta.json").read_text())["target_season"])
     cal = json.loads(CAL.read_text())
     forward = {}
     for year in sorted(pr.Year.unique()):
         before = pr[pr.Year < year]
         if before.RaceKey.nunique() >= 10:
             forward[str(int(year))] = fit(before, tau2)
-    final = fit(pr[pr.Year < EXAM], tau2)
-    cal["pace_blend"] = {**final, "note": "I2/I4 refitted on as-of priors (docs/assumptions.md); used by the website and the 2026 exam"}
+    final = fit(pr[pr.Year < target], tau2) if pr[pr.Year < target].RaceKey.nunique() >= 10 else fit(pr, tau2)
+    # I5: each season's form spread, as of each race (backtests) and now
+    # (the website and live forecasts).
+    per_race, current = {}, None
+    for year in sorted(pr.Year.unique()):
+        blend = forward.get(str(int(year)))
+        if blend is None:
+            continue
+        q = season_spread(pr, blend)
+        base = blend["quali"]["form_sd_after_quali_pct"]
+        for key in sorted(pr.loc[pr.Year == year, "RaceKey"].unique()):
+            per_race[key] = season_form(q, int(year), key, base)
+    q = season_spread(pr, final)
+    current = season_form(q, target, None, final["quali"]["form_sd_after_quali_pct"])
+    cal["pace_blend"] = {**final, "note": "I2/I4 refitted on as-of priors (docs/assumptions.md); used by the website and the exam"}
     cal["pace_blend_forward"] = forward
+    cal["season_form"] = {"note": "I5: the target season's own form spread (form + qualifying leave this much race pace "
+                          "unexplained), blended with the long-run value by driver-races so far; per_race = as of each backtest race",
+                          "current": {**current, "season": target}, "per_race": per_race}
     CAL.write_text(json.dumps(C._clean(cal), indent=1, ensure_ascii=False) + "\n")
     for k, v in [("final", final), *forward.items()]:
         print(k, v["seasons"], "I4", {x: round(v["quali"][x], 3) for x in ("weight_prior", "weight_quali", "form_sd_after_quali_pct")},
               "I2", {x: round(v["grid"][x], 4) for x in ("pct_per_grid_place", "form_sd_before_grid_pct", "form_sd_after_grid_pct")},
               "n", v["n_driver_races"])
+    print("season form now:", {k: round(v, 3) if isinstance(v, float) else v for k, v in current.items()})
+    for key in ("2025_10", "2025_24", "2026_06", "2026_13", "2026_21"):
+        if key in per_race:
+            print("  as of", key, {k: round(v, 3) if isinstance(v, float) else v for k, v in per_race[key].items()})
 
 
 if __name__ == "__main__":

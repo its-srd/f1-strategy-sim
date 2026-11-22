@@ -32,8 +32,8 @@ SEASONS = {2024: 4, 2025: 5, 2026: 4}   # first round tested per season: every t
 def test_races(races: pd.DataFrame) -> pd.DataFrame:
     rows = []
     for _, r in races.sort_values(["Year", "Round"]).iterrows():
-        if r.Year not in SEASONS or r.Round < SEASONS[r.Year]:
-            continue
+        if r.Year < min(SEASONS) or r.Round < SEASONS.get(r.Year, 4):
+            continue                         # new seasons: from round 4, as in 2024 and 2026
         if r.WetCompoundUsed or (r.Year, r.Round) in C.EXCLUDE_RACES:
             continue                         # dry races only: the scenario is "dry"
         rows.append(r)
@@ -78,6 +78,8 @@ def fit_all_tests(season: int | None = None, redo: bool = False):
             import traceback
             print(f"  {key} {r.Event}: FAILED {exc!r}\n{traceback.format_exc(limit=-3)}", flush=True)
             (dest / "meta.json").unlink(missing_ok=True)
+    # Each race's own weekend long runs (run before the race) join its wear.
+    apply_practice(seasons=tuple(str(y) for y in tests["Year"].unique()) if len(tests) else ())
 
 
 # ------------------------------------------------------------------ wet races
@@ -219,7 +221,84 @@ def refresh_wet_races():
         print(d.name, r.Event, "window", tr["window"], "onto", tr["real_onto_wet_lap"], "back", tr["real_back_to_slicks_lap"])
 
 
+def refresh_sc_reaction():
+    """Add the fitted safety-car reaction (A2b, model/sc_reaction.py) to every
+    backtest race's parameters, fitted on earlier races only, without a full
+    refit."""
+    import sc_reaction as SCR
+    import sim_inputs as SI
+    import track_pace as T
+    laps, res, races = C.load()
+    rf = pd.read_csv(C.PROC / "fits" / "race_fits.csv")
+    tk = dict(zip(rf.RaceKey, T.track_keys(rf)))
+    dep = pd.read_csv(C.PROC / "fits" / "deployments.csv")
+    caps = SI.max_stint(SI.stints_table(laps, res, races, tk))
+    obs = SCR.observations(laps, races, dep, caps, tk)
+    n = 0
+    for d in sorted(list(OUT.glob("20*_*")) + list(WET_OUT.glob("20*_*"))):
+        if not (d / "race.json").exists():
+            continue
+        y, r = int(d.name[:4]), int(d.name[5:])
+        before = obs[[(int(k[:4]), int(k[5:])) < (y, r) for k in obs.RaceKey]]
+        gp = d / "params" / "global.json"
+        g = json.loads(gp.read_text())
+        g["sc_reaction"] = SCR.fit(before) if len(before) >= 50 else {}
+        gp.write_text(json.dumps(C._clean(g)))
+        n += 1
+    print(f"safety-car reaction added to {n} backtest races")
+
+
+def refresh_start_season():
+    """Add this season's start spread (I6, race_events.start_params) to every
+    backtest race's parameters, measured on earlier races only."""
+    import race_events as E
+    import track_pace as T
+    laps, res, races = C.load()
+    rf = pd.read_csv(C.PROC / "fits" / "race_fits.csv")
+    tk = dict(zip(rf.RaceKey, T.track_keys(rf)))
+    n = 0
+    for d in sorted(list(OUT.glob("20*_*")) + list(WET_OUT.glob("20*_*"))):
+        if not (d / "race.json").exists():
+            continue
+        y, r = int(d.name[:4]), int(d.name[5:])
+        keys = set(races.loc[(races.Year < y) | ((races.Year == y) & (races.Round < r)), "RaceKey"])
+        E.TARGET_YEAR = y
+        st = E.start_params(laps[laps.RaceKey.isin(keys)], res[res.RaceKey.isin(keys)], races[races.RaceKey.isin(keys)], tk)
+        gp = d / "params" / "global.json"
+        g = json.loads(gp.read_text())
+        g["start"]["season"] = st["season"]
+        gp.write_text(json.dumps(C._clean(g)))
+        n += 1
+    print(f"season start spread added to {n} backtest races")
+
+
+def apply_practice(seasons=("2024", "2025", "2026")):
+    """Add each test race's own long runs (Practice 2 / Sprint, run before
+    the race) to its as-of wear slopes, calibrated on earlier races only.
+    Idempotent: the history forecast is kept and re-used."""
+    import practice_wear as PW
+    n = 0
+    for d in sorted(OUT.glob("20*_*")):
+        if d.name[:4] not in seasons or not (d / "race.json").exists():
+            continue
+        race = json.loads((d / "race.json").read_text())
+        tp = d / "params" / "tracks.json"
+        tracks = json.loads(tp.read_text())
+        y, r = int(race["year"]), int(race["round"])
+        ch = PW.apply_weekend(tracks[race["track"]], race["key"], lambda yy, rr: (yy, rr) < (y, r))
+        if ch:
+            tp.write_text(json.dumps(C._clean(tracks)))
+            n += 1
+    print(f"weekend long runs applied to {n} backtest races")
+
+
 if __name__ == "__main__":
+    if sys.argv[1:2] == ["practice"]:
+        apply_practice()
+    elif sys.argv[1:2] == ["sc-reaction"]:
+        refresh_sc_reaction()
+    elif sys.argv[1:2] == ["start-season"]:
+        refresh_start_season()
     if sys.argv[1:2] == ["wet"]:
         fit_wet_tests()
     elif sys.argv[1:2] == ["wet-races"]:

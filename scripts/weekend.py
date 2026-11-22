@@ -54,6 +54,24 @@ def load(name: str):
     return json.loads((PARAMS / name).read_text())
 
 
+def current_season(target: int, now: datetime) -> int:
+    """The season to forecast: this calendar year once its schedule is out
+    (fetched here if the race export has not run yet), else the model's."""
+    if now.year <= target:
+        return target
+    cache = ROOT / "data" / "raw" / str(now.year) / "_jolpica_season.json"
+    if not cache.exists():
+        sys.path.insert(0, str(ROOT / "scripts"))
+        try:
+            from export_races import jolpica_season
+            jolpica_season(now.year)
+        except Exception as exc:                      # schedule not published yet
+            print(f"  no {now.year} schedule yet ({exc.__class__.__name__})")
+            return target
+    races = json.loads(cache.read_text()).get("races", {})
+    return now.year if races else target
+
+
 def season_races(year: int) -> list[dict]:
     races = json.loads((ROOT / "data" / "raw" / str(year) / "_jolpica_season.json").read_text())["races"]
     out = []
@@ -83,6 +101,58 @@ def official_grid(race: dict):
     stints = get(f"{OPENF1}/stints?session_key={key}") or []
     wet = any(s.get("compound") in ("INTERMEDIATE", "WET") for s in stints)
     return grid, wet
+
+
+def weekend_wear(races: list[dict], now: datetime) -> str | None:
+    """Before the coming race: add this weekend's long runs to the track's
+    tyre wear (model/practice_wear.py). Practice 2 on a normal weekend,
+    Practice 1 and then the Sprint on a sprint weekend, from the data
+    source's current files; re-run when another session becomes available.
+    The next refit after the race replaces it with the race's own data."""
+    sys.path.insert(0, str(ROOT / "scripts"))
+    import practice_wear as PW
+    from export_races import RAW_DIR, TI_RAW, build_laps
+    from urllib.parse import quote
+    upcoming = [r for r in races if r["start"] > now and r["start"] - now < timedelta(days=4)]
+    if not upcoming:
+        return None
+    race = upcoming[0]
+    tracks = load("tracks.json")
+    t = tracks.get(race["circuit"])
+    if not t or not t.get("pace"):
+        return f"{race['name']}: no dry-race parameters, weekend wear skipped"
+    done = next((v["weekend"] for k, v in t["pace"].items() if k.startswith("slope_") and (v.get("weekend") or {}).get("race_key") == race["key"]), None)
+    stem = RAW_DIR / str(race["year"]) / f"{race['key']}_{race['circuit']}"
+    ev = {"year": race["year"], "round": race["round"], "event": race["name"], "circuit_id": race["circuit"], "location": ""}
+    got = {}
+    for session, tag in (("Practice 2", "fp2"), ("Practice 1", "fp1"), ("Sprint", "sprint")):
+        f = Path(f"{stem}_{tag}.csv")
+        if not f.exists():
+            try:
+                r = requests.get(TI_RAW.format(year=race["year"], ref="main",
+                                               path=f"{quote(race['name'])}/{quote(session)}/session_laptimes.json"), timeout=60)
+            except requests.RequestException:
+                continue
+            if r.status_code != 200:
+                continue
+            laps = build_laps(r.json(), ev)
+            f.parent.mkdir(parents=True, exist_ok=True)
+            laps.to_csv(f, index=False)
+        got[tag] = pd.read_csv(f)
+    use = ["fp2"] if "fp2" in got else [s for s in ("fp1", "sprint") if s in got]
+    if not use or (done and sorted(done.get("sessions", [])) == sorted(use)):
+        return None
+    laps = pd.concat([PW.long_run_laps(got[s].assign(Stint=got[s]["Stint"].astype(str) + f"_{s}")) for s in use])
+    est = PW.fit_weekend(laps) if len(laps) else {}
+    if not est:
+        return f"{race['name']}: no dry long runs long enough to measure wear ({', '.join(use)})"
+    changed = PW.apply_weekend(t, race["key"], lambda y, rd: (y, rd) < (race["year"], race["round"]), est=est, sessions=use)
+    if not changed:
+        return None
+    import common as C
+    (PARAMS / "tracks.json").write_text(json.dumps(C._clean(tracks)))
+    return f"{race['name']}: wear updated from {', '.join(use)} long runs (" + \
+        ", ".join(f"{c[0]} {a:.3f}->{b:.3f}%/lap" for c, (a, b) in changed.items()) + ")"
 
 
 def build_grid(race: dict) -> dict | None:
@@ -257,7 +327,7 @@ def write_live_record() -> bool:
 def main() -> int:
     now = datetime.now(timezone.utc)
     meta = load("meta.json")
-    year = meta["target_season"]
+    year = current_season(meta["target_season"], now)
     races = season_races(year)
     report = [f"weekend run {now:%Y-%m-%d %H:%M} UTC"]
     FORECASTS.mkdir(parents=True, exist_ok=True)
@@ -277,9 +347,12 @@ def main() -> int:
     else:
         rebuilt = False
 
+    wear = weekend_wear(races, now)
+    if wear:
+        report.append(wear)
     report.append(forecast_next(races, now, meta["data_through"]))
 
-    changed = write_live_record()
+    changed = write_live_record() or bool(wear and "updated" in wear)
     if changed and not rebuilt:
         subprocess.run([str(NODE.parent / "npm"), "run", "build"], cwd=ROOT / "web", check=True,
                        env={**os.environ, "PATH": f"{NODE.parent}:{os.environ.get('PATH', '/usr/bin:/bin')}"}, stdout=subprocess.DEVNULL)

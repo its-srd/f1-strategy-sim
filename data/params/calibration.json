@@ -94,7 +94,7 @@
    "form_sd_after_grid_pct": 0.303939,
    "n_driver_races": 686
   },
-  "note": "I2/I4 refitted on as-of priors (docs/assumptions.md); used by the website and the 2026 exam"
+  "note": "I2/I4 refitted on as-of priors (docs/assumptions.md); used by the website and the exam"
  },
  "pace_blend_forward": {
   "2025": {
@@ -188,5 +188,242 @@
   ]
  },
  "pass_logit_shift": 0.0,
- "pass_logit_shift_note": "O3, tested 2026-11-22 on the 2024 races: shifts of 0 to +2 on the pass model's log-odds changed the finishing-order and position scores only within noise, and the simulated grid-to-finish rank correlation already matched the real one (0.808 vs 0.803). Kept at 0: the fitted pass model stands."
+ "pass_logit_shift_note": "O3, tested 2026-11-22 on the 2024 races: shifts of 0 to +2 on the pass model's log-odds changed the finishing-order and position scores only within noise, and the simulated grid-to-finish rank correlation already matched the real one (0.808 vs 0.803). Kept at 0: the fitted pass model stands.",
+ "season_form": {
+  "note": "I5: the target season's own form spread (form + qualifying leave this much race pace unexplained), blended with the long-run value by driver-races so far; per_race = as of each backtest race",
+  "current": {
+   "sd": 0.439059,
+   "ratio": 1.468902,
+   "season_sd": 0.464225,
+   "n": 273,
+   "weight": 0.81982,
+   "season": 2026
+  },
+  "per_race": {
+   "2025_05": {
+    "sd": 0.286361,
+    "ratio": 1.0,
+    "season_sd": 0.286361,
+    "n": 0,
+    "weight": 0.0
+   },
+   "2025_06": {
+    "sd": 0.285682,
+    "ratio": 0.997628,
+    "season_sd": 0.283406,
+    "n": 18,
+    "weight": 0.230769
+   },
+   "2025_07": {
+    "sd": 0.324305,
+    "ratio": 1.132505,
+    "season_sd": 0.380653,
+    "n": 35,
+    "weight": 0.368421
+   },
+   "2025_08": {
+    "sd": 0.305711,
+    "ratio": 1.067573,
+    "season_sd": 0.325867,
+    "n": 54,
+    "weight": 0.473684
+   },
+   "2025_09": {
+    "sd": 0.347366,
+    "ratio": 1.213036,
+    "season_sd": 0.390434,
+    "n": 73,
+    "weight": 0.548872
+   },
+   "2025_10": {
+    "sd": 0.345285,
+    "ratio": 1.205769,
+    "season_sd": 0.378808,
+    "n": 92,
+    "weight": 0.605263
+   },
+   "2025_11": {
+    "sd": 0.339831,
+    "ratio": 1.186724,
+    "season_sd": 0.365271,
+    "n": 112,
+    "weight": 0.651163
+   },
+   "2025_14": {
+    "sd": 0.3392,
+    "ratio": 1.18452,
+    "season_sd": 0.361152,
+    "n": 129,
+    "weight": 0.68254
+   },
+   "2025_15": {
+    "sd": 0.336709,
+    "ratio": 1.17582,
+    "season_sd": 0.354972,
+    "n": 149,
+    "weight": 0.712919
+   },
+   "2025_16": {
+    "sd": 0.33122,
+    "ratio": 1.156652,
+    "season_sd": 0.345834,
+    "n": 168,
+    "weight": 0.736842
+   },
+   "2025_17": {
+    "sd": 0.322506,
+    "ratio": 1.126221,
+    "season_sd": 0.333274,
+    "n": 187,
+    "weight": 0.757085
+   },
+   "2025_18": {
+    "sd": 0.323969,
+    "ratio": 1.131329,
+    "season_sd": 0.334127,
+    "n": 206,
+    "weight": 0.774436
+   },
+   "2025_19": {
+    "sd": 0.319219,
+    "ratio": 1.114742,
+    "season_sd": 0.327389,
+    "n": 226,
+    "weight": 0.79021
+   },
+   "2025_20": {
+    "sd": 0.314653,
+    "ratio": 1.098799,
+    "season_sd": 0.321229,
+    "n": 244,
+    "weight": 0.802632
+   },
+   "2025_21": {
+    "sd": 0.311766,
+    "ratio": 1.088715,
+    "season_sd": 0.317276,
+    "n": 263,
+    "weight": 0.814241
+   },
+   "2025_22": {
+    "sd": 0.314359,
+    "ratio": 1.097772,
+    "season_sd": 0.32002,
+    "n": 281,
+    "weight": 0.824047
+   },
+   "2025_23": {
+    "sd": 0.314359,
+    "ratio": 1.097772,
+    "season_sd": 0.32002,
+    "n": 281,
+    "weight": 0.824047
+   },
+   "2025_24": {
+    "sd": 0.312554,
+    "ratio": 1.091468,
+    "season_sd": 0.317517,
+    "n": 301,
+    "weight": 0.833795
+   },
+   "2026_04": {
+    "sd": 0.298903,
+    "ratio": 1.0,
+    "season_sd": 0.298903,
+    "n": 0,
+    "weight": 0.0
+   },
+   "2026_06": {
+    "sd": 0.332972,
+    "ratio": 1.11398,
+    "season_sd": 0.437719,
+    "n": 16,
+    "weight": 0.210526
+   },
+   "2026_07": {
+    "sd": 0.38501,
+    "ratio": 1.288077,
+    "season_sd": 0.499186,
+    "n": 35,
+    "weight": 0.368421
+   },
+   "2026_08": {
+    "sd": 0.409458,
+    "ratio": 1.369869,
+    "season_sd": 0.503079,
+    "n": 55,
+    "weight": 0.478261
+   },
+   "2026_09": {
+    "sd": 0.415147,
+    "ratio": 1.3889,
+    "season_sd": 0.490478,
+    "n": 73,
+    "weight": 0.548872
+   },
+   "2026_10": {
+    "sd": 0.409724,
+    "ratio": 1.370759,
+    "season_sd": 0.467481,
+    "n": 93,
+    "weight": 0.607843
+   },
+   "2026_11": {
+    "sd": 0.410071,
+    "ratio": 1.37192,
+    "season_sd": 0.459088,
+    "n": 111,
+    "weight": 0.649123
+   },
+   "2026_12": {
+    "sd": 0.443175,
+    "ratio": 1.48267,
+    "season_sd": 0.495418,
+    "n": 131,
+    "weight": 0.685864
+   },
+   "2026_13": {
+    "sd": 0.448242,
+    "ratio": 1.499622,
+    "season_sd": 0.495532,
+    "n": 150,
+    "weight": 0.714286
+   },
+   "2026_15": {
+    "sd": 0.440589,
+    "ratio": 1.474018,
+    "season_sd": 0.480501,
+    "n": 171,
+    "weight": 0.74026
+   },
+   "2026_17": {
+    "sd": 0.446681,
+    "ratio": 1.494402,
+    "season_sd": 0.483876,
+    "n": 191,
+    "weight": 0.760956
+   },
+   "2026_18": {
+    "sd": 0.443978,
+    "ratio": 1.485358,
+    "season_sd": 0.477245,
+    "n": 211,
+    "weight": 0.778598
+   },
+   "2026_19": {
+    "sd": 0.441172,
+    "ratio": 1.47597,
+    "season_sd": 0.470899,
+    "n": 233,
+    "weight": 0.795222
+   },
+   "2026_21": {
+    "sd": 0.434974,
+    "ratio": 1.455233,
+    "season_sd": 0.461394,
+    "n": 253,
+    "weight": 0.808307
+   }
+  }
+ }
 }

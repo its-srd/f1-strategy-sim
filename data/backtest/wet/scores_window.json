@@ -11,30 +11,30 @@
  "n_driver_races": 258,
  "metrics": {
   "win": {
-   "brier_model": 0.033931,
+   "brier_model": 0.033843,
    "brier_grid": 0.03679,
-   "skill_vs_grid": 0.077712,
+   "skill_vs_grid": 0.080083,
    "skill_ci95": [
-    -0.078829,
-    0.239221
+    -0.076452,
+    0.243131
    ]
   },
   "podium": {
-   "brier_model": 0.084616,
+   "brier_model": 0.084478,
    "brier_grid": 0.084513,
-   "skill_vs_grid": -0.001217,
+   "skill_vs_grid": 0.000416,
    "skill_ci95": [
-    -0.116953,
-    0.109927
+    -0.114928,
+    0.112489
    ]
   },
   "points": {
-   "brier_model": 0.164288,
+   "brier_model": 0.164176,
    "brier_grid": 0.168316,
-   "skill_vs_grid": 0.023931,
+   "skill_vs_grid": 0.024597,
    "skill_ci95": [
-    -0.134992,
-    0.230604
+    -0.133707,
+    0.231735
    ]
   },
   "dnf": {
@@ -47,17 +47,17 @@
    ]
   },
   "winner_logloss": {
-   "model": 1.504137,
+   "model": 1.503195,
    "grid": 1.735785
   },
   "rank_corr": {
-   "model": 0.620048,
+   "model": 0.618833,
    "grid": 0.589291,
    "pace_only": null,
    "grid_pace_avg": null,
    "model_minus_grid_ci95": [
-    -0.020393,
-    0.072339
+    -0.021837,
+    0.071638
    ]
   },
   "rank_corr_finishers": {
@@ -66,10 +66,10 @@
    "pace_only": null,
    "grid_pace_avg": null
   },
-  "position_logloss": 2.714036,
-  "interval80_coverage": 0.883721,
-  "interval80_nominal": 0.935732,
-  "pit_central80": 0.728682
+  "position_logloss": 2.710735,
+  "interval80_coverage": 0.879845,
+  "interval80_nominal": 0.935487,
+  "pit_central80": 0.732558
  },
  "favourite_won": 0.461538,
  "pole_won": 0.384615,
@@ -83,8 +83,8 @@
    "event": "Emilia Romagna Grand Prix",
    "winner": "max_verstappen",
    "model_fav": "max_verstappen",
-   "model_fav_p": 0.37,
-   "p_winner": 0.37,
+   "model_fav_p": 0.3735,
+   "p_winner": 0.3735,
    "pole": "max_verstappen"
   },
   {
@@ -96,8 +96,8 @@
    "event": "Monaco Grand Prix",
    "winner": "perez",
    "model_fav": "leclerc",
-   "model_fav_p": 0.6005,
-   "p_winner": 0.096,
+   "model_fav_p": 0.60175,
+   "p_winner": 0.0945,
    "pole": "leclerc"
   },
   {
@@ -109,8 +109,8 @@
    "event": "Singapore Grand Prix",
    "winner": "perez",
    "model_fav": "leclerc",
-   "model_fav_p": 0.5475,
-   "p_winner": 0.19,
+   "model_fav_p": 0.54025,
+   "p_winner": 0.19175,
    "pole": "leclerc"
   },
   {
@@ -122,8 +122,8 @@
    "event": "Japanese Grand Prix",
    "winner": "max_verstappen",
    "model_fav": "max_verstappen",
-   "model_fav_p": 0.51975,
-   "p_winner": 0.51975,
+   "model_fav_p": 0.51875,
+   "p_winner": 0.51875,
    "pole": "max_verstappen"
   },
   {
@@ -135,8 +135,8 @@
    "event": "Monaco Grand Prix",
    "winner": "max_verstappen",
    "model_fav": "max_verstappen",
-   "model_fav_p": 0.63825,
-   "p_winner": 0.63825,
+   "model_fav_p": 0.6395,
+   "p_winner": 0.6395,
    "pole": "max_verstappen"
   },
   {
@@ -148,8 +148,8 @@
    "event": "Dutch Grand Prix",
    "winner": "max_verstappen",
    "model_fav": "max_verstappen",
-   "model_fav_p": 0.71975,
-   "p_winner": 0.71975,
+   "model_fav_p": 0.71875,
+   "p_winner": 0.71875,
    "pole": "max_verstappen"
   },
   {
@@ -161,8 +161,8 @@
    "event": "Canadian Grand Prix",
    "winner": "max_verstappen",
    "model_fav": "max_verstappen",
-   "model_fav_p": 0.43925,
-   "p_winner": 0.43925,
+   "model_fav_p": 0.441,
+   "p_winner": 0.441,
    "pole": "russell"
   },
   {
@@ -174,8 +174,8 @@
    "event": "British Grand Prix",
    "winner": "hamilton",
    "model_fav": "norris",
-   "model_fav_p": 0.3065,
-   "p_winner": 0.17025,
+   "model_fav_p": 0.30525,
+   "p_winner": 0.16975,
    "pole": "russell"
   },
   {
@@ -187,7 +187,7 @@
    "event": "S\u00e3o Paulo Grand Prix",
    "winner": "max_verstappen",
    "model_fav": "norris",
-   "model_fav_p": 0.67225,
+   "model_fav_p": 0.67175,
    "p_winner": 0.002,
    "pole": "norris"
   },
@@ -200,8 +200,8 @@
    "event": "British Grand Prix",
    "winner": "norris",
    "model_fav": "piastri",
-   "model_fav_p": 0.3175,
-   "p_winner": 0.3015,
+   "model_fav_p": 0.3155,
+   "p_winner": 0.30175,
    "pole": "max_verstappen"
   },
   {
@@ -213,8 +213,8 @@
    "event": "Belgian Grand Prix",
    "winner": "piastri",
    "model_fav": "norris",
-   "model_fav_p": 0.50625,
-   "p_winner": 0.32625,
+   "model_fav_p": 0.50725,
+   "p_winner": 0.324,
    "pole": "norris"
   },
   {
@@ -226,8 +226,8 @@
    "event": "Canadian Grand Prix",
    "winner": "antonelli",
    "model_fav": "russell",
-   "model_fav_p": 0.46475,
-   "p_winner": 0.3105,
+   "model_fav_p": 0.456,
+   "p_winner": 0.318,
    "pole": "russell"
   },
   {
@@ -239,8 +239,8 @@
    "event": "Brazilian Grand Prix",
    "winner": "norris",
    "model_fav": "norris",
-   "model_fav_p": 0.4375,
-   "p_winner": 0.4375,
+   "model_fav_p": 0.434,
+   "p_winner": 0.434,
    "pole": "norris"
   }
  ],
@@ -249,133 +249,133 @@
    "outcome": "win",
    "bin": "0%\u20135%",
    "n": 211,
-   "predicted": 0.00281,
+   "predicted": 0.002836,
    "observed": 0.004739
   },
   {
    "outcome": "win",
    "bin": "5%\u201315%",
    "n": 16,
-   "predicted": 0.087578,
+   "predicted": 0.087656,
    "observed": 0.0625
   },
   {
    "outcome": "win",
    "bin": "15%\u201330%",
    "n": 12,
-   "predicted": 0.215167,
+   "predicted": 0.21525,
    "observed": 0.166667
   },
   {
    "outcome": "win",
    "bin": "30%\u201350%",
    "n": 12,
-   "predicted": 0.351625,
+   "predicted": 0.3515,
    "observed": 0.5
   },
   {
    "outcome": "win",
    "bin": "50%\u201370%",
    "n": 6,
-   "predicted": 0.58075,
+   "predicted": 0.579875,
    "observed": 0.333333
   },
   {
    "outcome": "win",
    "bin": "70%\u201390%",
    "n": 1,
-   "predicted": 0.71975,
+   "predicted": 0.71875,
    "observed": 1.0
   },
   {
    "outcome": "podium",
    "bin": "0%\u20135%",
    "n": 170,
-   "predicted": 0.005019,
+   "predicted": 0.005044,
    "observed": 0.017647
   },
   {
    "outcome": "podium",
    "bin": "5%\u201315%",
    "n": 22,
-   "predicted": 0.086875,
+   "predicted": 0.087455,
    "observed": 0.227273
   },
   {
    "outcome": "podium",
    "bin": "15%\u201330%",
    "n": 14,
-   "predicted": 0.237786,
+   "predicted": 0.239643,
    "observed": 0.214286
   },
   {
    "outcome": "podium",
    "bin": "30%\u201350%",
    "n": 9,
-   "predicted": 0.394278,
+   "predicted": 0.395333,
    "observed": 0.333333
   },
   {
    "outcome": "podium",
    "bin": "50%\u201370%",
-   "n": 22,
-   "predicted": 0.609102,
-   "observed": 0.454545
+   "n": 21,
+   "predicted": 0.603298,
+   "observed": 0.428571
   },
   {
    "outcome": "podium",
    "bin": "70%\u201390%",
-   "n": 21,
-   "predicted": 0.759893,
-   "observed": 0.714286
+   "n": 22,
+   "predicted": 0.756193,
+   "observed": 0.727273
   },
   {
    "outcome": "points",
    "bin": "0%\u20135%",
-   "n": 27,
-   "predicted": 0.018778,
-   "observed": 0.111111
+   "n": 26,
+   "predicted": 0.017606,
+   "observed": 0.115385
   },
   {
    "outcome": "points",
    "bin": "5%\u201315%",
-   "n": 36,
-   "predicted": 0.090382,
-   "observed": 0.166667
+   "n": 37,
+   "predicted": 0.090547,
+   "observed": 0.162162
   },
   {
    "outcome": "points",
    "bin": "15%\u201330%",
-   "n": 29,
-   "predicted": 0.230991,
-   "observed": 0.206897
+   "n": 28,
+   "predicted": 0.22983,
+   "observed": 0.214286
   },
   {
    "outcome": "points",
    "bin": "30%\u201350%",
-   "n": 21,
-   "predicted": 0.430274,
-   "observed": 0.333333
+   "n": 23,
+   "predicted": 0.428304,
+   "observed": 0.347826
   },
   {
    "outcome": "points",
    "bin": "50%\u201370%",
    "n": 36,
-   "predicted": 0.606917,
+   "predicted": 0.611076,
    "observed": 0.472222
   },
   {
    "outcome": "points",
    "bin": "70%\u201390%",
-   "n": 102,
-   "predicted": 0.806922,
-   "observed": 0.833333
+   "n": 101,
+   "predicted": 0.807522,
+   "observed": 0.831683
   },
   {
    "outcome": "points",
    "bin": "90%\u2013100%",
    "n": 7,
-   "predicted": 0.906143,
+   "predicted": 0.905786,
    "observed": 0.857143
   },
   {

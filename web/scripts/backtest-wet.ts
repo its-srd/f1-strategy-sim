@@ -22,6 +22,7 @@ const root = new URL("../../data/backtest/wet/", import.meta.url);
 const SIMS = Number(process.argv[2] ?? 4000);
 const VARIANT = process.argv[3] ?? "";
 const calibration = JSON.parse(readFileSync(new URL("../../data/params/calibration.json", import.meta.url), "utf8"));
+calibration.season_form_ratio = 1;        // I5 is measured on dry backtest races only; wet races keep the long-run spread
 
 const quantile = (xs: number[], q: number) => {
   if (!xs.length) return null;

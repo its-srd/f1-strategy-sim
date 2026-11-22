@@ -4,6 +4,7 @@ import "./styles.css";
 import type { MCResult } from "./engine/montecarlo.ts";
 import { SPORTING_RULES, checkStrategy, enumerateStrategies, expectedTime, strategyLabel, trackSetup } from "./engine/setup.ts";
 import { DRY, type Dry, type PaceMode, type Params, type Scenario, type Strategy, type Weather } from "./engine/types.ts";
+import { validateParams } from "./engine/validate.ts";
 import { BandChart, COMPOUND_COLOR, COMPOUND_LETTER, Heat, LineChart, PairedBars, StintMap, type Series } from "./ui/charts.tsx";
 import { renderMarkdown } from "./ui/markdown.tsx";
 import { ExplainPanel } from "./ui/explain.tsx";
@@ -70,6 +71,7 @@ type SetScenario = (u: Scenario | ((prev: Scenario) => Scenario)) => void;
 function App() {
   const [params, setParams] = useState<Params | null>(null);
   const [loadErr, setLoadErr] = useState<string | null>(null);
+  const [paramProblems, setParamProblems] = useState<string[]>([]);
   const [page, setPage] = useState<"sim" | "model" | "record">("sim");
   const [sc, setSc] = useState<Scenario | null>(null);
   const [result, setResult] = useState<MCResult | null>(null);
@@ -82,6 +84,8 @@ function App() {
   useEffect(() => {
     loadParams().then((p) => {
       setParams(p);
+      const problems = validateParams(p);
+      if (problems.length) { console.warn("parameter problems", problems); setParamProblems(problems); }
       const today = new Date().toISOString().slice(0, 10);
       const next = p.grid.calendar.find((c) => c.date >= today && p.tracks[c.circuit_id]?.has_dry_data)
         ?? p.grid.calendar.find((c) => p.tracks[c.circuit_id]?.has_dry_data)!;
@@ -127,6 +131,7 @@ function App() {
         <div class="layout">
           <Controls p={params} sc={sc} setSc={(u) => setSc((prev) => (typeof u === "function" ? u(prev!) : u))} onRun={run} running={running} progress={progress} err={runErr} />
           <main class="main">
+            {paramProblems.length > 0 && <div class="warn" style={{ marginBottom: "10px" }}>The parameter files have {paramProblems.length} problem{paramProblems.length > 1 ? "s" : ""} (first: {paramProblems[0]}); results may use defaults. Refit with <code>./scripts/update.sh</code>.</div>}
             {result ? <Results p={params} r={result} /> : <div class="empty">Set up a scenario and press <b>Simulate</b>.<br /><br />The output is a set of probabilities from {sc.sims.toLocaleString()} simulated races. It is never a single prediction.</div>}
           </main>
         </div>
@@ -169,7 +174,8 @@ function Controls(props: { p: Params; sc: Scenario; setSc: SetScenario; onRun: (
   const realSlot = parsed.entries.findIndex((e) => e.driver_id === sc.driver) + 1;
   const qualified = qStatus.info?.qualiPos[p.drivers[sc.driver]?.code ?? ""];
   const afterBlock = after && (!parsed.entries.length || parsed.errors.length > 0 || !inGrid);
-  const season = Number(p.grid.calendar[0]?.date.slice(0, 4) ?? 2026);
+  const season = Number(p.grid.calendar[0]?.date.slice(0, 4) ?? p.meta.target_season ?? 2026);
+  const modelSeason = p.meta.target_season ?? season;
   const req = useRef(0);
   useEffect(() => {
     if (!after) return;
@@ -212,14 +218,14 @@ function Controls(props: { p: Params; sc: Scenario; setSc: SetScenario; onRun: (
       <div class="group">
         <span class="label">Track</span>
         <select value={sc.track} onChange={(e) => setTrack((e.target as HTMLSelectElement).value)}>
-          <optgroup label="2026 calendar">
+          <optgroup label={`${season} calendar`}>
             {tracks.filter(([, v]) => v.on_2026_calendar).map(([k, v]) => <option value={k} disabled={!v.has_dry_data}>R{v.round_2026} {v.name}{v.has_dry_data ? "" : " (no dry data)"}</option>)}
           </optgroup>
           <optgroup label="Other circuits with data">
             {tracks.filter(([, v]) => !v.on_2026_calendar && v.has_dry_data).map(([k, v]) => <option value={k}>{v.name} ({v.circuit_name})</option>)}
           </optgroup>
         </select>
-        <div class="hint">{N} laps · {t.dry_races} dry races fitted · base lap {t.base_lap?.base_s.toFixed(2)} s{t.base_lap?.source === "track_scaled" ? ` (from ${t.base_lap.from_year}, scaled to 2026 pace)` : ""}</div>
+        <div class="hint">{N} laps · {t.dry_races} dry races fitted · base lap {t.base_lap?.base_s.toFixed(2)} s{t.base_lap?.source === "track_scaled" ? ` (from ${t.base_lap.from_year}, scaled to ${modelSeason} pace)` : ""}</div>
       </div>
 
       <div class="group">
@@ -231,11 +237,11 @@ function Controls(props: { p: Params; sc: Scenario; setSc: SetScenario; onRun: (
             setSlotChoice(null);
             setSc(withQuali({ ...sc, driver: id, team: g?.team_id ?? sc.team }, parsed, null));
           }}>
-            <optgroup label="2026 grid">{drivers.filter(([k]) => gridIds.has(k)).map(([k, v]) => <option value={k}>{v.name}</option>)}</optgroup>
+            <optgroup label={`${modelSeason} grid`}>{drivers.filter(([k]) => gridIds.has(k)).map(([k, v]) => <option value={k}>{v.name}</option>)}</optgroup>
             <optgroup label="Not on the current grid (skill projected, wider uncertainty)">{drivers.filter(([k]) => !gridIds.has(k)).map(([k, v]) => <option value={k}>{v.name} (last raced {v.last_season})</option>)}</optgroup>
           </select>
         </label>
-        <label class="field"><span>Car (2026 team){after ? ": the car they qualified" : ""}</span>
+        <label class="field"><span>Car ({modelSeason} team){after ? ": the car they qualified" : ""}</span>
           <select value={sc.team} disabled={after} onChange={(e) => upd({ team: (e.target as HTMLSelectElement).value })}>
             {teams.map(([k, v]) => <option value={k}>{v.name}</option>)}
           </select>
@@ -390,7 +396,7 @@ function DriverNote({ p, sc }: { p: Params; sc: Scenario }) {
   return (
     <div class="hint" style={{ marginBottom: "8px" }}>
       {d.no_dry_data ? <>No dry race in the data: skill = average driver ± {d.sd_pct.toFixed(3)}% (prior spread).</> : <>Skill {sgn(d.skill_pct, 3)}% ± {d.sd_pct.toFixed(3)} ({d.career_dry_races_fitted} dry races; negative = faster).</>}{d.years_since_last > 0 ? ` Last raced ${d.last_season}: uncertainty widened by ${d.years_since_last} yr of drift.` : ""}<br />
-      Car {sgn(bt ? bt.car_pct : team.season_mean_pct, 3)}% ± {(bt ? bt.sd : team.season_sd_pct).toFixed(3)} ({bt ? `measured at this track in 2026` : `2026 season mean, track not raced in 2026`}).
+      Car {sgn(bt ? bt.car_pct : team.season_mean_pct, 3)}% ± {(bt ? bt.sd : team.season_sd_pct).toFixed(3)} ({bt ? `measured at this track in ${p.meta.target_season ?? 2026}` : `${p.meta.target_season ?? 2026} season mean, track not raced in ${p.meta.target_season ?? 2026}`}).
       {replaced && <><br />Takes {replaced.name}'s seat{onGrid ? `; ${replaced.name} moves to ${p.teams[onGrid.team_id].name}` : ""}.</>}
     </div>
   );
@@ -417,7 +423,7 @@ function Results({ p, r }: { p: Params; r: MCResult }) {
         <Card k="Win" v={pct(me.win)} s={`${me.code} · ${me.teamName} car`} />
         <Card k="Podium" v={pct(me.podium)} s={`from P${r.scenario.grid}${r.scenario.listedGrid ? " (real grid)" : ""}`} />
         <Card k="Points" v={pct(me.points)} s={`${me.expPoints.toFixed(1)} expected pts`} />
-        <Card k="Retirement" v={pct(me.dnf)} s="team 2026 rate × track" />
+        <Card k="Retirement" v={pct(me.dnf)} s={`team ${p.meta.target_season ?? 2026} rate × track`} />
         <Card k="Mean finish" v={me.meanPos.toFixed(1)} s="DNF counted at its place" />
         <Card k="Sims" v={r.sims.toLocaleString()} s={`${(r.elapsedMs / 1000).toFixed(1)} s · ${r.trackName}`} />
       </div>
@@ -536,7 +542,7 @@ function ActualBanner({ p, r }: { p: Params; r: MCResult }) {
 const fmtTime = (s: number) => { const h = Math.floor(s / 3600), m = Math.floor((s % 3600) / 60), x = s % 60; return `${h}:${String(m).padStart(2, "0")}:${x.toFixed(1).padStart(4, "0")}`; };
 const Card = (x: { k: string; v: string; s: string }) => <div class="card"><div class="k">{x.k}</div><div class="v">{x.v}</div><div class="s">{x.s}</div></div>;
 const Bar = ({ v }: { v: number }) => <div class="bar"><i style={{ width: `${Math.min(100, 100 * v)}%` }} /><b>{pct(v)}</b></div>;
-const Src = ({ s }: { s: string }) => <span class={`tag ${s}`}>{s}</span>;
+const Src = ({ s }: { s: string }) => <span class={`tag ${s.split(" ")[0]}`}>{s}</span>;
 
 function TrackData({ p, r }: { p: Params; r: MCResult }) {
   const t = p.tracks[r.scenario.track], g = p.global;
@@ -548,7 +554,7 @@ function TrackData({ p, r }: { p: Params; r: MCResult }) {
   return (
     <div class="panel">
       <h2>What the model knows about {t.name}</h2>
-      <div class="sub">Every value is fitted from data. <span class="tag track">track</span> = estimated at this circuit (shrunk toward the pool by its uncertainty); <span class="tag pooled">pooled</span> = not enough data here, so the cross-track estimate is used. Full list: the Model &amp; assumptions tab.</div>
+      <div class="sub">Every value is fitted from data. <span class="tag track">track</span> = estimated at this circuit (shrunk toward the pool by its uncertainty); <span class="tag pooled">pooled</span> = not enough data here, so the cross-track estimate is used. <span class="tag track">track + weekend long runs</span> = this weekend's practice long runs (or sprint) added to the wear, before the race. Full list: the Model &amp; assumptions tab.</div>
       <div class="grid2">
         <dl class="kv">
           <dt>Dry races fitted</dt><dd>{t.dry_races}</dd>
@@ -567,7 +573,7 @@ function TrackData({ p, r }: { p: Params; r: MCResult }) {
           <dt>Pit loss (green)</dt><dd>{t.pit ? `${t.pit.green_loss_s.toFixed(1)} s ± ${t.pit.sd.toFixed(1)} (${t.pit.n_stops} stops)` : `${g.pooled.pit_green_loss_s.toFixed(1)} s`} <Src s={t.pit ? "track" : "pooled"} /></dd>
           <dt>Pit under SC / VSC</dt><dd>× {g.pit.neutralised_ratio.sc.median_ratio.toFixed(2)} / × {g.pit.neutralised_ratio.vsc.median_ratio.toFixed(2)} of green loss <Src s="pooled" /></dd>
           <dt>Safety car</dt><dd>{t.sc_rate?.rate_per_race.toFixed(2)} per race <Src s="pooled" /> <span class="hint">{g.safety_car.SC.between_track_variation_detected ? "" : "no between-track difference detected in SC counts (variance/mean " + g.safety_car.SC.variance_to_mean.toFixed(2) + "), so every track gets the pooled rate"}</span></dd>
-          <dt>VSC</dt><dd>{t.vsc_rate?.rate_per_race.toFixed(2)} per race <Src s="track" />{g.safety_car.VSC.era_2026.apply_2026_ratio ? ` × ${g.safety_car.VSC.era_2026.ratio.toFixed(2)} (2026 rate ratio, CI ${g.safety_car.VSC.era_2026.ratio_ci95.map((x) => x.toFixed(2)).join("–")})` : ""}</dd>
+          <dt>VSC</dt><dd>{t.vsc_rate?.rate_per_race.toFixed(2)} per race <Src s="track" />{Math.abs((g.safety_car.VSC.era_2026.ratio_averaged ?? 1) - 1) > 0.005 ? ` × ${g.safety_car.VSC.era_2026.ratio_averaged!.toFixed(2)} (2026 rules: measured ratio ${g.safety_car.VSC.era_2026.ratio.toFixed(2)}, ${Math.round(100 * (g.safety_car.VSC.era_2026.p_rules_changed_rate ?? 0))}% likely a real change)` : ""}</dd>
           <dt>Red flag</dt><dd>{t.red_rate?.rate_per_race.toFixed(2)} per race ({t.red_rate?.observed} in {t.red_rate?.n_races} dry races)</dd>
           <dt>In simulation</dt><dd>SC in {pct(r.neutralShare.sc, 0)} of races, VSC {pct(r.neutralShare.vsc, 0)}, red {pct(r.neutralShare.red, 0)}{r.neutralShare.wet ? `, rain ${pct(r.neutralShare.wet, 0)}` : ""}</dd>
           <dt>Overtaking</dt><dd>track intercept {sgn(t.overtake?.intercept ?? 0)} ± {(t.overtake?.se ?? 0).toFixed(2)} ({t.overtake?.pairs.toLocaleString()} close pairs, {t.overtake?.passes} passes; lower = harder)</dd>

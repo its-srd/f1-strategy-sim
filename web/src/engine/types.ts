@@ -43,7 +43,7 @@ export interface Quantiles { [q: string]: number }
 
 export interface SCType {
   pooled_rate_dry: number; wet_rate_ratio: number; variance_to_mean: number; between_track_variation_detected: boolean;
-  era_2026: { ratio: number; ratio_ci95: [number, number]; apply_2026_ratio: boolean };
+  era_2026: { ratio: number; ratio_ci95: [number, number]; apply_2026_ratio: boolean; ratio_averaged?: number; p_rules_changed_rate?: number };
   lap1_share: number; lap_frac_hist: number[]; lap_frac_bins: number[]; duration_laps_pmf: Record<string, number>;
   n_deployments: number; prior_gamma_a: number; prior_gamma_b: number;
 }
@@ -56,7 +56,8 @@ export interface GlobalParams {
   neutralised_pace: Record<"SC" | "VSC", { median_ratio: number; n_laps: number }>;
   dnf: { lap1_share: number; lap_frac_hist: number[]; lap_frac_bins: number[]; wet_rate: number; dry_rate: number;
          target_season_rate: number; n_dnf: number; n_starts: number };
-  start: { pmf_by_grid: Record<string, { pmf: Record<string, number>; n: number }>; pooled_sd: number; n_starts: number };
+  start: { pmf_by_grid: Record<string, { pmf: Record<string, number>; n: number }>; pooled_sd: number; n_starts: number;
+    season?: { ratio: number; raw_ratio: number; n_starts: number; weight: number; season: number } };   // I6
   overtaking: { coef: Record<"pace_adv" | "gap" | "pace_adv_x_gap", { beta: number; se: number }>;
                 eras: Record<string, { offset: number; se: number; pairs: number }>; current_era?: string; current_era_offset?: number; window_s: number; n_pairs: number; n_passes: number };
   wet: {
@@ -73,6 +74,8 @@ export interface GlobalParams {
   gaps: { lap1_gap_quantiles_s: Quantiles; leader_lap1_loss_s: number; restart_gap_quantiles_s: Quantiles; held_gap_quantiles_s: Quantiles };
   pace_mode: { wear_change_per_pace_pct: number; ci95: [number, number]; mode_pace_sd_pct: number; supported: boolean; n_pairs: number };
   max_stint_pooled: Record<Dry, number>;
+  // A2b: probability a car pits when an SC/VSC starts (model/sc_reaction.py)
+  sc_reaction?: { coef: Record<"intercept" | "wear" | "left" | "owes" | "vsc", { beta: number; se: number }>; n_cars: number; share_pitted: number };
   skill_model: { tau_pct: number; omega_pct_per_year: number; sigma0_pct: number; n_obs: number };
   quali_effect?: QualiEffect | null;
   grid_effect?: GridEffect;
@@ -92,7 +95,11 @@ export interface Calibration { pace_spread_scale: number; pace_spread_scale_with
   rival_switch_spread?: boolean;   // W10: off since the wet-race backtest
   pace_blend?: PaceBlend;          // used instead of global quali_effect / grid_effect
   pace_blend_forward?: Record<string, PaceBlend>;   // per scored season, fitted on earlier seasons only
-  pass_logit_shift?: number }     // O3: added to the pass model's log-odds (calibrated on a backtest season)
+  pass_logit_shift?: number;      // O3: added to the pass model's log-odds (calibrated on a backtest season)
+  // I5: this season's race-day form spread relative to the long-run value,
+  // measured on its earlier races (model/calibrate_pace.py)
+  season_form?: { current: { ratio: number; sd: number; season_sd: number; n: number; season: number }; per_race: Record<string, { ratio: number }> };
+  season_form_ratio?: number }    // backtests: the ratio as of the race being predicted
 
 export interface Params {
   tracks: Record<string, TrackParams>;

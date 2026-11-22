@@ -7,30 +7,30 @@
  "n_driver_races": 360,
  "metrics": {
   "win": {
-   "brier_model": 0.034149,
+   "brier_model": 0.033744,
    "brier_grid": 0.034315,
-   "skill_vs_grid": 0.00484,
+   "skill_vs_grid": 0.01665,
    "skill_ci95": [
-    -0.128289,
-    0.110911
+    -0.122406,
+    0.126774
    ]
   },
   "podium": {
-   "brier_model": 0.06479,
+   "brier_model": 0.064432,
    "brier_grid": 0.065269,
-   "skill_vs_grid": 0.007342,
+   "skill_vs_grid": 0.012822,
    "skill_ci95": [
-    -0.106042,
-    0.098795
+    -0.092841,
+    0.103696
    ]
   },
   "points": {
-   "brier_model": 0.100705,
+   "brier_model": 0.100045,
    "brier_grid": 0.13417,
-   "skill_vs_grid": 0.249418,
+   "skill_vs_grid": 0.25434,
    "skill_ci95": [
-    0.169987,
-    0.328105
+    0.175943,
+    0.33544
    ]
   },
   "dnf": {
@@ -43,46 +43,46 @@
    ]
   },
   "winner_logloss": {
-   "model": 1.480162,
+   "model": 1.463599,
    "grid": 1.565348
   },
   "rank_corr": {
-   "model": 0.810442,
+   "model": 0.812823,
    "grid": 0.75184,
    "pace_only": 0.790588,
    "grid_pace_avg": 0.801854,
    "model_minus_grid_ci95": [
-    0.029838,
-    0.086372
+    0.030855,
+    0.089722
    ],
    "model_minus_grid_pace_avg_ci95": [
-    0.000318,
-    0.016051
+    0.00273,
+    0.018357
    ]
   },
   "rank_corr_finishers": {
-   "model": 0.869093,
+   "model": 0.871871,
    "grid": 0.802991,
    "pace_only": 0.850017,
    "grid_pace_avg": 0.860966,
    "model_minus_grid_pace_avg_ci95": [
-    -0.001213,
-    0.016968
+    0.003299,
+    0.01747
    ],
    "model_minus_grid_ci95": [
-    0.03074,
-    0.097307
+    0.033507,
+    0.098506
    ]
   },
-  "position_logloss": 2.359174,
-  "interval80_coverage": 0.877778,
-  "interval80_nominal": 0.874483,
-  "pit_central80": 0.811111,
+  "position_logloss": 2.353286,
+  "interval80_coverage": 0.872222,
+  "interval80_nominal": 0.875743,
+  "pit_central80": 0.813889,
   "track_position": {
    "real_grid_finish_rho": 0.802991,
-   "sim_grid_finish_rho": 0.794795,
+   "sim_grid_finish_rho": 0.806087,
    "real_places_moved": 2.240817,
-   "sim_places_moved": 2.382499
+   "sim_places_moved": 2.320145
   }
  },
  "favourite_won": 0.5,
@@ -91,235 +91,235 @@
   {
    "real_grid_finish_rho": 0.931373,
    "real_places_moved": 1.411765,
-   "sim_grid_finish_rho": 0.84865,
-   "sim_places_moved": 2.092684,
+   "sim_grid_finish_rho": 0.855241,
+   "sim_places_moved": 2.056232,
    "race": "2024_04",
    "event": "Japanese Grand Prix",
    "winner": "max_verstappen",
    "model_fav": "max_verstappen",
-   "model_fav_p": 0.6102,
-   "p_winner": 0.6102,
+   "model_fav_p": 0.616,
+   "p_winner": 0.616,
    "pole": "max_verstappen"
   },
   {
    "real_grid_finish_rho": 0.855392,
    "real_places_moved": 1.764706,
-   "sim_grid_finish_rho": 0.750158,
-   "sim_places_moved": 2.68487,
+   "sim_grid_finish_rho": 0.78659,
+   "sim_places_moved": 2.460487,
    "race": "2024_05",
    "event": "Chinese Grand Prix",
    "winner": "max_verstappen",
    "model_fav": "max_verstappen",
-   "model_fav_p": 0.4952,
-   "p_winner": 0.4952,
+   "model_fav_p": 0.6076,
+   "p_winner": 0.6076,
    "pole": "max_verstappen"
   },
   {
    "real_grid_finish_rho": 0.805263,
    "real_places_moved": 2.736842,
-   "sim_grid_finish_rho": 0.814632,
-   "sim_places_moved": 2.192459,
+   "sim_grid_finish_rho": 0.806071,
+   "sim_places_moved": 2.228217,
    "race": "2024_06",
    "event": "Miami Grand Prix",
    "winner": "norris",
    "model_fav": "max_verstappen",
-   "model_fav_p": 0.6114,
-   "p_winner": 0.0298,
+   "model_fav_p": 0.6012,
+   "p_winner": 0.0316,
    "pole": "max_verstappen"
   },
   {
    "real_grid_finish_rho": 0.910526,
    "real_places_moved": 1.789474,
-   "sim_grid_finish_rho": 0.881116,
-   "sim_places_moved": 1.837715,
+   "sim_grid_finish_rho": 0.876121,
+   "sim_places_moved": 1.881295,
    "race": "2024_07",
    "event": "Emilia Romagna Grand Prix",
    "winner": "max_verstappen",
    "model_fav": "max_verstappen",
-   "model_fav_p": 0.5504,
-   "p_winner": 0.5504,
+   "model_fav_p": 0.5476,
+   "p_winner": 0.5476,
    "pole": "max_verstappen"
   },
   {
    "real_grid_finish_rho": 0.979412,
    "real_places_moved": 0.5,
-   "sim_grid_finish_rho": 0.85325,
-   "sim_places_moved": 2.015824,
+   "sim_grid_finish_rho": 0.855721,
+   "sim_places_moved": 2.000289,
    "race": "2024_08",
    "event": "Monaco Grand Prix",
    "winner": "leclerc",
    "model_fav": "leclerc",
-   "model_fav_p": 0.5112,
-   "p_winner": 0.5112,
+   "model_fav_p": 0.5164,
+   "p_winner": 0.5164,
    "pole": "leclerc"
   },
   {
    "real_grid_finish_rho": 0.947368,
    "real_places_moved": 1.5,
-   "sim_grid_finish_rho": 0.752735,
-   "sim_places_moved": 2.693416,
+   "sim_grid_finish_rho": 0.779359,
+   "sim_places_moved": 2.551652,
    "race": "2024_10",
    "event": "Spanish Grand Prix",
    "winner": "max_verstappen",
    "model_fav": "norris",
-   "model_fav_p": 0.344,
-   "p_winner": 0.3246,
+   "model_fav_p": 0.3696,
+   "p_winner": 0.352,
    "pole": "norris"
   },
   {
    "real_grid_finish_rho": 0.640602,
    "real_places_moved": 3.2,
-   "sim_grid_finish_rho": 0.871429,
-   "sim_places_moved": 1.887133,
+   "sim_grid_finish_rho": 0.8787,
+   "sim_places_moved": 1.838129,
    "race": "2024_11",
    "event": "Austrian Grand Prix",
    "winner": "russell",
    "model_fav": "max_verstappen",
-   "model_fav_p": 0.5504,
-   "p_winner": 0.0408,
+   "model_fav_p": 0.5534,
+   "p_winner": 0.037,
    "pole": "max_verstappen"
   },
   {
    "real_grid_finish_rho": 0.787719,
    "real_places_moved": 2.631579,
-   "sim_grid_finish_rho": 0.820943,
-   "sim_places_moved": 2.261984,
+   "sim_grid_finish_rho": 0.820164,
+   "sim_places_moved": 2.276345,
    "race": "2024_13",
    "event": "Hungarian Grand Prix",
    "winner": "piastri",
    "model_fav": "norris",
-   "model_fav_p": 0.4186,
-   "p_winner": 0.1766,
+   "model_fav_p": 0.3662,
+   "p_winner": 0.157,
    "pole": "norris"
   },
   {
    "real_grid_finish_rho": 0.722807,
    "real_places_moved": 2.842105,
-   "sim_grid_finish_rho": 0.762025,
-   "sim_places_moved": 2.714036,
+   "sim_grid_finish_rho": 0.785613,
+   "sim_places_moved": 2.574893,
    "race": "2024_14",
    "event": "Belgian Grand Prix",
    "winner": "hamilton",
    "model_fav": "leclerc",
-   "model_fav_p": 0.3066,
-   "p_winner": 0.0918,
+   "model_fav_p": 0.3162,
+   "p_winner": 0.0848,
    "pole": "leclerc"
   },
   {
    "real_grid_finish_rho": 0.846617,
    "real_places_moved": 2.5,
-   "sim_grid_finish_rho": 0.892585,
-   "sim_places_moved": 1.737689,
+   "sim_grid_finish_rho": 0.888498,
+   "sim_places_moved": 1.781152,
    "race": "2024_15",
    "event": "Dutch Grand Prix",
    "winner": "norris",
    "model_fav": "norris",
-   "model_fav_p": 0.5522,
-   "p_winner": 0.5522,
+   "model_fav_p": 0.5494,
+   "p_winner": 0.5494,
    "pole": "norris"
   },
   {
    "real_grid_finish_rho": 0.884211,
    "real_places_moved": 1.894737,
-   "sim_grid_finish_rho": 0.88091,
-   "sim_places_moved": 1.83666,
+   "sim_grid_finish_rho": 0.89192,
+   "sim_places_moved": 1.781474,
    "race": "2024_16",
    "event": "Italian Grand Prix",
    "winner": "leclerc",
    "model_fav": "norris",
-   "model_fav_p": 0.5734,
-   "p_winner": 0.0638,
+   "model_fav_p": 0.5624,
+   "p_winner": 0.075,
    "pole": "norris"
   },
   {
    "real_grid_finish_rho": 0.805882,
    "real_places_moved": 2.125,
-   "sim_grid_finish_rho": 0.741212,
-   "sim_places_moved": 2.71203,
+   "sim_grid_finish_rho": 0.749875,
+   "sim_places_moved": 2.656017,
    "race": "2024_17",
    "event": "Azerbaijan Grand Prix",
    "winner": "piastri",
    "model_fav": "leclerc",
-   "model_fav_p": 0.4516,
-   "p_winner": 0.2596,
+   "model_fav_p": 0.4524,
+   "p_winner": 0.2646,
    "pole": "leclerc"
   },
   {
    "real_grid_finish_rho": 0.900929,
    "real_places_moved": 1.777778,
-   "sim_grid_finish_rho": 0.887304,
-   "sim_places_moved": 1.781551,
+   "sim_grid_finish_rho": 0.888204,
+   "sim_places_moved": 1.777622,
    "race": "2024_18",
    "event": "Singapore Grand Prix",
    "winner": "norris",
    "model_fav": "norris",
-   "model_fav_p": 0.6026,
-   "p_winner": 0.6026,
+   "model_fav_p": 0.5982,
+   "p_winner": 0.5982,
    "pole": "norris"
   },
   {
    "real_grid_finish_rho": 0.601754,
    "real_places_moved": 3.789474,
-   "sim_grid_finish_rho": 0.634357,
-   "sim_places_moved": 3.230457,
+   "sim_grid_finish_rho": 0.646896,
+   "sim_places_moved": 3.143386,
    "race": "2024_19",
    "event": "United States Grand Prix",
    "winner": "leclerc",
    "model_fav": "norris",
-   "model_fav_p": 0.4648,
-   "p_winner": 0.1014,
+   "model_fav_p": 0.489,
+   "p_winner": 0.0978,
    "pole": "norris"
   },
   {
    "real_grid_finish_rho": 0.848039,
    "real_places_moved": 1.882353,
-   "sim_grid_finish_rho": 0.657916,
-   "sim_places_moved": 3.103657,
+   "sim_grid_finish_rho": 0.683796,
+   "sim_places_moved": 2.979605,
    "race": "2024_20",
    "event": "Mexico City Grand Prix",
    "winner": "sainz",
    "model_fav": "sainz",
-   "model_fav_p": 0.2914,
-   "p_winner": 0.2914,
+   "model_fav_p": 0.306,
+   "p_winner": 0.306,
    "pole": "sainz"
   },
   {
    "real_grid_finish_rho": 0.822497,
    "real_places_moved": 2.222222,
-   "sim_grid_finish_rho": 0.796406,
-   "sim_places_moved": 2.584656,
+   "sim_grid_finish_rho": 0.796349,
+   "sim_places_moved": 2.586451,
    "race": "2024_22",
    "event": "Las Vegas Grand Prix",
    "winner": "russell",
    "model_fav": "sainz",
-   "model_fav_p": 0.3408,
-   "p_winner": 0.2262,
+   "model_fav_p": 0.3398,
+   "p_winner": 0.2206,
    "pole": "russell"
   },
   {
    "real_grid_finish_rho": 0.742857,
    "real_places_moved": 2.266667,
-   "sim_grid_finish_rho": 0.822415,
-   "sim_places_moved": 2.307173,
+   "sim_grid_finish_rho": 0.851605,
+   "sim_places_moved": 2.129269,
    "race": "2024_23",
    "event": "Qatar Grand Prix",
    "winner": "max_verstappen",
    "model_fav": "max_verstappen",
-   "model_fav_p": 0.2664,
-   "p_winner": 0.2664,
+   "model_fav_p": 0.2686,
+   "p_winner": 0.2686,
    "pole": "russell"
   },
   {
    "real_grid_finish_rho": 0.420588,
    "real_places_moved": 3.5,
-   "sim_grid_finish_rho": 0.638266,
-   "sim_places_moved": 3.210982,
+   "sim_grid_finish_rho": 0.668851,
+   "sim_places_moved": 3.060088,
    "race": "2024_24",
    "event": "Abu Dhabi Grand Prix",
    "winner": "norris",
    "model_fav": "norris",
-   "model_fav_p": 0.5032,
-   "p_winner": 0.5032,
+   "model_fav_p": 0.5396,
+   "p_winner": 0.5396,
    "pole": "norris"
   }
  ],
@@ -327,128 +327,128 @@
   {
    "outcome": "win",
    "bin": "0%\u20135%",
-   "n": 284,
-   "predicted": 0.004817,
-   "observed": 0.007042
+   "n": 287,
+   "predicted": 0.004685,
+   "observed": 0.006969
   },
   {
    "outcome": "win",
    "bin": "5%\u201315%",
-   "n": 36,
-   "predicted": 0.09085,
-   "observed": 0.083333
+   "n": 32,
+   "predicted": 0.08995,
+   "observed": 0.09375
   },
   {
    "outcome": "win",
    "bin": "15%\u201330%",
    "n": 23,
-   "predicted": 0.223922,
-   "observed": 0.217391
+   "predicted": 0.221478,
+   "observed": 0.173913
   },
   {
    "outcome": "win",
    "bin": "30%\u201350%",
    "n": 8,
-   "predicted": 0.393275,
+   "predicted": 0.3739,
    "observed": 0.25
   },
   {
    "outcome": "win",
    "bin": "50%\u201370%",
-   "n": 9,
-   "predicted": 0.562778,
-   "observed": 0.666667
+   "n": 10,
+   "predicted": 0.56918,
+   "observed": 0.7
   },
   {
    "outcome": "podium",
    "bin": "0%\u20135%",
    "n": 233,
-   "predicted": 0.005784,
+   "predicted": 0.004774,
    "observed": 0.0
   },
   {
    "outcome": "podium",
    "bin": "5%\u201315%",
    "n": 23,
-   "predicted": 0.102748,
+   "predicted": 0.095026,
    "observed": 0.086957
   },
   {
    "outcome": "podium",
    "bin": "15%\u201330%",
-   "n": 25,
-   "predicted": 0.22344,
-   "observed": 0.28
+   "n": 26,
+   "predicted": 0.222262,
+   "observed": 0.269231
   },
   {
    "outcome": "podium",
    "bin": "30%\u201350%",
-   "n": 31,
-   "predicted": 0.406361,
-   "observed": 0.354839
+   "n": 30,
+   "predicted": 0.415413,
+   "observed": 0.4
   },
   {
    "outcome": "podium",
    "bin": "50%\u201370%",
-   "n": 32,
-   "predicted": 0.611269,
-   "observed": 0.65625
+   "n": 29,
+   "predicted": 0.610724,
+   "observed": 0.586207
   },
   {
    "outcome": "podium",
    "bin": "70%\u201390%",
-   "n": 16,
-   "predicted": 0.784088,
-   "observed": 0.8125
+   "n": 19,
+   "predicted": 0.776305,
+   "observed": 0.842105
   },
   {
    "outcome": "points",
    "bin": "0%\u20135%",
-   "n": 40,
-   "predicted": 0.02516,
+   "n": 42,
+   "predicted": 0.023352,
    "observed": 0.0
   },
   {
    "outcome": "points",
    "bin": "5%\u201315%",
-   "n": 49,
-   "predicted": 0.100841,
-   "observed": 0.020408
+   "n": 52,
+   "predicted": 0.097946,
+   "observed": 0.038462
   },
   {
    "outcome": "points",
    "bin": "15%\u201330%",
-   "n": 48,
-   "predicted": 0.218525,
-   "observed": 0.104167
+   "n": 45,
+   "predicted": 0.225387,
+   "observed": 0.111111
   },
   {
    "outcome": "points",
    "bin": "30%\u201350%",
-   "n": 42,
-   "predicted": 0.397038,
-   "observed": 0.452381
+   "n": 40,
+   "predicted": 0.404045,
+   "observed": 0.45
   },
   {
    "outcome": "points",
    "bin": "50%\u201370%",
    "n": 34,
-   "predicted": 0.588882,
+   "predicted": 0.594429,
    "observed": 0.588235
   },
   {
    "outcome": "points",
    "bin": "70%\u201390%",
-   "n": 112,
-   "predicted": 0.849387,
-   "observed": 0.910714
+   "n": 111,
+   "predicted": 0.853413,
+   "observed": 0.90991
   },
   {
    "outcome": "points",
    "bin": "90%\u2013100%",
-   "n": 35,
-   "predicted": 0.906691,
-   "observed": 0.942857
+   "n": 36,
+   "predicted": 0.907844,
+   "observed": 0.944444
   },
   {
    "outcome": "dnf",

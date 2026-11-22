@@ -6,6 +6,7 @@ import { readFileSync } from "node:fs";
 import { makeSetup } from "../src/engine/setup.ts";
 import { prepare, simulateRace } from "../src/engine/race.ts";
 import type { Params, Scenario, Weather } from "../src/engine/types.ts";
+import { validateParams } from "../src/engine/validate.ts";
 
 const dir = new URL("../public/params/", import.meta.url);
 const load = (f: string) => JSON.parse(readFileSync(new URL(f, dir), "utf8"));
@@ -14,6 +15,9 @@ const params: Params = { tracks: load("tracks.json"), teams: load("teams.json"),
 
 const failures: string[] = [];
 const check = (ok: boolean, what: string) => { if (!ok && failures.length < 30) failures.push(what); };
+
+// The parameter files must have every value the engine reads.
+for (const problem of validateParams(params)) check(false, `parameters: ${problem}`);
 
 const g0 = params.grid.grid[3];
 const weathers: Weather[] = [{ kind: "dry" }, { kind: "window", startLap: 1, endLap: 12 }, { kind: "window", startLap: 20, endLap: 35 }, { kind: "probability", p: 0.5 }];

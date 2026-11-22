@@ -29,8 +29,23 @@ import track_pace as T  # noqa: E402
 import validation as V  # noqa: E402
 import wet as W  # noqa: E402
 import wet_switch as WS  # noqa: E402
+import sc_reaction as SCR  # noqa: E402
 
-TARGET = 2026
+TARGET = 2026          # set by main(): the latest season with a race in the data
+
+
+def resolve_target(races) -> int:
+    """The season the parameters describe: the latest one with a race in the
+    data (2027 once its first race is exported; until then the last 2026
+    values carry over, which is all that is known)."""
+    return int(races["Year"].max())
+
+
+def calendar_season(target: int) -> int:
+    """The newest season whose schedule has been exported: in the off-season
+    the website already shows next year's calendar."""
+    years = [int(p.parent.name) for p in (C.ROOT / "data" / "raw").glob("*/_jolpica_season.json")]
+    return max([y for y in years if y >= target], default=target)
 
 
 def log(msg, t0=[time.time()]):
@@ -49,17 +64,18 @@ def combined_breaks(v1, v2):
     return out
 
 
-def main(target: int = 2026, data=None, fixed_breaks: dict | None = None, grid_res=None,
+def main(target: int | None = None, data=None, fixed_breaks: dict | None = None, grid_res=None,
          write_fits: bool = True):
     """target: season the parameters describe. data: (laps, res, races) to fit
     on (default: everything). fixed_breaks: skip validation and use these
     per-parameter breaks (backtest). grid_res: results rows of the race to
     predict; its actual starting grid becomes grid_2026.json (backtest)."""
     global TARGET
+    laps, res, races = data if data is not None else C.load()
+    target = resolve_target(races) if target is None else target
     TARGET = target
     T.TARGET_YEAR = target
     E.TARGET_YEAR = target
-    laps, res, races = data if data is not None else C.load()
     laps = C.add_gaps(laps)
     clean, removed = C.clean_mask(laps, races)
     log(f"clean laps {int(clean.sum())} of {len(laps)}")
@@ -107,6 +123,7 @@ def main(target: int = 2026, data=None, fixed_breaks: dict | None = None, grid_r
     log("overtaking fitted")
     st = SI.stints_table(laps, res, races, tk)
     max_st, strat = SI.max_stint(st), SI.strategies(st)
+    sc_react = SCR.run(laps, races, dep, max_st, tk)          # A2b
     gaps = {**SI.gaps(laps, races), **SI.held_gaps(pairs)}
     pmode = SI.pace_mode(laps, clean, rf)
     log("sim inputs measured")
@@ -115,7 +132,9 @@ def main(target: int = 2026, data=None, fixed_breaks: dict | None = None, grid_r
     log("wet fitted")
 
     # ------------------------------------------------------------ export
-    season = json.loads((C.ROOT / "data" / "raw" / str(TARGET) / "_jolpica_season.json").read_text())
+    # A backtest shows its own season's calendar; the live fit the newest one.
+    cal_year = TARGET if data is not None else calendar_season(TARGET)
+    season = json.loads((C.ROOT / "data" / "raw" / str(cal_year) / "_jolpica_season.json").read_text())
     calendar = [{"round": int(k), "circuit_id": r["Circuit"]["circuitId"], "race_name": r["raceName"],
                  "date": r["date"], "circuit_name": r["Circuit"]["circuitName"],
                  "locality": r["Circuit"]["Location"]["locality"], "country": r["Circuit"]["Location"]["country"]}
@@ -239,6 +258,7 @@ def main(target: int = 2026, data=None, fixed_breaks: dict | None = None, grid_r
         "temperature_effects_pct_per_degC": tp["temperature"],
         "pit": {k: pit[k] for k in ("stop_residual_quantiles_s", "neutralised_ratio", "n_green_stops", "counts_by_kind", "omega2")},
         "safety_car": {typ: {k: v for k, v in d.items() if k != "tracks"} for typ, d in sc["types"].items()},
+        "sc_reaction": sc_react,
         "neutralised_pace": neutral,
         "dnf": {k: v for k, v in dnf.items() if k not in ("tracks", "teams_target_season")},
         "start": {k: v for k, v in start.items() if k != "tracks"},

@@ -18,6 +18,7 @@ import common as C
 FINISHED = r"^(Finished|Lapped|\+\d+ Laps?)$"
 TARGET_YEAR = 2026          # season parameters are projected to (set by fit_all)
 ERA_2026 = 2026             # first season of the 2026 regulations
+SEASON_N0 = 60              # starts at which the season's own start spread gets half the weight (I6)
 NOT_RACED = {"Did not start", "Withdrew", "Did not qualify", "Did not prequalify"}
 
 
@@ -31,6 +32,10 @@ def pit_stops(laps: pd.DataFrame, clean: pd.Series) -> pd.DataFrame:
     # where the cost that matters is relative to cars that stay out.
     stay = laps[~laps["PitIn"] & ~laps["PitOut"] & laps["LapTimeS"].notna()]
     field = stay.groupby(["RaceKey", "LapNumber"])["LapTimeS"].median()
+    # Lap-end times and positions per car, for the local comparison below.
+    end = laps.pivot_table(index=["RaceKey", "LapNumber"], columns="Driver", values="LapEndSessionTimeS", aggfunc="first")
+    pos = laps.pivot_table(index=["RaceKey", "LapNumber"], columns="Driver", values="Position", aggfunc="first")
+    pitted = laps[laps["PitIn"] | laps["PitOut"]].groupby(["RaceKey", "LapNumber"])["Driver"].agg(set)
     rows = []
     cl = laps[clean]
     ref_src = {k: g for k, g in cl.groupby(["RaceKey", "Driver"])}
@@ -54,8 +59,32 @@ def pit_stops(laps: pd.DataFrame, clean: pd.Series) -> pd.DataFrame:
             rows.append({"RaceKey": rk, "Year": int(g.loc[L, "Year"]), "CircuitId": g.loc[L, "CircuitId"],
                          "Driver": drv, "Lap": int(L), "kind": kind,
                          "loss_s": inlap + outlap - 2 * float(w["LapTimeS"].median()),
-                         "loss_vs_field_s": inlap + outlap - field.get((rk, L), np.nan) - field.get((rk, L + 1), np.nan)})
+                         "loss_vs_field_s": inlap + outlap - field.get((rk, L), np.nan) - field.get((rk, L + 1), np.nan),
+                         "loss_vs_neighbours_s": neighbour_loss(end, pos, pitted, rk, drv, int(L)) if kind != "green" else np.nan})
     return pd.DataFrame(rows)
+
+
+NEIGHBOURS = 2     # cars within this many places before the stop are the reference
+
+
+def neighbour_loss(end, pos, pitted, rk, drv, L) -> float:
+    """Time a stop cost against nearby cars that stayed out (review 2.5):
+    the change in gap to each car within NEIGHBOURS places at the end of lap
+    L-1 that did not pit on laps L or L+1, from the end of lap L-1 to the end
+    of the out-lap L+1. Nearby cars met the safety car at the same point,
+    unlike a same-lap median over the whole field, which mixes cars still at
+    racing speed with cars already behind the safety car. Median over the
+    neighbours."""
+    try:
+        e0, e1, p0 = end.loc[(rk, L - 1)], end.loc[(rk, L + 1)], pos.loc[(rk, L - 1)]
+    except KeyError:
+        return np.nan
+    if drv not in p0 or not np.isfinite(p0[drv]):
+        return np.nan
+    out = pitted.get((rk, L), set()) | pitted.get((rk, L + 1), set())
+    near = [d for d in p0.index if d != drv and d not in out and np.isfinite(p0[d]) and abs(p0[d] - p0[drv]) <= NEIGHBOURS]
+    vals = [(e1[drv] - e1[d]) - (e0[drv] - e0[d]) for d in near if np.isfinite(e0[d]) and np.isfinite(e1[d])]
+    return float(np.median(vals)) if vals else np.nan
 
 
 def pit_params(stops: pd.DataFrame, track_key: dict) -> dict:
@@ -87,10 +116,17 @@ def pit_params(stops: pd.DataFrame, track_key: dict) -> dict:
     ratios = {}
     for kind in ("sc", "vsc"):
         k = stops[stops["kind"] == kind].merge(ty[["TrackKey", "Year", "med"]], on=["TrackKey", "Year"])
-        r = (k["loss_vs_field_s"] / k["med"]).dropna().values
+        # Against nearby cars that stayed out (review 2.5); the old
+        # whole-field reference is kept alongside for comparison.
+        r = (k["loss_vs_neighbours_s"] / k["med"]).dropna().values
+        r_old = (k["loss_vs_field_s"] / k["med"]).dropna().values
         ratios[kind] = {"median_ratio": float(np.median(r)) if len(r) else None,
                         "q25": float(np.quantile(r, .25)) if len(r) else None,
-                        "q75": float(np.quantile(r, .75)) if len(r) else None, "n_stops": int(len(r))}
+                        "q75": float(np.quantile(r, .75)) if len(r) else None, "n_stops": int(len(r)),
+                        "reference": "nearby cars that stayed out",
+                        "whole_field_reference": {"median_ratio": float(np.median(r_old)) if len(r_old) else None,
+                                                  "q25": float(np.quantile(r_old, .25)) if len(r_old) else None,
+                                                  "q75": float(np.quantile(r_old, .75)) if len(r_old) else None}}
     return {"tracks": tracks, "pooled_green_loss_s": mu, "pooled_sd": float(np.sqrt(tau2)),
             "omega2": omega2, "stop_residual_quantiles_s": dict(zip([round(q, 2) for q in qs], np.quantile(resid, qs))),
             "n_green_stops": int(len(g)), "neutralised_ratio": ratios,
@@ -172,6 +208,27 @@ def sc_params(dep: pd.DataFrame, races: pd.DataFrame, track_key: dict) -> dict:
                "ratio": rr, "ratio_ci95": [rr * np.exp(-1.96 * se_log), rr * np.exp(1.96 * se_log)],
                "n_races_2026": int(n26), "n_races_pre": int(n0)}
         era["apply_2026_ratio"] = bool(np.isfinite(rr) and not (era["ratio_ci95"][0] <= 1 <= era["ratio_ci95"][1]))
+        # R1b, model averaging instead of the all-or-nothing 95% rule (review
+        # section 3): "the rules did not change the rate" (Poisson at the old
+        # rate) against "they did" (a new rate, Gamma prior with mean at the
+        # old rate and one race of weight), weighted by how well each explains
+        # the races since the change, even prior odds. On the 2026 races,
+        # predicting each race from the ones before it, this scored level
+        # with the old rule (-60.1 vs -59.8 log units over 54 predictions)
+        # and better than ignoring the change (-62.7) or trusting it alone
+        # (-61.7).
+        x = rc.loc[rc.Year >= ERA_2026, typ].values.astype(float)
+        lam0 = a0 / n0 if n0 else np.nan
+        if len(x) and np.isfinite(lam0) and lam0 > 0:
+            beta, s, m = 1.0 / lam0, x.sum(), len(x)
+            l0 = float(np.sum(x * np.log(lam0) - lam0 - gammaln(x + 1)))
+            l1 = float(gammaln(1 + s) + np.log(beta) - (1 + s) * np.log(beta + m) - np.sum(gammaln(x + 1)))
+            p1 = 1 / (1 + np.exp(np.clip(l0 - l1, -50, 50)))
+            rate = (1 - p1) * lam0 + p1 * (1 + s) / (beta + m)
+            era["p_rules_changed_rate"] = float(p1)
+            era["ratio_averaged"] = float(rate / lam0)
+        else:
+            era["p_rules_changed_rate"], era["ratio_averaged"] = None, 1.0
         # Wet vs dry rate ratio.
         w, d = rc[rc.MixedOrWetRace], rc[~rc.MixedOrWetRace]
         wet_rr = (w[typ].mean() / d[typ].mean()) if d[typ].mean() > 0 else np.nan
@@ -294,5 +351,15 @@ def start_params(laps: pd.DataFrame, res: pd.DataFrame, races: pd.DataFrame, tra
     for (tk, v), l, s in zip(tracks.items(), lr, samp):
         B = s / (s + tau2)
         v["ratio"] = float(np.exp((1 - B) * l))
+    # I6: this season's starts against the pooled spread (2026 starts moved
+    # cars about twice as much as 2024-25), measured on its dry races so far
+    # and blended toward 1 by the number of starts, like the race-pace
+    # spread (I5): half weight at SEASON_N0 starts.
+    yr = j["RaceKey"].str[:4].astype(int)
+    s = j[~j.wet & (yr == TARGET_YEAR)]
+    own = float(s["change"].std() / pooled_sd) if len(s) >= 10 else 1.0
+    w = len(s) / (len(s) + SEASON_N0)
+    season = {"ratio": float(np.exp(w * np.log(own))) if own > 0 else 1.0, "raw_ratio": own, "n_starts": int(len(s)),
+              "weight": float(w), "season": int(TARGET_YEAR)}
     return {"pmf_by_grid": pmf, "pooled_sd": float(pooled_sd), "tracks": tracks,
-            "between_track_tau_log": float(np.sqrt(tau2)), "n_starts": int((~j.wet).sum())}
+            "between_track_tau_log": float(np.sqrt(tau2)), "n_starts": int((~j.wet).sum()), "season": season}
