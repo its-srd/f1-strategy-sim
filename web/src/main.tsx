@@ -415,18 +415,18 @@ function Results({ p, r }: { p: Params; r: MCResult }) {
       <div class="panel">
         <h2>Finishing probabilities, every driver</h2>
         <div class="sub">Share of {r.sims.toLocaleString()} simulated races. Uncertainty in car pace, driver skill, tyre wear and pit loss is sampled in every race, along with SC/VSC/red flags, retirements, the start, overtakes and lap noise. Sorted by expected points.</div>
-        <table class="t">
-          <thead><tr><th class="l">Driver</th><th class="l">Car</th>{r.scenario.actualResult && <th>Actual</th>}<th>Win</th><th>Podium</th><th>Points</th><th>DNF</th><th>Mean pos</th><th>Exp. pts</th><th class="l">Finishing position P1 → P{r.drivers.length}, DNF</th></tr></thead>
+        <div class="table-wrap"><table class="t">
+          <thead><tr><th class="l">Driver</th><th class="l">Car</th>{r.scenario.actualResult && <th>Actual</th>}<th>Win</th><th>Podium</th><th>Points</th><th>DNF</th><th>Mean pos</th><th>Exp. pts</th><th class="l" style={{ whiteSpace: "normal", minWidth: "70px" }}>Finish P1 → P{r.drivers.length}, DNF</th></tr></thead>
           <tbody>{r.drivers.map((d) => (
             <tr class={d.isUser ? "user" : ""}>
               <td class="l">{d.name}</td><td class="l">{d.teamName}</td>
               {r.scenario.actualResult && <td class="mono">{actualOf(r, d.code)}</td>}
               <td><Bar v={d.win} /></td><td><Bar v={d.podium} /></td><td><Bar v={d.points} /></td>
               <td>{pct(d.dnf)}</td><td>{d.meanPos.toFixed(1)}</td><td>{d.expPoints.toFixed(1)}</td>
-              <td class="l"><Heat hist={d.posHist} /></td>
+              <td class="l heat-cell"><Heat hist={d.posHist} /></td>
             </tr>
           ))}</tbody>
-        </table>
+        </table></div>
       </div>
 
       <div class="panel">
@@ -450,18 +450,18 @@ function Results({ p, r }: { p: Params; r: MCResult }) {
         {alt && <div style={{ margin: "0 0 10px", fontSize: "13px" }}>{(alt.dExpPts ?? 0) > 2 * (alt.dExpPtsSE ?? 0)
           ? <>Best alternative <b class="mono">{alt.label}</b> gains <b>{sgn(alt.dExpPts ?? 0)}</b> expected points (±{(2 * (alt.dExpPtsSE ?? 0)).toFixed(2)}, paired) over yours.</>
           : <>No alternative is distinguishably better than yours. The closest, <b>{alt.label}</b>, is {sgn(alt.dExpPts ?? 0)} ± {(2 * (alt.dExpPtsSE ?? 0)).toFixed(2)} expected points: within Monte Carlo noise.</>}</div>}
-        <table class="t" style={{ marginBottom: "10px" }}>
-          <thead><tr><th class="l">Strategy</th><th>Exp. pts</th><th>vs yours (±2 SE)</th><th>Win</th><th>Podium</th><th>Points</th><th>Mean pos</th><th>Median race time</th><th>Pit</th><th>Held up</th></tr></thead>
+        <div class="table-wrap"><table class="t" style={{ marginBottom: "10px" }}>
+          <thead><tr><th class="l">Strategy</th><th>Exp. pts</th><th style={{ whiteSpace: "normal" }}>vs yours (±2 SE)</th><th>Win</th><th>Podium</th><th>Points</th><th>Mean pos</th><th style={{ whiteSpace: "normal" }}>Median time</th><th>Pit</th><th style={{ whiteSpace: "normal" }}>Held up</th></tr></thead>
           <tbody>{r.candidates.map((c, i) => (
             <tr class={i === 0 ? "user" : ""}>
-              <td class="l mono">{i === 0 ? "yours: " : c === alt ? "best alt: " : ""}{c.label}</td>
+              <td class="l mono" style={{ whiteSpace: "normal" }}>{i === 0 ? "yours: " : c === alt ? "best alt: " : ""}<span style={{ whiteSpace: "nowrap" }}>{c.label}</span></td>
               <td>{c.expPoints.toFixed(2)}</td>
-              <td>{i === 0 ? "–" : `${sgn(c.dExpPts ?? 0)} ± ${(2 * (c.dExpPtsSE ?? 0)).toFixed(2)}`}{i > 0 && Math.abs(c.dExpPts ?? 0) < 2 * (c.dExpPtsSE ?? 0) ? <span class="tag">not distinguishable</span> : ""}</td>
+              <td>{i === 0 ? "–" : `${sgn(c.dExpPts ?? 0)} ± ${(2 * (c.dExpPtsSE ?? 0)).toFixed(2)}`}{i > 0 && Math.abs(c.dExpPts ?? 0) < 2 * (c.dExpPtsSE ?? 0) ? <span class="tag" title="The difference is smaller than twice its standard error: Monte Carlo noise">within noise</span> : ""}</td>
               <td>{pct(c.win)}</td><td>{pct(c.podium)}</td><td>{pct(c.points)}</td><td>{c.meanPos.toFixed(2)}</td>
               <td>{c.medianTime ? fmtTime(c.medianTime) : "–"}</td><td>{c.parts.pit.toFixed(1)} s</td><td>{c.parts.held.toFixed(1)} s</td>
             </tr>
           ))}</tbody>
-        </table>
+        </table></div>
         {alt && <>
           <div class="grid2">
             <div>
