@@ -38,10 +38,37 @@ def stints_table(laps, res, races, track_key):
     return st
 
 
+STINT_CAP_QUANTILE = 0.95   # the cap is a long stint teams really run, not the single longest ever
+STINT_CAP_MIN = 5           # fewer stints of a compound at a track: the pooled cap is used
+
+
+def stint_lengths(st):
+    """Dry stints of the 18-inch era (since STRATEGY_FROM_YEAR), as laps run.
+    The engine fits fresh tyres at every stop, so the stint length, not the
+    tyre age (longer for a used set), is what the cap limits."""
+    d = st[st["compound"].isin(C.DRY) & (st["Year"] >= STRATEGY_FROM_YEAR)].copy()
+    d["laps"] = d["end"] - d["start"] + 1
+    return d
+
+
 def max_stint(st):
-    d = st[st["compound"].isin(C.DRY)]
-    return {tk: {c: int(g.loc[g.compound == c, "age_end"].max()) for c in C.DRY if (g.compound == c).any()}
-            for tk, g in d.groupby("TrackKey")}
+    """Per track and compound: the 95th percentile of stint lengths (review
+    2.3: the maximum let one outlier stint, e.g. Monaco HARD 78 laps, set the
+    limit the optimiser pushes against, where the linear wear fit is least
+    reliable)."""
+    d = stint_lengths(st)
+    out = {}
+    for tk, g in d.groupby("TrackKey"):
+        caps = {c: int(np.ceil(g.loc[g.compound == c, "laps"].quantile(STINT_CAP_QUANTILE)))
+                for c in C.DRY if (g.compound == c).sum() >= STINT_CAP_MIN}
+        if caps:
+            out[tk] = caps
+    return out
+
+
+def max_stint_pooled(st):
+    d = stint_lengths(st)
+    return {c: int(np.ceil(d.loc[d.compound == c, "laps"].quantile(STINT_CAP_QUANTILE))) for c in C.DRY}
 
 
 def strategies(st):

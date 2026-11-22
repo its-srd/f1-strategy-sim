@@ -49,53 +49,10 @@ export class Rng {
     return k - 1;
   }
 
-  /** Gamma(shape, rate) via Marsaglia-Tsang. */
-  gamma(shape: number, rate: number): number {
-    if (shape < 1) return this.gamma(shape + 1, rate) * Math.pow(this.u(), 1 / shape);
-    const d = shape - 1 / 3, c = 1 / Math.sqrt(9 * d);
-    for (;;) {
-      let x: number, v: number;
-      do { x = this.normal(); v = 1 + c * x; } while (v <= 0);
-      v = v * v * v;
-      const u = this.u();
-      if (u < 1 - 0.0331 * x ** 4 || Math.log(u) < 0.5 * x * x + d * (1 - v + Math.log(v))) return d * v / rate;
-    }
-  }
-
-  /** Draw a key from a {key: probability} map. */
-  pick<K extends string>(pmf: Record<K, number>): K {
-    const keys = Object.keys(pmf) as K[];
-    let total = 0;
-    for (const k of keys) total += pmf[k];
-    let r = this.u() * total;
-    for (const k of keys) { r -= pmf[k]; if (r <= 0) return k; }
-    return keys[keys.length - 1];
-  }
-
   int(n: number): number { return Math.floor(this.u() * n); }
 }
 
-/** Sample from an empirical distribution given as {quantile: value}. */
-export function sampleQuantiles(q: Record<string, number>, rng: Rng): number {
-  const ps = Object.keys(q).map(Number).sort((a, b) => a - b);
-  const vs = ps.map((p) => q[String(p)] ?? q[p.toFixed(2)] ?? q[p as unknown as string]);
-  const u = ps[0] + rng.u() * (ps[ps.length - 1] - ps[0]);
-  let i = 0;
-  while (i < ps.length - 2 && ps[i + 1] < u) i++;
-  const t = (u - ps[i]) / (ps[i + 1] - ps[i]);
-  return vs[i] + t * (vs[i + 1] - vs[i]);
-}
-
-/** Sample a fraction in [0,1] from a histogram over equal bins. */
-export function sampleHist(counts: number[], bins: number[], rng: Rng): number {
-  const pmf: Record<string, number> = {};
-  counts.forEach((c, i) => { pmf[String(i)] = c; });
-  const i = Number(rng.pick(pmf));
-  return bins[i] + rng.u() * (bins[i + 1] - bins[i]);
-}
-
-// ---- compiled samplers (built once per run; the per-call versions above
-// re-parse their tables and are kept only for convenience)
+// ---- compiled samplers (built once per run)
 
 export interface QTable { p0: number; p1: number; vals: Float64Array }
 export function compileQuantiles(q: Record<string, number>): QTable {

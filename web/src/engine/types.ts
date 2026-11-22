@@ -74,15 +74,25 @@ export interface GlobalParams {
   pace_mode: { wear_change_per_pace_pct: number; ci95: [number, number]; mode_pace_sd_pct: number; supported: boolean; n_pairs: number };
   max_stint_pooled: Record<Dry, number>;
   skill_model: { tau_pct: number; omega_pct_per_year: number; sigma0_pct: number; n_obs: number };
-  quali_effect?: { weight_prior: number; weight_quali: number; se: number[]; form_sd_after_quali_pct: number; form_sd_prior_only_pct: number; quali_gap_clip_pct: number; n_driver_races: number } | null;
-  grid_effect?: { pct_per_grid_place: number; se: number; form_sd_before_grid_pct: number; form_sd_after_grid_pct: number; n_driver_races: number };
+  quali_effect?: QualiEffect | null;
+  grid_effect?: GridEffect;
 }
 
-export interface GridEntry { driver_id: string; code: string; name: string; team_id: string; number: string; quali_gap_pct?: number; quali_wet?: boolean }
+export interface GridEntry { driver_id: string; code: string; name: string; team_id: string; number: string; quali_gap_pct?: number; quali_wet?: boolean;
+  quali_pos?: number;     // qualifying position before penalties (I2 uses it instead of the grid slot)
+  pit_lane?: boolean }    // starts from the pit lane: no I2 pace shift
+
+export interface QualiEffect { weight_prior: number; weight_quali: number; se: number[]; form_sd_after_quali_pct: number; form_sd_prior_only_pct: number; quali_gap_clip_pct: number; n_driver_races: number }
+export interface GridEffect { pct_per_grid_place: number; se: number; form_sd_before_grid_pct: number; form_sd_after_grid_pct: number; n_driver_races: number }
+// I2 / I4 refitted on the priors the engine has before a race (model/calibrate_pace.py)
+export interface PaceBlend { quali: QualiEffect; grid: GridEffect; seasons: number[]; n_driver_races: number }
 
 export interface Calibration { pace_spread_scale: number; pace_spread_scale_without_quali?: number; strategy_choices: number; chosen_on: string; scores: Record<string, unknown>;
   wet_driver_effects?: boolean;    // W1b: off since the wet-race backtest
-  rival_switch_spread?: boolean }  // W10: off since the wet-race backtest
+  rival_switch_spread?: boolean;   // W10: off since the wet-race backtest
+  pace_blend?: PaceBlend;          // used instead of global quali_effect / grid_effect
+  pace_blend_forward?: Record<string, PaceBlend>;   // per scored season, fitted on earlier seasons only
+  pass_logit_shift?: number }     // O3: added to the pass model's log-odds (calibrated on a backtest season)
 
 export interface Params {
   tracks: Record<string, TrackParams>;
@@ -91,7 +101,7 @@ export interface Params {
   global: GlobalParams;
   grid: { grid: GridEntry[]; example_quali?: { race: string; wet: boolean; rows: { code: string; grid: number; best_lap_s: number | null }[] } | null; calendar: { round: number; circuit_id: string; race_name: string; date: string }[]; from_race: string };
   calibration?: Calibration;
-  meta: { generated_utc: string; data_through?: { year: number; round: number }; races_in_data: number; dry_races_fitted: number; clean_laps: number; first_race: [number, string]; last_race: [number, string] };
+  meta: { generated_utc: string; target_season?: number; data_through?: { year: number; round: number }; races_in_data: number; dry_races_fitted: number; clean_laps: number; first_race: [number, string]; last_race: [number, string] };
 }
 
 // ------------------------------------------------------------ user inputs
@@ -129,6 +139,8 @@ export interface Scenario {
   raceLabel?: string;
   sampleUserStrategy?: boolean; // backtest: the 'user' car also follows observed strategies
   fixedPlans?: Record<string, Strategy>;  // backtest: these drivers run exactly these strategies
+  passShift?: number;       // backtest experiments: overrides calibration.pass_logit_shift
+  statusTrace?: number[];   // backtest: the race's real track status per lap (index 0 = lap 1; 0 green, 1 SC, 2 VSC, 3 red)
   gridImpliesPace?: boolean;    // read the grid as a qualifying result: it shifts weekend pace (I2)
   wetCall?: WetCall;            // your car's wet-weather call (W7); default: switch at the crossover
   paceSpread?: number;          // multiplies car / skill / form spread (I3); default: params.calibration

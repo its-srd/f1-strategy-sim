@@ -1,782 +1,3029 @@
 [
  {
   "race": "2025_05",
+  "team": "ferrari",
+  "kind": "stop_timing",
+  "reactive": false,
+  "a": "leclerc",
+  "b": "hamilton",
+  "strategy_a": "M29-H21",
+  "strategy_b": "M23-H27",
+  "actual_gap_s": 30.96900000000005,
+  "oracle_params": [
+   "offset_HARD",
+   "slope_MEDIUM",
+   "slope_HARD",
+   "curve"
+  ],
+  "modes": {
+   "random": {
+    "actual": 9.393882047676016,
+    "blind": 8.118409342132509
+   },
+   "replay": {
+    "actual": 18.989202752990423,
+    "blind": 16.094718357278907
+   },
+   "oracle": {
+    "actual": 13.685568408366635,
+    "blind": 17.260786776429995
+   }
+  }
+ },
+ {
+  "race": "2025_05",
   "team": "mclaren",
+  "kind": "plan",
+  "reactive": false,
   "a": "piastri",
   "b": "norris",
   "strategy_a": "M19-H31",
   "strategy_b": "H34-M16",
   "actual_gap_s": 9.195999999999913,
-  "predicted_gap_with_strategies_s": 3.30227182966064,
-  "predicted_gap_strategy_blind_s": 7.317754823516225,
-  "predicted_strategy_effect_s": -4.015482993855585
+  "oracle_params": [
+   "offset_HARD",
+   "slope_MEDIUM",
+   "slope_HARD",
+   "curve"
+  ],
+  "modes": {
+   "random": {
+    "actual": 3.0574974079518142,
+    "blind": 11.209566733794418
+   },
+   "replay": {
+    "actual": 13.03744514471964,
+    "blind": 21.914151400394985
+   },
+   "oracle": {
+    "actual": 11.614619837023383,
+    "blind": 23.501794747518034
+   }
+  }
  },
  {
   "race": "2025_05",
   "team": "rb",
+  "kind": "plan",
+  "reactive": false,
   "a": "hadjar",
   "b": "lawson",
   "strategy_a": "H34-M16",
   "strategy_b": "M20-H30",
   "actual_gap_s": 11.359999999999673,
-  "predicted_gap_with_strategies_s": 2.541960760780057,
-  "predicted_gap_strategy_blind_s": -0.764443647655753,
-  "predicted_strategy_effect_s": 3.30640440843581
+  "oracle_params": [
+   "offset_HARD",
+   "slope_MEDIUM",
+   "slope_HARD",
+   "curve"
+  ],
+  "modes": {
+   "random": {
+    "actual": 2.2417490387879297,
+    "blind": -0.8758690469712747
+   },
+   "replay": {
+    "actual": 0.5316934678248799,
+    "blind": -1.525400199071555
+   },
+   "oracle": {
+    "actual": 1.3546442910464975,
+    "blind": -1.434993929936354
+   }
+  }
  },
  {
   "race": "2025_06",
   "team": "ferrari",
+  "kind": "plan",
+  "reactive": false,
   "a": "leclerc",
   "b": "hamilton",
   "strategy_a": "M8-H49",
   "strategy_b": "H9-M48",
   "actual_gap_s": 3.1500000000005457,
-  "predicted_gap_with_strategies_s": 2.1918859320676347,
-  "predicted_gap_strategy_blind_s": 9.32343815765671,
-  "predicted_strategy_effect_s": -7.1315522255890755
+  "oracle_params": [
+   "offset_HARD",
+   "slope_MEDIUM",
+   "slope_HARD",
+   "curve"
+  ],
+  "modes": {
+   "random": {
+    "actual": 6.883414731447374,
+    "blind": 9.20838046399058
+   },
+   "replay": {
+    "actual": 9.026719575801508,
+    "blind": 14.747127162972902
+   },
+   "oracle": {
+    "actual": 17.300303548362535,
+    "blind": 14.630148198988536
+   }
+  }
  },
  {
   "race": "2025_06",
   "team": "mercedes",
+  "kind": "plan",
+  "reactive": false,
   "a": "russell",
   "b": "antonelli",
   "strategy_a": "H8-M49",
   "strategy_b": "M8-H49",
   "actual_gap_s": 17.858000000000175,
-  "predicted_gap_with_strategies_s": 4.025164808208501,
-  "predicted_gap_strategy_blind_s": -0.3533239090065763,
-  "predicted_strategy_effect_s": 4.3784887172150775
+  "oracle_params": [
+   "offset_HARD",
+   "slope_MEDIUM",
+   "slope_HARD",
+   "curve"
+  ],
+  "modes": {
+   "random": {
+    "actual": 1.2244918446340307,
+    "blind": -0.31334112872355036
+   },
+   "replay": {
+    "actual": 1.224655819450163,
+    "blind": -0.584329333540154
+   },
+   "oracle": {
+    "actual": -2.28648385787983,
+    "blind": 1.635663934315744
+   }
+  }
+ },
+ {
+  "race": "2025_07",
+  "team": "alpine",
+  "kind": "stop_timing",
+  "reactive": true,
+  "a": "gasly",
+  "b": "colapinto",
+  "strategy_a": "M9-H20-H34",
+  "strategy_b": "M22-H24-H17",
+  "actual_gap_s": 1.98700000000008,
+  "oracle_params": [
+   "offset_HARD",
+   "slope_MEDIUM",
+   "slope_HARD",
+   "curve"
+  ],
+  "modes": {
+   "random": {
+    "actual": 5.655888906284417,
+    "blind": 7.304729323876018
+   },
+   "replay": {
+    "actual": 0.729974487171603,
+    "blind": 2.864632392796011
+   },
+   "oracle": {
+    "actual": 0.8296645297295981,
+    "blind": 2.6445335413809516
+   }
+  }
  },
  {
   "race": "2025_07",
   "team": "ferrari",
+  "kind": "plan",
+  "reactive": true,
   "a": "hamilton",
   "b": "leclerc",
   "strategy_a": "H29-M17-H17",
   "strategy_b": "M10-H19-H34",
   "actual_gap_s": 6.417999999999665,
-  "predicted_gap_with_strategies_s": -1.7584215353435866,
-  "predicted_gap_strategy_blind_s": -3.371959978085215,
-  "predicted_strategy_effect_s": 1.6135384427416284
+  "oracle_params": [
+   "offset_HARD",
+   "slope_MEDIUM",
+   "slope_HARD",
+   "curve"
+  ],
+  "modes": {
+   "random": {
+    "actual": -1.8105722085792877,
+    "blind": -2.759954651984117
+   },
+   "replay": {
+    "actual": 4.976125770141152,
+    "blind": -2.6891546549350096
+   },
+   "oracle": {
+    "actual": 4.124870361673857,
+    "blind": -1.8752192388992626
+   }
+  }
+ },
+ {
+  "race": "2025_07",
+  "team": "mclaren",
+  "kind": "stop_timing",
+  "reactive": true,
+  "a": "norris",
+  "b": "piastri",
+  "strategy_a": "M28-H18-H17",
+  "strategy_b": "M13-H17-H33",
+  "actual_gap_s": 6.846999999999753,
+  "oracle_params": [
+   "offset_HARD",
+   "slope_MEDIUM",
+   "slope_HARD",
+   "curve"
+  ],
+  "modes": {
+   "random": {
+    "actual": 4.709785994679805,
+    "blind": -6.691655275523772
+   },
+   "replay": {
+    "actual": 8.362861295607217,
+    "blind": -2.578887180223319
+   },
+   "oracle": {
+    "actual": 9.700180051822826,
+    "blind": -2.426055206186902
+   }
+  }
+ },
+ {
+  "race": "2025_07",
+  "team": "rb",
+  "kind": "stop_timing",
+  "reactive": true,
+  "a": "hadjar",
+  "b": "lawson",
+  "strategy_a": "M29-H17-H17",
+  "strategy_b": "M10-H19-H34",
+  "actual_gap_s": 8.925000000000182,
+  "oracle_params": [
+   "offset_HARD",
+   "slope_MEDIUM",
+   "slope_HARD",
+   "curve"
+  ],
+  "modes": {
+   "random": {
+    "actual": 17.350886713810723,
+    "blind": 20.560430482448282
+   },
+   "replay": {
+    "actual": 13.383617082075034,
+    "blind": 9.870016742625921
+   },
+   "oracle": {
+    "actual": 12.332595294280509,
+    "blind": 9.635709668412346
+   }
+  }
  },
  {
   "race": "2025_07",
   "team": "red_bull",
+  "kind": "plan",
+  "reactive": true,
   "a": "max_verstappen",
   "b": "tsunoda",
   "strategy_a": "M29-H17-H17",
   "strategy_b": "H29-M34",
   "actual_gap_s": 26.446000000000822,
-  "predicted_gap_with_strategies_s": 56.678126215047996,
-  "predicted_gap_strategy_blind_s": 62.91899029770957,
-  "predicted_strategy_effect_s": -6.240864082661574
+  "oracle_params": [
+   "offset_HARD",
+   "slope_MEDIUM",
+   "slope_HARD",
+   "curve"
+  ],
+  "modes": {
+   "random": {
+    "actual": 54.37886271259413,
+    "blind": 63.032882258236896
+   },
+   "replay": {
+    "actual": 33.66368193377093,
+    "blind": 27.320919492552093
+   },
+   "oracle": {
+    "actual": 30.210887885859847,
+    "blind": 28.411574107167326
+   }
+  }
  },
  {
   "race": "2025_07",
   "team": "sauber",
+  "kind": "plan",
+  "reactive": true,
   "a": "hulkenberg",
   "b": "bortoleto",
   "strategy_a": "H29-M34",
   "strategy_b": "M12-H17-H17-M17",
   "actual_gap_s": 8.27599999999984,
-  "predicted_gap_with_strategies_s": 6.6198377225537115,
-  "predicted_gap_strategy_blind_s": -3.205810863982151,
-  "predicted_strategy_effect_s": 9.825648586535863
+  "oracle_params": [
+   "offset_HARD",
+   "slope_MEDIUM",
+   "slope_HARD",
+   "curve"
+  ],
+  "modes": {
+   "random": {
+    "actual": 8.419220080179002,
+    "blind": -3.4055302661990936
+   },
+   "replay": {
+    "actual": -1.1388798907910314,
+    "blind": -2.694195493758343
+   },
+   "oracle": {
+    "actual": 1.197435709176716,
+    "blind": -2.6183547636901494
+   }
+  }
+ },
+ {
+  "race": "2025_07",
+  "team": "williams",
+  "kind": "stop_timing",
+  "reactive": true,
+  "a": "albon",
+  "b": "sainz",
+  "strategy_a": "M29-H18-H16",
+  "strategy_b": "M11-H18-H34",
+  "actual_gap_s": 4.95299999999952,
+  "oracle_params": [
+   "offset_HARD",
+   "slope_MEDIUM",
+   "slope_HARD",
+   "curve"
+  ],
+  "modes": {
+   "random": {
+    "actual": 1.587234908555729,
+    "blind": -1.166541189229065
+   },
+   "replay": {
+    "actual": -0.5610245401985594,
+    "blind": -0.6996940033232022
+   },
+   "oracle": {
+    "actual": -0.740877071115392,
+    "blind": -0.40639050805020815
+   }
+  }
  },
  {
   "race": "2025_08",
   "team": "ferrari",
+  "kind": "plan",
+  "reactive": false,
   "a": "leclerc",
   "b": "hamilton",
   "strategy_a": "M22-H27-M29",
   "strategy_b": "H18-H38-M22",
   "actual_gap_s": 48.2559999999994,
-  "predicted_gap_with_strategies_s": 27.6313191019226,
-  "predicted_gap_strategy_blind_s": 28.850570941093792,
-  "predicted_strategy_effect_s": -1.2192518391711928
+  "oracle_params": [
+   "offset_SOFT",
+   "offset_HARD",
+   "slope_SOFT",
+   "slope_MEDIUM",
+   "slope_HARD",
+   "curve"
+  ],
+  "modes": {
+   "random": {
+    "actual": 31.05988173579226,
+    "blind": 28.750528158183442
+   },
+   "replay": {
+    "actual": 58.04945380338813,
+    "blind": 51.612370183796884
+   },
+   "oracle": {
+    "actual": 47.346814266145884,
+    "blind": 51.61237018378961
+   }
+  }
  },
  {
   "race": "2025_09",
   "team": "alpine",
+  "kind": "plan",
+  "reactive": true,
   "a": "gasly",
   "b": "colapinto",
   "strategy_a": "S10-S21-M24-S11",
   "strategy_b": "S14-M25-S15-S12",
   "actual_gap_s": 13.499000000000706,
-  "predicted_gap_with_strategies_s": 24.016338759179234,
-  "predicted_gap_strategy_blind_s": 22.09519021790038,
-  "predicted_strategy_effect_s": 1.9211485412788534
+  "oracle_params": [
+   "offset_SOFT",
+   "slope_SOFT",
+   "slope_MEDIUM",
+   "curve"
+  ],
+  "modes": {
+   "random": {
+    "actual": 24.407838779553458,
+    "blind": 23.2647884656144
+   },
+   "replay": {
+    "actual": 8.188234685194402,
+    "blind": 7.356118044579489
+   },
+   "oracle": {
+    "actual": 8.79400208136758,
+    "blind": 7.461751927715341
+   }
+  }
  },
  {
   "race": "2025_09",
   "team": "ferrari",
+  "kind": "plan",
+  "reactive": true,
   "a": "leclerc",
   "b": "hamilton",
   "strategy_a": "S17-M23-M15-S11",
   "strategy_b": "S16-M30-S9-S11",
   "actual_gap_s": 5.052999999999884,
-  "predicted_gap_with_strategies_s": 4.601844469147181,
-  "predicted_gap_strategy_blind_s": 0.7453956441768241,
-  "predicted_strategy_effect_s": 3.8564488249703572
+  "oracle_params": [
+   "offset_SOFT",
+   "slope_SOFT",
+   "slope_MEDIUM",
+   "curve"
+  ],
+  "modes": {
+   "random": {
+    "actual": 3.1803236831519826,
+    "blind": 0.5569360253211926
+   },
+   "replay": {
+    "actual": 1.3044365465775627,
+    "blind": 0.6548415383640531
+   },
+   "oracle": {
+    "actual": 1.0677040708524146,
+    "blind": 0.47779755492319964
+   }
+  }
  },
  {
   "race": "2025_09",
   "team": "haas",
+  "kind": "plan",
+  "reactive": true,
   "a": "ocon",
   "b": "bearman",
   "strategy_a": "S20-M23-M23",
   "strategy_b": "S8-M27-M19-S12",
   "actual_gap_s": 4.867999999999483,
-  "predicted_gap_with_strategies_s": 1.5999999999985448,
-  "predicted_gap_strategy_blind_s": -2.760347133652431,
-  "predicted_strategy_effect_s": 4.360347133650976
+  "oracle_params": [
+   "offset_SOFT",
+   "slope_SOFT",
+   "slope_MEDIUM",
+   "curve"
+  ],
+  "modes": {
+   "random": {
+    "actual": 1.9208696466794208,
+    "blind": -2.3822200084387077
+   },
+   "replay": {
+    "actual": -1.9585743546149388,
+    "blind": -1.152652079710606
+   },
+   "oracle": {
+    "actual": -1.8487507579966405,
+    "blind": -1.49332839993167
+   }
+  }
  },
  {
   "race": "2025_09",
   "team": "rb",
+  "kind": "plan",
+  "reactive": true,
   "a": "hadjar",
   "b": "lawson",
   "strategy_a": "S19-M29-S7-S11",
   "strategy_b": "S18-M26-S22",
   "actual_gap_s": 9.510000000000218,
-  "predicted_gap_with_strategies_s": 7.843394964444087,
-  "predicted_gap_strategy_blind_s": 22.79293192833302,
-  "predicted_strategy_effect_s": -14.949536963888931
+  "oracle_params": [
+   "offset_SOFT",
+   "slope_SOFT",
+   "slope_MEDIUM",
+   "curve"
+  ],
+  "modes": {
+   "random": {
+    "actual": 6.677721846728673,
+    "blind": 19.39289480174648
+   },
+   "replay": {
+    "actual": 7.893420695838358,
+    "blind": 7.116176171000006
+   },
+   "oracle": {
+    "actual": 8.570796652110403,
+    "blind": 7.212923716142541
+   }
+  }
  },
  {
   "race": "2025_09",
   "team": "red_bull",
+  "kind": "plan",
+  "reactive": true,
   "a": "max_verstappen",
   "b": "tsunoda",
   "strategy_a": "S13-S16-M18-S8-H11",
   "strategy_b": "M8-S16-S20-S10-S12",
   "actual_gap_s": 6.996000000000095,
-  "predicted_gap_with_strategies_s": 58.47988990959038,
-  "predicted_gap_strategy_blind_s": 68.27141072105678,
-  "predicted_strategy_effect_s": -9.791520811466398
+  "oracle_params": [
+   "offset_SOFT",
+   "slope_SOFT",
+   "slope_MEDIUM",
+   "curve"
+  ],
+  "modes": {
+   "random": {
+    "actual": 62.70167900599063,
+    "blind": 67.28484113267041
+   },
+   "replay": {
+    "actual": 17.447850738649322,
+    "blind": 19.044972870661695
+   },
+   "oracle": {
+    "actual": 17.685313352186313,
+    "blind": 18.416188837087248
+   }
+  }
  },
  {
   "race": "2025_09",
   "team": "sauber",
+  "kind": "plan",
+  "reactive": true,
   "a": "hulkenberg",
   "b": "bortoleto",
   "strategy_a": "S9-M36-S11-S10",
   "strategy_b": "S19-M30-S17",
   "actual_gap_s": 12.347999999999956,
-  "predicted_gap_with_strategies_s": -16.916416536795623,
-  "predicted_gap_strategy_blind_s": -4.57068576990514,
-  "predicted_strategy_effect_s": -12.345730766890483
+  "oracle_params": [
+   "offset_SOFT",
+   "slope_SOFT",
+   "slope_MEDIUM",
+   "curve"
+  ],
+  "modes": {
+   "random": {
+    "actual": -18.845821534160677,
+    "blind": -5.412088188877533
+   },
+   "replay": {
+    "actual": -1.2135001197448219,
+    "blind": -1.1050900017162348
+   },
+   "oracle": {
+    "actual": -0.694182414313218,
+    "blind": -1.055765430772226
+   }
+  }
+ },
+ {
+  "race": "2025_11",
+  "team": "mclaren",
+  "kind": "stop_timing",
+  "reactive": false,
+  "a": "norris",
+  "b": "piastri",
+  "strategy_a": "M20-H32-M19",
+  "strategy_b": "M24-H29-M18",
+  "actual_gap_s": 2.694999999999709,
+  "oracle_params": [
+   "offset_SOFT",
+   "offset_HARD",
+   "slope_SOFT",
+   "slope_MEDIUM",
+   "slope_HARD",
+   "curve"
+  ],
+  "modes": {
+   "random": {
+    "actual": 14.479974107164708,
+    "blind": 14.07668030071818
+   },
+   "replay": {
+    "actual": 21.424069929426878,
+    "blind": 22.138260629927572
+   },
+   "oracle": {
+    "actual": 23.083783251222485,
+    "blind": 23.120158936003463
+   }
+  }
+ },
+ {
+  "race": "2025_14",
+  "team": "aston_martin",
+  "kind": "stop_timing",
+  "reactive": false,
+  "a": "alonso",
+  "b": "stroll",
+  "strategy_a": "M39-H31",
+  "strategy_b": "M36-H34",
+  "actual_gap_s": 9.134000000000015,
+  "oracle_params": [
+   "offset_SOFT",
+   "offset_HARD",
+   "slope_SOFT",
+   "slope_MEDIUM",
+   "slope_HARD",
+   "curve"
+  ],
+  "modes": {
+   "random": {
+    "actual": 4.700938381918604,
+    "blind": 5.163227564604313
+   },
+   "replay": {
+    "actual": 6.917169906217168,
+    "blind": 8.932644715814604
+   },
+   "oracle": {
+    "actual": 7.486331644031452,
+    "blind": 9.076438474579845
+   }
+  }
  },
  {
   "race": "2025_14",
   "team": "mclaren",
+  "kind": "plan",
+  "reactive": false,
   "a": "norris",
   "b": "piastri",
   "strategy_a": "M31-H39",
   "strategy_b": "M18-H27-H25",
   "actual_gap_s": 0.6980000000003201,
-  "predicted_gap_with_strategies_s": -1.1233467320344062,
-  "predicted_gap_strategy_blind_s": -1.1988535307309576,
-  "predicted_strategy_effect_s": 0.07550679869655141
+  "oracle_params": [
+   "offset_SOFT",
+   "offset_HARD",
+   "slope_SOFT",
+   "slope_MEDIUM",
+   "slope_HARD",
+   "curve"
+  ],
+  "modes": {
+   "random": {
+    "actual": 1.0664641698349442,
+    "blind": -0.8339883421767809
+   },
+   "replay": {
+    "actual": 1.479261344954466,
+    "blind": -1.2378201930796422
+   },
+   "oracle": {
+    "actual": 3.0160486213753757,
+    "blind": -1.210882684081298
+   }
+  }
  },
  {
   "race": "2025_15",
   "team": "alpine",
+  "kind": "plan",
+  "reactive": true,
   "a": "colapinto",
   "b": "gasly",
   "strategy_a": "S19-H34-M12-S7",
   "strategy_b": "M23-H49",
   "actual_gap_s": 9.118000000000393,
-  "predicted_gap_with_strategies_s": -22.784459178718862,
-  "predicted_gap_strategy_blind_s": -5.914232958679349,
-  "predicted_strategy_effect_s": -16.870226220039513
+  "oracle_params": [
+   "offset_SOFT",
+   "offset_HARD",
+   "slope_SOFT",
+   "slope_MEDIUM",
+   "slope_HARD",
+   "curve"
+  ],
+  "modes": {
+   "random": {
+    "actual": -23.76787282145233,
+    "blind": -6.535298276617141
+   },
+   "replay": {
+    "actual": -0.8325185786770817,
+    "blind": -1.3203484568330168
+   },
+   "oracle": {
+    "actual": 0.7129499400762143,
+    "blind": -0.9901509995088418
+   }
+  }
+ },
+ {
+  "race": "2025_15",
+  "team": "aston_martin",
+  "kind": "stop_timing",
+  "reactive": false,
+  "a": "stroll",
+  "b": "alonso",
+  "strategy_a": "M8-H44-H20",
+  "strategy_b": "M18-H22-H32",
+  "actual_gap_s": 2.212000000000444,
+  "oracle_params": [
+   "offset_SOFT",
+   "offset_HARD",
+   "slope_SOFT",
+   "slope_MEDIUM",
+   "slope_HARD",
+   "curve"
+  ],
+  "modes": {
+   "random": {
+    "actual": -9.062185408542973,
+    "blind": -11.806683382822484
+   },
+   "replay": {
+    "actual": -0.6990212967093612,
+    "blind": -3.2194976934724764
+   },
+   "oracle": {
+    "actual": -0.8481596937854192,
+    "blind": -2.943857760539686
+   }
+  }
  },
  {
   "race": "2025_15",
   "team": "rb",
+  "kind": "plan",
+  "reactive": true,
   "a": "hadjar",
   "b": "lawson",
   "strategy_a": "M23-H30-S19",
   "strategy_b": "M23-H4-S25-S20",
   "actual_gap_s": 13.829999999999927,
-  "predicted_gap_with_strategies_s": 34.65513533639387,
-  "predicted_gap_strategy_blind_s": 16.194146456323324,
-  "predicted_strategy_effect_s": 18.460988880070545
+  "oracle_params": [
+   "offset_SOFT",
+   "offset_HARD",
+   "slope_SOFT",
+   "slope_MEDIUM",
+   "slope_HARD",
+   "curve"
+  ],
+  "modes": {
+   "random": {
+    "actual": 28.630537864286453,
+    "blind": 15.18244452570616
+   },
+   "replay": {
+    "actual": 7.226141437900878,
+    "blind": 4.450141655584957
+   },
+   "oracle": {
+    "actual": 9.011463585601632,
+    "blind": 4.995743608936209
+   }
+  }
  },
  {
   "race": "2025_15",
   "team": "red_bull",
+  "kind": "plan",
+  "reactive": true,
   "a": "max_verstappen",
   "b": "tsunoda",
   "strategy_a": "S23-M30-S19",
   "strategy_b": "S19-H34-S19",
   "actual_gap_s": 12.326000000000022,
-  "predicted_gap_with_strategies_s": 48.55696383690247,
-  "predicted_gap_strategy_blind_s": 59.341806638187336,
-  "predicted_strategy_effect_s": -10.784842801284867
+  "oracle_params": [
+   "offset_SOFT",
+   "offset_HARD",
+   "slope_SOFT",
+   "slope_MEDIUM",
+   "slope_HARD",
+   "curve"
+  ],
+  "modes": {
+   "random": {
+    "actual": 53.76208254737594,
+    "blind": 58.86286546021529
+   },
+   "replay": {
+    "actual": 10.948608312679426,
+    "blind": 11.34320676765401
+   },
+   "oracle": {
+    "actual": 14.785980312482934,
+    "blind": 14.871429794059623
+   }
+  }
  },
  {
   "race": "2025_15",
   "team": "sauber",
+  "kind": "plan",
+  "reactive": true,
   "a": "hulkenberg",
   "b": "bortoleto",
   "strategy_a": "S19-H34-M19",
   "strategy_b": "M22-H38-S12",
   "actual_gap_s": 1.8400000000001455,
-  "predicted_gap_with_strategies_s": -7.136770993001846,
-  "predicted_gap_strategy_blind_s": -6.312241207522675,
-  "predicted_strategy_effect_s": -0.8245297854791716
+  "oracle_params": [
+   "offset_SOFT",
+   "offset_HARD",
+   "slope_SOFT",
+   "slope_MEDIUM",
+   "slope_HARD",
+   "curve"
+  ],
+  "modes": {
+   "random": {
+    "actual": -6.64644483437678,
+    "blind": -5.57469651514748
+   },
+   "replay": {
+    "actual": 1.4800509861743194,
+    "blind": -1.7787748328728412
+   },
+   "oracle": {
+    "actual": 0.6614588471102252,
+    "blind": -1.4931168163875554
+   }
+  }
  },
  {
   "race": "2025_15",
   "team": "williams",
+  "kind": "plan",
+  "reactive": true,
   "a": "albon",
   "b": "sainz",
   "strategy_a": "M23-H30-S19",
   "strategy_b": "M23-H4-S24-S14-S7",
   "actual_gap_s": 11.048999999999978,
-  "predicted_gap_with_strategies_s": 14.26588775073833,
-  "predicted_gap_strategy_blind_s": -9.562085582988402,
-  "predicted_strategy_effect_s": 23.82797333372673
+  "oracle_params": [
+   "offset_SOFT",
+   "offset_HARD",
+   "slope_SOFT",
+   "slope_MEDIUM",
+   "slope_HARD",
+   "curve"
+  ],
+  "modes": {
+   "random": {
+    "actual": 17.64238699427824,
+    "blind": -6.272967107406657
+   },
+   "replay": {
+    "actual": 1.0524439184555376,
+    "blind": -1.9913456923641206
+   },
+   "oracle": {
+    "actual": 1.3007217402819151,
+    "blind": -2.149152937244253
+   }
+  }
+ },
+ {
+  "race": "2025_16",
+  "team": "ferrari",
+  "kind": "stop_timing",
+  "reactive": false,
+  "a": "leclerc",
+  "b": "hamilton",
+  "strategy_a": "M33-H20",
+  "strategy_b": "M38-H15",
+  "actual_gap_s": 11.825000000000728,
+  "oracle_params": [
+   "offset_HARD",
+   "slope_MEDIUM",
+   "slope_HARD",
+   "curve"
+  ],
+  "modes": {
+   "random": {
+    "actual": 17.361584824783677,
+    "blind": 14.823803912121548
+   },
+   "replay": {
+    "actual": 28.2026262323825,
+    "blind": 25.150350301766593
+   },
+   "oracle": {
+    "actual": 26.500590511613154,
+    "blind": 25.074549155651766
+   }
+  }
  },
  {
   "race": "2025_16",
   "team": "rb",
+  "kind": "plan",
+  "reactive": false,
   "a": "hadjar",
   "b": "lawson",
   "strategy_a": "H32-M21",
   "strategy_b": "S9-H44",
   "actual_gap_s": 18.460000000000036,
-  "predicted_gap_with_strategies_s": 11.580669891860452,
-  "predicted_gap_strategy_blind_s": 5.010626650932863,
-  "predicted_strategy_effect_s": 6.570043240927589
+  "oracle_params": [
+   "offset_HARD",
+   "slope_MEDIUM",
+   "slope_HARD",
+   "curve"
+  ],
+  "modes": {
+   "random": {
+    "actual": 9.845976133888144,
+    "blind": 4.495981971209403
+   },
+   "replay": {
+    "actual": 16.90863268348312,
+    "blind": 6.438701024111651
+   },
+   "oracle": {
+    "actual": 10.012997264051592,
+    "blind": 5.7280561082479835
+   }
+  }
+ },
+ {
+  "race": "2025_16",
+  "team": "red_bull",
+  "kind": "stop_timing",
+  "reactive": false,
+  "a": "max_verstappen",
+  "b": "tsunoda",
+  "strategy_a": "M37-H16",
+  "strategy_b": "M19-H34",
+  "actual_gap_s": 80.70100000000002,
+  "oracle_params": [
+   "offset_HARD",
+   "slope_MEDIUM",
+   "slope_HARD",
+   "curve"
+  ],
+  "modes": {
+   "random": {
+    "actual": 37.13436834461936,
+    "blind": 44.152200118081055
+   },
+   "replay": {
+    "actual": 55.431675344517316,
+    "blind": 59.40097513042383
+   },
+   "oracle": {
+    "actual": 56.47739163098777,
+    "blind": 61.16093041045497
+   }
+  }
  },
  {
   "race": "2025_16",
   "team": "williams",
+  "kind": "plan",
+  "reactive": false,
   "a": "albon",
   "b": "sainz",
   "strategy_a": "H41-M12",
   "strategy_b": "M30-H23",
   "actual_gap_s": 13.931999999999789,
-  "predicted_gap_with_strategies_s": -3.2109902187730768,
-  "predicted_gap_strategy_blind_s": -0.587756312390411,
-  "predicted_strategy_effect_s": -2.6232339063826657
+  "oracle_params": [
+   "offset_HARD",
+   "slope_MEDIUM",
+   "slope_HARD",
+   "curve"
+  ],
+  "modes": {
+   "random": {
+    "actual": -1.8968792105206376,
+    "blind": 0.0500000000001819
+   },
+   "replay": {
+    "actual": -5.385687706335375,
+    "blind": -0.921368792362955
+   },
+   "oracle": {
+    "actual": -1.9070519531405807,
+    "blind": -1.161747801360434
+   }
+  }
+ },
+ {
+  "race": "2025_17",
+  "team": "aston_martin",
+  "kind": "stop_timing",
+  "reactive": false,
+  "a": "alonso",
+  "b": "stroll",
+  "strategy_a": "M21-H30",
+  "strategy_b": "M37-H14",
+  "actual_gap_s": 17.6850000000004,
+  "oracle_params": [
+   "offset_HARD",
+   "slope_MEDIUM",
+   "slope_HARD",
+   "curve"
+  ],
+  "modes": {
+   "random": {
+    "actual": 5.4118901140655,
+    "blind": 7.171813053776532
+   },
+   "replay": {
+    "actual": 13.849689969394603,
+    "blind": 10.814502479554903
+   },
+   "oracle": {
+    "actual": 10.636603782479142,
+    "blind": 13.57537618844708
+   }
+  }
  },
  {
   "race": "2025_17",
   "team": "ferrari",
+  "kind": "plan",
+  "reactive": false,
   "a": "hamilton",
   "b": "leclerc",
   "strategy_a": "H36-M15",
   "strategy_b": "M19-H32",
   "actual_gap_s": 0.4639999999999418,
-  "predicted_gap_with_strategies_s": -2.3885628245407133,
-  "predicted_gap_strategy_blind_s": -10.037488179336833,
-  "predicted_strategy_effect_s": 7.64892535479612
+  "oracle_params": [
+   "offset_HARD",
+   "slope_MEDIUM",
+   "slope_HARD",
+   "curve"
+  ],
+  "modes": {
+   "random": {
+    "actual": -1.7334705669964023,
+    "blind": -8.777576090097682
+   },
+   "replay": {
+    "actual": -4.714271700655445,
+    "blind": -14.727745453648822
+   },
+   "oracle": {
+    "actual": -3.6649610677868623,
+    "blind": -14.922803792318518
+   }
+  }
  },
  {
   "race": "2025_17",
   "team": "mercedes",
+  "kind": "plan",
+  "reactive": false,
   "a": "russell",
   "b": "antonelli",
   "strategy_a": "H39-M12",
   "strategy_b": "M18-H33",
   "actual_gap_s": 7.15099999999984,
-  "predicted_gap_with_strategies_s": 7.025486398784778,
-  "predicted_gap_strategy_blind_s": 1.3815965088542725,
-  "predicted_strategy_effect_s": 5.643889889930506
+  "oracle_params": [
+   "offset_HARD",
+   "slope_MEDIUM",
+   "slope_HARD",
+   "curve"
+  ],
+  "modes": {
+   "random": {
+    "actual": 5.644143839132994,
+    "blind": 1.7674131401217892
+   },
+   "replay": {
+    "actual": 9.198423323326097,
+    "blind": 2.3898130194475016
+   },
+   "oracle": {
+    "actual": 12.449349304428324,
+    "blind": 1.3684105388674652
+   }
+  }
+ },
+ {
+  "race": "2025_17",
+  "team": "rb",
+  "kind": "stop_timing",
+  "reactive": false,
+  "a": "lawson",
+  "b": "hadjar",
+  "strategy_a": "M20-H31",
+  "strategy_b": "M29-H22",
+  "actual_gap_s": 5.692000000000007,
+  "oracle_params": [
+   "offset_HARD",
+   "slope_MEDIUM",
+   "slope_HARD",
+   "curve"
+  ],
+  "modes": {
+   "random": {
+    "actual": 0.7803419229912834,
+    "blind": 2.5099110469500374
+   },
+   "replay": {
+    "actual": 1.2553296842470445,
+    "blind": 2.8217698276557712
+   },
+   "oracle": {
+    "actual": 1.5316793314277675,
+    "blind": 4.324820078822086
+   }
+  }
+ },
+ {
+  "race": "2025_17",
+  "team": "sauber",
+  "kind": "stop_timing",
+  "reactive": false,
+  "a": "bortoleto",
+  "b": "hulkenberg",
+  "strategy_a": "H26-M25",
+  "strategy_b": "H36-M15",
+  "actual_gap_s": 12.631000000000313,
+  "oracle_params": [
+   "offset_HARD",
+   "slope_MEDIUM",
+   "slope_HARD",
+   "curve"
+  ],
+  "modes": {
+   "random": {
+    "actual": 6.616328978720048,
+    "blind": 5.74574270391804
+   },
+   "replay": {
+    "actual": 13.4188593815079,
+    "blind": 8.952078740737306
+   },
+   "oracle": {
+    "actual": 10.868895619799332,
+    "blind": 9.982698075250482
+   }
+  }
  },
  {
   "race": "2025_18",
   "team": "ferrari",
+  "kind": "plan",
+  "reactive": false,
   "a": "leclerc",
   "b": "hamilton",
   "strategy_a": "M21-H41",
   "strategy_b": "M24-H22-S16",
   "actual_gap_s": 39.25500000000011,
-  "predicted_gap_with_strategies_s": -1.174683768070281,
-  "predicted_gap_strategy_blind_s": 0.0500000000001819,
-  "predicted_strategy_effect_s": -1.224683768070463
+  "oracle_params": [
+   "offset_SOFT",
+   "offset_HARD",
+   "slope_SOFT",
+   "slope_MEDIUM",
+   "slope_HARD",
+   "curve"
+  ],
+  "modes": {
+   "random": {
+    "actual": 4.506907980216965,
+    "blind": 0.701953945123023
+   },
+   "replay": {
+    "actual": 10.522302851998575,
+    "blind": -0.42699450817690376
+   },
+   "oracle": {
+    "actual": 6.996491493148824,
+    "blind": 1.021726129562012
+   }
+  }
  },
  {
   "race": "2025_19",
   "team": "aston_martin",
+  "kind": "plan",
+  "reactive": false,
   "a": "alonso",
   "b": "stroll",
   "strategy_a": "M30-S26",
   "strategy_b": "S28-M28",
   "actual_gap_s": 4.777000000000044,
-  "predicted_gap_with_strategies_s": 29.142465369533966,
-  "predicted_gap_strategy_blind_s": 28.03281759382662,
-  "predicted_strategy_effect_s": 1.1096477757073444
+  "oracle_params": [
+   "offset_SOFT",
+   "offset_HARD",
+   "slope_SOFT",
+   "slope_MEDIUM",
+   "slope_HARD",
+   "curve"
+  ],
+  "modes": {
+   "random": {
+    "actual": 30.86542183779693,
+    "blind": 27.992384249798306
+   },
+   "replay": {
+    "actual": 41.41139229173041,
+    "blind": 40.35601009003767
+   },
+   "oracle": {
+    "actual": 40.86014983131736,
+    "blind": 41.467228994792094
+   }
+  }
  },
  {
   "race": "2025_19",
   "team": "ferrari",
+  "kind": "plan",
+  "reactive": false,
   "a": "leclerc",
   "b": "hamilton",
   "strategy_a": "S22-M34",
   "strategy_b": "M31-S25",
   "actual_gap_s": 13.163000000000466,
-  "predicted_gap_with_strategies_s": 7.1146842051839485,
-  "predicted_gap_strategy_blind_s": 6.469555364475127,
-  "predicted_strategy_effect_s": 0.6451288407088214
+  "oracle_params": [
+   "offset_SOFT",
+   "offset_HARD",
+   "slope_SOFT",
+   "slope_MEDIUM",
+   "slope_HARD",
+   "curve"
+  ],
+  "modes": {
+   "random": {
+    "actual": 7.197900715974356,
+    "blind": 7.254439764387826
+   },
+   "replay": {
+    "actual": 11.207519169224724,
+    "blind": 12.545582290085804
+   },
+   "oracle": {
+    "actual": 10.73191890662747,
+    "blind": 11.967128771288117
+   }
+  }
  },
  {
   "race": "2025_19",
   "team": "haas",
+  "kind": "plan",
+  "reactive": false,
   "a": "bearman",
   "b": "ocon",
   "strategy_a": "M30-S26",
   "strategy_b": "H24-M32",
   "actual_gap_s": 18.320999999999913,
-  "predicted_gap_with_strategies_s": 14.553897536063232,
-  "predicted_gap_strategy_blind_s": 20.7189821824486,
-  "predicted_strategy_effect_s": -6.165084646385367
+  "oracle_params": [
+   "offset_SOFT",
+   "offset_HARD",
+   "slope_SOFT",
+   "slope_MEDIUM",
+   "slope_HARD",
+   "curve"
+  ],
+  "modes": {
+   "random": {
+    "actual": 12.969370333690676,
+    "blind": 20.40897609782678
+   },
+   "replay": {
+    "actual": 26.780801244030954,
+    "blind": 31.097936901062894
+   },
+   "oracle": {
+    "actual": 41.9240769991693,
+    "blind": 32.65831334403083
+   }
+  }
  },
  {
   "race": "2025_19",
   "team": "rb",
+  "kind": "plan",
+  "reactive": false,
   "a": "lawson",
   "b": "hadjar",
   "strategy_a": "M30-S26",
   "strategy_b": "H28-S28",
   "actual_gap_s": 19.597999999999956,
-  "predicted_gap_with_strategies_s": 1.4691692080632492,
-  "predicted_gap_strategy_blind_s": -0.0500000000001819,
-  "predicted_strategy_effect_s": 1.5191692080634311
+  "oracle_params": [
+   "offset_SOFT",
+   "offset_HARD",
+   "slope_SOFT",
+   "slope_MEDIUM",
+   "slope_HARD",
+   "curve"
+  ],
+  "modes": {
+   "random": {
+    "actual": 0.7140445010845724,
+    "blind": -0.8916284652814284
+   },
+   "replay": {
+    "actual": 0.9111398319419095,
+    "blind": 1.3160088843960693
+   },
+   "oracle": {
+    "actual": 14.616391104560535,
+    "blind": 1.3622182671142582
+   }
+  }
+ },
+ {
+  "race": "2025_19",
+  "team": "red_bull",
+  "kind": "stop_timing",
+  "reactive": false,
+  "a": "max_verstappen",
+  "b": "tsunoda",
+  "strategy_a": "M33-S23",
+  "strategy_b": "M29-S27",
+  "actual_gap_s": 52.71399999999994,
+  "oracle_params": [
+   "offset_SOFT",
+   "offset_HARD",
+   "slope_SOFT",
+   "slope_MEDIUM",
+   "slope_HARD",
+   "curve"
+  ],
+  "modes": {
+   "random": {
+    "actual": 63.20736342384225,
+    "blind": 62.251435596496776
+   },
+   "replay": {
+    "actual": 79.60482980469351,
+    "blind": 79.53055268969365
+   },
+   "oracle": {
+    "actual": 79.00551322914362,
+    "blind": 80.61517849535448
+   }
+  }
  },
  {
   "race": "2025_20",
   "team": "ferrari",
+  "kind": "plan",
+  "reactive": false,
   "a": "leclerc",
   "b": "hamilton",
   "strategy_a": "S31-M40",
   "strategy_b": "S23-M24-S24",
   "actual_gap_s": 26.1220000000003,
-  "predicted_gap_with_strategies_s": -3.13443836123497,
-  "predicted_gap_strategy_blind_s": 5.435085614773925,
-  "predicted_strategy_effect_s": -8.569523976008895
+  "oracle_params": [
+   "offset_SOFT",
+   "slope_SOFT",
+   "slope_MEDIUM",
+   "curve"
+  ],
+  "modes": {
+   "random": {
+    "actual": 2.9518190101643995,
+    "blind": 6.283196000895259
+   },
+   "replay": {
+    "actual": 5.212957921055022,
+    "blind": 11.464711617458306
+   },
+   "oracle": {
+    "actual": 7.125331972403728,
+    "blind": 10.29118932635265
+   }
+  }
  },
  {
   "race": "2025_20",
   "team": "haas",
+  "kind": "plan",
+  "reactive": false,
   "a": "bearman",
   "b": "ocon",
   "strategy_a": "S24-M24-S23",
   "strategy_b": "S27-M44",
   "actual_gap_s": 34.508999999999105,
-  "predicted_gap_with_strategies_s": 29.227854714422392,
-  "predicted_gap_strategy_blind_s": 8.536251711872865,
-  "predicted_strategy_effect_s": 20.691603002549527
+  "oracle_params": [
+   "offset_SOFT",
+   "slope_SOFT",
+   "slope_MEDIUM",
+   "curve"
+  ],
+  "modes": {
+   "random": {
+    "actual": 11.881444583549637,
+    "blind": 7.867328877151522
+   },
+   "replay": {
+    "actual": 19.04713397886735,
+    "blind": 12.384752663740073
+   },
+   "oracle": {
+    "actual": 18.53850857908492,
+    "blind": 15.163914627351915
+   }
+  }
  },
  {
   "race": "2025_20",
   "team": "mclaren",
+  "kind": "plan",
+  "reactive": false,
   "a": "norris",
   "b": "piastri",
   "strategy_a": "S34-M37",
   "strategy_b": "S24-M23-S24",
   "actual_gap_s": 42.06500000000051,
-  "predicted_gap_with_strategies_s": 6.335053094192517,
-  "predicted_gap_strategy_blind_s": 16.258628482203676,
-  "predicted_strategy_effect_s": -9.923575388011159
+  "oracle_params": [
+   "offset_SOFT",
+   "slope_SOFT",
+   "slope_MEDIUM",
+   "curve"
+  ],
+  "modes": {
+   "random": {
+    "actual": 18.603094499260806,
+    "blind": 19.799107710622593
+   },
+   "replay": {
+    "actual": 29.3694958483311,
+    "blind": 33.35251936115401
+   },
+   "oracle": {
+    "actual": 36.4302598164968,
+    "blind": 38.49714539088018
+   }
+  }
+ },
+ {
+  "race": "2025_20",
+  "team": "mercedes",
+  "kind": "stop_timing",
+  "reactive": false,
+  "a": "antonelli",
+  "b": "russell",
+  "strategy_a": "S22-M25-S24",
+  "strategy_b": "S25-M23-S23",
+  "actual_gap_s": 2.449999999999818,
+  "oracle_params": [
+   "offset_SOFT",
+   "slope_SOFT",
+   "slope_MEDIUM",
+   "curve"
+  ],
+  "modes": {
+   "random": {
+    "actual": -9.155277448026027,
+    "blind": -9.470337566327544
+   },
+   "replay": {
+    "actual": -15.217769085455075,
+    "blind": -16.870477532190307
+   },
+   "oracle": {
+    "actual": -18.69715529890709,
+    "blind": -17.6359756770853
+   }
+  }
  },
  {
   "race": "2025_21",
   "team": "alpine",
+  "kind": "plan",
+  "reactive": false,
   "a": "gasly",
   "b": "colapinto",
   "strategy_a": "S18-M21-M32",
   "strategy_b": "M29-S14-M28",
   "actual_gap_s": 3.8629999999993743,
-  "predicted_gap_with_strategies_s": 18.064897616090093,
-  "predicted_gap_strategy_blind_s": 15.90159801322352,
-  "predicted_strategy_effect_s": 2.163299602866573
+  "oracle_params": [
+   "offset_SOFT",
+   "offset_HARD",
+   "slope_SOFT",
+   "slope_MEDIUM",
+   "slope_HARD",
+   "curve"
+  ],
+  "modes": {
+   "random": {
+    "actual": 16.190846950737978,
+    "blind": 15.850802206484332
+   },
+   "replay": {
+    "actual": 23.581558301156292,
+    "blind": 20.718451074763834
+   },
+   "oracle": {
+    "actual": 20.80573030767664,
+    "blind": 19.223809495927526
+   }
+  }
+ },
+ {
+  "race": "2025_21",
+  "team": "aston_martin",
+  "kind": "stop_timing",
+  "reactive": false,
+  "a": "alonso",
+  "b": "stroll",
+  "strategy_a": "H28-M18-M25",
+  "strategy_b": "H29-M25-M17",
+  "actual_gap_s": 2.480999999999767,
+  "oracle_params": [
+   "offset_SOFT",
+   "offset_HARD",
+   "slope_SOFT",
+   "slope_MEDIUM",
+   "slope_HARD",
+   "curve"
+  ],
+  "modes": {
+   "random": {
+    "actual": 6.844402513167552,
+    "blind": 5.212525800854564
+   },
+   "replay": {
+    "actual": 12.220878010619344,
+    "blind": 9.76725279011498
+   },
+   "oracle": {
+    "actual": 13.896513935765142,
+    "blind": 9.011093703581537
+   }
+  }
  },
  {
   "race": "2025_21",
   "team": "haas",
+  "kind": "plan",
+  "reactive": true,
   "a": "bearman",
   "b": "ocon",
   "strategy_a": "S17-M25-M29",
   "strategy_b": "H8-M39-M24",
   "actual_gap_s": 25.066000000000713,
-  "predicted_gap_with_strategies_s": 24.45103338035551,
-  "predicted_gap_strategy_blind_s": 18.910677698519066,
-  "predicted_strategy_effect_s": 5.540355681836445
+  "oracle_params": [
+   "offset_SOFT",
+   "offset_HARD",
+   "slope_SOFT",
+   "slope_MEDIUM",
+   "slope_HARD",
+   "curve"
+  ],
+  "modes": {
+   "random": {
+    "actual": 18.54199817324661,
+    "blind": 18.288278437160443
+   },
+   "replay": {
+    "actual": 33.85265676305971,
+    "blind": 26.042806722193745
+   },
+   "oracle": {
+    "actual": 30.025007923269186,
+    "blind": 22.052242412762098
+   }
+  }
+ },
+ {
+  "race": "2025_21",
+  "team": "mclaren",
+  "kind": "stop_timing",
+  "reactive": false,
+  "a": "norris",
+  "b": "piastri",
+  "strategy_a": "M30-S20-M21",
+  "strategy_b": "M38-S13-M20",
+  "actual_gap_s": 15.749000000000706,
+  "oracle_params": [
+   "offset_SOFT",
+   "offset_HARD",
+   "slope_SOFT",
+   "slope_MEDIUM",
+   "slope_HARD",
+   "curve"
+  ],
+  "modes": {
+   "random": {
+    "actual": 17.24576044443711,
+    "blind": 11.917098574133888
+   },
+   "replay": {
+    "actual": 26.646193709872023,
+    "blind": 20.944370228569824
+   },
+   "oracle": {
+    "actual": 29.91177998819512,
+    "blind": 24.019914368154787
+   }
+  }
  },
  {
   "race": "2025_21",
   "team": "mercedes",
+  "kind": "plan",
+  "reactive": false,
   "a": "antonelli",
   "b": "russell",
   "strategy_a": "S21-M26-M24",
   "strategy_b": "M34-S14-M23",
   "actual_gap_s": 4.878999999999905,
-  "predicted_gap_with_strategies_s": 10.504253098906702,
-  "predicted_gap_strategy_blind_s": 3.6501421524963007,
-  "predicted_strategy_effect_s": 6.854110946410401
+  "oracle_params": [
+   "offset_SOFT",
+   "offset_HARD",
+   "slope_SOFT",
+   "slope_MEDIUM",
+   "slope_HARD",
+   "curve"
+  ],
+  "modes": {
+   "random": {
+    "actual": 7.297497594556262,
+    "blind": 4.502206496753388
+   },
+   "replay": {
+    "actual": 13.491798792021655,
+    "blind": 7.729360117541546
+   },
+   "oracle": {
+    "actual": 13.618743576502311,
+    "blind": 7.495759026594897
+   }
+  }
  },
  {
   "race": "2025_21",
   "team": "rb",
+  "kind": "plan",
+  "reactive": false,
   "a": "lawson",
   "b": "hadjar",
   "strategy_a": "S19-M52",
   "strategy_b": "S18-M19-M34",
   "actual_gap_s": 0.23099999999976717,
-  "predicted_gap_with_strategies_s": -23.590811565418335,
-  "predicted_gap_strategy_blind_s": -7.1500410095723055,
-  "predicted_strategy_effect_s": -16.44077055584603
+  "oracle_params": [
+   "offset_SOFT",
+   "offset_HARD",
+   "slope_SOFT",
+   "slope_MEDIUM",
+   "slope_HARD",
+   "curve"
+  ],
+  "modes": {
+   "random": {
+    "actual": -9.68564489682285,
+    "blind": -6.8939134131014725
+   },
+   "replay": {
+    "actual": -13.623280953092035,
+    "blind": -12.263521959132959
+   },
+   "oracle": {
+    "actual": -8.595459866596684,
+    "blind": -11.505526418185582
+   }
+  }
  },
  {
   "race": "2025_21",
   "team": "williams",
+  "kind": "plan",
+  "reactive": false,
   "a": "albon",
   "b": "sainz",
   "strategy_a": "M35-S20-M16",
   "strategy_b": "S17-M21-M33",
   "actual_gap_s": 1.2359999999998763,
-  "predicted_gap_with_strategies_s": 3.6670494810441596,
-  "predicted_gap_strategy_blind_s": 3.520750140061864,
-  "predicted_strategy_effect_s": 0.1462993409822957
+  "oracle_params": [
+   "offset_SOFT",
+   "offset_HARD",
+   "slope_SOFT",
+   "slope_MEDIUM",
+   "slope_HARD",
+   "curve"
+  ],
+  "modes": {
+   "random": {
+    "actual": -1.2193478619992675,
+    "blind": 4.056485937069738
+   },
+   "replay": {
+    "actual": -2.3422233955861884,
+    "blind": 6.773754979422847
+   },
+   "oracle": {
+    "actual": -7.556751473347504,
+    "blind": 4.60422310139711
+   }
+  }
  },
  {
   "race": "2025_22",
   "team": "ferrari",
+  "kind": "plan",
+  "reactive": false,
   "a": "leclerc",
   "b": "hamilton",
   "strategy_a": "M24-H26",
   "strategy_b": "H29-M21",
   "actual_gap_s": 28.690999999999804,
-  "predicted_gap_with_strategies_s": 18.810680355790282,
-  "predicted_gap_strategy_blind_s": 20.73227007490459,
-  "predicted_strategy_effect_s": -1.9215897191143085
+  "oracle_params": [
+   "offset_HARD",
+   "slope_MEDIUM",
+   "slope_HARD",
+   "curve"
+  ],
+  "modes": {
+   "random": {
+    "actual": 26.268269856567713,
+    "blind": 25.5570825858058
+   },
+   "replay": {
+    "actual": 30.03053302517492,
+    "blind": 35.05397068594175
+   },
+   "oracle": {
+    "actual": 36.441783917292014,
+    "blind": 36.55510086682989
+   }
+  }
+ },
+ {
+  "race": "2025_22",
+  "team": "haas",
+  "kind": "stop_timing",
+  "reactive": false,
+  "a": "ocon",
+  "b": "bearman",
+  "strategy_a": "M27-H23",
+  "strategy_b": "M17-H33",
+  "actual_gap_s": 9.91399999999976,
+  "oracle_params": [
+   "offset_HARD",
+   "slope_MEDIUM",
+   "slope_HARD",
+   "curve"
+  ],
+  "modes": {
+   "random": {
+    "actual": -2.4447583020746606,
+    "blind": 2.2306491384770197
+   },
+   "replay": {
+    "actual": -3.8762183282797196,
+    "blind": 3.6267511971218482
+   },
+   "oracle": {
+    "actual": 1.3437564953919718,
+    "blind": 3.022279498117314
+   }
+  }
  },
  {
   "race": "2025_23",
   "team": "ferrari",
+  "kind": "plan",
+  "reactive": true,
   "a": "leclerc",
   "b": "hamilton",
   "strategy_a": "M7-M25-H25",
   "strategy_b": "S7-M25-M25",
   "actual_gap_s": 20.94499999999971,
-  "predicted_gap_with_strategies_s": 15.301687867888177,
-  "predicted_gap_strategy_blind_s": 14.844879994909206,
-  "predicted_strategy_effect_s": 0.4568078729789704
+  "oracle_params": [
+   "offset_SOFT",
+   "offset_HARD",
+   "slope_SOFT",
+   "slope_MEDIUM",
+   "slope_HARD",
+   "curve"
+  ],
+  "modes": {
+   "random": {
+    "actual": 16.995744320103768,
+    "blind": 13.87662746785918
+   },
+   "replay": {
+    "actual": 19.299471695801003,
+    "blind": 18.223981871918113
+   },
+   "oracle": {
+    "actual": 19.88691152560932,
+    "blind": 16.601565367381227
+   }
+  }
  },
  {
   "race": "2025_23",
   "team": "williams",
+  "kind": "plan",
+  "reactive": true,
   "a": "sainz",
   "b": "albon",
   "strategy_a": "M7-M25-H25",
   "strategy_b": "H7-M25-M25",
   "actual_gap_s": 44.26599999999962,
-  "predicted_gap_with_strategies_s": 7.391745279715906,
-  "predicted_gap_strategy_blind_s": 7.983551697610892,
-  "predicted_strategy_effect_s": -0.5918064178949862
+  "oracle_params": [
+   "offset_SOFT",
+   "offset_HARD",
+   "slope_SOFT",
+   "slope_MEDIUM",
+   "slope_HARD",
+   "curve"
+  ],
+  "modes": {
+   "random": {
+    "actual": 10.744296258024406,
+    "blind": 7.775068630874557
+   },
+   "replay": {
+    "actual": 11.454051109079046,
+    "blind": 10.481630494476121
+   },
+   "oracle": {
+    "actual": 10.874770674136016,
+    "blind": 8.185154124289511
+   }
+  }
  },
  {
   "race": "2025_24",
   "team": "aston_martin",
+  "kind": "plan",
+  "reactive": false,
   "a": "alonso",
   "b": "stroll",
   "strategy_a": "M16-H42",
   "strategy_b": "H42-M16",
   "actual_gap_s": 11.96100000000024,
-  "predicted_gap_with_strategies_s": 13.604827299069257,
-  "predicted_gap_strategy_blind_s": 14.18264028512749,
-  "predicted_strategy_effect_s": -0.577812986058234
+  "oracle_params": [
+   "offset_HARD",
+   "slope_MEDIUM",
+   "slope_HARD",
+   "curve"
+  ],
+  "modes": {
+   "random": {
+    "actual": 11.917992938218049,
+    "blind": 14.484500388125525
+   },
+   "replay": {
+    "actual": 21.110476563339034,
+    "blind": 21.656846248053625
+   },
+   "oracle": {
+    "actual": 21.319061176665855,
+    "blind": 20.461489536308363
+   }
+  }
  },
  {
   "race": "2025_24",
   "team": "ferrari",
+  "kind": "plan",
+  "reactive": false,
   "a": "leclerc",
   "b": "hamilton",
   "strategy_a": "M16-H23-M19",
   "strategy_b": "S8-H23-M27",
   "actual_gap_s": 49.39100000000053,
-  "predicted_gap_with_strategies_s": 26.616392398285825,
-  "predicted_gap_strategy_blind_s": 23.759327999045126,
-  "predicted_strategy_effect_s": 2.8570643992406985
+  "oracle_params": [
+   "offset_HARD",
+   "slope_MEDIUM",
+   "slope_HARD",
+   "curve"
+  ],
+  "modes": {
+   "random": {
+    "actual": 26.485999939038265,
+    "blind": 24.019662959816742
+   },
+   "replay": {
+    "actual": 37.094590872710796,
+    "blind": 34.70766998275212
+   },
+   "oracle": {
+    "actual": 39.3463429550211,
+    "blind": 35.51015618443034
+   }
+  }
+ },
+ {
+  "race": "2025_24",
+  "team": "haas",
+  "kind": "stop_timing",
+  "reactive": false,
+  "a": "ocon",
+  "b": "bearman",
+  "strategy_a": "M19-H39",
+  "strategy_b": "M14-H44",
+  "actual_gap_s": 11.289999999999964,
+  "oracle_params": [
+   "offset_HARD",
+   "slope_MEDIUM",
+   "slope_HARD",
+   "curve"
+  ],
+  "modes": {
+   "random": {
+    "actual": 5.66510954563546,
+    "blind": 2.247696256281415
+   },
+   "replay": {
+    "actual": 8.36529819075804,
+    "blind": 3.803073842509548
+   },
+   "oracle": {
+    "actual": 3.317906457494246,
+    "blind": 3.6443611769618656
+   }
+  }
  },
  {
   "race": "2025_24",
   "team": "mclaren",
+  "kind": "plan",
+  "reactive": false,
   "a": "piastri",
   "b": "norris",
   "strategy_a": "H41-M17",
   "strategy_b": "M16-H24-H18",
   "actual_gap_s": 3.9780000000000655,
-  "predicted_gap_with_strategies_s": -0.9419791214540965,
-  "predicted_gap_strategy_blind_s": -3.657582816827926,
-  "predicted_strategy_effect_s": 2.7156036953738294
+  "oracle_params": [
+   "offset_HARD",
+   "slope_MEDIUM",
+   "slope_HARD",
+   "curve"
+  ],
+  "modes": {
+   "random": {
+    "actual": -0.5820647032742272,
+    "blind": -3.302434947958318
+   },
+   "replay": {
+    "actual": -0.0500000000001819,
+    "blind": -6.93579137771394
+   },
+   "oracle": {
+    "actual": 0.9055465527908382,
+    "blind": -6.267016741039697
+   }
+  }
  },
  {
   "race": "2025_24",
   "team": "mercedes",
+  "kind": "plan",
+  "reactive": false,
   "a": "russell",
   "b": "antonelli",
   "strategy_a": "M14-H44",
   "strategy_b": "H32-M26",
   "actual_gap_s": 35.83600000000024,
-  "predicted_gap_with_strategies_s": 5.321543828822541,
-  "predicted_gap_strategy_blind_s": 17.83828866874137,
-  "predicted_strategy_effect_s": -12.516744839918829
+  "oracle_params": [
+   "offset_HARD",
+   "slope_MEDIUM",
+   "slope_HARD",
+   "curve"
+  ],
+  "modes": {
+   "random": {
+    "actual": 9.962096784318419,
+    "blind": 17.477028216734652
+   },
+   "replay": {
+    "actual": 16.267072162383556,
+    "blind": 27.778346277978926
+   },
+   "oracle": {
+    "actual": 25.70734530417758,
+    "blind": 29.2254884199956
+   }
+  }
  },
  {
   "race": "2025_24",
   "team": "red_bull",
+  "kind": "plan",
+  "reactive": false,
   "a": "max_verstappen",
   "b": "tsunoda",
   "strategy_a": "M23-H35",
   "strategy_b": "H32-M26",
   "actual_gap_s": 83.79399999999987,
-  "predicted_gap_with_strategies_s": 53.27892533166141,
-  "predicted_gap_strategy_blind_s": 53.46672395268797,
-  "predicted_strategy_effect_s": -0.18779862102655898
+  "oracle_params": [
+   "offset_HARD",
+   "slope_MEDIUM",
+   "slope_HARD",
+   "curve"
+  ],
+  "modes": {
+   "random": {
+    "actual": 55.2555013452602,
+    "blind": 55.10428039601902
+   },
+   "replay": {
+    "actual": 67.90931481111056,
+    "blind": 70.83687963046123
+   },
+   "oracle": {
+    "actual": 69.50262561491218,
+    "blind": 70.02062557474528
+   }
+  }
  },
  {
   "race": "2025_24",
   "team": "sauber",
+  "kind": "plan",
+  "reactive": false,
   "a": "hulkenberg",
   "b": "bortoleto",
   "strategy_a": "S7-H35-M16",
   "strategy_b": "M15-H43",
   "actual_gap_s": 2.0289999999995416,
-  "predicted_gap_with_strategies_s": -10.361790360655505,
-  "predicted_gap_strategy_blind_s": -7.550288949722017,
-  "predicted_strategy_effect_s": -2.811501410933488
+  "oracle_params": [
+   "offset_HARD",
+   "slope_MEDIUM",
+   "slope_HARD",
+   "curve"
+  ],
+  "modes": {
+   "random": {
+    "actual": -13.590341603109664,
+    "blind": -8.55958694889523
+   },
+   "replay": {
+    "actual": -24.71327071183441,
+    "blind": -13.722273967674482
+   },
+   "oracle": {
+    "actual": -25.43983116792424,
+    "blind": -14.80191622100483
+   }
+  }
  },
  {
   "race": "2025_24",
   "team": "williams",
+  "kind": "plan",
+  "reactive": false,
   "a": "sainz",
   "b": "albon",
   "strategy_a": "M18-H40",
   "strategy_b": "S8-H25-M25",
   "actual_gap_s": 8.168999999999869,
-  "predicted_gap_with_strategies_s": 6.938135763976788,
-  "predicted_gap_strategy_blind_s": 6.4788440246802566,
-  "predicted_strategy_effect_s": 0.4592917392965319
+  "oracle_params": [
+   "offset_HARD",
+   "slope_MEDIUM",
+   "slope_HARD",
+   "curve"
+  ],
+  "modes": {
+   "random": {
+    "actual": 9.81245247318111,
+    "blind": 7.458531812117144
+   },
+   "replay": {
+    "actual": 16.270274929215702,
+    "blind": 10.287352686581471
+   },
+   "oracle": {
+    "actual": 18.11230056380009,
+    "blind": 8.969870696414546
+   }
+  }
+ },
+ {
+  "race": "2026_04",
+  "team": "ferrari",
+  "kind": "stop_timing",
+  "reactive": false,
+  "a": "hamilton",
+  "b": "leclerc",
+  "strategy_a": "M27-H30",
+  "strategy_b": "M21-H36",
+  "actual_gap_s": 10.49200000000019,
+  "oracle_params": [
+   "offset_SOFT",
+   "offset_HARD",
+   "slope_SOFT",
+   "slope_MEDIUM",
+   "slope_HARD",
+   "curve"
+  ],
+  "modes": {
+   "random": {
+    "actual": -5.785646005567287,
+    "blind": -9.09751282225352
+   },
+   "replay": {
+    "actual": -8.120997484899817,
+    "blind": -11.644891463658496
+   },
+   "oracle": {
+    "actual": -12.565745898056775,
+    "blind": -11.669596084224395
+   }
+  }
+ },
+ {
+  "race": "2026_04",
+  "team": "mercedes",
+  "kind": "stop_timing",
+  "reactive": false,
+  "a": "antonelli",
+  "b": "russell",
+  "strategy_a": "M26-H31",
+  "strategy_b": "M20-H37",
+  "actual_gap_s": 43.050999999999476,
+  "oracle_params": [
+   "offset_SOFT",
+   "offset_HARD",
+   "slope_SOFT",
+   "slope_MEDIUM",
+   "slope_HARD",
+   "curve"
+  ],
+  "modes": {
+   "random": {
+    "actual": 9.574859160666165,
+    "blind": 7.327379183439916
+   },
+   "replay": {
+    "actual": 12.6623994073816,
+    "blind": 10.010960052195514
+   },
+   "oracle": {
+    "actual": 9.84143374226278,
+    "blind": 9.16367633637583
+   }
+  }
  },
  {
   "race": "2026_08",
   "team": "ferrari",
+  "kind": "plan",
+  "reactive": true,
   "a": "hamilton",
   "b": "leclerc",
   "strategy_a": "M12-H13-S17-H28",
   "strategy_b": "M13-H24-H22-S11",
   "actual_gap_s": 19.26599999999962,
-  "predicted_gap_with_strategies_s": -5.267518647209727,
-  "predicted_gap_strategy_blind_s": -3.5205899053971734,
-  "predicted_strategy_effect_s": -1.7469287418125532
+  "oracle_params": [
+   "offset_SOFT",
+   "offset_HARD",
+   "slope_SOFT",
+   "slope_MEDIUM",
+   "slope_HARD",
+   "curve"
+  ],
+  "modes": {
+   "random": {
+    "actual": -5.050598107216501,
+    "blind": -2.8536387215590366
+   },
+   "replay": {
+    "actual": -1.34666966982968,
+    "blind": -5.359438279727328
+   },
+   "oracle": {
+    "actual": -2.4150413119796212,
+    "blind": -5.619841660163729
+   }
+  }
+ },
+ {
+  "race": "2026_08",
+  "team": "mclaren",
+  "kind": "stop_timing",
+  "reactive": false,
+  "a": "piastri",
+  "b": "norris",
+  "strategy_a": "M19-H23-H28",
+  "strategy_b": "M21-H26-H23",
+  "actual_gap_s": 9.696000000000822,
+  "oracle_params": [
+   "offset_SOFT",
+   "offset_HARD",
+   "slope_SOFT",
+   "slope_MEDIUM",
+   "slope_HARD",
+   "curve"
+  ],
+  "modes": {
+   "random": {
+    "actual": -3.0485713459356703,
+    "blind": -4.91220744655584
+   },
+   "replay": {
+    "actual": -5.757258941701366,
+    "blind": -6.852327746538322
+   },
+   "oracle": {
+    "actual": -5.104465278328462,
+    "blind": -5.418611445766146
+   }
+  }
+ },
+ {
+  "race": "2026_08",
+  "team": "mercedes",
+  "kind": "stop_timing",
+  "reactive": false,
+  "a": "russell",
+  "b": "antonelli",
+  "strategy_a": "M19-H24-H27",
+  "strategy_b": "M24-H27-H19",
+  "actual_gap_s": 1.9859999999998763,
+  "oracle_params": [
+   "offset_SOFT",
+   "offset_HARD",
+   "slope_SOFT",
+   "slope_MEDIUM",
+   "slope_HARD",
+   "curve"
+  ],
+  "modes": {
+   "random": {
+    "actual": 7.229775452488866,
+    "blind": 6.126367640439639
+   },
+   "replay": {
+    "actual": 13.347895735658312,
+    "blind": 12.987372198249432
+   },
+   "oracle": {
+    "actual": 14.350272061528813,
+    "blind": 11.501189428920043
+   }
+  }
  },
  {
   "race": "2026_08",
   "team": "red_bull",
+  "kind": "plan",
+  "reactive": false,
   "a": "max_verstappen",
   "b": "hadjar",
   "strategy_a": "M18-H31-H21",
   "strategy_b": "M18-M22-H30",
   "actual_gap_s": 27.787999999999556,
-  "predicted_gap_with_strategies_s": 21.50051684396476,
-  "predicted_gap_strategy_blind_s": 21.036984685848438,
-  "predicted_strategy_effect_s": 0.46353215811632253
+  "oracle_params": [
+   "offset_SOFT",
+   "offset_HARD",
+   "slope_SOFT",
+   "slope_MEDIUM",
+   "slope_HARD",
+   "curve"
+  ],
+  "modes": {
+   "random": {
+    "actual": 20.964547240181673,
+    "blind": 21.700118393860066
+   },
+   "replay": {
+    "actual": 31.290643734149853,
+    "blind": 33.16216820266254
+   },
+   "oracle": {
+    "actual": 31.384617154507396,
+    "blind": 32.221694188175206
+   }
+  }
+ },
+ {
+  "race": "2026_09",
+  "team": "cadillac",
+  "kind": "stop_timing",
+  "reactive": true,
+  "a": "perez",
+  "b": "bottas",
+  "strategy_a": "M21-H25-S6",
+  "strategy_b": "M29-H17-S6",
+  "actual_gap_s": 0.7590000000000146,
+  "oracle_params": [
+   "offset_HARD",
+   "slope_MEDIUM",
+   "slope_HARD",
+   "curve"
+  ],
+  "modes": {
+   "random": {
+    "actual": 8.347241048651085,
+    "blind": 4.675293322839934
+   },
+   "replay": {
+    "actual": 0.6196356102900609,
+    "blind": 0.6218823732879173
+   },
+   "oracle": {
+    "actual": 0.613239447221531,
+    "blind": 0.5874698117859225
+   }
+  }
+ },
+ {
+  "race": "2026_09",
+  "team": "haas",
+  "kind": "stop_timing",
+  "reactive": true,
+  "a": "bearman",
+  "b": "ocon",
+  "strategy_a": "M29-H18-S5",
+  "strategy_b": "M21-H26-S5",
+  "actual_gap_s": 0.2669999999998254,
+  "oracle_params": [
+   "offset_HARD",
+   "slope_MEDIUM",
+   "slope_HARD",
+   "curve"
+  ],
+  "modes": {
+   "random": {
+    "actual": 1.6755624978550259,
+    "blind": 4.343908705800459
+   },
+   "replay": {
+    "actual": 0.582705148115565,
+    "blind": 0.7173610197178277
+   },
+   "oracle": {
+    "actual": 0.8997502550773788,
+    "blind": 0.8436595552357176
+   }
+  }
  },
  {
   "race": "2026_10",
   "team": "mclaren",
+  "kind": "plan",
+  "reactive": true,
   "a": "piastri",
   "b": "norris",
   "strategy_a": "M20-H24",
   "strategy_b": "H30-M14",
   "actual_gap_s": 5.026000000000749,
-  "predicted_gap_with_strategies_s": 0.44265150610681303,
-  "predicted_gap_strategy_blind_s": 1.2510056395067295,
-  "predicted_strategy_effect_s": -0.8083541333999165
+  "oracle_params": [
+   "offset_SOFT",
+   "offset_HARD",
+   "slope_SOFT",
+   "slope_MEDIUM",
+   "slope_HARD",
+   "curve"
+  ],
+  "modes": {
+   "random": {
+    "actual": 0.8935162770412717,
+    "blind": 1.237230869236555
+   },
+   "replay": {
+    "actual": 5.634004601403831,
+    "blind": 1.2138271286094096
+   },
+   "oracle": {
+    "actual": 3.228106273274534,
+    "blind": 1.523007143498944
+   }
+  }
  },
  {
   "race": "2026_10",
   "team": "williams",
+  "kind": "plan",
+  "reactive": true,
   "a": "albon",
   "b": "sainz",
   "strategy_a": "M18-H26",
   "strategy_b": "S14-H30",
   "actual_gap_s": 1.1720000000004802,
-  "predicted_gap_with_strategies_s": -4.477903441404123,
-  "predicted_gap_strategy_blind_s": -1.1985084645830284,
-  "predicted_strategy_effect_s": -3.279394976821095
+  "oracle_params": [
+   "offset_SOFT",
+   "offset_HARD",
+   "slope_SOFT",
+   "slope_MEDIUM",
+   "slope_HARD",
+   "curve"
+  ],
+  "modes": {
+   "random": {
+    "actual": -1.8793037292152803,
+    "blind": -2.010765046187771
+   },
+   "replay": {
+    "actual": -0.9268407336621749,
+    "blind": -2.368275610794626
+   },
+   "oracle": {
+    "actual": -1.576403232276789,
+    "blind": -2.2369120889661644
+   }
+  }
+ },
+ {
+  "race": "2026_11",
+  "team": "ferrari",
+  "kind": "stop_timing",
+  "reactive": true,
+  "a": "leclerc",
+  "b": "hamilton",
+  "strategy_a": "S16-H20-H20-S14",
+  "strategy_b": "S13-H17-H26-S14",
+  "actual_gap_s": 0.6999999999998181,
+  "oracle_params": [
+   "offset_SOFT",
+   "offset_HARD",
+   "slope_SOFT",
+   "slope_MEDIUM",
+   "slope_HARD",
+   "curve"
+  ],
+  "modes": {
+   "random": {
+    "actual": 2.8150869354140013,
+    "blind": 3.263769316043181
+   },
+   "replay": {
+    "actual": 6.715268300119533,
+    "blind": 5.552186672942298
+   },
+   "oracle": {
+    "actual": 8.194882051964669,
+    "blind": 4.559387222433543
+   }
+  }
+ },
+ {
+  "race": "2026_11",
+  "team": "mercedes",
+  "kind": "stop_timing",
+  "reactive": false,
+  "a": "antonelli",
+  "b": "russell",
+  "strategy_a": "M22-H31-H17",
+  "strategy_b": "M27-H27-H16",
+  "actual_gap_s": 38.774999999999636,
+  "oracle_params": [
+   "offset_SOFT",
+   "offset_HARD",
+   "slope_SOFT",
+   "slope_MEDIUM",
+   "slope_HARD",
+   "curve"
+  ],
+  "modes": {
+   "random": {
+    "actual": 3.202405777673448,
+    "blind": 3.269695235690051
+   },
+   "replay": {
+    "actual": 5.147084963748057,
+    "blind": 3.6752521749231164
+   },
+   "oracle": {
+    "actual": 3.9416721889201654,
+    "blind": 3.693010406587746
+   }
+  }
  },
  {
   "race": "2026_11",
   "team": "red_bull",
+  "kind": "plan",
+  "reactive": false,
   "a": "max_verstappen",
   "b": "hadjar",
   "strategy_a": "M14-H27-S29",
   "strategy_b": "M19-H23-H28",
   "actual_gap_s": 40.40799999999945,
-  "predicted_gap_with_strategies_s": 26.06309235497065,
-  "predicted_gap_strategy_blind_s": 23.40885493348469,
-  "predicted_strategy_effect_s": 2.654237421485959
+  "oracle_params": [
+   "offset_SOFT",
+   "offset_HARD",
+   "slope_SOFT",
+   "slope_MEDIUM",
+   "slope_HARD",
+   "curve"
+  ],
+  "modes": {
+   "random": {
+    "actual": 18.522992861324383,
+    "blind": 24.483428469172395
+   },
+   "replay": {
+    "actual": 34.48904086590392,
+    "blind": 35.47708251813856
+   },
+   "oracle": {
+    "actual": 39.38731481387367,
+    "blind": 35.57478943110709
+   }
+  }
  },
  {
   "race": "2026_13",
   "team": "audi",
+  "kind": "plan",
+  "reactive": true,
   "a": "bortoleto",
   "b": "hulkenberg",
   "strategy_a": "S3-M50",
   "strategy_b": "M3-H24-M26",
   "actual_gap_s": 1,
-  "predicted_gap_with_strategies_s": 2.2943783208229434,
-  "predicted_gap_strategy_blind_s": 1.3293644366922308,
-  "predicted_strategy_effect_s": 0.9650138841307125
+  "oracle_params": [
+   "offset_SOFT",
+   "offset_HARD",
+   "slope_SOFT",
+   "slope_MEDIUM",
+   "slope_HARD",
+   "curve"
+  ],
+  "modes": {
+   "random": {
+    "actual": 0.8555398181933924,
+    "blind": 1.9463376958192384
+   },
+   "replay": {
+    "actual": 4.80759075854985,
+    "blind": 3.6678369360788565
+   },
+   "oracle": {
+    "actual": 22.302279037330663,
+    "blind": 3.2851708963426063
+   }
+  }
  },
  {
   "race": "2026_13",
   "team": "mercedes",
+  "kind": "plan",
+  "reactive": true,
   "a": "antonelli",
   "b": "russell",
   "strategy_a": "H3-M25-M25",
   "strategy_b": "M3-H50",
   "actual_gap_s": 3.856999999999971,
-  "predicted_gap_with_strategies_s": -7.827861382289484,
-  "predicted_gap_strategy_blind_s": -2.624099195281815,
-  "predicted_strategy_effect_s": -5.203762187007669
+  "oracle_params": [
+   "offset_SOFT",
+   "offset_HARD",
+   "slope_SOFT",
+   "slope_MEDIUM",
+   "slope_HARD",
+   "curve"
+  ],
+  "modes": {
+   "random": {
+    "actual": -11.317224879193418,
+    "blind": -2.9091751903915792
+   },
+   "replay": {
+    "actual": -31.37629741929868,
+    "blind": -19.736033983616835
+   },
+   "oracle": {
+    "actual": -29.294586375290237,
+    "blind": -20.313140136966467
+   }
+  }
  },
  {
   "race": "2026_13",
   "team": "rb",
+  "kind": "plan",
+  "reactive": true,
   "a": "arvid_lindblad",
   "b": "tsunoda",
   "strategy_a": "M3-H50",
   "strategy_b": "H3-M50",
   "actual_gap_s": 13.050999999999476,
-  "predicted_gap_with_strategies_s": 18.572771543914314,
-  "predicted_gap_strategy_blind_s": 23.756081387586164,
-  "predicted_strategy_effect_s": -5.18330984367185
+  "oracle_params": [
+   "offset_SOFT",
+   "offset_HARD",
+   "slope_SOFT",
+   "slope_MEDIUM",
+   "slope_HARD",
+   "curve"
+  ],
+  "modes": {
+   "random": {
+    "actual": 29.625038541907088,
+    "blind": 26.554743660797612
+   },
+   "replay": {
+    "actual": 48.248431033761335,
+    "blind": 38.939273688831236
+   },
+   "oracle": {
+    "actual": 36.27530133907294,
+    "blind": 39.45987796827103
+   }
+  }
  },
  {
   "race": "2026_13",
   "team": "red_bull",
+  "kind": "plan",
+  "reactive": true,
   "a": "max_verstappen",
   "b": "lawson",
   "strategy_a": "S3-M25-H25",
   "strategy_b": "M3-H9-M41",
   "actual_gap_s": 60.89100000000053,
-  "predicted_gap_with_strategies_s": 36.6304170366102,
-  "predicted_gap_strategy_blind_s": 37.43030396682752,
-  "predicted_strategy_effect_s": -0.7998869302173262
+  "oracle_params": [
+   "offset_SOFT",
+   "offset_HARD",
+   "slope_SOFT",
+   "slope_MEDIUM",
+   "slope_HARD",
+   "curve"
+  ],
+  "modes": {
+   "random": {
+    "actual": 41.478471253462885,
+    "blind": 36.93647769110885
+   },
+   "replay": {
+    "actual": 71.22990776740698,
+    "blind": 57.14835893161944
+   },
+   "oracle": {
+    "actual": 59.063295081231445,
+    "blind": 55.189809461197
+   }
+  }
  },
  {
   "race": "2026_15",
   "team": "rb",
+  "kind": "plan",
+  "reactive": true,
   "a": "arvid_lindblad",
   "b": "lawson",
   "strategy_a": "M30-S6-S15",
   "strategy_b": "S31-M5-S15",
   "actual_gap_s": 2.854000000000269,
-  "predicted_gap_with_strategies_s": -10.851977279484345,
-  "predicted_gap_strategy_blind_s": -2.9127590470880023,
-  "predicted_strategy_effect_s": -7.9392182323963425
+  "oracle_params": [
+   "offset_SOFT",
+   "slope_SOFT",
+   "slope_MEDIUM",
+   "curve"
+  ],
+  "modes": {
+   "random": {
+    "actual": 0.8478069734082965,
+    "blind": -2.708938160456455
+   },
+   "replay": {
+    "actual": 0.6239339544781615,
+    "blind": -1.117302985780043
+   },
+   "oracle": {
+    "actual": -0.935021507163583,
+    "blind": -0.9906689537647253
+   }
+  }
  },
  {
   "race": "2026_15",
   "team": "red_bull",
+  "kind": "plan",
+  "reactive": true,
   "a": "max_verstappen",
   "b": "hadjar",
   "strategy_a": "M31-S5-S15",
   "strategy_b": "S31-M5-M15",
   "actual_gap_s": 10.50799999999981,
-  "predicted_gap_with_strategies_s": 2.613546514923655,
-  "predicted_gap_strategy_blind_s": 3.377633747200889,
-  "predicted_strategy_effect_s": -0.7640872322772339
+  "oracle_params": [
+   "offset_SOFT",
+   "slope_SOFT",
+   "slope_MEDIUM",
+   "curve"
+  ],
+  "modes": {
+   "random": {
+    "actual": 7.215116906941148,
+    "blind": 3.2835437927433304
+   },
+   "replay": {
+    "actual": 5.236230899302427,
+    "blind": 4.336133548532416
+   },
+   "oracle": {
+    "actual": 7.899186945147449,
+    "blind": 4.679589683196355
+   }
+  }
  },
  {
   "race": "2026_17",
   "team": "ferrari",
+  "kind": "plan",
+  "reactive": true,
   "a": "leclerc",
   "b": "hamilton",
   "strategy_a": "S24-M15-S23",
   "strategy_b": "M18-S44",
   "actual_gap_s": 45.853000000000065,
-  "predicted_gap_with_strategies_s": 0.26541280035417003,
-  "predicted_gap_strategy_blind_s": 2.924737394336262,
-  "predicted_strategy_effect_s": -2.6593245939820918
+  "oracle_params": [
+   "offset_SOFT",
+   "slope_SOFT",
+   "slope_MEDIUM",
+   "curve"
+  ],
+  "modes": {
+   "random": {
+    "actual": 8.806555137134637,
+    "blind": 3.5505330174200935
+   },
+   "replay": {
+    "actual": 15.236218575846578,
+    "blind": 5.289326490190433
+   },
+   "oracle": {
+    "actual": 16.9547997279451,
+    "blind": 6.424769560029745
+   }
+  }
  },
  {
   "race": "2026_17",
   "team": "mclaren",
+  "kind": "plan",
+  "reactive": false,
   "a": "norris",
   "b": "piastri",
   "strategy_a": "S32-M30",
   "strategy_b": "S33-M8-S21",
   "actual_gap_s": 9.13799999999992,
-  "predicted_gap_with_strategies_s": 16.448076710854366,
-  "predicted_gap_strategy_blind_s": 8.6130047241586,
-  "predicted_strategy_effect_s": 7.835071986695766
+  "oracle_params": [
+   "offset_SOFT",
+   "slope_SOFT",
+   "slope_MEDIUM",
+   "curve"
+  ],
+  "modes": {
+   "random": {
+    "actual": 20.23688940025022,
+    "blind": 8.206066248349998
+   },
+   "replay": {
+    "actual": 30.58275433273866,
+    "blind": 13.749951508982122
+   },
+   "oracle": {
+    "actual": 22.18038729411819,
+    "blind": 13.483264902451083
+   }
+  }
  },
  {
   "race": "2026_17",
   "team": "mercedes",
+  "kind": "plan",
+  "reactive": true,
   "a": "antonelli",
   "b": "russell",
   "strategy_a": "S23-M16-S23",
   "strategy_b": "M39-S23",
   "actual_gap_s": 60.10400000000027,
-  "predicted_gap_with_strategies_s": 13.057232251203459,
-  "predicted_gap_strategy_blind_s": 18.019821970441626,
-  "predicted_strategy_effect_s": -4.962589719238167
+  "oracle_params": [
+   "offset_SOFT",
+   "slope_SOFT",
+   "slope_MEDIUM",
+   "curve"
+  ],
+  "modes": {
+   "random": {
+    "actual": 9.295770238672958,
+    "blind": 19.094317755486372
+   },
+   "replay": {
+    "actual": 27.449381798173818,
+    "blind": 33.08862237091671
+   },
+   "oracle": {
+    "actual": 35.68482194840362,
+    "blind": 32.20065968752624
+   }
+  }
  },
  {
   "race": "2026_17",
   "team": "red_bull",
+  "kind": "plan",
+  "reactive": false,
   "a": "max_verstappen",
   "b": "hadjar",
   "strategy_a": "S32-M30",
   "strategy_b": "M33-S29",
   "actual_gap_s": 90.86200000000008,
-  "predicted_gap_with_strategies_s": 70.12353581316074,
-  "predicted_gap_strategy_blind_s": 66.42287448057687,
-  "predicted_strategy_effect_s": 3.700661332583877
+  "oracle_params": [
+   "offset_SOFT",
+   "slope_SOFT",
+   "slope_MEDIUM",
+   "curve"
+  ],
+  "modes": {
+   "random": {
+    "actual": 63.99656867720569,
+    "blind": 64.12095626945575
+   },
+   "replay": {
+    "actual": 83.33151068129246,
+    "blind": 84.95239589275752
+   },
+   "oracle": {
+    "actual": 86.0778696830248,
+    "blind": 87.89549283533506
+   }
+  }
  },
  {
   "race": "2026_18",
   "team": "red_bull",
+  "kind": "plan",
+  "reactive": false,
   "a": "max_verstappen",
   "b": "hadjar",
   "strategy_a": "S13-S18-M25",
   "strategy_b": "S25-H31",
   "actual_gap_s": 16.88799999999992,
-  "predicted_gap_with_strategies_s": 20.227132667532715,
-  "predicted_gap_strategy_blind_s": 18.42297259776933,
-  "predicted_strategy_effect_s": 1.804160069763384
+  "oracle_params": [
+   "offset_SOFT",
+   "offset_HARD",
+   "slope_SOFT",
+   "slope_MEDIUM",
+   "slope_HARD",
+   "curve"
+  ],
+  "modes": {
+   "random": {
+    "actual": 10.421401237792452,
+    "blind": 19.047372329655445
+   },
+   "replay": {
+    "actual": 19.931416240648105,
+    "blind": 25.013612892725178
+   },
+   "oracle": {
+    "actual": 12.671053745255449,
+    "blind": 23.58742186800555
+   }
+  }
  },
  {
   "race": "2026_19",
   "team": "audi",
+  "kind": "plan",
+  "reactive": true,
   "a": "bortoleto",
   "b": "hulkenberg",
   "strategy_a": "M38-S7-S26",
   "strategy_b": "M31-S14-S14-S12",
   "actual_gap_s": 7.935999999999694,
-  "predicted_gap_with_strategies_s": -10.807427593701505,
-  "predicted_gap_strategy_blind_s": -11.621109651548977,
-  "predicted_strategy_effect_s": 0.8136820578474726
+  "oracle_params": [
+   "offset_SOFT",
+   "slope_SOFT",
+   "slope_MEDIUM",
+   "curve"
+  ],
+  "modes": {
+   "random": {
+    "actual": -10.201051986425227,
+    "blind": -11.992235352964599
+   },
+   "replay": {
+    "actual": -5.600527081413929,
+    "blind": -4.095154153063049
+   },
+   "oracle": {
+    "actual": 0.7173378373008745,
+    "blind": -4.2042994977746275
+   }
+  }
  },
  {
   "race": "2026_19",
   "team": "red_bull",
+  "kind": "plan",
+  "reactive": true,
   "a": "max_verstappen",
   "b": "hadjar",
   "strategy_a": "M27-S18-S26",
   "strategy_b": "S7-M34-S4-S26",
   "actual_gap_s": 22.502999999998792,
-  "predicted_gap_with_strategies_s": 48.58901535256882,
-  "predicted_gap_strategy_blind_s": 20.606424026246714,
-  "predicted_strategy_effect_s": 27.982591326322108
+  "oracle_params": [
+   "offset_SOFT",
+   "slope_SOFT",
+   "slope_MEDIUM",
+   "curve"
+  ],
+  "modes": {
+   "random": {
+    "actual": 46.87974648967884,
+    "blind": 22.135228430036477
+   },
+   "replay": {
+    "actual": 10.586725162655966,
+    "blind": 7.237702218559207
+   },
+   "oracle": {
+    "actual": 10.395325155995124,
+    "blind": 6.709426464364697
+   }
+  }
+ },
+ {
+  "race": "2026_21",
+  "team": "haas",
+  "kind": "plan",
+  "reactive": true,
+  "a": "bearman",
+  "b": "rafael_camara",
+  "strategy_a": "M19-S31",
+  "strategy_b": "S18-M3-S29",
+  "actual_gap_s": 18.97100000000046,
+  "oracle_params": [
+   "offset_SOFT",
+   "slope_SOFT",
+   "slope_MEDIUM",
+   "curve"
+  ],
+  "modes": {
+   "random": {
+    "actual": 10.082077856515753,
+    "blind": 0.9351357391415149
+   },
+   "replay": {
+    "actual": 5.560338478574522,
+    "blind": 1.7001802171571399
+   },
+   "oracle": {
+    "actual": 10.541733861924513,
+    "blind": 2.264913752602297
+   }
+  }
+ },
+ {
+  "race": "2026_21",
+  "team": "mercedes",
+  "kind": "plan",
+  "reactive": true,
+  "a": "antonelli",
+  "b": "russell",
+  "strategy_a": "M19-S31",
+  "strategy_b": "S19-M31",
+  "actual_gap_s": 10.617999999999483,
+  "oracle_params": [
+   "offset_SOFT",
+   "slope_SOFT",
+   "slope_MEDIUM",
+   "curve"
+  ],
+  "modes": {
+   "random": {
+    "actual": -3.1799038434273825,
+    "blind": 0.5528970342629691
+   },
+   "replay": {
+    "actual": -2.6986492197920597,
+    "blind": 0.9989070453857494
+   },
+   "oracle": {
+    "actual": 1.3930696507895846,
+    "blind": 2.029484474178389
+   }
+  }
+ },
+ {
+  "race": "2026_21",
+  "team": "red_bull",
+  "kind": "plan",
+  "reactive": true,
+  "a": "max_verstappen",
+  "b": "hadjar",
+  "strategy_a": "S19-M31",
+  "strategy_b": "S19-M7-S24",
+  "actual_gap_s": 46.488000000000284,
+  "oracle_params": [
+   "offset_SOFT",
+   "slope_SOFT",
+   "slope_MEDIUM",
+   "curve"
+  ],
+  "modes": {
+   "random": {
+    "actual": 39.19983108954875,
+    "blind": 23.791916041534023
+   },
+   "replay": {
+    "actual": 42.378095397108154,
+    "blind": 21.42907645939067
+   },
+   "oracle": {
+    "actual": 53.83821545749379,
+    "blind": 21.564173234404734
+   }
+  }
  }
 ]

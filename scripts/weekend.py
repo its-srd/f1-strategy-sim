@@ -67,20 +67,29 @@ def season_races(year: int) -> list[dict]:
 # ------------------------------------------------------------------ forecast
 def official_grid(race: dict):
     """OpenF1 starting grid (penalties applied) for the race weekend's
-    qualifying session, or None if not published yet."""
+    qualifying session and whether that session was wet, or None if the grid
+    is not published yet."""
     d = race["start"].date()
     sessions = get(f"{OPENF1}/sessions?session_name=Qualifying"
                    f"&date_start%3E={d - timedelta(days=4)}&date_start%3C={d + timedelta(days=1)}")
     if not sessions:
         return None
-    grid = get(f"{OPENF1}/starting_grid?session_key={sessions[0]['session_key']}")
-    return grid or None
+    key = sessions[0]["session_key"]
+    grid = get(f"{OPENF1}/starting_grid?session_key={key}")
+    if not grid:
+        return None
+    # Same rule as scripts/export_quali.py: a session where any car ran
+    # intermediates or wets is wet, and its gaps are not a pace signal (I4).
+    stints = get(f"{OPENF1}/stints?session_key={key}") or []
+    wet = any(s.get("compound") in ("INTERMEDIATE", "WET") for s in stints)
+    return grid, wet
 
 
 def build_grid(race: dict) -> dict | None:
-    sg = official_grid(race)
-    if not sg:
+    og = official_grid(race)
+    if not og:
         return None
+    sg, wet_quali = og
     qj = get(f"{JOLPICA}/{race['year']}/{race['round']}/qualifying.json")
     quali = (qj or {}).get("MRData", {}).get("RaceTable", {}).get("Races", [{}])
     quali = quali[0].get("QualifyingResults", []) if quali else []
@@ -88,6 +97,10 @@ def build_grid(race: dict) -> dict | None:
     code_to_id = {}
     for did, d in sorted(drivers.items(), key=lambda kv: kv[1]["last_season"]):
         code_to_id[d["code"]] = did
+    # The current grid decides first: two drivers can share a code across
+    # seasons, and the one racing now is the one meant.
+    for g in grid_now:
+        code_to_id[g["code"]] = g["driver_id"]
     number_to_code = {int(g["number"]): g["code"] for g in grid_now if g["number"]}
     best, qpos = {}, {}
     for q in quali:
@@ -115,10 +128,12 @@ def build_grid(race: dict) -> dict | None:
     pole = min(e["lap"] for e in entries if e["lap"])
     for e in entries:
         e["quali_gap_pct"] = 100 * (e["lap"] / pole - 1) if e["lap"] else None
-        e["quali_wet"] = False
+        e["quali_wet"] = wet_quali
+        if e["code"] in qpos:
+            e["quali_pos"] = qpos[e["code"]]
     penalties = [f"{e['code']} qualified P{qpos[e['code']]}, starts P{i + 1}"
                  for i, e in enumerate(entries) if e["code"] in qpos and i + 1 > qpos[e["code"]]]
-    return {"entries": entries, "penalties": penalties}
+    return {"entries": entries, "penalties": penalties, "wet_quali": wet_quali}
 
 
 def SB_to_s(t: str | None) -> float | None:
@@ -143,7 +158,8 @@ def forecast_next(races: list[dict], now: datetime, data_through: dict) -> str |
         FORECASTS.mkdir(parents=True, exist_ok=True)
         tmp_in, tmp_out = FORECASTS / f"{race['key']}_input.json", FORECASTS / f"{race['key']}_pred.json"
         tmp_in.write_text(json.dumps({"track": race["circuit"], "grid": [
-            {k: e[k] for k in ("driver_id", "code", "name", "team_id", "number", "quali_gap_pct", "quali_wet")} for e in grid["entries"]]}))
+            {k: e[k] for k in ("driver_id", "code", "name", "team_id", "number", "quali_gap_pct", "quali_wet", "quali_pos") if k in e}
+            for e in grid["entries"]]}))
         subprocess.run([str(NODE), "--experimental-strip-types", "scripts/forecast.ts", str(tmp_in), str(tmp_out), "10000"],
                        cwd=ROOT / "web", check=True)
         pred = json.loads(tmp_out.read_text())
@@ -151,7 +167,7 @@ def forecast_next(races: list[dict], now: datetime, data_through: dict) -> str |
             "race": race["name"], "key": race["key"], "year": race["year"], "round": race["round"], "track": race["circuit"],
             "race_start_utc": race["start"].isoformat(), "created_utc": now.isoformat(),
             "grid_source": "OpenF1 official starting grid (penalties applied); lap times from Jolpica-F1 qualifying",
-            "penalties": grid["penalties"], **pred}, indent=1))
+            "penalties": grid["penalties"], "wet_qualifying": grid["wet_quali"], **pred}, indent=1))
         tmp_in.unlink(); tmp_out.unlink()
         fav = max(pred["drivers"], key=lambda d: d["win"])
         return f"{race['name']}: forecast saved; favourite {fav['code']} {fav['win']:.0%}"
@@ -277,7 +293,9 @@ def main() -> int:
 def publish(what: list[str]) -> str:
     """Commit the run's results to the repository and republish the site."""
     git = lambda *a: subprocess.run(["git", *a], cwd=ROOT, check=True, capture_output=True, text=True)
-    git("add", "data/params", "data/forecasts", "docs")
+    # Only the files this script produces: anything else placed in docs/ is
+    # not published without a person looking at it.
+    git("add", "data/params", "data/forecasts", "docs/live_record.md", "docs/assumptions.md")
     if subprocess.run(["git", "diff", "--cached", "--quiet"], cwd=ROOT).returncode == 0:
         return "nothing new to publish"
     msg = "Weekend update: " + "; ".join(what)[:300] + "\n\nCo-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>\n"

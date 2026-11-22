@@ -4,11 +4,12 @@ Everything is pooled in percent of the race's base lap time, so tracks of
 different length share one scale. Values are converted back to seconds with
 each track's current base lap time.
 
-For each (track, parameter) the yearly estimates go through a random-walk
-(local level) filter. The walk variance omega^2 per parameter is chosen by
-one-step-ahead predictive likelihood across all tracks (common.fit_omega).
-That is the data-driven recency weighting: a large omega^2 means old seasons
-say little about today. When a track has no estimate for a parameter, the
+For each (track, parameter) the yearly estimates go through a mean-reverting
+filter (common.ar1_level): the track's deviation from its era's pooled mean
+carries over from year to year by a factor phi and fades back to the pool.
+phi and the between-track spread are chosen per parameter by one-step-ahead
+predictive likelihood across all tracks. Until the 2026-11-22 review this was
+a random walk, which kept an old noisy value as the track's mean for ever. When a track has no estimate for a parameter, the
 pooled cross-track value is used and labelled "pooled".
 
 Track key: Jolpica circuitId. A race whose base lap time is under 85% of the
@@ -56,28 +57,75 @@ def series(df, p):
     return g
 
 
+PHI_GRID = np.round(np.arange(0.0, 1.0, 0.05), 2).tolist() + [0.97, 0.99]
+TAU_SCALE = np.exp(np.linspace(np.log(0.1), np.log(4.0), 25))
+
+
+def era_means(df, p, breaks):
+    """Pooled mean of each era (between reset years), from every race in it:
+    precision-weighted with the between-race spread (DerSimonian-Laird).
+    Returns {era start: (mean, se of the mean, tau2)}; an era without data
+    takes the previous era's mean with one extra between-track spread of
+    uncertainty."""
+    d = df.dropna(subset=[p, p + "_se"])
+    d = d[d[p + "_se"] > 0]
+    starts = [None] + sorted(breaks)
+    out, prev = {}, None
+    for i, a in enumerate(starts):
+        b = starts[i + 1] if i + 1 < len(starts) else None
+        e = d[(d.Year >= (a if a is not None else -1)) & (d.Year < (b if b is not None else 10 ** 4))]
+        if len(e) >= 2:
+            mu, tau2, _, _ = C.eb_normal(e[p], e[p + "_se"])
+            w = 1 / (e[p + "_se"] ** 2 + tau2)
+            out[a] = (mu, float(np.sqrt(1 / w.sum())), tau2)
+        elif prev is not None:
+            out[a] = (prev[0], float(np.sqrt(prev[1] ** 2 + prev[2])), prev[2])
+        else:
+            out[a] = (np.nan, np.nan, np.nan)
+        prev = out[a]
+    return out
+
+
 def pool_param(df, p, breaks=()):
-    """Two-pass hierarchical pooling. Pass 1 (vague prior) gives each track's
-    level, so the cross-track mean and spread tau^2 can be estimated. Pass 2
-    restarts every track from N(pooled mean, tau^2), so a track with one race
-    is pulled toward the pooled value in proportion to its uncertainty."""
+    """Mean-reverting pooling (review 2.2). Each track's value is its era's
+    pooled mean plus a deviation that persists from year to year by phi and
+    has stationary spread tau2 between tracks. phi and tau2 are chosen by the
+    one-step-ahead predictive likelihood of every race given the earlier
+    ones, across all tracks (the same yardstick the random walk used). phi
+    near 0 means a track's history says little about its next race: values
+    go to the pool. A reset year starts a new era, also when projecting a
+    track not yet raced since the reset (review 1.2)."""
     groups = [(y, s, yr) for _, y, s, yr in series(df, p)]
     names = [tk for tk, *_ in series(df, p)]
     if not groups:
         return {}, {"omega2": np.nan, "pooled_mean": np.nan, "pooled_sd": np.nan, "n_tracks": 0}
-    omega2, _ = C.fit_omega(groups, breaks=breaks)
-    first = [C.local_level(y, s, yr, omega2, breaks=breaks)[:2] for y, s, yr in groups]
-    mu, tau2, _, _ = C.eb_normal([m for m, _ in first], [max(np.sqrt(P), 1e-6) for _, P in first])
-    tau2 = max(tau2, 1e-8)
-    omega2, info = C.fit_omega(groups, breaks=breaks, prior_mean=mu, prior_var=tau2)
+    eras = era_means(df, p, breaks)
+    starts = sorted(k for k in eras if k is not None)
+
+    def era_of(yr):
+        return max([b for b in starts if b <= yr], default=None)
+
+    mean_of = lambda yr: eras[era_of(yr)][0]
+    tau_ref = np.nanmax([v[2] for v in eras.values()] + [1e-8])
+    best = (-np.inf, None, None)
+    for phi in PHI_GRID:
+        for sc in TAU_SCALE:
+            tau2 = max(tau_ref * sc, 1e-10)
+            lp = sum(C.ar1_level(y, s, yr, phi, tau2, mean_of, breaks)[2] for y, s, yr in groups)
+            if lp > best[0]:
+                best = (lp, phi, tau2)
+    log_pred, phi, tau2 = best
+    m_t, se_t, _ = eras[era_of(TARGET_YEAR)]
     rows = {}
     for tk, (y, s, yr) in zip(names, groups):
-        m, P, _ = C.local_level(y, s, yr, omega2, breaks=breaks, prior_mean=mu, prior_var=tau2)
-        P += omega2 * max(TARGET_YEAR - yr.max(), 0)
-        rows[tk] = {"mean": m, "sd": float(np.sqrt(P)), "n_races": int(len(y)),
+        dev, P, _, last = C.ar1_level(y, s, yr, phi, tau2, mean_of, breaks)
+        dev, P = C.ar1_project(dev, P, int(last), TARGET_YEAR, phi, tau2, breaks)
+        rows[tk] = {"mean": float(m_t + dev), "sd": float(np.sqrt(P + se_t ** 2)), "n_races": int(len(y)),
                     "last_year": int(yr.max()), "source": "track"}
-    return rows, {"omega2": omega2, "pooled_mean": mu, "pooled_sd": float(np.sqrt(tau2)),
-                  "n_tracks": len(rows), **info}
+    return rows, {"omega2": float(tau2 * (1 - phi ** 2)), "phi": float(phi), "tau2": float(tau2),
+                  "pooled_mean": float(m_t), "pooled_mean_se": float(se_t),
+                  "pooled_sd": float(np.sqrt(tau2 + se_t ** 2)), "n_tracks": len(rows), "log_pred": float(log_pred),
+                  "grid_best": float(phi)}
 
 
 def temperature_effect(df, p):

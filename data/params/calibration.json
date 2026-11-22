@@ -1,5 +1,5 @@
 {
- "pace_spread_scale": 0.35,
+ "pace_spread_scale": 0.7,
  "strategy_choices": 5,
  "chosen_on": "2025 practice races (18 dry races, backtest with only earlier data); the 2026 races were not used",
  "scores": {
@@ -67,5 +67,126 @@
  "wet_driver_effects": false,
  "wet_driver_effects_note": "Chosen on the wet-race backtest (13 wet races 2022-2026, each fitted on earlier races only; docs/backtest.md). With the measured driver wet effects the rain model scored worse than ignoring rain (rank correlation 0.557 vs 0.616, winner log-loss 1.92 vs 1.46); without them 0.620 and 1.43. The effects are measured only against team-mates, so long-standing pairs get equal and opposite values.",
  "rival_switch_spread": false,
- "rival_switch_spread_note": "W10, chosen on the wet-race backtest. Rival switch laps spread like real teams' (SD 1.1 laps, 23 transitions) made wet predictions slightly worse (rank correlation 0.615 vs 0.618 with a rain window, winner log-loss 1.49 vs 1.44; 1.57 vs 1.38 with the real conditions replayed), because the model punishes a late switch about 3-4 times harder than real races show (W3 slope is assumed, not fitted). Off until that slope is calibrated."
+ "rival_switch_spread_note": "W10, chosen on the wet-race backtest. Rival switch laps spread like real teams' (SD 1.1 laps, 23 transitions) made wet predictions slightly worse (rank correlation 0.615 vs 0.618 with a rain window, winner log-loss 1.49 vs 1.44; 1.57 vs 1.38 with the real conditions replayed), because the model punishes a late switch about 3-4 times harder than real races show (W3 slope is assumed, not fitted). Off until that slope is calibrated.",
+ "pace_blend": {
+  "n_driver_races": 687,
+  "n_races": 36,
+  "seasons": [
+   2024,
+   2025
+  ],
+  "quali": {
+   "weight_prior": 0.633873,
+   "weight_quali": 0.35935,
+   "se": [
+    0.032352,
+    0.029609
+   ],
+   "form_sd_after_quali_pct": 0.298903,
+   "form_sd_prior_only_pct": 0.354107,
+   "quali_gap_clip_pct": 4.564698,
+   "n_driver_races": 644
+  },
+  "grid": {
+   "pct_per_grid_place": 0.042071,
+   "se": 0.002954,
+   "form_sd_before_grid_pct": 0.348842,
+   "form_sd_after_grid_pct": 0.303939,
+   "n_driver_races": 686
+  },
+  "note": "I2/I4 refitted on as-of priors (docs/assumptions.md); used by the website and the 2026 exam"
+ },
+ "pace_blend_forward": {
+  "2025": {
+   "n_driver_races": 345,
+   "n_races": 18,
+   "seasons": [
+    2024
+   ],
+   "quali": {
+    "weight_prior": 0.671831,
+    "weight_quali": 0.317471,
+    "se": [
+     0.040965,
+     0.036304
+    ],
+    "form_sd_after_quali_pct": 0.286361,
+    "form_sd_prior_only_pct": 0.340497,
+    "quali_gap_clip_pct": 4.938171,
+    "n_driver_races": 323
+   },
+   "grid": {
+    "pct_per_grid_place": 0.048974,
+    "se": 0.004339,
+    "form_sd_before_grid_pct": 0.336588,
+    "form_sd_after_grid_pct": 0.281594,
+    "n_driver_races": 344
+   }
+  },
+  "2026": {
+   "n_driver_races": 687,
+   "n_races": 36,
+   "seasons": [
+    2024,
+    2025
+   ],
+   "quali": {
+    "weight_prior": 0.633873,
+    "weight_quali": 0.35935,
+    "se": [
+     0.032352,
+     0.029609
+    ],
+    "form_sd_after_quali_pct": 0.298903,
+    "form_sd_prior_only_pct": 0.354107,
+    "quali_gap_clip_pct": 4.564698,
+    "n_driver_races": 644
+   },
+   "grid": {
+    "pct_per_grid_place": 0.042071,
+    "se": 0.002954,
+    "form_sd_before_grid_pct": 0.348842,
+    "form_sd_after_grid_pct": 0.303939,
+    "n_driver_races": 686
+   }
+  }
+ },
+ "pace_spread_note": "Re-chosen 2026-11-22 after the independent review (the earlier 0.35 used a coverage check that counted discrete position ranges as 80% when they held about 93%). Chosen on 2024 + 2025 backtest races (36 races, as-of fits, 5,000 sims) by the mean log score of the actual finishing position (whole distribution) and the winner log score; both best at 0.7, which also puts 80% of outcomes inside the central 80% (randomised PIT: 80.8% in 2024, 79.6% in 2025). Scale without qualifying (website, before qualifying) unchanged at 1.0, not re-tested.",
+ "spread_scan_2024_2025": {
+  "metric": "position log score 2024 / 2025; winner log score 2024 / 2025; PIT central-80 2024 / 2025",
+  "0.35": [
+   2.3652,
+   2.4709,
+   1.559,
+   1.01,
+   0.792,
+   0.779
+  ],
+  "0.5": [
+   2.3596,
+   2.4716,
+   1.527,
+   1.024,
+   0.8,
+   0.784
+  ],
+  "0.7": [
+   2.3571,
+   2.4612,
+   1.486,
+   1.033,
+   0.808,
+   0.796
+  ],
+  "1.0": [
+   2.3735,
+   2.4664,
+   1.465,
+   1.073,
+   0.842,
+   0.807
+  ]
+ },
+ "pass_logit_shift": 0.0,
+ "pass_logit_shift_note": "O3, tested 2026-11-22 on the 2024 races: shifts of 0 to +2 on the pass model's log-odds changed the finishing-order and position scores only within noise, and the simulated grid-to-finish rank correlation already matched the real one (0.808 vs 0.803). Kept at 0: the fitted pass model stands."
 }

@@ -164,6 +164,13 @@ function neutralisations(s: RaceSetup, prep: Prepared, rng: Rng, wet: boolean): 
   return status;
 }
 
+/** A real race's track status, lap by lap (strategy check: real safety cars). */
+function replayStatus(trace: number[], N: number): Uint8Array {
+  const status = new Uint8Array(N + 2);
+  for (let L = 1; L <= N; L++) status[L] = trace[L - 1] ?? GREEN;
+  return status;
+}
+
 interface Plan { compounds: Compound[]; stops: number[] }   // stops = lap numbers ending each stint but the last
 
 // A1b: teams choose strategies by where they start. A car samples from the
@@ -207,6 +214,47 @@ const RADAR = 3;            // W6: laps of rain foresight every team has
 
 // ------------------------------------------------------------ the race
 
+/** I4 qualifying blend and I2 grid effect: the calibrated versions (fitted on
+ *  the priors the engine really has, model/calibrate_pace.py) when present,
+ *  else the in-model fits. Only used when the grid is read as this weekend's
+ *  evidence (after qualifying). */
+function paceEffects(s: RaceSetup) {
+  const G = s.params.global, blend = s.params.calibration?.pace_blend;
+  const on = !!s.scenario.gridImpliesPace;
+  return { qe: on ? blend?.quali ?? G.quali_effect ?? null : null, gridFx: on ? blend?.grid ?? G.grid_effect ?? null : null };
+}
+
+/** Each car's expected race pace before any random draw (% of lap time,
+ *  relative to the field, lower = faster): season form blended with the dry
+ *  qualifying gap (I4), or form plus the grid-slot shift (I2) when qualifying
+ *  gaps are not usable. Mirrors the pace block of simulateRace with every
+ *  draw at its mean, for a listed grid; the backtest uses it as the
+ *  "pace only" baseline (does the race simulation add anything?). */
+export function paceForecast(s: RaceSetup): Float64Array {
+  const n = s.cars.length;
+  const { qe, gridFx } = paceEffects(s);
+  const withQ = s.cars.filter((c) => c.qualiGap !== null);
+  const useQuali = !!qe && withQ.length >= n / 2;
+  const qMean = useQuali ? withQ.reduce((a, c) => a + c.qualiGap!, 0) / withQ.length : 0;
+  const prior = s.cars.map((c) => c.carPct + c.skillPct);
+  const priorMean = prior.reduce((a, b) => a + b, 0) / n;
+  const pace = new Float64Array(n);
+  s.cars.forEach((c, i) => {
+    pace[i] = useQuali && c.qualiGap !== null
+      ? qe!.weight_prior * (prior[i] - priorMean) + qe!.weight_quali * (c.qualiGap - qMean)
+      : prior[i] - priorMean;
+  });
+  if (gridFx && !useQuali) {
+    const expRank = new Float64Array(n);
+    [...Array(n).keys()].sort((a, b) => prior[a] - prior[b]).forEach((i, r) => { expRank[i] = r; });
+    s.cars.forEach((c, slot) => {
+      if (c.pitLane) return;
+      pace[slot] += gridFx.pct_per_grid_place * ((c.qualiPos !== null ? c.qualiPos - 1 : slot) - expRank[slot]);
+    });
+  }
+  return pace;
+}
+
 export function simulateRace(s: RaceSetup, prep: Prepared, seed: number, fallback: Strategy, opt: SimOptions = {}): RaceResult {
   const rng = new Rng(seed);
   const T = s.track, P = s.params, G = P.global, N = T.laps, n = s.cars.length, wm = prep.wm;
@@ -225,10 +273,11 @@ export function simulateRace(s: RaceSetup, prep: Prepared, seed: number, fallbac
   const modeWear = (pm.wear_change_per_pace_pct * modePct) / 100 * T.base;     // PM1 (s per lap of age)
   const ov = G.overtaking, era = ov.current_era_offset ?? ov.eras["2026"]?.offset ?? 0;
   const scLap = G.neutralised_pace.SC.median_ratio, vscLap = G.neutralised_pace.VSC.median_ratio;
+  const passShift = s.scenario.passShift ?? P.calibration?.pass_logit_shift ?? 0;     // O3
   const pitSC = G.pit.neutralised_ratio.sc.median_ratio, pitVSC = G.pit.neutralised_ratio.vsc.median_ratio;
 
   const pace = new Float64Array(n), wetX = new Float64Array(n);
-  const gridFx = s.scenario.gridImpliesPace && G.grid_effect ? G.grid_effect : null;
+  const { qe, gridFx } = paceEffects(s);
   // Knowing the grid explains part of race-day form: remove that share.
   // I3: the backtest showed the summed pace spread is too wide (outcomes
   // fell inside the 80% range 95% of the time); one scale, picked on the 2025
@@ -236,7 +285,6 @@ export function simulateRace(s: RaceSetup, prep: Prepared, seed: number, fallbac
   // I4: with real (dry) qualifying gaps for most of the field, race pace is
   // the fitted blend of season form and the qualifying gap, and the form draw
   // uses the smaller spread left once qualifying is known.
-  const qe = s.scenario.gridImpliesPace ? G.quali_effect ?? null : null;
   const withQ = s.cars.filter((c) => c.qualiGap !== null);
   const useQuali = !!qe && withQ.length >= n / 2;
   const qMean = useQuali ? withQ.reduce((a, c) => a + c.qualiGap!, 0) / withQ.length : 0;
@@ -247,10 +295,14 @@ export function simulateRace(s: RaceSetup, prep: Prepared, seed: number, fallbac
     : G.skill_model.tau_pct;
   const tau = k * tau0;
   const prior = new Float64Array(n);
+  // Car pace is a team quantity: one draw per team, shared by its two cars
+  // (review 1.3); skill and race-day form stay per driver.
+  const carZ = new Map<string, number>();
   for (let i = 0; i < n; i++) {
     const c = s.cars[i];
     // E1: car and skill drawn jointly (posterior correlation).
-    const z1 = rng.normal(), z2 = rng.normal();
+    if (!carZ.has(c.teamId)) carZ.set(c.teamId, rng.normal());
+    const z1 = carZ.get(c.teamId)!, z2 = rng.normal();
     const car = c.carPct + k * c.carSd * z1;
     const skill = c.skillPct + k * c.skillSd * (c.corr * z1 + Math.sqrt(Math.max(0, 1 - c.corr * c.corr)) * z2);
     prior[i] = car + skill;
@@ -266,7 +318,7 @@ export function simulateRace(s: RaceSetup, prep: Prepared, seed: number, fallbac
   }
 
   const wetness = wetnessPath(s, prep, rng);
-  const status = neutralisations(s, prep, rng, wetness !== null);
+  const status = s.scenario.statusTrace ? replayStatus(s.scenario.statusTrace, N) : neutralisations(s, prep, rng, wetness !== null);
   // W10: each rival's switch timing this race, from the measured spread.
   const rivalLag = new Int32Array(n);
   if (wetness && P.calibration?.rival_switch_spread === true) for (let i = 0; i < n; i++) {
@@ -308,11 +360,19 @@ export function simulateRace(s: RaceSetup, prep: Prepared, seed: number, fallbac
   // costs the fitted pct_per_grid_place of lap time (and each place ahead
   // gains it). The race-day form draw above already used the smaller
   // post-grid spread (see formSd).
+  // The place used is where the car qualified (before penalties), so a grid
+  // penalty or a what-if slot moves the car without making it slower; pit-
+  // lane starters were left out of the fit and get no shift (review 1.5).
   if (gridFx && !useQuali) {
     const prior = s.cars.map((c) => c.carPct + c.skillPct);
     const expRank = new Float64Array(n);
     [...Array(n).keys()].sort((a, b) => prior[a] - prior[b]).forEach((i, r) => { expRank[i] = r; });
-    gridOrder.forEach((i, slot) => { pace[i] += gridFx.pct_per_grid_place * (slot - expRank[i]); });
+    gridOrder.forEach((i, slot) => {
+      const c = s.cars[i];
+      if (c.pitLane) return;
+      const place = c.qualiPos !== null ? c.qualiPos - 1 : slot;
+      pace[i] += gridFx.pct_per_grid_place * (place - expRank[i]);
+    });
   }
 
   // State
@@ -333,7 +393,6 @@ export function simulateRace(s: RaceSetup, prep: Prepared, seed: number, fallbac
   const trace = opt.record ? s.cars.map(() => new Float32Array(N + 1)) : undefined;
   const userCum = opt.record ? new Float64Array(N + 1) : undefined;
   const E = new Float64Array(n), lapT = new Float64Array(n), pitThis = new Uint8Array(n), nextComp: (Compound | null)[] = new Array(n).fill(null);
-  let usedWet = false;
   const order: number[] = [], ord: number[] = [], tent = new Float64Array(n);
 
   const familyOf = (c: Compound): Compound => (c === "INTERMEDIATE" || c === "WET" ? c : "MEDIUM");
@@ -348,7 +407,6 @@ export function simulateRace(s: RaceSetup, prep: Prepared, seed: number, fallbac
     const st = status[L];
     const wv = wetness ? wetness[L] : wm.iDry;
     const isWet = wetness !== null && wv > wm.iDry + 1e-6;
-    if (isWet) usedWet = true;
 
     // --- planned and reactive pit decisions for the end of this lap
     for (let i = 0; i < n; i++) {
@@ -423,7 +481,10 @@ export function simulateRace(s: RaceSetup, prep: Prepared, seed: number, fallbac
         pitThis[i] = 1; nextComp[i] = p.compounds[k + 1]; continue;
       }
       // SC / VSC reaction (A2): pit now if the next planned stop is close
-      const react = s.cars[i].isUser ? s.scenario.reactToSC : true;
+      // A real plan replayed under the race's real safety cars already
+      // contains its reactions to them.
+      const replayed = !!s.scenario.statusTrace && !!s.scenario.fixedPlans?.[s.cars[i].driverId];
+      const react = replayed ? false : s.cars[i].isUser ? s.scenario.reactToSC : true;
       if (react && !rainSoon && (st === SC || st === VSC) && k < p.stops.length && L < N - 1) {
         const due = p.stops[k];
         const stintLen = due - (k === 0 ? 0 : p.stops[k - 1]);
@@ -495,7 +556,7 @@ export function simulateRace(s: RaceSetup, prep: Prepared, seed: number, fallbac
           const gap = cum[b] - cum[a];
           if (pitThis[a] || pitThis[b] || gap >= ov.window_s) continue;     // pit cycles: order by time
           const adv = E[a] - E[b];
-          const pPass = sigmoid(T.overtakeIntercept + era + ov.coef.pace_adv.beta * adv + ov.coef.gap.beta * gap + ov.coef.pace_adv_x_gap.beta * adv * gap);
+          const pPass = sigmoid(T.overtakeIntercept + era + passShift + ov.coef.pace_adv.beta * adv + ov.coef.gap.beta * gap + ov.coef.pace_adv_x_gap.beta * adv * gap);
           if (rng.u() < pPass) {
             if (tent[b] >= tent[a]) tent[b] = tent[a] - 0.05;                 // pass completed (O1)
           } else {
@@ -588,6 +649,5 @@ export function simulateRace(s: RaceSetup, prep: Prepared, seed: number, fallbac
     stints[i][stints[i].length - 1].to = lapsDone[i];
     cars[i] = { pos: k + 1, dnf: dnfLap[i] !== 0, dnfLap: dnfLap[i], time: cum[i], stints: stints[i], parts: parts[i] };
   });
-  void usedWet;
   return { cars, status, wetness, trace, userCum };
 }

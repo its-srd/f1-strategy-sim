@@ -15,12 +15,16 @@ shows:
 - where your strategy gains or loses time against the best alternative the
   model finds, with a paired ± error
 
-Every parameter is fitted from 2018–2026 race data; none is set by hand.
+Parameters are fitted from 2018–2026 race data where the data allows. The
+structural choices and the few settings tuned on the backtest are listed,
+with the reason for each, in [docs/assumptions.md](docs/assumptions.md).
 Tested on races it had never seen: it beats a grid-only baseline on podium
 and points chances and on the full finishing order, and is level on win
 chances. The strategy comparison is not yet validated. Details in
 [docs/backtest.md](docs/backtest.md), also shown on the site's
-"Track record" tab.
+"Track record" tab. An independent review of the whole project (kept
+locally, not published) and what was done about each of its points are
+summarised in [docs/assumptions.md](docs/assumptions.md).
 Structural choices and every sample size are in
 [docs/assumptions.md](docs/assumptions.md), which the site shows on its
 "Model & assumptions" tab.

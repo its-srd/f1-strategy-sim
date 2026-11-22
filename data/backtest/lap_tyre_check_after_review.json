@@ -1,0 +1,42 @@
+{
+ "2025": {
+  "laps": 2782,
+  "pairs": 124,
+  "races": 18,
+  "sd_real_s": 0.80294,
+  "track": {
+   "slope": 0.734544,
+   "slope_se": 0.066603,
+   "rmse_s": 0.67839,
+   "rmse_zero_s": 0.802824,
+   "sd_pred_s": 0.626827
+  },
+  "pool": {
+   "slope": 0.75306,
+   "slope_se": 0.084707,
+   "rmse_s": 0.683905,
+   "rmse_zero_s": 0.802824,
+   "sd_pred_s": 0.591034
+  }
+ },
+ "2026": {
+  "laps": 1768,
+  "pairs": 92,
+  "races": 14,
+  "sd_real_s": 0.897711,
+  "track": {
+   "slope": 0.871405,
+   "slope_se": 0.115155,
+   "rmse_s": 0.767673,
+   "rmse_zero_s": 0.8977,
+   "sd_pred_s": 0.539912
+  },
+  "pool": {
+   "slope": 0.788523,
+   "slope_se": 0.103189,
+   "rmse_s": 0.786853,
+   "rmse_zero_s": 0.8977,
+   "sd_pred_s": 0.568837
+  }
+ }
+}

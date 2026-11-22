@@ -25,7 +25,8 @@ export function formatLap(s: number): string {
 /** One driver per line, in grid order: an optional position, the driver
  *  (3-letter code, car number or surname), then the best lap time (m:ss.sss or
  *  ss.sss), or nothing if no time was set. */
-export function parseQuali(text: string, p: Params, wet: boolean): QualiParse {
+export function parseQuali(text: string, p: Params, wet: boolean,
+  info?: { qualiPos?: Record<string, number>; pitLane?: string[] }): QualiParse {
   const grid = p.grid.grid;
   const errors: string[] = [], notes: string[] = [];
   const find = (id: string): GridEntry | undefined => {
@@ -74,6 +75,7 @@ export function parseQuali(text: string, p: Params, wet: boolean): QualiParse {
   if (wet) notes.push("Wet qualifying: lap-time gaps are not a pace signal and are ignored; the grid order still is.");
   const entries: GridEntry[] = all.map(({ g, lap }) => ({
     ...g, quali_gap_pct: lap === null || !Number.isFinite(best) ? undefined : 100 * (lap / best - 1), quali_wet: wet,
+    quali_pos: info?.qualiPos?.[g.code], pit_lane: info?.pitLane?.includes(g.code) || undefined,
   }));
   const rows = all.map(({ g, lap }, i) => ({ slot: i + 1, code: g.code, name: g.name, lap,
     gap: lap === null || !Number.isFinite(best) ? null : 100 * (lap / best - 1), listed: i < picked.length }));
@@ -90,6 +92,7 @@ export interface GridFetch {
   warnings: string[];
   actual: ActualRow[] | null;         // the race result, if the race has run
   qualiPos: Record<string, number>;   // qualifying position by driver code
+  pitLane: string[];                  // codes starting from the pit lane
 }
 
 const JOLPICA = "https://api.jolpi.ca/ergast/f1";
@@ -162,12 +165,12 @@ export async function fetchRaceGrid(year: number, round: number, raceDate: strin
 
   // Report the drivers who were moved back or start from the pit lane; the
   // cars that moved up as a result are summarised, not listed.
-  const penalties: string[] = [];
+  const penalties: string[] = [], pitLanes: string[] = [];
   let movedUp = 0;
   order.forEach((code, i) => {
     const qp = qPos.get(code);
     const pitLane = source === "result" && Number(result.find((r) => r.Driver.code === code)?.grid) === 0;
-    if (pitLane) penalties.push(`${code} qualified P${qp ?? "?"}, starts from the pit lane`);
+    if (pitLane) { penalties.push(`${code} qualified P${qp ?? "?"}, starts from the pit lane`); pitLanes.push(code); }
     else if (qp && i + 1 > qp) penalties.push(`${code} qualified P${qp}, starts P${i + 1}`);
     else if (qp && i + 1 < qp) movedUp++;
   });
@@ -177,7 +180,7 @@ export async function fetchRaceGrid(year: number, round: number, raceDate: strin
     grid: Number(r.grid), status: r.status })) : null;
   const text = order.map((c) => `${c} ${best.has(c) ? formatLap(best.get(c)!) : ""}`.trim()).join("\n");
   return { text, race: `${year} ${(rRace ?? qRace)?.raceName ?? ""}`.trim(), source, penalties, warnings, actual,
-    qualiPos: Object.fromEntries(qPos) };
+    qualiPos: Object.fromEntries(qPos), pitLane: pitLanes };
 }
 
 export function exampleText(p: Params): { label: string; text: string; track: string | null } | null {

@@ -46,7 +46,10 @@ def status_events(info: dict) -> dict:
     counts = {"4": 0, "5": 0, "6": 0}
     prev, last_flag = None, None
     for c in codes:
-        if c in counts and c != prev and not (c == "4" and last_flag == "5"):   # SC restart after a red flag
+        # SC restart after a red flag. Descriptive count only: the model's
+        # deployments (model/race_events.py) also check that no lap was
+        # completed in between, so an SC after a standing restart counts.
+        if c in counts and c != prev and not (c == "4" and last_flag == "5"):
             counts[c] += 1
         prev = c
         if c != "1":

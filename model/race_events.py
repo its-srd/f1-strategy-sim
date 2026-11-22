@@ -17,6 +17,7 @@ import common as C
 
 FINISHED = r"^(Finished|Lapped|\+\d+ Laps?)$"
 TARGET_YEAR = 2026          # season parameters are projected to (set by fit_all)
+ERA_2026 = 2026             # first season of the 2026 regulations
 NOT_RACED = {"Did not start", "Withdrew", "Did not qualify", "Did not prequalify"}
 
 
@@ -116,11 +117,14 @@ def deployments(laps: pd.DataFrame, races: pd.DataFrame) -> pd.DataFrame:
                       if s == "Started"), None)
         prev = None
         last_flag = None                     # last non-green code seen
+        red_t = None                         # time of the last red flag
         for i, (t, c) in enumerate(zip(times, codes)):
-            # A "4" whose previous non-green code was a "5" is the restart
-            # behind the SC after a red flag ("5 1 4"), not a new deployment;
-            # the engine adds that restart lap itself.
-            restart = c == "4" and last_flag == "5"
+            # A "4" right after a red flag ("5 1 4", no racing lap completed
+            # in between) is the restart behind the SC, not a new deployment;
+            # the engine adds that restart lap itself. After a standing
+            # restart, a later SC is a real deployment (review 1.10).
+            no_lap_since_red = red_t is not None and not np.any((t_end > red_t) & (t_end < t))
+            restart = c == "4" and last_flag == "5" and no_lap_since_red
             if c in ("4", "5", "6") and c != prev and not restart and (start is None or t >= start):
                 # end = next time status returns to green (1) after this
                 t_clear = next((tt for tt, cc in zip(times[i + 1:], codes[i + 1:]) if cc == "1"), np.nan)
@@ -133,6 +137,8 @@ def deployments(laps: pd.DataFrame, races: pd.DataFrame) -> pd.DataFrame:
             prev = c
             if c != "1":
                 last_flag = c
+            if c == "5":
+                red_t = t
     return pd.DataFrame(rows)
 
 
@@ -156,9 +162,10 @@ def sc_params(dep: pd.DataFrame, races: pd.DataFrame, track_key: dict) -> dict:
     for typ in ("SC", "VSC", "RED"):
         n = dep[dep["type"] == typ].groupby("RaceKey").size()
         rc[typ] = rc["RaceKey"].map(n).fillna(0)
-        # Era test: does 2026 differ from earlier seasons? (rate ratio, Poisson CI)
-        a26, n26 = rc.loc[rc.Year == 2026, typ].sum(), (rc.Year == 2026).sum()
-        a0, n0 = rc.loc[rc.Year < 2026, typ].sum(), (rc.Year < 2026).sum()
+        # Era test: do the 2026 regulations (2026 onward) differ from earlier
+        # seasons? (rate ratio, Poisson CI)
+        a26, n26 = rc.loc[rc.Year >= ERA_2026, typ].sum(), (rc.Year >= ERA_2026).sum()
+        a0, n0 = rc.loc[rc.Year < ERA_2026, typ].sum(), (rc.Year < ERA_2026).sum()
         rr = (a26 / n26) / (a0 / n0) if a0 and n26 else np.nan
         se_log = np.sqrt(1 / max(a26, 0.5) + 1 / max(a0, 0.5))
         era = {"rate_2026": a26 / n26 if n26 else None, "rate_pre2026": a0 / n0,
@@ -277,7 +284,6 @@ def start_params(laps: pd.DataFrame, res: pd.DataFrame, races: pd.DataFrame, tra
     for tk, d in j[~j.wet].groupby("TrackKey"):
         s = d["change"].std()
         n_races = d["RaceKey"].nunique()
-        w = n_races / (n_races + 3.0)   # placeholder replaced below by fitted k
         tracks[tk] = {"raw_ratio": float(s / pooled_sd), "n_races": int(n_races), "n": int(len(d))}
     # Fit the shrinkage constant k by between-track variance of log ratios.
     lr = np.log([v["raw_ratio"] for v in tracks.values()])

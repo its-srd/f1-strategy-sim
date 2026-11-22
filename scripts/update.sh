@@ -4,6 +4,7 @@
 # Each step only adds what is missing, so it is safe to run any time.
 #   ./scripts/update.sh
 set -e
+set -o pipefail      # a failing step inside a pipe stops the script too
 cd "$(dirname "$0")/.."
 export PATH="$HOME/.local/node/bin:$PATH"
 echo "1/5 races";        .venv/bin/python scripts/export_races.py | tail -3

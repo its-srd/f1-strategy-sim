@@ -26,10 +26,10 @@ import common as C  # noqa: E402
 import fit_all as F  # noqa: E402
 
 OUT = C.ROOT / "data" / "backtest"
-SEASONS = {2025: 5, 2026: 4}     # first round tested per season: every team needs earlier races that season
+SEASONS = {2024: 4, 2025: 5, 2026: 4}   # first round tested per season: every team needs earlier races that season (2024: only for fitting the pace blend on as-of priors, never scored)
 
 
-def test_races(races: pd.DataFrame, tracks_before) -> pd.DataFrame:
+def test_races(races: pd.DataFrame) -> pd.DataFrame:
     rows = []
     for _, r in races.sort_values(["Year", "Round"]).iterrows():
         if r.Year not in SEASONS or r.Round < SEASONS[r.Year]:
@@ -48,7 +48,7 @@ def fixed_breaks():
 def fit_all_tests(season: int | None = None, redo: bool = False):
     laps, res, races = C.load()
     fb = fixed_breaks()
-    tests = test_races(races, None)
+    tests = test_races(races)
     if season:
         tests = tests[tests["Year"] == season]
     print(f"{len(tests)} dry test races", flush=True)
@@ -56,9 +56,10 @@ def fit_all_tests(season: int | None = None, redo: bool = False):
     for _, r in tests.iterrows():
         key = r.RaceKey
         dest = OUT / key / "params"
-        if (dest / "meta.json").exists() and not redo:
-            continue
+        if (OUT / key / "race.json").exists() and (dest / "meta.json").exists() and not redo:
+            continue                         # race.json is written only after a complete fit
         (OUT / key / "predictions.json").unlink(missing_ok=True)
+        (OUT / key / "race.json").unlink(missing_ok=True)
         before = (races["Year"] < r.Year) | ((races["Year"] == r.Year) & (races["Round"] < r.Round))
         keys = set(races.loc[before, "RaceKey"])
         data = (laps[laps.RaceKey.isin(keys)].copy(), res[res.RaceKey.isin(keys)].copy(), races[before].copy())
@@ -74,7 +75,8 @@ def fit_all_tests(season: int | None = None, redo: bool = False):
                                                             "year": int(r.Year), "round": int(r.Round)}))
             print(f"  {key} {r.Event}: fitted in {time.time() - t:.0f}s", flush=True)
         except Exception as exc:
-            print(f"  {key} {r.Event}: FAILED {exc!r}", flush=True)
+            import traceback
+            print(f"  {key} {r.Event}: FAILED {exc!r}\n{traceback.format_exc(limit=-3)}", flush=True)
             (dest / "meta.json").unlink(missing_ok=True)
 
 

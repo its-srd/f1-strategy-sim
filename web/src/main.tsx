@@ -164,7 +164,7 @@ function Controls(props: { p: Params; sc: Scenario; setSc: SetScenario; onRun: (
   const [slotChoice, setSlotChoice] = useState<number | null>(null);
   const [manual, setManual] = useState(false);
   const [qStatus, setQStatus] = useState<{ kind: "idle" | "loading" | "loaded" | "missing" | "error" | "notcal"; msg?: string; info?: GridFetch }>({ kind: "idle" });
-  const parsed = useMemo(() => parseQuali(qText, p, qWet), [qText, qWet, p]);
+  const parsed = useMemo(() => parseQuali(qText, p, qWet, qStatus.info), [qText, qWet, p, qStatus.info]);
   const inGrid = parsed.entries.some((e) => e.driver_id === sc.driver);
   const realSlot = parsed.entries.findIndex((e) => e.driver_id === sc.driver) + 1;
   const qualified = qStatus.info?.qualiPos[p.drivers[sc.driver]?.code ?? ""];
@@ -177,7 +177,7 @@ function Controls(props: { p: Params; sc: Scenario; setSc: SetScenario; onRun: (
     const apply = (text: string, status: typeof qStatus) => {
       if (id !== req.current) return;                  // a newer request won
       setQText(text); setQWet(false); setSlotChoice(null); setQStatus(status);
-      setSc((prev) => ({ ...withQuali(prev, parseQuali(text, p, false), null),
+      setSc((prev) => ({ ...withQuali(prev, parseQuali(text, p, false, status.info), null),
         actualResult: status.info?.actual ?? undefined, raceLabel: status.info?.race }));
     };
     const cal = p.grid.calendar.find((c) => c.circuit_id === sc.track);
@@ -279,14 +279,14 @@ function Controls(props: { p: Params; sc: Scenario; setSc: SetScenario; onRun: (
           {parsed.entries.length > 0 && !inGrid && <div class="err">{p.drivers[sc.driver]?.name ?? sc.driver} is not in this grid. Pick one of the drivers who qualified.</div>}
           <div class="row" style={{ gap: "8px", margin: "4px 0" }}>
             <label class="row" style={{ gap: "4px", flex: "none" }}>
-              <input type="checkbox" style={{ flex: "none" }} checked={qWet} onChange={(e) => { const v = (e.target as HTMLInputElement).checked; setQWet(v); setSc(withQuali(sc, parseQuali(qText, p, v), slotChoice)); }} />
+              <input type="checkbox" style={{ flex: "none" }} checked={qWet} onChange={(e) => { const v = (e.target as HTMLInputElement).checked; setQWet(v); setSc(withQuali(sc, parseQuali(qText, p, v, qStatus.info), slotChoice)); }} />
               <span style={{ color: "var(--text-secondary)" }}>Wet qualifying</span>
             </label>
             <button class="btn small" style={{ flex: "none" }} onClick={() => setManual(!manual)}>{manual ? "Hide grid" : "Edit grid"}</button>
           </div>
           {qWet && <div class="hint">Wet qualifying: the order is used, the lap-time gaps are not.</div>}
           {manual && <QualiPanel text={qText} parsed={parsed}
-            onChange={(text) => { setQText(text); setSc(withQuali(sc, parseQuali(text, p, qWet), slotChoice)); }} />}
+            onChange={(text) => { setQText(text); setSc(withQuali(sc, parseQuali(text, p, qWet, qStatus.info), slotChoice)); }} />}
         </>}
       </div>
 
@@ -327,7 +327,7 @@ function Controls(props: { p: Params; sc: Scenario; setSc: SetScenario; onRun: (
             {(["conserve", "normal", "push"] as PaceMode[]).map((m) => <button class={sc.paceMode === m ? "on" : ""} onClick={() => upd({ paceMode: m })}>{m}</button>)}
           </div>
         </label>
-        <div class="hint">Push / conserve = ±{p.global.pace_mode.mode_pace_sd_pct.toFixed(2)}% pace, with {Math.abs(p.global.pace_mode.wear_change_per_pace_pct).toFixed(3)}% extra / less wear per lap of tyre age per 1% of pace (teammate data, n={p.global.pace_mode.n_pairs.toLocaleString()} stint pairs).</div>
+        <div class="hint"><span class="tag pooled">what-if only</span> Push / conserve = ±{p.global.pace_mode.mode_pace_sd_pct.toFixed(2)}% pace, with {Math.abs(p.global.pace_mode.wear_change_per_pace_pct).toFixed(3)}% extra / less wear per lap of tyre age per 1% of pace (teammate data, n={p.global.pace_mode.n_pairs.toLocaleString()} stint pairs). Both numbers are measured, but they describe how teammates' stints differ (traffic, damage and team orders included), not a speed a driver can choose, and the extra wear is likely understated. So "push" looks nearly free here: the model cannot tell you whether pushing pays.</div>
         <label class="row" style={{ marginTop: "8px", gap: "6px" }}>
           <input type="checkbox" style={{ flex: "none" }} checked={sc.reactToSC} onChange={(e) => upd({ reactToSC: (e.target as HTMLInputElement).checked })} />
           <span style={{ color: "var(--text-secondary)" }}>Pit early under SC/VSC when a stop is due soon</span>
@@ -460,11 +460,12 @@ function Results({ p, r }: { p: Params; r: MCResult }) {
 
       <div class="panel">
         <h2>Your strategy vs the best alternative the model found</h2>
-        <div class="sub">Candidates are ranked by expected race time, then the best of each compound sequence is re-simulated on the same {alt?.sims.toLocaleString()} random races as yours (paired comparison). Best = highest expected points.</div>
-        <div class="warn" style={{ marginBottom: "8px" }}><span class="tag pooled">experimental</span> Tested on real races (teammates on different strategies), this comparison was not reliable: it helped slightly in 2025 and made predictions worse in 2026. Treat differences under about 5 s as noise. See the Track record tab.</div>
+        <div class="sub">Candidates are ranked by expected race time, then the best of each compound sequence is re-simulated on the same {alt?.sims.toLocaleString()} random races as yours (paired comparison). Best = highest expected points; its gain is then measured again on {alt?.sims.toLocaleString()} fresh races, so picking the luckiest of several does not inflate it.</div>
+        <div class="warn" style={{ marginBottom: "8px" }}><span class="tag pooled">experimental</span> Not validated. On real teammates who ran different strategies, knowing the strategies did not measurably improve the predicted gap in 2025 or 2026, even with the true tyre values of each race: those gaps vary by 17–25 s, the strategy effects are about 5 s, so the test cannot tell. The tyre model itself does predict lap-to-lap gaps between teammates (about 28% of their variation), but overstates tyre differences by about 20%. Treat differences under about 5 s as noise. See the Track record tab.</div>
         {alt && <div style={{ margin: "0 0 10px", fontSize: "13px" }}>{(alt.dExpPts ?? 0) > 2 * (alt.dExpPtsSE ?? 0)
           ? <>Best alternative <b class="mono">{alt.label}</b> gains <b>{sgn(alt.dExpPts ?? 0)}</b> expected points (±{(2 * (alt.dExpPtsSE ?? 0)).toFixed(2)}, paired) over yours.</>
-          : <>No alternative is distinguishably better than yours. The closest, <b>{alt.label}</b>, is {sgn(alt.dExpPts ?? 0)} ± {(2 * (alt.dExpPtsSE ?? 0)).toFixed(2)} expected points: within Monte Carlo noise.</>}</div>}
+          : <>No alternative is distinguishably better than yours. The closest, <b>{alt.label}</b>, is {sgn(alt.dExpPts ?? 0)} ± {(2 * (alt.dExpPtsSE ?? 0)).toFixed(2)} expected points: within Monte Carlo noise.</>}
+          {alt.aheadShare !== undefined && <> In the same simulated races it finished <b>ahead of yours in {pct(alt.aheadShare, 0)}</b> and behind in {pct(alt.behindShare ?? 0, 0)} (level in the rest): that spread, from tyre wear, safety cars and rivals, is how sure the choice is.</>}</div>}
         <div class="table-wrap"><table class="t" style={{ marginBottom: "10px" }}>
           <thead><tr><th class="l">Strategy</th><th>Exp. pts</th><th style={{ whiteSpace: "normal" }}>vs yours (±2 SE)</th><th>Win</th><th>Podium</th><th>Points</th><th>Mean pos</th><th style={{ whiteSpace: "normal" }}>Median time</th><th>Pit</th><th style={{ whiteSpace: "normal" }}>Held up</th></tr></thead>
           <tbody>{r.candidates.map((c, i) => (

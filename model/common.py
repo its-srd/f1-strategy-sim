@@ -130,6 +130,41 @@ def local_level(y, se, years, omega2: float, prior_var: float = 1e4, breaks=(), 
     return m, P, logp
 
 
+def ar1_level(y, se, years, phi: float, tau2: float, mean_of, breaks=()):
+    """Mean-reverting track level (review 2.2): the deviation of a track's
+    value from its era's pooled mean decays by phi per year, with stationary
+    variance tau2 (how much tracks really differ), so an old value fades back
+    to the pool instead of being kept for ever as a random walk would.
+
+    s_y = phi^dt * s_{y-dt} + eta,  Var(s) = tau2;  obs y ~ N(mean_of(year) + s, se^2).
+    A year in `breaks` starts a new era: the deviation restarts at 0 with
+    variance tau2. Returns (deviation at the last obs, its variance, total log
+    predictive density of each obs given the past, last year)."""
+    s, P, last = 0.0, tau2, None
+    logp = 0.0
+    for yi, si, yr in sorted(zip(y, se, years), key=lambda z: z[2]):
+        if last is not None:
+            if any(last < b <= yr for b in breaks):
+                s, P = 0.0, tau2
+            else:
+                f = phi ** (yr - last)
+                s, P = f * s, f * f * P + tau2 * (1 - f * f)
+        m = mean_of(yr)
+        S = P + si ** 2
+        logp += -0.5 * (np.log(2 * np.pi * S) + (yi - m - s) ** 2 / S)
+        K = P / S
+        s, P, last = s + K * (yi - m - s), (1 - K) * P, yr
+    return s, P, logp, last
+
+
+def ar1_project(s, P, last, target, phi, tau2, breaks=()):
+    """Carry a deviation from its last year to the target year (resets apply)."""
+    if last is None or any(last < b <= target for b in breaks):
+        return 0.0, tau2
+    f = phi ** max(target - last, 0)
+    return f * s, f * f * P + tau2 * (1 - f * f)
+
+
 def fit_omega(groups, breaks=(), grid=None, prior_mean=0.0, prior_var=1e4) -> tuple[float, dict]:
     """Pick the random-walk variance that maximises the one-step-ahead
     predictive likelihood across many series. groups: list of (y, se, years)."""

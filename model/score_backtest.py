@@ -12,8 +12,16 @@ Metrics (lower is better unless stated):
   (higher is better; > 0 means the model beats the baseline)
 * rank correlation (Spearman) between expected and actual finishing order
 * calibration: predicted vs observed frequency in probability bins
-* 80% interval coverage: share of drivers finishing inside the model's
-  10th-90th percentile range of positions (should be about 80%)
+* interval coverage: share of drivers finishing inside the model's
+  10th-90th percentile range of positions, next to the probability the
+  model itself puts inside that range (positions are whole numbers, so the
+  "80%" range holds more than 80%; compare observed with nominal)
+* PIT coverage: the randomised probability integral transform of each
+  actual position; the share inside [0.1, 0.9] should be 80% if the
+  position distributions are calibrated
+* two harder baselines than the grid (rank correlation only): the pace
+  forecast alone (no simulation), and the average of grid rank and pace
+  rank. The simulation earns its keep only if it beats the second.
 Uncertainty: 95% bootstrap intervals over races.
 
     .venv/bin/python model/score_backtest.py
@@ -69,6 +77,7 @@ def score(years=("2025", "2026"), tag="all", root=OUT, pred_file="predictions.js
     del laps
     rows, calib = [], []
     race_rows = []
+    rng_pit = np.random.default_rng(1)
     for d in sorted(root.glob("20*_*")):
         if not d.name.startswith(years):
             continue
@@ -95,14 +104,27 @@ def score(years=("2025", "2026"), tag="all", root=OUT, pred_file="predictions.js
             lo, hi = int(np.searchsorted(cdf, 0.10)) + 1, int(np.searchsorted(cdf, 0.90)) + 1
             actual_pos = int(a["Position"]) if not a["dnf"] else n + 1
             exp_pos = float(np.dot(np.arange(1, n + 2), hist))
+            j_act = min(actual_pos, n + 1) - 1
+            pit = float(cdf[j_act] - hist[j_act] + rng_pit.uniform() * hist[j_act])
+            # Expected position if the car finishes (retirement chance taken out).
+            p_fin = max(1 - hist[n], 1e-6)
+            exp_pos_fin = float(np.dot(np.arange(1, n + 1), hist[:n]) / p_fin)
             g = int(min(a["grid"], n))
             rows.append({"race": key, "driver": drv, "grid": g, "actual_pos": actual_pos, "exp_pos": exp_pos,
-                         "in80": lo <= actual_pos <= hi,
+                         "exp_pos_fin": exp_pos_fin, "pos_logloss": float(-np.log(max(hist[j_act], 1e-4))),
+                         "in80": lo <= actual_pos <= hi, "nom80": float(hist[lo - 1:hi].sum()), "pit": pit,
+                         "pace": float(p["pace"]) if "pace" in p and pd.notna(p["pace"]) else np.nan,
                          **{f"p_{o}": float(p[o]) for o in OUTCOMES},
                          **{f"b_{o}": float(base.loc[g, o]) for o in OUTCOMES},
                          "b_win": float(bw[j]),
                          **{f"y_{o}": bool(a[o]) for o in OUTCOMES}})
-        race_rows.append({"race": key, "event": info["event"], "winner": act.index[act["win"]].tolist()[0] if act["win"].any() else None,
+        # Real track-position diagnostic, classified finishers only (review 2.1).
+        fin = act[~act["dnf"]]
+        gr, pr_ = fin["grid"].rank(method="first"), fin["Position"].rank(method="first")
+        diag = json.loads(pf.read_text()).get("diag", {})
+        race_rows.append({"real_grid_finish_rho": float(gr.corr(pr_)), "real_places_moved": float((gr - pr_).abs().mean()),
+                          "sim_grid_finish_rho": diag.get("grid_finish_rho"), "sim_places_moved": diag.get("mean_places_moved"),
+                          "race": key, "event": info["event"], "winner": act.index[act["win"]].tolist()[0] if act["win"].any() else None,
                           "model_fav": pred["win"].idxmax(), "model_fav_p": float(pred["win"].max()),
                           "p_winner": float(pred.loc[act.index[act["win"]][0], "win"]) if act["win"].any() else None,
                           "pole": act["grid"].idxmin()})
@@ -120,19 +142,41 @@ def score(years=("2025", "2026"), tag="all", root=OUT, pred_file="predictions.js
         w = d[d["y_win"]]
         out["winner_logloss"] = {"model": float(-np.log(w["p_win"].clip(1e-4)).mean()),
                                  "grid": float(-np.log(w["b_win"].clip(1e-4)).mean())}
-        sp_m, sp_g = [], []
+        sp_m, sp_g, sp_p, sp_a = [], [], [], []
         for _, g in d.groupby("race"):
             sp_m.append(g["exp_pos"].corr(g["actual_pos"], method="spearman"))
             sp_g.append(g["grid"].corr(g["actual_pos"], method="spearman"))
-        out["rank_corr"] = {"model": float(np.mean(sp_m)), "grid": float(np.mean(sp_g))}
+            if g["pace"].notna().all():
+                sp_p.append(g["pace"].corr(g["actual_pos"], method="spearman"))
+                avg = (g["grid"].rank() + g["pace"].rank()) / 2
+                sp_a.append(avg.corr(g["actual_pos"], method="spearman"))
+        out["rank_corr"] = {"model": float(np.mean(sp_m)), "grid": float(np.mean(sp_g)),
+                            "pace_only": float(np.mean(sp_p)) if sp_p else None,
+                            "grid_pace_avg": float(np.mean(sp_a)) if sp_a else None}
+        # Among classified finishers only: is the order right once retirements
+        # are set aside (review section 7)?
+        fm, fg, fp, fa = [], [], [], []
+        for _, g in d[~d["y_dnf"]].groupby("race"):
+            fm.append(g["exp_pos_fin"].corr(g["actual_pos"], method="spearman"))
+            fg.append(g["grid"].corr(g["actual_pos"], method="spearman"))
+            if g["pace"].notna().all():
+                fp.append(g["pace"].corr(g["actual_pos"], method="spearman"))
+                fa.append(((g["grid"].rank() + g["pace"].rank()) / 2).corr(g["actual_pos"], method="spearman"))
+        out["rank_corr_finishers"] = {"model": float(np.mean(fm)), "grid": float(np.mean(fg)),
+                                      "pace_only": float(np.mean(fp)) if fp else None,
+                                      "grid_pace_avg": float(np.mean(fa)) if fa else None}
+        # Proper score of the whole position distribution (incl. retirement).
+        out["position_logloss"] = float(d["pos_logloss"].mean())
         out["interval80_coverage"] = float(d["in80"].mean())
+        out["interval80_nominal"] = float(d["nom80"].mean())
+        out["pit_central80"] = float(d["pit"].between(0.1, 0.9).mean())
         return out
 
     full = metrics(df)
     rng = np.random.default_rng(0)
     races_ = df["race"].unique()
     boot = {o: [] for o in OUTCOMES}
-    boot["rank"] = []
+    boot["rank"], boot["rank_vs_avg"] = [], []
     for _ in range(1000):
         pick = rng.choice(races_, len(races_))
         d = pd.concat([df[df.race == k] for k in pick])
@@ -140,9 +184,19 @@ def score(years=("2025", "2026"), tag="all", root=OUT, pred_file="predictions.js
         for o in OUTCOMES:
             boot[o].append(m[o]["skill_vs_grid"])
         boot["rank"].append(m["rank_corr"]["model"] - m["rank_corr"]["grid"])
+        if m["rank_corr"]["grid_pace_avg"] is not None:
+            boot["rank_vs_avg"].append(m["rank_corr"]["model"] - m["rank_corr"]["grid_pace_avg"])
+        if m["rank_corr_finishers"]["grid_pace_avg"] is not None:
+            boot.setdefault("fin_vs_avg", []).append(m["rank_corr_finishers"]["model"] - m["rank_corr_finishers"]["grid_pace_avg"])
+            boot.setdefault("fin_vs_grid", []).append(m["rank_corr_finishers"]["model"] - m["rank_corr_finishers"]["grid"])
     for o in OUTCOMES:
         full[o]["skill_ci95"] = np.percentile(boot[o], [2.5, 97.5]).tolist()
     full["rank_corr"]["model_minus_grid_ci95"] = np.percentile(boot["rank"], [2.5, 97.5]).tolist()
+    if boot["rank_vs_avg"]:
+        full["rank_corr"]["model_minus_grid_pace_avg_ci95"] = np.percentile(boot["rank_vs_avg"], [2.5, 97.5]).tolist()
+    if boot.get("fin_vs_avg"):
+        full["rank_corr_finishers"]["model_minus_grid_pace_avg_ci95"] = np.percentile(boot["fin_vs_avg"], [2.5, 97.5]).tolist()
+        full["rank_corr_finishers"]["model_minus_grid_ci95"] = np.percentile(boot["fin_vs_grid"], [2.5, 97.5]).tolist()
 
     for o in ["win", "podium", "points", "dnf"]:
         c = pd.cut(df[f"p_{o}"], BINS, right=False)
@@ -151,6 +205,9 @@ def score(years=("2025", "2026"), tag="all", root=OUT, pred_file="predictions.js
             calib.append({"outcome": o, "bin": f"{b.left:.0%}–{min(b.right, 1):.0%}", "n": int(v.n),
                           "predicted": float(v.predicted), "observed": float(v.observed)})
 
+    if rr["sim_grid_finish_rho"].notna().all():
+        full["track_position"] = {k: float(rr[k].mean()) for k in
+                                  ("real_grid_finish_rho", "sim_grid_finish_rho", "real_places_moved", "sim_places_moved")}
     summary = {"split": tag, "years": list(years), "n_races": int(df.race.nunique()), "n_driver_races": int(len(df)), "metrics": full,
                "favourite_won": float((rr["model_fav"] == rr["winner"]).mean()),
                "pole_won": float((rr["pole"] == rr["winner"]).mean()),
@@ -177,5 +234,5 @@ if __name__ == "__main__":
             print(f"\n=== wet races, mode {mode} ===")
             score(years=("2022", "2023", "2024", "2025", "2026"), tag=mode, root=OUT / "wet", pred_file=f"predictions_{mode}.json")
         sys.exit(0)
-    SPLIT_YEARS = {"dev": ("2025",), "holdout": ("2026",), "all": ("2025", "2026")}[split]
+    SPLIT_YEARS = {"tune": ("2024",), "dev": ("2025",), "holdout": ("2026",), "all": ("2025", "2026")}[split]
     score(years=SPLIT_YEARS, tag=split)

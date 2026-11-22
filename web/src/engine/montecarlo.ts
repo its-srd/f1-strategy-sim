@@ -1,7 +1,7 @@
 // Monte Carlo runner: many races, aggregated into the probabilities and
 // charts the site shows, plus the search for the best alternative strategy.
 
-import { POINTS, prepare, simulateRace, GREEN, type RaceResult } from "./race.ts";
+import { POINTS, prepare, simulateRace, type RaceResult } from "./race.ts";
 import { checkStrategy, enumerateStrategies, expectedTime, makeSetup, strategyLabel, type RaceSetup } from "./setup.ts";
 import type { Params, Scenario, Strategy, WetCall } from "./types.ts";
 
@@ -18,7 +18,10 @@ export interface StrategyEval {
   win: number; podium: number; points: number; expPoints: number; meanPos: number; dnf: number;
   medianTime: number | null; expectedTime: number;
   dExpPts?: number; dExpPtsSE?: number;      // vs your strategy on the same races (paired)
+  rechecked?: boolean;                        // dExpPts re-measured on fresh races (the selected alternative)
   ptsPerSim?: Float32Array;
+  posPerSim?: Int16Array;
+  aheadShare?: number; behindShare?: number;  // paired races where this strategy finished ahead of / behind yours
   parts: { pit: number; tyre: number; traffic: number; held: number; neutral: number; weather: number };
 }
 
@@ -44,7 +47,7 @@ function evalStrategy(setup: RaceSetup, prep: ReturnType<typeof prepare>, strat:
   let win = 0, pod = 0, pts = 0, ep = 0, pos = 0, dnf = 0;
   const times: number[] = [];
   const parts = { pit: 0, tyre: 0, traffic: 0, held: 0, neutral: 0, weather: 0 };
-  const ptsPerSim = new Float32Array(seeds.length);
+  const ptsPerSim = new Float32Array(seeds.length), posPerSim = new Int16Array(seeds.length);
   let j = 0;
   for (const sd of seeds) {
     const r = simulateRace(setup, prep, sd, fallback, { userStrategy: strat, wetCall });
@@ -52,6 +55,7 @@ function evalStrategy(setup: RaceSetup, prep: ReturnType<typeof prepare>, strat:
     if (c.pos === 1) win++;
     if (c.pos <= 3) pod++;
     if (c.pos <= 10 && !c.dnf) { pts++; ep += POINTS[c.pos - 1]; ptsPerSim[j] = POINTS[c.pos - 1]; }
+    posPerSim[j] = c.pos;
     j++;
     pos += c.pos;
     if (c.dnf) dnf++; else times.push(c.time);
@@ -62,7 +66,7 @@ function evalStrategy(setup: RaceSetup, prep: ReturnType<typeof prepare>, strat:
   const pacePct = setup.cars[u].carPct + setup.cars[u].skillPct;
   return { label, strategy: strat, sims: n, win: win / n, podium: pod / n, points: pts / n, expPoints: ep / n,
     meanPos: pos / n, dnf: dnf / n, medianTime: times.length ? median(times) : null,
-    expectedTime: expectedTime(setup.track, strat, pacePct), parts, ptsPerSim };
+    expectedTime: expectedTime(setup.track, strat, pacePct), parts, ptsPerSim, posPerSim };
 }
 
 export function runMonteCarlo(params: Params, sc: Scenario, onProgress: Progress = () => {}): MCResult {
@@ -195,9 +199,33 @@ export function runMonteCarlo(params: Params, sc: Scenario, onProgress: Progress
       dExpPtsSE: Math.sqrt(Math.max(0, m2 / a.length - m * m) / a.length),
       dMedianTime: chosenPaired.medianTime !== null && dflt.medianTime !== null ? chosenPaired.medianTime - dflt.medianTime : null, sims: a.length };
   }
-  for (const c of [chosenPaired, ...candidates]) delete c.ptsPerSim;
+  for (const c of [chosenPaired, ...candidates]) { delete c.ptsPerSim; delete c.posPerSim; }
   candidates.sort((a, b) => b.expPoints - a.expPoints || a.meanPos - b.meanPos);
   const alternative = candidates[0] ?? null;
+  // The best of several noisy estimates is biased upward, so the winner is
+  // compared with your strategy again on fresh random races and that is the
+  // figure reported for it.
+  if (alternative) {
+    onProgress(picked.length, picked.length + 1, "Re-checking the best alternative");
+    const fresh = Array.from({ length: ALT }, (_, k) => (sc.seed * 1000003 + (sc.sims + k) * 7919 + 17) >>> 0);
+    const ea = evalStrategy(setup, prep, alternative.strategy, fresh, fallback);
+    const eb = evalStrategy(setup, prep, sc.strategy, fresh, fallback, chosenLabel);
+    const a = ea.ptsPerSim!, b = eb.ptsPerSim!;
+    let m = 0, m2 = 0, ahead = 0, behind = 0;
+    for (let i = 0; i < a.length; i++) {
+      const d = a[i] - b[i]; m += d; m2 += d * d;
+      if (ea.posPerSim![i] < eb.posPerSim![i]) ahead++; else if (ea.posPerSim![i] > eb.posPerSim![i]) behind++;
+    }
+    // How often the alternative actually finished ahead or behind in the same
+    // race: the uncertainty of the decision (tyre wear, safety cars, rivals),
+    // not just the Monte Carlo error of the average.
+    alternative.aheadShare = ahead / a.length;
+    alternative.behindShare = behind / a.length;
+    m /= a.length;
+    alternative.dExpPts = m;
+    alternative.dExpPtsSE = Math.sqrt(Math.max(0, m2 / a.length - m * m) / a.length);
+    alternative.rechecked = true;
+  }
 
   // ---- lap-by-lap delta, chosen vs alternative, on paired seeds
   let deltaByLap: MCResult["deltaByLap"] = null;
@@ -214,7 +242,6 @@ export function runMonteCarlo(params: Params, sc: Scenario, onProgress: Progress
     for (let L = 1; L <= N; L++) { const s = per[L].sort((x, y) => x - y); p25.push(quant(s, 0.25)); p50.push(quant(s, 0.5)); p75.push(quant(s, 0.75)); }
     deltaByLap = { p25, p50, p75 };
   }
-  void chosenPaired; void GREEN;
 
   onProgress(1, 1, "Done");
   return {

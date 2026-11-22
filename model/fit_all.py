@@ -151,19 +151,28 @@ def main(target: int = 2026, data=None, fixed_breaks: dict | None = None, grid_r
         latest = last_res[last_res.Round == last_res.Round.max()].sort_values("Position")
     else:
         # Backtest: the test race's actual starting grid (pit-lane starts at
-        # the back; non-starters left out).
+        # the back, ordered by qualifying, not by their finishing position;
+        # non-starters left out).
         latest = grid_res[~grid_res["Status"].isin(E.NOT_RACED)].copy()
         latest["g"] = latest["GridPosition"].where(latest["GridPosition"] > 0, 99)
-        latest = latest.sort_values(["g", "Position"])
+        qk = quali_all[quali_all["RaceKey"] == grid_res["RaceKey"].iloc[0]].set_index("DriverId") \
+            if not quali_all.empty else pd.DataFrame(columns=["GapPct", "Wet"])
+        qpos = qk["GapPct"].rank(method="first")
+        latest["qp"] = latest["DriverId"].map(qpos).fillna(99)
+        latest = latest.sort_values(["g", "qp"])
     grid = [{"driver_id": r.DriverId, "code": r.Abbreviation, "name": r.FullName, "team_id": r.TeamId,
              "number": str(r.DriverNumber)} for r in latest.itertuples()]
-    if grid_res is not None and not quali_all.empty:
-        # Backtest: the test race's own qualifying (run before the race).
-        qk = quali_all[quali_all["RaceKey"] == grid_res["RaceKey"].iloc[0]].set_index("DriverId")
+    if grid_res is not None and not qk.empty:
+        # Backtest: the test race's own qualifying (run before the race), and
+        # each car's qualifying position before penalties (I2).
+        pit_lane = set(latest.loc[latest["g"] == 99, "DriverId"])
         for g_ in grid:
             if g_["driver_id"] in qk.index:
                 g_["quali_gap_pct"] = float(qk.loc[g_["driver_id"], "GapPct"])
                 g_["quali_wet"] = bool(qk.loc[g_["driver_id"], "Wet"])
+                g_["quali_pos"] = int(qpos[g_["driver_id"]])
+            if g_["driver_id"] in pit_lane:
+                g_["pit_lane"] = True
     info = res.sort_values(["Year", "Round"]).groupby("DriverId").tail(1).set_index("DriverId")
     wet_eff = wet.get("driver_wet_effects", {})
     drivers_out = {}
@@ -223,6 +232,7 @@ def main(target: int = 2026, data=None, fixed_breaks: dict | None = None, grid_r
 
     global_out = {
         "pooled": {"pace": {p: {"mean_pct": m["pooled_mean"], "sd_pct": m["pooled_sd"], "omega_pct_per_year": float(np.sqrt(m["omega2"])),
+                                 "phi_per_year": m.get("phi"), "between_track_sd_pct": float(np.sqrt(m["tau2"])) if "tau2" in m else None,
                                 "n_tracks": m["n_tracks"], "breaks": m.get("breaks", [])} for p, m in tp["pooling"].items()},
                    "pit_green_loss_s": pit["pooled_green_loss_s"], "pit_sd_s": pit["pooled_sd"]},
         "era_pace_ratio": {str(k): {"ratio": v[0], "n_tracks": v[1]} for k, v in tp["era_pace_ratio"].items()},
@@ -235,7 +245,7 @@ def main(target: int = 2026, data=None, fixed_breaks: dict | None = None, grid_r
         "overtaking": {k: v for k, v in ov.items() if k != "tracks"},
         "wet": {k: v for k, v in wet.items() if k != "driver_wet_effects"},
         "gaps": gaps, "pace_mode": pmode,
-        "max_stint_pooled": {c: int(st.loc[st.compound == c, "age_end"].quantile(0.95)) for c in C.DRY},
+        "max_stint_pooled": SI.max_stint_pooled(st),
         "car_form": form, "grid_effect": grid_fx, "quali_effect": quali_fx,
         "skill_model": {"tau_pct": float(np.sqrt(sk["tau2"])), "omega_pct_per_year": float(np.sqrt(sk["omega2"])),
                         "sigma0_pct": float(np.sqrt(sk["sigma02"])), "n_obs": sk["n_obs"],

@@ -13,6 +13,8 @@ export interface CarSetup {
   skillPct: number; skillSd: number;
   corr: number;                                            // posterior corr(car, skill), own seat only (E1)
   qualiGap: number | null;                                 // dry qualifying gap to pole, % (I4), if known
+  qualiPos: number | null;                                 // qualifying position before penalties, if known
+  pitLane: boolean;
   wetPct: number; wetSd: number;
   dnfProb: number;                                         // R4
 }
@@ -110,7 +112,7 @@ export function buildField(p: Params, sc: Scenario): CarSetup[] {
     // Car and skill are estimated jointly from teammate comparisons, so for a
     // driver in the seat they actually raced in 2026 they must be drawn with
     // their posterior correlation. A driver moved to another car: independent.
-    const ownSeat = d?.last_season === 2026 && d?.last_team === g.team_id;
+    const ownSeat = d?.last_season === (p.meta.target_season ?? 2026) && d?.last_team === g.team_id;
     const cc = d?.car_corr_2026 ?? {};
     const vals = Object.values(cc);
     const corr = !ownSeat ? 0 : (cc[sc.track] ?? (vals.length ? vals.reduce((a, b) => a + b, 0) / vals.length : 0));
@@ -121,7 +123,8 @@ export function buildField(p: Params, sc: Scenario): CarSetup[] {
       carSd: bt ? bt.sd : team.season_sd_pct,
       carSource: bt ? `2026 ${t.name}` : "2026 season mean (track not yet raced in 2026)",
       skillPct: d?.skill_pct ?? 0, skillSd: d?.sd_pct ?? p.global.skill_model.sigma0_pct, corr,
-      qualiGap: g.quali_gap_pct === undefined || g.quali_wet || g.quali_gap_pct > (p.global.quali_effect?.quali_gap_clip_pct ?? Infinity) ? null : g.quali_gap_pct,
+      qualiGap: g.quali_gap_pct === undefined || g.quali_wet || g.quali_gap_pct > (p.calibration?.pace_blend?.quali.quali_gap_clip_pct ?? p.global.quali_effect?.quali_gap_clip_pct ?? Infinity) ? null : g.quali_gap_pct,
+      qualiPos: g.quali_pos ?? null, pitLane: !!g.pit_lane,
       // W1b: the measured driver wet effects made wet-race predictions worse
       // in the backtest, so they are only used if calibration turns them on.
       wetPct: useWetSkill ? d?.wet_extra_pct ?? 0 : 0,
