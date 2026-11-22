@@ -1,0 +1,45 @@
+{
+ "generated_utc": "2026-11-22T15:12:33.691064+00:00",
+ "target_season": 2026,
+ "races_in_data": 194,
+ "dry_races_fitted": 170,
+ "first_race": [
+  2018,
+  "Australian Grand Prix"
+ ],
+ "last_race": [
+  2026,
+  "Las Vegas Grand Prix"
+ ],
+ "data_through": {
+  "year": 2026,
+  "round": 21
+ },
+ "lap_rows": 214121,
+ "clean_laps": 149627,
+ "filter_removed": {
+  "excluded race (2021 Spa)": 60,
+  "ghost lap": 349,
+  "no lap time": 133,
+  "lap 1": 3757,
+  "pit in or out lap": 13175,
+  "not green for the whole lap": 20114,
+  "first lap after SC/VSC/red": 3460,
+  "FastF1 IsAccurate false": 193,
+  "deleted by race control": 1732,
+  "race where wet tyres were used": 18104,
+  "rainfall reported on lap": 2555,
+  "not a dry compound / no tyre age": 862,
+  "no driver identity": 0
+ },
+ "outlier_laps_removed": 2674,
+ "compound_laps_dropped_thin": 848,
+ "sources": {
+  "laps": "TracingInsights GitHub (FastF1 output)",
+  "results": "Jolpica-F1"
+ },
+ "units": {
+  "pct": "percent of the track's base lap time; negative = faster",
+  "s": "seconds"
+ }
+}

@@ -1,0 +1,67 @@
+{
+ "pace_spread_scale": 0.35,
+ "strategy_choices": 5,
+ "chosen_on": "2025 practice races (18 dry races, backtest with only earlier data); the 2026 races were not used",
+ "scores": {
+  "note": "Brier skill vs grid-only baseline (positive = better than baseline); winner log-loss (grid baseline 1.125); 5,000 sims per race",
+  "m1_k0.5": {
+   "win": -0.127,
+   "podium": -0.05,
+   "points": 0.01,
+   "winner_logloss": 1.193
+  },
+  "m3_k0.35": {
+   "win": -0.088,
+   "podium": -0.023,
+   "points": 0.011,
+   "winner_logloss": 1.124
+  },
+  "m5_k0.35": {
+   "win": -0.08,
+   "podium": -0.021,
+   "points": 0.01,
+   "winner_logloss": 1.108
+  },
+  "m5_k0.25": {
+   "win": -0.078,
+   "podium": -0.018,
+   "points": 0.008,
+   "winner_logloss": 1.105
+  },
+  "m8_k0.35": {
+   "win": -0.082,
+   "podium": -0.027,
+   "points": 0.004,
+   "winner_logloss": 1.101
+  },
+  "m12_k0.35": {
+   "win": -0.087,
+   "podium": -0.032,
+   "points": -0.004,
+   "winner_logloss": 1.102
+  },
+  "without_weekend_info_m5": {
+   "k1.0": {
+    "win": -0.265,
+    "podium": -0.117,
+    "points": -0.012,
+    "winner_logloss": 1.376
+   },
+   "k0.5": {
+    "win": -0.287,
+    "podium": -0.104,
+    "points": -0.012,
+    "winner_logloss": 1.345
+   },
+   "k0.35": {
+    "win": -0.306,
+    "podium": -0.101,
+    "points": -0.012,
+    "winner_logloss": 1.359
+   },
+   "decision": "no consistent gain from narrowing without qualifying information, so the full fitted spread (1.0) is kept"
+  }
+ },
+ "pace_spread_scale_without_quali": 1.0,
+ "note": "pace_spread_scale applies when this weekend's dry qualifying gaps are known; pace_spread_scale_without_quali otherwise (the website's own scenarios)"
+}

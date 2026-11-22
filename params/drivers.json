@@ -1,0 +1,2172 @@
+{
+ "sirotkin": {
+  "name": "Sergey Sirotkin",
+  "code": "SIR",
+  "last_team": "williams",
+  "last_season": 2018,
+  "skill_pct": 0.130057,
+  "sd_pct": 0.288827,
+  "years_since_last": 8,
+  "career_dry_races_fitted": 17,
+  "first_season": 2018,
+  "car_corr_2026": {},
+  "wet_extra_pct": 0.0,
+  "wet_extra_sd": 0.649797,
+  "wet_races": 0,
+  "history": {
+   "2018": {
+    "skill_pct": 0.130057,
+    "sd": 0.127892,
+    "races": 17
+   }
+  }
+ },
+ "ericsson": {
+  "name": "Marcus Ericsson",
+  "code": "ERI",
+  "last_team": "sauber",
+  "last_season": 2018,
+  "skill_pct": 0.142119,
+  "sd_pct": 0.288383,
+  "years_since_last": 8,
+  "career_dry_races_fitted": 19,
+  "first_season": 2018,
+  "car_corr_2026": {},
+  "wet_extra_pct": 0.0,
+  "wet_extra_sd": 0.649797,
+  "wet_races": 0,
+  "history": {
+   "2018": {
+    "skill_pct": 0.142119,
+    "sd": 0.126886,
+    "races": 19
+   }
+  }
+ },
+ "vandoorne": {
+  "name": "Stoffel Vandoorne",
+  "code": "VAN",
+  "last_team": "mclaren",
+  "last_season": 2018,
+  "skill_pct": 0.179346,
+  "sd_pct": 0.293466,
+  "years_since_last": 8,
+  "career_dry_races_fitted": 19,
+  "first_season": 2018,
+  "car_corr_2026": {},
+  "wet_extra_pct": 0.0,
+  "wet_extra_sd": 0.649797,
+  "wet_races": 0,
+  "history": {
+   "2018": {
+    "skill_pct": 0.179346,
+    "sd": 0.13805,
+    "races": 19
+   }
+  }
+ },
+ "brendon_hartley": {
+  "name": "Brendon Hartley",
+  "code": "HAR",
+  "last_team": "toro_rosso",
+  "last_season": 2018,
+  "skill_pct": 0.167363,
+  "sd_pct": 0.28924,
+  "years_since_last": 8,
+  "career_dry_races_fitted": 16,
+  "first_season": 2018,
+  "car_corr_2026": {},
+  "wet_extra_pct": 0.0,
+  "wet_extra_sd": 0.649797,
+  "wet_races": 0,
+  "history": {
+   "2018": {
+    "skill_pct": 0.167363,
+    "sd": 0.128821,
+    "races": 16
+   }
+  }
+ },
+ "pietro_fittipaldi": {
+  "name": "Pietro Fittipaldi",
+  "code": "FIT",
+  "last_team": "haas",
+  "last_season": 2020,
+  "skill_pct": 0.121451,
+  "sd_pct": 0.286384,
+  "years_since_last": 6,
+  "career_dry_races_fitted": 2,
+  "first_season": 2020,
+  "car_corr_2026": {},
+  "wet_extra_pct": 0.0,
+  "wet_extra_sd": 0.649797,
+  "wet_races": 0,
+  "history": {
+   "2020": {
+    "skill_pct": 0.121451,
+    "sd": 0.178094,
+    "races": 2
+   }
+  }
+ },
+ "kvyat": {
+  "name": "Daniil Kvyat",
+  "code": "KVY",
+  "last_team": "alphatauri",
+  "last_season": 2020,
+  "skill_pct": 0.008243,
+  "sd_pct": 0.250552,
+  "years_since_last": 6,
+  "career_dry_races_fitted": 35,
+  "first_season": 2019,
+  "car_corr_2026": {},
+  "wet_extra_pct": 0.0,
+  "wet_extra_sd": 0.649797,
+  "wet_races": 0,
+  "history": {
+   "2019": {
+    "skill_pct": -0.069049,
+    "sd": 0.098531,
+    "races": 20
+   },
+   "2020": {
+    "skill_pct": 0.008243,
+    "sd": 0.111703,
+    "races": 15
+   }
+  }
+ },
+ "aitken": {
+  "name": "Jack Aitken",
+  "code": "AIT",
+  "last_team": "williams",
+  "last_season": 2020,
+  "skill_pct": 0.081373,
+  "sd_pct": 0.293096,
+  "years_since_last": 6,
+  "career_dry_races_fitted": 1,
+  "first_season": 2020,
+  "car_corr_2026": {},
+  "wet_extra_pct": 0.0,
+  "wet_extra_sd": 0.649797,
+  "wet_races": 0,
+  "history": {
+   "2020": {
+    "skill_pct": 0.081373,
+    "sd": 0.188698,
+    "races": 1
+   }
+  }
+ },
+ "grosjean": {
+  "name": "Romain Grosjean",
+  "code": "GRO",
+  "last_team": "haas",
+  "last_season": 2020,
+  "skill_pct": -0.029732,
+  "sd_pct": 0.265866,
+  "years_since_last": 6,
+  "career_dry_races_fitted": 49,
+  "first_season": 2018,
+  "car_corr_2026": {},
+  "wet_extra_pct": 0.0,
+  "wet_extra_sd": 0.649797,
+  "wet_races": 0,
+  "history": {
+   "2018": {
+    "skill_pct": -0.029192,
+    "sd": 0.127132,
+    "races": 18
+   },
+   "2019": {
+    "skill_pct": -0.036401,
+    "sd": 0.131453,
+    "races": 19
+   },
+   "2020": {
+    "skill_pct": -0.029732,
+    "sd": 0.14278,
+    "races": 12
+   }
+  }
+ },
+ "giovinazzi": {
+  "name": "Antonio Giovinazzi",
+  "code": "GIO",
+  "last_team": "alfa",
+  "last_season": 2021,
+  "skill_pct": 0.016524,
+  "sd_pct": 0.251844,
+  "years_since_last": 5,
+  "career_dry_races_fitted": 51,
+  "first_season": 2019,
+  "car_corr_2026": {},
+  "wet_extra_pct": 0.157235,
+  "wet_extra_sd": 0.482273,
+  "wet_races": 1,
+  "history": {
+   "2019": {
+    "skill_pct": 0.074745,
+    "sd": 0.127708,
+    "races": 20
+   },
+   "2020": {
+    "skill_pct": 0.01948,
+    "sd": 0.137617,
+    "races": 14
+   },
+   "2021": {
+    "skill_pct": 0.016524,
+    "sd": 0.146663,
+    "races": 17
+   }
+  }
+ },
+ "kubica": {
+  "name": "Robert Kubica",
+  "code": "KUB",
+  "last_team": "alfa",
+  "last_season": 2021,
+  "skill_pct": 0.531977,
+  "sd_pct": 0.258999,
+  "years_since_last": 5,
+  "career_dry_races_fitted": 22,
+  "first_season": 2019,
+  "car_corr_2026": {},
+  "wet_extra_pct": 0.0,
+  "wet_extra_sd": 0.649797,
+  "wet_races": 0,
+  "history": {
+   "2019": {
+    "skill_pct": 0.493234,
+    "sd": 0.11928,
+    "races": 20
+   },
+   "2021": {
+    "skill_pct": 0.531977,
+    "sd": 0.158635,
+    "races": 2
+   }
+  }
+ },
+ "mazepin": {
+  "name": "Nikita Mazepin",
+  "code": "MAZ",
+  "last_team": "haas",
+  "last_season": 2021,
+  "skill_pct": 0.342751,
+  "sd_pct": 0.247726,
+  "years_since_last": 5,
+  "career_dry_races_fitted": 15,
+  "first_season": 2021,
+  "car_corr_2026": {},
+  "wet_extra_pct": 0.349629,
+  "wet_extra_sd": 0.601969,
+  "wet_races": 1,
+  "history": {
+   "2021": {
+    "skill_pct": 0.342751,
+    "sd": 0.139474,
+    "races": 15
+   }
+  }
+ },
+ "raikkonen": {
+  "name": "Kimi R\u00e4ikk\u00f6nen",
+  "code": "RAI",
+  "last_team": "alfa",
+  "last_season": 2021,
+  "skill_pct": -0.121828,
+  "sd_pct": 0.254259,
+  "years_since_last": 5,
+  "career_dry_races_fitted": 66,
+  "first_season": 2018,
+  "car_corr_2026": {},
+  "wet_extra_pct": -0.157235,
+  "wet_extra_sd": 0.482273,
+  "wet_races": 1,
+  "history": {
+   "2018": {
+    "skill_pct": -0.112516,
+    "sd": 0.110034,
+    "races": 17
+   },
+   "2019": {
+    "skill_pct": -0.143364,
+    "sd": 0.122228,
+    "races": 20
+   },
+   "2020": {
+    "skill_pct": -0.105998,
+    "sd": 0.137259,
+    "races": 15
+   },
+   "2021": {
+    "skill_pct": -0.121828,
+    "sd": 0.150772,
+    "races": 14
+   }
+  }
+ },
+ "vettel": {
+  "name": "Sebastian Vettel",
+  "code": "VET",
+  "last_team": "aston_martin",
+  "last_season": 2022,
+  "skill_pct": -0.085715,
+  "sd_pct": 0.217291,
+  "years_since_last": 4,
+  "career_dry_races_fitted": 86,
+  "first_season": 2018,
+  "car_corr_2026": {},
+  "wet_extra_pct": -0.828525,
+  "wet_extra_sd": 0.211031,
+  "wet_races": 5,
+  "history": {
+   "2018": {
+    "skill_pct": -0.136835,
+    "sd": 0.102426,
+    "races": 20
+   },
+   "2019": {
+    "skill_pct": -0.150141,
+    "sd": 0.098126,
+    "races": 20
+   },
+   "2020": {
+    "skill_pct": -0.057983,
+    "sd": 0.100459,
+    "races": 13
+   },
+   "2021": {
+    "skill_pct": -0.074978,
+    "sd": 0.104428,
+    "races": 17
+   },
+   "2022": {
+    "skill_pct": -0.085715,
+    "sd": 0.116974,
+    "races": 16
+   }
+  }
+ },
+ "mick_schumacher": {
+  "name": "Mick Schumacher",
+  "code": "MSC",
+  "last_team": "haas",
+  "last_season": 2022,
+  "skill_pct": -0.094538,
+  "sd_pct": 0.222033,
+  "years_since_last": 4,
+  "career_dry_races_fitted": 33,
+  "first_season": 2021,
+  "car_corr_2026": {},
+  "wet_extra_pct": -0.372813,
+  "wet_extra_sd": 0.233182,
+  "wet_races": 5,
+  "history": {
+   "2021": {
+    "skill_pct": -0.131409,
+    "sd": 0.123432,
+    "races": 16
+   },
+   "2022": {
+    "skill_pct": -0.094538,
+    "sd": 0.125565,
+    "races": 17
+   }
+  }
+ },
+ "latifi": {
+  "name": "Nicholas Latifi",
+  "code": "LAT",
+  "last_team": "williams",
+  "last_season": 2022,
+  "skill_pct": 0.253813,
+  "sd_pct": 0.212638,
+  "years_since_last": 4,
+  "career_dry_races_fitted": 49,
+  "first_season": 2020,
+  "car_corr_2026": {},
+  "wet_extra_pct": -0.504078,
+  "wet_extra_sd": 0.285564,
+  "wet_races": 2,
+  "history": {
+   "2020": {
+    "skill_pct": 0.109128,
+    "sd": 0.105045,
+    "races": 14
+   },
+   "2021": {
+    "skill_pct": 0.152268,
+    "sd": 0.102357,
+    "races": 17
+   },
+   "2022": {
+    "skill_pct": 0.253813,
+    "sd": 0.108086,
+    "races": 18
+   }
+  }
+ },
+ "de_vries": {
+  "name": "Nyck de Vries",
+  "code": "DEV",
+  "last_team": "alphatauri",
+  "last_season": 2023,
+  "skill_pct": 0.27253,
+  "sd_pct": 0.206081,
+  "years_since_last": 3,
+  "career_dry_races_fitted": 10,
+  "first_season": 2022,
+  "car_corr_2026": {},
+  "wet_extra_pct": -0.794647,
+  "wet_extra_sd": 0.435591,
+  "wet_races": 1,
+  "history": {
+   "2022": {
+    "skill_pct": 0.22787,
+    "sd": 0.134829,
+    "races": 1
+   },
+   "2023": {
+    "skill_pct": 0.27253,
+    "sd": 0.131606,
+    "races": 9
+   }
+  }
+ },
+ "ricciardo": {
+  "name": "Daniel Ricciardo",
+  "code": "RIC",
+  "last_team": "rb",
+  "last_season": 2024,
+  "skill_pct": -0.009969,
+  "sd_pct": 0.172426,
+  "years_since_last": 2,
+  "career_dry_races_fitted": 110,
+  "first_season": 2018,
+  "car_corr_2026": {},
+  "wet_extra_pct": 0.260802,
+  "wet_extra_sd": 0.185315,
+  "wet_races": 7,
+  "history": {
+   "2018": {
+    "skill_pct": -0.200091,
+    "sd": 0.094528,
+    "races": 19
+   },
+   "2019": {
+    "skill_pct": -0.187666,
+    "sd": 0.09024,
+    "races": 20
+   },
+   "2020": {
+    "skill_pct": -0.159902,
+    "sd": 0.091604,
+    "races": 15
+   },
+   "2021": {
+    "skill_pct": -0.053834,
+    "sd": 0.096581,
+    "races": 17
+   },
+   "2022": {
+    "skill_pct": -0.012911,
+    "sd": 0.100763,
+    "races": 17
+   },
+   "2023": {
+    "skill_pct": -0.02341,
+    "sd": 0.106525,
+    "races": 7
+   },
+   "2024": {
+    "skill_pct": -0.009969,
+    "sd": 0.113861,
+    "races": 15
+   }
+  }
+ },
+ "sargeant": {
+  "name": "Logan Sargeant",
+  "code": "SAR",
+  "last_team": "williams",
+  "last_season": 2024,
+  "skill_pct": 0.147284,
+  "sd_pct": 0.180438,
+  "years_since_last": 2,
+  "career_dry_races_fitted": 32,
+  "first_season": 2023,
+  "car_corr_2026": {},
+  "wet_extra_pct": -0.27086,
+  "wet_extra_sd": 0.293799,
+  "wet_races": 3,
+  "history": {
+   "2023": {
+    "skill_pct": 0.095609,
+    "sd": 0.114842,
+    "races": 20
+   },
+   "2024": {
+    "skill_pct": 0.147284,
+    "sd": 0.125665,
+    "races": 12
+   }
+  }
+ },
+ "zhou": {
+  "name": "Guanyu Zhou",
+  "code": "ZHO",
+  "last_team": "sauber",
+  "last_season": 2024,
+  "skill_pct": 0.274353,
+  "sd_pct": 0.192933,
+  "years_since_last": 2,
+  "career_dry_races_fitted": 56,
+  "first_season": 2022,
+  "car_corr_2026": {},
+  "wet_extra_pct": 1.129787,
+  "wet_extra_sd": 0.374788,
+  "wet_races": 9,
+  "history": {
+   "2022": {
+    "skill_pct": 0.269895,
+    "sd": 0.127305,
+    "races": 16
+   },
+   "2023": {
+    "skill_pct": 0.227722,
+    "sd": 0.133316,
+    "races": 20
+   },
+   "2024": {
+    "skill_pct": 0.274353,
+    "sd": 0.143028,
+    "races": 20
+   }
+  }
+ },
+ "kevin_magnussen": {
+  "name": "Kevin Magnussen",
+  "code": "MAG",
+  "last_team": "haas",
+  "last_season": 2024,
+  "skill_pct": -0.005967,
+  "sd_pct": 0.182656,
+  "years_since_last": 2,
+  "career_dry_races_fitted": 105,
+  "first_season": 2018,
+  "car_corr_2026": {},
+  "wet_extra_pct": -0.094069,
+  "wet_extra_sd": 0.204154,
+  "wet_races": 8,
+  "history": {
+   "2018": {
+    "skill_pct": -0.046109,
+    "sd": 0.125516,
+    "races": 18
+   },
+   "2019": {
+    "skill_pct": -0.053433,
+    "sd": 0.126219,
+    "races": 19
+   },
+   "2020": {
+    "skill_pct": -0.075938,
+    "sd": 0.123637,
+    "races": 13
+   },
+   "2022": {
+    "skill_pct": -0.064999,
+    "sd": 0.11529,
+    "races": 17
+   },
+   "2023": {
+    "skill_pct": -0.023491,
+    "sd": 0.1176,
+    "races": 19
+   },
+   "2024": {
+    "skill_pct": -0.005967,
+    "sd": 0.12883,
+    "races": 19
+   }
+  }
+ },
+ "doohan": {
+  "name": "Jack Doohan",
+  "code": "DOO",
+  "last_team": "alpine",
+  "last_season": 2025,
+  "skill_pct": 0.132817,
+  "sd_pct": 0.188196,
+  "years_since_last": 1,
+  "career_dry_races_fitted": 5,
+  "first_season": 2024,
+  "car_corr_2026": {},
+  "wet_extra_pct": 0.0,
+  "wet_extra_sd": 0.649797,
+  "wet_races": 0,
+  "history": {
+   "2024": {
+    "skill_pct": 0.134057,
+    "sd": 0.157153,
+    "races": 1
+   },
+   "2025": {
+    "skill_pct": 0.132817,
+    "sd": 0.164422,
+    "races": 4
+   }
+  }
+ },
+ "sainz": {
+  "name": "Carlos Sainz",
+  "code": "SAI",
+  "last_team": "williams",
+  "last_season": 2026,
+  "skill_pct": -0.229997,
+  "sd_pct": 0.136216,
+  "years_since_last": 0,
+  "career_dry_races_fitted": 160,
+  "first_season": 2018,
+  "car_corr_2026": {
+   "albert_park": -0.498552,
+   "shanghai": -0.449275,
+   "suzuka": -0.530302,
+   "miami": -0.526963,
+   "monaco": -0.49184,
+   "catalunya": -0.51655,
+   "red_bull_ring": -0.512809,
+   "silverstone": -0.489922,
+   "spa": -0.510548,
+   "hungaroring": -0.481699,
+   "zandvoort": -0.476017,
+   "monza": -0.516524,
+   "madring": -0.495698,
+   "baku": -0.520122,
+   "marina_bay": -0.522965,
+   "americas": -0.497982,
+   "rodriguez": -0.504438,
+   "vegas": -0.431608
+  },
+  "wet_extra_pct": -0.114237,
+  "wet_extra_sd": 0.233219,
+  "wet_races": 11,
+  "history": {
+   "2018": {
+    "skill_pct": -0.080064,
+    "sd": 0.099948,
+    "races": 20
+   },
+   "2019": {
+    "skill_pct": -0.167877,
+    "sd": 0.09837,
+    "races": 19
+   },
+   "2020": {
+    "skill_pct": -0.199558,
+    "sd": 0.100022,
+    "races": 12
+   },
+   "2021": {
+    "skill_pct": -0.19492,
+    "sd": 0.102382,
+    "races": 17
+   },
+   "2022": {
+    "skill_pct": -0.180904,
+    "sd": 0.108001,
+    "races": 16
+   },
+   "2023": {
+    "skill_pct": -0.18723,
+    "sd": 0.110602,
+    "races": 19
+   },
+   "2024": {
+    "skill_pct": -0.221066,
+    "sd": 0.110136,
+    "races": 20
+   },
+   "2025": {
+    "skill_pct": -0.205793,
+    "sd": 0.118719,
+    "races": 19
+   },
+   "2026": {
+    "skill_pct": -0.229997,
+    "sd": 0.136216,
+    "races": 18
+   }
+  }
+ },
+ "ocon": {
+  "name": "Esteban Ocon",
+  "code": "OCO",
+  "last_team": "haas",
+  "last_season": 2026,
+  "skill_pct": -0.103127,
+  "sd_pct": 0.133373,
+  "years_since_last": 0,
+  "career_dry_races_fitted": 136,
+  "first_season": 2018,
+  "car_corr_2026": {
+   "albert_park": -0.509986,
+   "shanghai": -0.469765,
+   "suzuka": -0.512988,
+   "miami": -0.513906,
+   "monaco": -0.428464,
+   "catalunya": -0.478054,
+   "red_bull_ring": -0.504378,
+   "silverstone": -0.509467,
+   "spa": -0.509429,
+   "hungaroring": -0.460651,
+   "zandvoort": -0.341154,
+   "monza": -0.486301,
+   "madring": -0.492385,
+   "baku": -0.51646,
+   "marina_bay": -0.514066,
+   "americas": -0.508343
+  },
+  "wet_extra_pct": 0.109129,
+  "wet_extra_sd": 0.160378,
+  "wet_races": 11,
+  "history": {
+   "2018": {
+    "skill_pct": -0.024526,
+    "sd": 0.103696,
+    "races": 16
+   },
+   "2020": {
+    "skill_pct": 0.055417,
+    "sd": 0.096803,
+    "races": 14
+   },
+   "2021": {
+    "skill_pct": 0.017201,
+    "sd": 0.099571,
+    "races": 15
+   },
+   "2022": {
+    "skill_pct": -0.006507,
+    "sd": 0.098798,
+    "races": 18
+   },
+   "2023": {
+    "skill_pct": -0.033908,
+    "sd": 0.097641,
+    "races": 18
+   },
+   "2024": {
+    "skill_pct": -0.052112,
+    "sd": 0.102549,
+    "races": 18
+   },
+   "2025": {
+    "skill_pct": -0.049125,
+    "sd": 0.116022,
+    "races": 21
+   },
+   "2026": {
+    "skill_pct": -0.103127,
+    "sd": 0.133373,
+    "races": 16
+   }
+  }
+ },
+ "perez": {
+  "name": "Sergio P\u00e9rez",
+  "code": "PER",
+  "last_team": "cadillac",
+  "last_season": 2026,
+  "skill_pct": -0.392144,
+  "sd_pct": 0.143183,
+  "years_since_last": 0,
+  "career_dry_races_fitted": 142,
+  "first_season": 2018,
+  "car_corr_2026": {
+   "albert_park": -0.419079,
+   "shanghai": -0.547797,
+   "suzuka": -0.532203,
+   "miami": -0.488605,
+   "monaco": -0.516726,
+   "catalunya": -0.537457,
+   "silverstone": -0.515965,
+   "hungaroring": -0.541427,
+   "zandvoort": -0.482082,
+   "monza": -0.489904,
+   "madring": -0.474028,
+   "baku": -0.537174,
+   "marina_bay": -0.527598,
+   "americas": -0.534341,
+   "rodriguez": -0.524047,
+   "vegas": -0.543641
+  },
+  "wet_extra_pct": 0.1987,
+  "wet_extra_sd": 0.206489,
+  "wet_races": 10,
+  "history": {
+   "2018": {
+    "skill_pct": -0.145503,
+    "sd": 0.1,
+    "races": 20
+   },
+   "2019": {
+    "skill_pct": -0.217669,
+    "sd": 0.095828,
+    "races": 20
+   },
+   "2020": {
+    "skill_pct": -0.279425,
+    "sd": 0.097413,
+    "races": 13
+   },
+   "2021": {
+    "skill_pct": -0.30141,
+    "sd": 0.100575,
+    "races": 17
+   },
+   "2022": {
+    "skill_pct": -0.339204,
+    "sd": 0.107236,
+    "races": 18
+   },
+   "2023": {
+    "skill_pct": -0.3585,
+    "sd": 0.111075,
+    "races": 19
+   },
+   "2024": {
+    "skill_pct": -0.354669,
+    "sd": 0.114635,
+    "races": 19
+   },
+   "2026": {
+    "skill_pct": -0.392144,
+    "sd": 0.143183,
+    "races": 16
+   }
+  }
+ },
+ "albon": {
+  "name": "Alexander Albon",
+  "code": "ALB",
+  "last_team": "williams",
+  "last_season": 2026,
+  "skill_pct": -0.177019,
+  "sd_pct": 0.135844,
+  "years_since_last": 0,
+  "career_dry_races_fitted": 125,
+  "first_season": 2019,
+  "car_corr_2026": {
+   "albert_park": -0.496093,
+   "suzuka": -0.52939,
+   "miami": -0.528152,
+   "monaco": -0.480128,
+   "catalunya": -0.513122,
+   "red_bull_ring": -0.514231,
+   "silverstone": -0.465597,
+   "spa": -0.514147,
+   "hungaroring": -0.48072,
+   "zandvoort": -0.453036,
+   "monza": -0.521944,
+   "madring": -0.51223,
+   "baku": -0.523896,
+   "marina_bay": -0.520796,
+   "americas": -0.511424,
+   "rodriguez": -0.49716
+  },
+  "wet_extra_pct": -0.251819,
+  "wet_extra_sd": 0.237957,
+  "wet_races": 8,
+  "history": {
+   "2019": {
+    "skill_pct": -0.051296,
+    "sd": 0.094141,
+    "races": 20
+   },
+   "2020": {
+    "skill_pct": -0.021208,
+    "sd": 0.097322,
+    "races": 15
+   },
+   "2022": {
+    "skill_pct": -0.185697,
+    "sd": 0.100855,
+    "races": 16
+   },
+   "2023": {
+    "skill_pct": -0.170287,
+    "sd": 0.104527,
+    "races": 18
+   },
+   "2024": {
+    "skill_pct": -0.189682,
+    "sd": 0.105798,
+    "races": 19
+   },
+   "2025": {
+    "skill_pct": -0.202783,
+    "sd": 0.117584,
+    "races": 21
+   },
+   "2026": {
+    "skill_pct": -0.177019,
+    "sd": 0.135844,
+    "races": 16
+   }
+  }
+ },
+ "piastri": {
+  "name": "Oscar Piastri",
+  "code": "PIA",
+  "last_team": "mclaren",
+  "last_season": 2026,
+  "skill_pct": -0.052899,
+  "sd_pct": 0.170509,
+  "years_since_last": 0,
+  "career_dry_races_fitted": 76,
+  "first_season": 2023,
+  "car_corr_2026": {
+   "suzuka": -0.629622,
+   "miami": -0.616349,
+   "monaco": -0.542649,
+   "catalunya": -0.630666,
+   "red_bull_ring": -0.589617,
+   "silverstone": -0.621917,
+   "spa": -0.622931,
+   "hungaroring": -0.598682,
+   "zandvoort": -0.60662,
+   "monza": -0.624407,
+   "madring": -0.619257,
+   "baku": -0.583767,
+   "marina_bay": -0.624129,
+   "americas": -0.615768,
+   "rodriguez": -0.603497,
+   "vegas": -0.620402
+  },
+  "wet_extra_pct": -0.083443,
+  "wet_extra_sd": 0.208882,
+  "wet_races": 9,
+  "history": {
+   "2023": {
+    "skill_pct": -0.016619,
+    "sd": 0.131645,
+    "races": 19
+   },
+   "2024": {
+    "skill_pct": -0.066449,
+    "sd": 0.142899,
+    "races": 21
+   },
+   "2025": {
+    "skill_pct": -0.116822,
+    "sd": 0.156336,
+    "races": 20
+   },
+   "2026": {
+    "skill_pct": -0.052899,
+    "sd": 0.170509,
+    "races": 16
+   }
+  }
+ },
+ "ryo_hirakawa": {
+  "name": "Ryo Hirakawa",
+  "code": "HIR",
+  "last_team": "haas",
+  "last_season": 2026,
+  "skill_pct": 0.099215,
+  "sd_pct": 0.189757,
+  "years_since_last": 0,
+  "career_dry_races_fitted": 1,
+  "first_season": 2026,
+  "car_corr_2026": {
+   "rodriguez": -0.43335
+  },
+  "wet_extra_pct": 0.0,
+  "wet_extra_sd": 0.649797,
+  "wet_races": 0,
+  "history": {
+   "2026": {
+    "skill_pct": 0.099215,
+    "sd": 0.189757,
+    "races": 1
+   }
+  }
+ },
+ "alonso": {
+  "name": "Fernando Alonso",
+  "code": "ALO",
+  "last_team": "aston_martin",
+  "last_season": 2026,
+  "skill_pct": -0.178323,
+  "sd_pct": 0.162315,
+  "years_since_last": 0,
+  "career_dry_races_fitted": 129,
+  "first_season": 2018,
+  "car_corr_2026": {
+   "albert_park": -0.567332,
+   "shanghai": -0.601093,
+   "suzuka": -0.566415,
+   "miami": -0.575006,
+   "monaco": -0.454053,
+   "catalunya": -0.485544,
+   "red_bull_ring": -0.578114,
+   "silverstone": -0.607214,
+   "spa": -0.515972,
+   "hungaroring": -0.575249,
+   "zandvoort": -0.568034,
+   "monza": -0.574582,
+   "madring": -0.573857,
+   "baku": -0.604986,
+   "marina_bay": -0.607652,
+   "americas": -0.605268,
+   "vegas": -0.515341
+  },
+  "wet_extra_pct": -0.586664,
+  "wet_extra_sd": 0.18305,
+  "wet_races": 11,
+  "history": {
+   "2018": {
+    "skill_pct": -0.154183,
+    "sd": 0.124332,
+    "races": 16
+   },
+   "2021": {
+    "skill_pct": -0.143323,
+    "sd": 0.107614,
+    "races": 17
+   },
+   "2022": {
+    "skill_pct": -0.154585,
+    "sd": 0.104853,
+    "races": 18
+   },
+   "2023": {
+    "skill_pct": -0.162401,
+    "sd": 0.115693,
+    "races": 20
+   },
+   "2024": {
+    "skill_pct": -0.147111,
+    "sd": 0.131859,
+    "races": 21
+   },
+   "2025": {
+    "skill_pct": -0.157748,
+    "sd": 0.147018,
+    "races": 20
+   },
+   "2026": {
+    "skill_pct": -0.178323,
+    "sd": 0.162315,
+    "races": 17
+   }
+  }
+ },
+ "rafael_camara": {
+  "name": "Rafael Camara",
+  "code": "CAM",
+  "last_team": "haas",
+  "last_season": 2026,
+  "skill_pct": 0.08141,
+  "sd_pct": 0.189472,
+  "years_since_last": 0,
+  "career_dry_races_fitted": 1,
+  "first_season": 2026,
+  "car_corr_2026": {
+   "vegas": -0.443271
+  },
+  "wet_extra_pct": 0.93491,
+  "wet_extra_sd": 0.328131,
+  "wet_races": 1,
+  "history": {
+   "2026": {
+    "skill_pct": 0.08141,
+    "sd": 0.189472,
+    "races": 1
+   }
+  }
+ },
+ "tsunoda": {
+  "name": "Yuki Tsunoda",
+  "code": "TSU",
+  "last_team": "rb",
+  "last_season": 2026,
+  "skill_pct": 0.216083,
+  "sd_pct": 0.130729,
+  "years_since_last": 0,
+  "career_dry_races_fitted": 92,
+  "first_season": 2021,
+  "car_corr_2026": {
+   "zandvoort": -0.407919,
+   "monza": -0.403264,
+   "madring": -0.370156
+  },
+  "wet_extra_pct": 0.004921,
+  "wet_extra_sd": 0.160658,
+  "wet_races": 12,
+  "history": {
+   "2021": {
+    "skill_pct": 0.156535,
+    "sd": 0.102204,
+    "races": 15
+   },
+   "2022": {
+    "skill_pct": 0.112567,
+    "sd": 0.095539,
+    "races": 17
+   },
+   "2023": {
+    "skill_pct": 0.109803,
+    "sd": 0.093716,
+    "races": 18
+   },
+   "2024": {
+    "skill_pct": 0.157728,
+    "sd": 0.097445,
+    "races": 19
+   },
+   "2025": {
+    "skill_pct": 0.205445,
+    "sd": 0.10577,
+    "races": 20
+   },
+   "2026": {
+    "skill_pct": 0.216083,
+    "sd": 0.130729,
+    "races": 3
+   }
+  }
+ },
+ "norris": {
+  "name": "Lando Norris",
+  "code": "NOR",
+  "last_team": "mclaren",
+  "last_season": 2026,
+  "skill_pct": -0.35202,
+  "sd_pct": 0.17034,
+  "years_since_last": 0,
+  "career_dry_races_fitted": 148,
+  "first_season": 2019,
+  "car_corr_2026": {
+   "albert_park": -0.458137,
+   "suzuka": -0.628873,
+   "miami": -0.621034,
+   "monaco": -0.556834,
+   "catalunya": -0.630298,
+   "red_bull_ring": -0.587558,
+   "silverstone": -0.625578,
+   "spa": -0.623702,
+   "hungaroring": -0.603984,
+   "zandvoort": -0.614334,
+   "monza": -0.624712,
+   "madring": -0.612754,
+   "baku": -0.60188,
+   "marina_bay": -0.62652,
+   "americas": -0.615017,
+   "rodriguez": -0.613199,
+   "vegas": -0.621566
+  },
+  "wet_extra_pct": 0.003325,
+  "wet_extra_sd": 0.201566,
+  "wet_races": 14,
+  "history": {
+   "2019": {
+    "skill_pct": -0.129636,
+    "sd": 0.102361,
+    "races": 20
+   },
+   "2020": {
+    "skill_pct": -0.210189,
+    "sd": 0.100445,
+    "races": 15
+   },
+   "2021": {
+    "skill_pct": -0.327148,
+    "sd": 0.099667,
+    "races": 17
+   },
+   "2022": {
+    "skill_pct": -0.378825,
+    "sd": 0.105625,
+    "races": 18
+   },
+   "2023": {
+    "skill_pct": -0.379817,
+    "sd": 0.123902,
+    "races": 19
+   },
+   "2024": {
+    "skill_pct": -0.33408,
+    "sd": 0.141102,
+    "races": 21
+   },
+   "2025": {
+    "skill_pct": -0.286601,
+    "sd": 0.155876,
+    "races": 21
+   },
+   "2026": {
+    "skill_pct": -0.35202,
+    "sd": 0.17034,
+    "races": 17
+   }
+  }
+ },
+ "antonelli": {
+  "name": "Andrea Kimi Antonelli",
+  "code": "ANT",
+  "last_team": "mercedes",
+  "last_season": 2026,
+  "skill_pct": -0.181385,
+  "sd_pct": 0.14979,
+  "years_since_last": 0,
+  "career_dry_races_fitted": 38,
+  "first_season": 2025,
+  "car_corr_2026": {
+   "albert_park": -0.548964,
+   "shanghai": -0.57527,
+   "suzuka": -0.570369,
+   "miami": -0.56874,
+   "monaco": -0.540494,
+   "catalunya": -0.565687,
+   "red_bull_ring": -0.569662,
+   "silverstone": -0.563829,
+   "spa": -0.436004,
+   "hungaroring": -0.559438,
+   "zandvoort": -0.557908,
+   "monza": -0.537317,
+   "madring": -0.526507,
+   "baku": -0.561213,
+   "marina_bay": -0.552441,
+   "americas": -0.557473,
+   "rodriguez": -0.554758,
+   "vegas": -0.563741
+  },
+  "wet_extra_pct": 0.286394,
+  "wet_extra_sd": 0.267258,
+  "wet_races": 3,
+  "history": {
+   "2025": {
+    "skill_pct": -0.059969,
+    "sd": 0.136169,
+    "races": 20
+   },
+   "2026": {
+    "skill_pct": -0.181385,
+    "sd": 0.14979,
+    "races": 18
+   }
+  }
+ },
+ "arvid_lindblad": {
+  "name": "Arvid Lindblad",
+  "code": "LIN",
+  "last_team": "rb",
+  "last_season": 2026,
+  "skill_pct": -0.010163,
+  "sd_pct": 0.127565,
+  "years_since_last": 0,
+  "career_dry_races_fitted": 18,
+  "first_season": 2026,
+  "car_corr_2026": {
+   "albert_park": -0.472834,
+   "shanghai": -0.460703,
+   "suzuka": -0.476015,
+   "miami": -0.365225,
+   "monaco": -0.454831,
+   "catalunya": -0.433182,
+   "red_bull_ring": -0.469297,
+   "silverstone": -0.468319,
+   "spa": -0.449813,
+   "hungaroring": -0.446122,
+   "zandvoort": -0.393103,
+   "monza": -0.39942,
+   "madring": -0.391081,
+   "baku": -0.477395,
+   "marina_bay": -0.441756,
+   "americas": -0.437359,
+   "rodriguez": -0.463378,
+   "vegas": -0.473297
+  },
+  "wet_extra_pct": 0.919215,
+  "wet_extra_sd": 0.295069,
+  "wet_races": 1,
+  "history": {
+   "2026": {
+    "skill_pct": -0.010163,
+    "sd": 0.127565,
+    "races": 18
+   }
+  }
+ },
+ "russell": {
+  "name": "George Russell",
+  "code": "RUS",
+  "last_team": "mercedes",
+  "last_season": 2026,
+  "skill_pct": -0.031706,
+  "sd_pct": 0.14783,
+  "years_since_last": 0,
+  "career_dry_races_fitted": 148,
+  "first_season": 2019,
+  "car_corr_2026": {
+   "albert_park": -0.55089,
+   "shanghai": -0.574381,
+   "suzuka": -0.567454,
+   "miami": -0.564215,
+   "monaco": -0.535471,
+   "catalunya": -0.563016,
+   "red_bull_ring": -0.567196,
+   "silverstone": -0.563979,
+   "hungaroring": -0.549135,
+   "zandvoort": -0.56217,
+   "monza": -0.549055,
+   "madring": -0.543751,
+   "baku": -0.565729,
+   "marina_bay": -0.55631,
+   "americas": -0.561685,
+   "rodriguez": -0.559067,
+   "vegas": -0.566006
+  },
+  "wet_extra_pct": -0.475439,
+  "wet_extra_sd": 0.239875,
+  "wet_races": 11,
+  "history": {
+   "2019": {
+    "skill_pct": -0.153187,
+    "sd": 0.107039,
+    "races": 20
+   },
+   "2020": {
+    "skill_pct": -0.112424,
+    "sd": 0.10169,
+    "races": 15
+   },
+   "2021": {
+    "skill_pct": -0.084585,
+    "sd": 0.100959,
+    "races": 17
+   },
+   "2022": {
+    "skill_pct": -0.11636,
+    "sd": 0.10515,
+    "races": 17
+   },
+   "2023": {
+    "skill_pct": -0.115554,
+    "sd": 0.110829,
+    "races": 20
+   },
+   "2024": {
+    "skill_pct": -0.159453,
+    "sd": 0.114969,
+    "races": 21
+   },
+   "2025": {
+    "skill_pct": -0.150931,
+    "sd": 0.130087,
+    "races": 21
+   },
+   "2026": {
+    "skill_pct": -0.031706,
+    "sd": 0.14783,
+    "races": 17
+   }
+  }
+ },
+ "max_verstappen": {
+  "name": "Max Verstappen",
+  "code": "VER",
+  "last_team": "red_bull",
+  "last_season": 2026,
+  "skill_pct": -0.861354,
+  "sd_pct": 0.119588,
+  "years_since_last": 0,
+  "career_dry_races_fitted": 160,
+  "first_season": 2018,
+  "car_corr_2026": {
+   "albert_park": -0.421791,
+   "shanghai": -0.457122,
+   "suzuka": -0.464485,
+   "miami": -0.350672,
+   "catalunya": -0.427958,
+   "red_bull_ring": -0.442228,
+   "silverstone": -0.448901,
+   "spa": -0.452883,
+   "hungaroring": -0.447336,
+   "monza": -0.395959,
+   "madring": -0.37446,
+   "baku": -0.455098,
+   "marina_bay": -0.458271,
+   "americas": -0.443978,
+   "rodriguez": -0.424559,
+   "vegas": -0.442721
+  },
+  "wet_extra_pct": 0.441872,
+  "wet_extra_sd": 0.191833,
+  "wet_races": 14,
+  "history": {
+   "2018": {
+    "skill_pct": -0.537271,
+    "sd": 0.093864,
+    "races": 18
+   },
+   "2019": {
+    "skill_pct": -0.684954,
+    "sd": 0.087807,
+    "races": 19
+   },
+   "2020": {
+    "skill_pct": -0.812348,
+    "sd": 0.093842,
+    "races": 13
+   },
+   "2021": {
+    "skill_pct": -0.826834,
+    "sd": 0.099627,
+    "races": 16
+   },
+   "2022": {
+    "skill_pct": -0.824482,
+    "sd": 0.106681,
+    "races": 18
+   },
+   "2023": {
+    "skill_pct": -0.83982,
+    "sd": 0.109473,
+    "races": 20
+   },
+   "2024": {
+    "skill_pct": -0.87782,
+    "sd": 0.107745,
+    "races": 20
+   },
+   "2025": {
+    "skill_pct": -0.893159,
+    "sd": 0.105457,
+    "races": 20
+   },
+   "2026": {
+    "skill_pct": -0.861354,
+    "sd": 0.119588,
+    "races": 16
+   }
+  }
+ },
+ "stroll": {
+  "name": "Lance Stroll",
+  "code": "STR",
+  "last_team": "aston_martin",
+  "last_season": 2026,
+  "skill_pct": 0.076911,
+  "sd_pct": 0.162321,
+  "years_since_last": 0,
+  "career_dry_races_fitted": 159,
+  "first_season": 2018,
+  "car_corr_2026": {
+   "albert_park": -0.568031,
+   "shanghai": -0.596556,
+   "suzuka": -0.584088,
+   "miami": -0.571177,
+   "monaco": -0.441656,
+   "red_bull_ring": -0.582244,
+   "silverstone": -0.607959,
+   "spa": -0.549507,
+   "hungaroring": -0.584336,
+   "zandvoort": -0.560643,
+   "monza": -0.585941,
+   "madring": -0.579862,
+   "baku": -0.604104,
+   "marina_bay": -0.6078,
+   "americas": -0.604008,
+   "vegas": -0.555363
+  },
+  "wet_extra_pct": -0.61234,
+  "wet_extra_sd": 0.192476,
+  "wet_races": 12,
+  "history": {
+   "2018": {
+    "skill_pct": -0.002008,
+    "sd": 0.107791,
+    "races": 19
+   },
+   "2019": {
+    "skill_pct": 0.019829,
+    "sd": 0.097655,
+    "races": 20
+   },
+   "2020": {
+    "skill_pct": 0.030744,
+    "sd": 0.098298,
+    "races": 12
+   },
+   "2021": {
+    "skill_pct": 0.038415,
+    "sd": 0.101405,
+    "races": 17
+   },
+   "2022": {
+    "skill_pct": 0.039555,
+    "sd": 0.105726,
+    "races": 18
+   },
+   "2023": {
+    "skill_pct": 0.051101,
+    "sd": 0.115913,
+    "races": 19
+   },
+   "2024": {
+    "skill_pct": 0.039716,
+    "sd": 0.131919,
+    "races": 19
+   },
+   "2025": {
+    "skill_pct": 0.053703,
+    "sd": 0.147037,
+    "races": 19
+   },
+   "2026": {
+    "skill_pct": 0.076911,
+    "sd": 0.162321,
+    "races": 16
+   }
+  }
+ },
+ "hadjar": {
+  "name": "Isack Hadjar",
+  "code": "HAD",
+  "last_team": "red_bull",
+  "last_season": 2026,
+  "skill_pct": -0.190658,
+  "sd_pct": 0.12566,
+  "years_since_last": 0,
+  "career_dry_races_fitted": 35,
+  "first_season": 2025,
+  "car_corr_2026": {
+   "albert_park": -0.43636,
+   "shanghai": -0.446129,
+   "suzuka": -0.468943,
+   "monaco": -0.382831,
+   "catalunya": -0.415616,
+   "red_bull_ring": -0.440652,
+   "silverstone": -0.445674,
+   "spa": -0.437572,
+   "hungaroring": -0.433923,
+   "baku": -0.462609,
+   "marina_bay": -0.464476,
+   "americas": -0.445399,
+   "rodriguez": -0.448199,
+   "vegas": -0.426261
+  },
+  "wet_extra_pct": 0.455212,
+  "wet_extra_sd": 0.190112,
+  "wet_races": 2,
+  "history": {
+   "2025": {
+    "skill_pct": -0.168296,
+    "sd": 0.114031,
+    "races": 21
+   },
+   "2026": {
+    "skill_pct": -0.190658,
+    "sd": 0.12566,
+    "races": 14
+   }
+  }
+ },
+ "bearman": {
+  "name": "Oliver Bearman",
+  "code": "BEA",
+  "last_team": "haas",
+  "last_season": 2026,
+  "skill_pct": -0.115793,
+  "sd_pct": 0.130951,
+  "years_since_last": 0,
+  "career_dry_races_fitted": 39,
+  "first_season": 2024,
+  "car_corr_2026": {
+   "albert_park": -0.508255,
+   "shanghai": -0.491292,
+   "suzuka": -0.513803,
+   "miami": -0.51319,
+   "monaco": -0.402799,
+   "catalunya": -0.495783,
+   "red_bull_ring": -0.501534,
+   "silverstone": -0.505944,
+   "spa": -0.509898,
+   "hungaroring": -0.462134,
+   "monza": -0.496904,
+   "madring": -0.467248,
+   "baku": -0.515069,
+   "marina_bay": -0.512159,
+   "americas": -0.501394,
+   "rodriguez": -0.35358,
+   "vegas": -0.350669
+  },
+  "wet_extra_pct": 0.063574,
+  "wet_extra_sd": 0.166138,
+  "wet_races": 5,
+  "history": {
+   "2024": {
+    "skill_pct": -0.102196,
+    "sd": 0.124494,
+    "races": 2
+   },
+   "2025": {
+    "skill_pct": -0.137164,
+    "sd": 0.12061,
+    "races": 20
+   },
+   "2026": {
+    "skill_pct": -0.115793,
+    "sd": 0.130951,
+    "races": 17
+   }
+  }
+ },
+ "leclerc": {
+  "name": "Charles Leclerc",
+  "code": "LEC",
+  "last_team": "ferrari",
+  "last_season": 2026,
+  "skill_pct": -0.278357,
+  "sd_pct": 0.137702,
+  "years_since_last": 0,
+  "career_dry_races_fitted": 160,
+  "first_season": 2018,
+  "car_corr_2026": {
+   "albert_park": -0.514261,
+   "shanghai": -0.538571,
+   "suzuka": -0.513037,
+   "miami": -0.529305,
+   "monaco": -0.48464,
+   "catalunya": -0.515229,
+   "red_bull_ring": -0.502847,
+   "silverstone": -0.510297,
+   "spa": -0.533756,
+   "hungaroring": -0.504861,
+   "zandvoort": -0.514032,
+   "madring": -0.4508,
+   "baku": -0.51695,
+   "marina_bay": -0.528053,
+   "americas": -0.532118,
+   "rodriguez": -0.480409,
+   "vegas": -0.535216
+  },
+  "wet_extra_pct": -0.207384,
+  "wet_extra_sd": 0.231797,
+  "wet_races": 12,
+  "history": {
+   "2018": {
+    "skill_pct": -0.207401,
+    "sd": 0.108589,
+    "races": 18
+   },
+   "2019": {
+    "skill_pct": -0.22081,
+    "sd": 0.099522,
+    "races": 19
+   },
+   "2020": {
+    "skill_pct": -0.337878,
+    "sd": 0.100279,
+    "races": 13
+   },
+   "2021": {
+    "skill_pct": -0.346232,
+    "sd": 0.102432,
+    "races": 16
+   },
+   "2022": {
+    "skill_pct": -0.363707,
+    "sd": 0.107943,
+    "races": 18
+   },
+   "2023": {
+    "skill_pct": -0.359536,
+    "sd": 0.110335,
+    "races": 18
+   },
+   "2024": {
+    "skill_pct": -0.32764,
+    "sd": 0.109022,
+    "races": 21
+   },
+   "2025": {
+    "skill_pct": -0.327767,
+    "sd": 0.119753,
+    "races": 20
+   },
+   "2026": {
+    "skill_pct": -0.278357,
+    "sd": 0.137702,
+    "races": 17
+   }
+  }
+ },
+ "bortoleto": {
+  "name": "Gabriel Bortoleto",
+  "code": "BOR",
+  "last_team": "audi",
+  "last_season": 2026,
+  "skill_pct": -0.013804,
+  "sd_pct": 0.15409,
+  "years_since_last": 0,
+  "career_dry_races_fitted": 35,
+  "first_season": 2025,
+  "car_corr_2026": {
+   "albert_park": -0.448591,
+   "suzuka": -0.571112,
+   "miami": -0.454416,
+   "monaco": -0.515165,
+   "catalunya": -0.549465,
+   "red_bull_ring": -0.48281,
+   "silverstone": -0.557742,
+   "spa": -0.564562,
+   "hungaroring": -0.566068,
+   "zandvoort": -0.550119,
+   "monza": -0.567287,
+   "madring": -0.573498,
+   "baku": -0.57475,
+   "marina_bay": -0.559977,
+   "americas": -0.570848,
+   "rodriguez": -0.545478,
+   "vegas": -0.531282
+  },
+  "wet_extra_pct": -1.201234,
+  "wet_extra_sd": 0.196372,
+  "wet_races": 3,
+  "history": {
+   "2025": {
+    "skill_pct": -0.030016,
+    "sd": 0.140424,
+    "races": 18
+   },
+   "2026": {
+    "skill_pct": -0.013804,
+    "sd": 0.15409,
+    "races": 17
+   }
+  }
+ },
+ "lawson": {
+  "name": "Liam Lawson",
+  "code": "LAW",
+  "last_team": "rb",
+  "last_season": 2026,
+  "skill_pct": 0.06837,
+  "sd_pct": 0.122001,
+  "years_since_last": 0,
+  "career_dry_races_fitted": 46,
+  "first_season": 2023,
+  "car_corr_2026": {
+   "albert_park": -0.465778,
+   "shanghai": -0.465281,
+   "suzuka": -0.468872,
+   "monaco": -0.456017,
+   "catalunya": -0.453202,
+   "red_bull_ring": -0.468776,
+   "silverstone": -0.464581,
+   "spa": -0.455917,
+   "hungaroring": -0.443528,
+   "zandvoort": -0.362096,
+   "monza": -0.395282,
+   "madring": -0.403958,
+   "baku": -0.47256,
+   "marina_bay": -0.426417,
+   "americas": -0.455882,
+   "rodriguez": -0.461951,
+   "vegas": -0.46569
+  },
+  "wet_extra_pct": 0.354152,
+  "wet_extra_sd": 0.170588,
+  "wet_races": 5,
+  "history": {
+   "2023": {
+    "skill_pct": 0.098637,
+    "sd": 0.123712,
+    "races": 4
+   },
+   "2024": {
+    "skill_pct": 0.08648,
+    "sd": 0.11568,
+    "races": 5
+   },
+   "2025": {
+    "skill_pct": 0.087228,
+    "sd": 0.111283,
+    "races": 20
+   },
+   "2026": {
+    "skill_pct": 0.06837,
+    "sd": 0.122001,
+    "races": 17
+   }
+  }
+ },
+ "bottas": {
+  "name": "Valtteri Bottas",
+  "code": "BOT",
+  "last_team": "cadillac",
+  "last_season": 2026,
+  "skill_pct": 0.27182,
+  "sd_pct": 0.147758,
+  "years_since_last": 0,
+  "career_dry_races_fitted": 146,
+  "first_season": 2018,
+  "car_corr_2026": {
+   "albert_park": -0.463927,
+   "shanghai": -0.549918,
+   "suzuka": -0.517195,
+   "miami": -0.46464,
+   "monaco": -0.518256,
+   "catalunya": -0.540154,
+   "silverstone": -0.533716,
+   "spa": -0.46796,
+   "hungaroring": -0.542009,
+   "zandvoort": -0.497313,
+   "monza": -0.500658,
+   "madring": -0.472736,
+   "baku": -0.541323,
+   "marina_bay": -0.535878,
+   "americas": -0.542315,
+   "rodriguez": -0.518882,
+   "vegas": -0.544878
+  },
+  "wet_extra_pct": 0.591118,
+  "wet_extra_sd": 0.370989,
+  "wet_races": 10,
+  "history": {
+   "2018": {
+    "skill_pct": 0.147988,
+    "sd": 0.117916,
+    "races": 20
+   },
+   "2019": {
+    "skill_pct": 0.130191,
+    "sd": 0.117082,
+    "races": 20
+   },
+   "2020": {
+    "skill_pct": 0.148024,
+    "sd": 0.115344,
+    "races": 15
+   },
+   "2021": {
+    "skill_pct": 0.214203,
+    "sd": 0.113342,
+    "races": 17
+   },
+   "2022": {
+    "skill_pct": 0.187364,
+    "sd": 0.121241,
+    "races": 17
+   },
+   "2023": {
+    "skill_pct": 0.252606,
+    "sd": 0.130306,
+    "races": 19
+   },
+   "2024": {
+    "skill_pct": 0.22858,
+    "sd": 0.136244,
+    "races": 21
+   },
+   "2026": {
+    "skill_pct": 0.27182,
+    "sd": 0.147758,
+    "races": 17
+   }
+  }
+ },
+ "hulkenberg": {
+  "name": "Nico H\u00fclkenberg",
+  "code": "HUL",
+  "last_team": "audi",
+  "last_season": 2026,
+  "skill_pct": -0.175619,
+  "sd_pct": 0.152044,
+  "years_since_last": 0,
+  "career_dry_races_fitted": 115,
+  "first_season": 2018,
+  "car_corr_2026": {
+   "shanghai": -0.486816,
+   "suzuka": -0.571015,
+   "monaco": -0.503804,
+   "catalunya": -0.555396,
+   "red_bull_ring": -0.472585,
+   "silverstone": -0.538633,
+   "spa": -0.563165,
+   "hungaroring": -0.564049,
+   "zandvoort": -0.559606,
+   "monza": -0.563557,
+   "madring": -0.571074,
+   "baku": -0.572798,
+   "marina_bay": -0.568104,
+   "americas": -0.574066,
+   "rodriguez": -0.528259,
+   "vegas": -0.550658
+  },
+  "wet_extra_pct": -0.274008,
+  "wet_extra_sd": 0.187025,
+  "wet_races": 8,
+  "history": {
+   "2018": {
+    "skill_pct": -0.168493,
+    "sd": 0.099067,
+    "races": 16
+   },
+   "2019": {
+    "skill_pct": -0.127384,
+    "sd": 0.095456,
+    "races": 20
+   },
+   "2020": {
+    "skill_pct": -0.101937,
+    "sd": 0.10996,
+    "races": 2
+   },
+   "2022": {
+    "skill_pct": -0.123777,
+    "sd": 0.118546,
+    "races": 2
+   },
+   "2023": {
+    "skill_pct": -0.156566,
+    "sd": 0.116723,
+    "races": 19
+   },
+   "2024": {
+    "skill_pct": -0.166478,
+    "sd": 0.12172,
+    "races": 20
+   },
+   "2025": {
+    "skill_pct": -0.159673,
+    "sd": 0.134813,
+    "races": 20
+   },
+   "2026": {
+    "skill_pct": -0.175619,
+    "sd": 0.152044,
+    "races": 16
+   }
+  }
+ },
+ "colapinto": {
+  "name": "Franco Colapinto",
+  "code": "COL",
+  "last_team": "alpine",
+  "last_season": 2026,
+  "skill_pct": 0.00264,
+  "sd_pct": 0.133995,
+  "years_since_last": 0,
+  "career_dry_races_fitted": 41,
+  "first_season": 2024,
+  "car_corr_2026": {
+   "albert_park": -0.483905,
+   "shanghai": -0.518909,
+   "suzuka": -0.520196,
+   "miami": -0.437508,
+   "monaco": -0.39745,
+   "catalunya": -0.48816,
+   "red_bull_ring": -0.447076,
+   "silverstone": -0.50184,
+   "spa": -0.513452,
+   "hungaroring": -0.506871,
+   "zandvoort": -0.471881,
+   "monza": -0.513455,
+   "madring": -0.498896,
+   "baku": -0.521115,
+   "marina_bay": -0.520629,
+   "americas": -0.513645,
+   "rodriguez": -0.512804,
+   "vegas": -0.511645
+  },
+  "wet_extra_pct": 0.389147,
+  "wet_extra_sd": 0.20231,
+  "wet_races": 2,
+  "history": {
+   "2024": {
+    "skill_pct": -0.086697,
+    "sd": 0.116249,
+    "races": 7
+   },
+   "2025": {
+    "skill_pct": -0.05846,
+    "sd": 0.119066,
+    "races": 16
+   },
+   "2026": {
+    "skill_pct": 0.00264,
+    "sd": 0.133995,
+    "races": 18
+   }
+  }
+ },
+ "hamilton": {
+  "name": "Lewis Hamilton",
+  "code": "HAM",
+  "last_team": "ferrari",
+  "last_season": 2026,
+  "skill_pct": -0.185895,
+  "sd_pct": 0.13802,
+  "years_since_last": 0,
+  "career_dry_races_fitted": 165,
+  "first_season": 2018,
+  "car_corr_2026": {
+   "albert_park": -0.517406,
+   "shanghai": -0.538904,
+   "suzuka": -0.515453,
+   "miami": -0.525275,
+   "monaco": -0.497034,
+   "catalunya": -0.517728,
+   "red_bull_ring": -0.502032,
+   "silverstone": -0.523458,
+   "spa": -0.533635,
+   "hungaroring": -0.504081,
+   "zandvoort": -0.519987,
+   "monza": -0.443419,
+   "baku": -0.5269,
+   "marina_bay": -0.521419,
+   "americas": -0.534639,
+   "rodriguez": -0.480929,
+   "vegas": -0.534995
+  },
+  "wet_extra_pct": -0.183482,
+  "wet_extra_sd": 0.233597,
+  "wet_races": 13,
+  "history": {
+   "2018": {
+    "skill_pct": -0.164884,
+    "sd": 0.117938,
+    "races": 20
+   },
+   "2019": {
+    "skill_pct": -0.147996,
+    "sd": 0.117151,
+    "races": 20
+   },
+   "2020": {
+    "skill_pct": -0.16411,
+    "sd": 0.115622,
+    "races": 14
+   },
+   "2021": {
+    "skill_pct": -0.222991,
+    "sd": 0.109888,
+    "races": 17
+   },
+   "2022": {
+    "skill_pct": -0.187038,
+    "sd": 0.107331,
+    "races": 17
+   },
+   "2023": {
+    "skill_pct": -0.182487,
+    "sd": 0.110842,
+    "races": 19
+   },
+   "2024": {
+    "skill_pct": -0.132725,
+    "sd": 0.112846,
+    "races": 20
+   },
+   "2025": {
+    "skill_pct": -0.134729,
+    "sd": 0.120721,
+    "races": 21
+   },
+   "2026": {
+    "skill_pct": -0.185895,
+    "sd": 0.13802,
+    "races": 17
+   }
+  }
+ },
+ "gasly": {
+  "name": "Pierre Gasly",
+  "code": "GAS",
+  "last_team": "alpine",
+  "last_season": 2026,
+  "skill_pct": -0.314143,
+  "sd_pct": 0.131777,
+  "years_since_last": 0,
+  "career_dry_races_fitted": 159,
+  "first_season": 2018,
+  "car_corr_2026": {
+   "albert_park": -0.485736,
+   "shanghai": -0.517378,
+   "suzuka": -0.519458,
+   "monaco": -0.442318,
+   "catalunya": -0.496805,
+   "red_bull_ring": -0.443343,
+   "silverstone": -0.505824,
+   "spa": -0.505111,
+   "hungaroring": -0.506128,
+   "zandvoort": -0.455791,
+   "monza": -0.512268,
+   "madring": -0.506904,
+   "baku": -0.520089,
+   "marina_bay": -0.520488,
+   "americas": -0.511957,
+   "rodriguez": -0.508454,
+   "vegas": -0.510601
+  },
+  "wet_extra_pct": 0.363156,
+  "wet_extra_sd": 0.159616,
+  "wet_races": 11,
+  "history": {
+   "2018": {
+    "skill_pct": -0.044252,
+    "sd": 0.104981,
+    "races": 17
+   },
+   "2019": {
+    "skill_pct": -0.022578,
+    "sd": 0.091542,
+    "races": 20
+   },
+   "2020": {
+    "skill_pct": -0.150398,
+    "sd": 0.09681,
+    "races": 14
+   },
+   "2021": {
+    "skill_pct": -0.20112,
+    "sd": 0.096712,
+    "races": 15
+   },
+   "2022": {
+    "skill_pct": -0.178858,
+    "sd": 0.09492,
+    "races": 18
+   },
+   "2023": {
+    "skill_pct": -0.198557,
+    "sd": 0.096367,
+    "races": 19
+   },
+   "2024": {
+    "skill_pct": -0.227743,
+    "sd": 0.100675,
+    "races": 20
+   },
+   "2025": {
+    "skill_pct": -0.25322,
+    "sd": 0.112163,
+    "races": 19
+   },
+   "2026": {
+    "skill_pct": -0.314143,
+    "sd": 0.131777,
+    "races": 17
+   }
+  }
+ }
+}
